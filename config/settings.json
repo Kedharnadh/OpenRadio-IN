@@ -1,0 +1,4 @@
+{
+  "check_interval":"daily",
+  "playlist_output":"output/playlists"
+}
