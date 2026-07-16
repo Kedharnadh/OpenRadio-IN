@@ -1,0 +1,9 @@
+{
+  "id": "sample_telugu",
+  "name": "Sample Telugu Radio",
+  "language": "Telugu",
+  "genre": "Music",
+  "logo": "logos/sample.png",
+  "homepage": "https://example.com",
+  "stream": "https://example.com/stream.mp3"
+}
