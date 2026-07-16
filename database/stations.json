@@ -6,7 +6,10 @@
     "country": "India",
     "state": "",
     "city": "",
-    "category": "AIR",
+    "categories": [
+    "AIR",
+    "Telugu"
+],
     "genre": [],
     "homepage": "",
     "logo": "https://onlineradiofm.in/assets/image/radio/180/airtirupati1.jpg",
@@ -27,7 +30,10 @@
     "country": "India",
     "state": "",
     "city": "",
-    "category": "AIR",
+    "categories": [
+    "AIR",
+    "Telugu"
+],
     "genre": [],
     "homepage": "",
     "logo": "https://onlineradiofm.in/assets/image/radio/180/air-anantabpur.jpg",
@@ -48,7 +54,10 @@
     "country": "India",
     "state": "",
     "city": "",
-    "category": "AIR",
+    "categories": [
+    "AIR",
+    "Telugu"
+],
     "genre": [],
     "homepage": "",
     "logo": "https://onlineradiofm.in/assets/image/radio/180/aircuddapah.jpg",
@@ -69,7 +78,10 @@
     "country": "India",
     "state": "",
     "city": "",
-    "category": "FM",
+    "categories": [
+    "FM",
+    "Telugu"
+],
     "genre": [],
     "homepage": "",
     "logo": "https://onlineradiofm.in/assets/image/radio/180/londonteluguradio.png",
@@ -90,7 +102,10 @@
     "country": "India",
     "state": "",
     "city": "",
-    "category": "FM",
+    "categories": [
+    "FM",
+    "Telugu"
+],
     "genre": [],
     "homepage": "",
     "logo": "https://onlineradiofm.in/assets/image/radio/180/mr.png",
@@ -111,7 +126,10 @@
     "country": "India",
     "state": "",
     "city": "",
-    "category": "FM",
+    "categories": [
+    "FM",
+    "Telugu"
+],
     "genre": [],
     "homepage": "",
     "logo": "https://onlineradiofm.in/assets/image/radio/180/Teluguone-Radio.webp",
@@ -132,7 +150,10 @@
     "country": "India",
     "state": "",
     "city": "",
-    "category": "FM",
+    "categories": [
+    "FM",
+    "Telugu"
+],
     "genre": [],
     "homepage": "",
     "logo": "https://onlineradiofm.in/assets/image/radio/180/vbstelugu.jpg",
@@ -153,7 +174,10 @@
     "country": "India",
     "state": "",
     "city": "",
-    "category": "AIR",
+    "categories": [
+    "AIR",
+    "Telugu"
+],
     "genre": [],
     "homepage": "",
     "logo": "https://onlineradiofm.in/assets/image/radio/180/fmrainvijayawada1.jpg",
@@ -174,7 +198,10 @@
     "country": "India",
     "state": "",
     "city": "",
-    "category": "AIR",
+    "categories": [
+    "AIR",
+    "Telugu"
+],
     "genre": [],
     "homepage": "",
     "logo": "https://onlineradiofm.in/assets/image/radio/180/air-telugu.jpg",
@@ -195,7 +222,10 @@
     "country": "India",
     "state": "",
     "city": "",
-    "category": "FM",
+    "categories": [
+    "FM",
+    "Telugu"
+],
     "genre": [],
     "homepage": "",
     "logo": "https://onlineradiofm.in/assets/image/radio/180/Telugu%20Radio.webp",
@@ -216,7 +246,10 @@
     "country": "India",
     "state": "",
     "city": "",
-    "category": "FM",
+    "categories": [
+    "FM",
+    "Telugu"
+],
     "genre": [],
     "homepage": "",
     "logo": "",
