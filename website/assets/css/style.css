@@ -1,1 +1,5 @@
-body{font-family:Arial;max-width:960px;margin:auto;padding:2rem}
+body{font-family:Arial,sans-serif;max-width:1100px;margin:auto;padding:20px;background:#f5f5f5}
+header{display:flex;justify-content:space-between;align-items:center}
+input{padding:8px;width:260px}
+button{margin:4px;padding:8px 12px}
+#stations{margin-top:20px;padding:20px;background:#fff;border-radius:8px}

@@ -1,3 +1,3 @@
-# OpenRadio-IN Release 2
+# OpenRadio-IN Release 3
 
-Release 2 adds the data model, build pipeline and playlist generation. Populate `database/stations.json` with verified stations.
+Modern GitHub Pages website foundation.
