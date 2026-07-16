@@ -1,18 +1,232 @@
 [
   {
-    "id": "sample_air_station",
-    "name": "Sample AIR Station",
+    "id": "all_india_radio_tirupati",
+    "name": "All India Radio - Tirupati",
     "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
     "category": "AIR",
-    "state": "Andhra Pradesh",
-    "city": "Sample",
-    "genre": [
-      "News",
-      "Music"
+    "genre": [],
+    "homepage": "",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/airtirupati1.jpg",
+    "streams": [
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio144/playlist.m3u8",
+        "codec": "HLS",
+        "priority": 1
+      }
     ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "air_anantapur",
+    "name": "AIR Anantapur",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "category": "AIR",
+    "genre": [],
+    "homepage": "",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/air-anantabpur.jpg",
+    "streams": [
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio054/playlist.m3u8",
+        "codec": "HLS",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "air_kadapa",
+    "name": "AIR Kadapa",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "category": "AIR",
+    "genre": [],
+    "homepage": "",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/aircuddapah.jpg",
+    "streams": [
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio018/playlist.m3u8",
+        "codec": "HLS",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "london_telugu_radio",
+    "name": "London Telugu Radio",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "category": "FM",
+    "genre": [],
+    "homepage": "",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/londonteluguradio.png",
+    "streams": [
+      {
+        "url": "https://c8.radioboss.fm/stream/33",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "melody_radio",
+    "name": "Melody Radio",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "category": "FM",
+    "genre": [],
+    "homepage": "",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/mr.png",
+    "streams": [
+      {
+        "url": "https://a1.asurahosting.com:9580/radio.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "tori",
+    "name": "Tori",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "category": "FM",
+    "genre": [],
+    "homepage": "",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/Teluguone-Radio.webp",
+    "streams": [
+      {
+        "url": "https://stream.teluguoneradio.com:8164/;stream/1",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "vividh_bharati_vijayawada",
+    "name": "Vividh Bharati Vijayawada",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "category": "FM",
+    "genre": [],
+    "homepage": "",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/vbstelugu.jpg",
+    "streams": [
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio176/playlist.m3u8",
+        "codec": "HLS",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "air_rainbow_vijayawada",
+    "name": "Air Rainbow Vijayawada",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "category": "AIR",
+    "genre": [],
+    "homepage": "",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/fmrainvijayawada1.jpg",
+    "streams": [
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio174/playlist.m3u8",
+        "codec": "HLS",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "air_telugu",
+    "name": "Air Telugu",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "category": "AIR",
+    "genre": [],
+    "homepage": "",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/air-telugu.jpg",
+    "streams": [
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio032/playlist.m3u8",
+        "codec": "HLS",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "telugu_hits",
+    "name": "Telugu Hits",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "category": "FM",
+    "genre": [],
+    "homepage": "",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/Telugu%20Radio.webp",
+    "streams": [
+      {
+        "url": "https://stream-173.zeno.fm/ysucrq37uwzuv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJ5c3VjcnEzN3V3enV2IiwiaG9zdCI6InN0cmVhbS0xNzMuemVuby5mbSIsInJ0dGwiOjUsImp0aSI6Ik8xcDFLa0h0UlQtNHVyR1haSHAzWWciLCJpYXQiOjE3NzcwNzI2MDEsImV4cCI6MTc3NzA3MjY2MX0.sOCya0yH2x4T9FPMByjy9d3Mo5VSPAYocZ5YHxA8U14",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_surabhi",
+    "name": "Radio Surabhi",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "category": "FM",
+    "genre": [],
     "homepage": "",
     "logo": "",
-    "streams": [],
+    "streams": [
+      {
+        "url": "https://radiosurabhi.streamguys1.com/live1-web",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
     "verified": false,
     "last_checked": null
   }
