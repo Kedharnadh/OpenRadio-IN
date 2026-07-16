@@ -10,7 +10,7 @@ with open("database/stations.json", "r", encoding="utf-8") as f:
 # -----------------------------
 # Create output directory
 # -----------------------------
-output_dir = Path("output/playlists")
+output_dir = Path("playlists")
 output_dir.mkdir(parents=True, exist_ok=True)
 
 # -----------------------------
