@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "id": "sample_air_station",
+    "name": "Sample AIR Station",
+    "language": "Telugu",
+    "category": "AIR",
+    "state": "Andhra Pradesh",
+    "city": "Sample",
+    "genre": [
+      "News",
+      "Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  }
+]
