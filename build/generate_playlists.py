@@ -1,83 +1,154 @@
 import json
 from pathlib import Path
 
-# -----------------------------
-# Load stations database
-# -----------------------------
-with open("database/stations.json", "r", encoding="utf-8") as f:
+# ----------------------------------------
+# Configuration
+# ----------------------------------------
+DATABASE_FILE = Path("database/stations.json")
+OUTPUT_DIR = Path("playlists")
+
+# ----------------------------------------
+# Load stations
+# ----------------------------------------
+with DATABASE_FILE.open("r", encoding="utf-8") as f:
     stations = json.load(f)
 
-# -----------------------------
-# Create output directory
-# -----------------------------
-output_dir = Path("playlists")
-output_dir.mkdir(parents=True, exist_ok=True)
+# Sort stations alphabetically
+stations = sorted(stations, key=lambda x: x.get("name", "").lower())
 
-# -----------------------------
-# Default playlists
-# -----------------------------
+# ----------------------------------------
+# Create output directory
+# ----------------------------------------
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+# ----------------------------------------
+# Playlist storage
+# ----------------------------------------
 playlists = {
-    "all": ["#EXTM3U"],
+    "all": ["#EXTM3U"]
 }
 
-# -----------------------------
+# Used to avoid duplicate entries
+playlist_streams = {
+    "all": set()
+}
+
+# ----------------------------------------
 # Generate playlists
-# -----------------------------
+# ----------------------------------------
 for station in stations:
 
-    # Make sure categories exist
+    station_id = station.get("id", "")
+    station_name = station.get("name", "")
+    language = station.get("language", "").strip().lower()
+
+    logo = station.get("logo", "")
+
     categories = station.get("categories", [])
 
-    # Create language playlist automatically
-    language = station["language"].lower()
+    # -----------------------------
+    # Language playlist
+    # -----------------------------
+    if language:
 
-    if language not in playlists:
-        playlists[language] = ["#EXTM3U"]
+        if language not in playlists:
+            playlists[language] = ["#EXTM3U"]
+            playlist_streams[language] = set()
 
-    # Create category playlists automatically
+    # -----------------------------
+    # Category playlists
+    # -----------------------------
     for category in categories:
-        category_name = category.lower()
+
+        category_name = category.strip().lower()
+
+        # Skip ALL and Language
+        if category_name in ("all", language):
+            continue
 
         if category_name not in playlists:
             playlists[category_name] = ["#EXTM3U"]
+            playlist_streams[category_name] = set()
 
+    # -----------------------------
     # IPTV metadata
+    # -----------------------------
+    group_title = ", ".join(categories)
+
     entry = (
         f'#EXTINF:-1 '
-        f'tvg-id="{station["id"]}" '
-        f'tvg-name="{station["name"]}" '
-        f'tvg-logo="{station["logo"]}" '
-        f'group-title="{", ".join(categories)}",'
-        f'{station["name"]}'
+        f'tvg-id="{station_id}" '
+        f'tvg-name="{station_name}" '
+        f'tvg-logo="{logo}" '
+        f'group-title="{group_title}",'
+        f'{station_name}'
     )
 
+    # -----------------------------
+    # Streams
+    # -----------------------------
     for stream in station.get("streams", []):
-        url = stream["url"]
 
-        # Add to ALL
-        playlists["all"].append(entry)
-        playlists["all"].append(url)
+        url = stream.get("url", "").strip()
 
-        # Add to Language playlist
-        playlists[language].append(entry)
-        playlists[language].append(url)
+        if not url:
+            continue
 
-        # Add to every Category playlist
+        # -----------------------------
+        # ALL playlist
+        # -----------------------------
+        if url not in playlist_streams["all"]:
+            playlists["all"].append(entry)
+            playlists["all"].append(url)
+            playlist_streams["all"].add(url)
+
+        # -----------------------------
+        # Language playlist
+        # -----------------------------
+        if language:
+
+            if url not in playlist_streams[language]:
+                playlists[language].append(entry)
+                playlists[language].append(url)
+                playlist_streams[language].add(url)
+
+        # -----------------------------
+        # Category playlists
+        # -----------------------------
         for category in categories:
-            playlists[category.lower()].append(entry)
-            playlists[category.lower()].append(url)
 
-# -----------------------------
+            category_name = category.strip().lower()
+
+            # Skip language and ALL
+            if category_name in ("all", language):
+                continue
+
+            if url not in playlist_streams[category_name]:
+                playlists[category_name].append(entry)
+                playlists[category_name].append(url)
+                playlist_streams[category_name].add(url)
+
+# ----------------------------------------
 # Save playlists
-# -----------------------------
-for playlist_name, lines in playlists.items():
+# ----------------------------------------
+for playlist_name in sorted(playlists.keys()):
 
-    (output_dir / f"{playlist_name}.m3u").write_text(
-        "\n".join(lines),
+    playlist_file = OUTPUT_DIR / f"{playlist_name}.m3u"
+
+    playlist_file.write_text(
+        "\n".join(playlists[playlist_name]),
         encoding="utf-8"
     )
 
+# ----------------------------------------
+# Summary
+# ----------------------------------------
 print("\n✅ Playlists generated:\n")
 
-for playlist in sorted(playlists.keys()):
-    print(f"   {playlist}.m3u")
+for playlist_name in sorted(playlists.keys()):
+
+    stations_count = (len(playlists[playlist_name]) - 1) // 2
+
+    print(f"{playlist_name}.m3u ({stations_count} stations)")
+
+print("\n🎉 Done!")
