@@ -1,23 +1,51 @@
 #EXTM3U
+#EXTINF:-1 tvg-id="air_adilabad" tvg-name="AIR Adilabad" tvg-logo="" group-title="AIR, ALL",AIR Adilabad
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio218/playlist.m3u8
 #EXTINF:-1 tvg-id="air_anantapur" tvg-name="AIR Anantapur" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/air-anantabpur.jpg" group-title="AIR, ALL",AIR Anantapur
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio054/playlist.m3u8
 #EXTINF:-1 tvg-id="air_kadapa" tvg-name="AIR Kadapa" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/aircuddapah.jpg" group-title="AIR, ALL",AIR Kadapa
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio018/playlist.m3u8
+#EXTINF:-1 tvg-id="air_kurnool" tvg-name="AIR Kurnool" tvg-logo="" group-title="AIR, ALL",AIR Kurnool
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio052/playlist.m3u8
+#EXTINF:-1 tvg-id="air_markapur" tvg-name="AIR Markapur" tvg-logo="" group-title="AIR, ALL",AIR Markapur
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio039/playlist.m3u8
+#EXTINF:-1 tvg-id="air_nizamabad" tvg-name="AIR Nizamabad" tvg-logo="" group-title="AIR, ALL",AIR Nizamabad
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio222/playlist.m3u8
+#EXTINF:-1 tvg-id="air_rainbow_hyderabad" tvg-name="Air Rainbow Hyderabad" tvg-logo="" group-title="AIR, ALL",Air Rainbow Hyderabad
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio031/playlist.m3u8
 #EXTINF:-1 tvg-id="air_rainbow_vijayawada" tvg-name="Air Rainbow Vijayawada" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/fmrainvijayawada1.jpg" group-title="AIR, ALL",Air Rainbow Vijayawada
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio174/playlist.m3u8
+#EXTINF:-1 tvg-id="air_rainbow_visakhapatnam" tvg-name="Air Rainbow Visakhapatnam" tvg-logo="" group-title="AIR, ALL",Air Rainbow Visakhapatnam
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio081/playlist.m3u8
+#EXTINF:-1 tvg-id="air_simhapuri_fm" tvg-name="Air Simhapuri FM" tvg-logo="" group-title="AIR, ALL",Air Simhapuri FM
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio168/playlist.m3u8
 #EXTINF:-1 tvg-id="air_telugu" tvg-name="Air Telugu" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/air-telugu.jpg" group-title="AIR, ALL",Air Telugu
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio032/playlist.m3u8
+#EXTINF:-1 tvg-id="air_warangal" tvg-name="AIR Warangal" tvg-logo="" group-title="AIR, ALL",AIR Warangal
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio154/playlist.m3u8
 #EXTINF:-1 tvg-id="all_india_radio_tirupati" tvg-name="All India Radio - Tirupati" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/airtirupati1.jpg" group-title="AIR, ALL",All India Radio - Tirupati
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio144/playlist.m3u8
+#EXTINF:-1 tvg-id="ap_9_fm" tvg-name="AP 9 FM" tvg-logo="" group-title="FM, ALL",AP 9 FM
+https://stream.ap9fm.in/radio/8000/radio.mp3
 #EXTINF:-1 tvg-id="london_telugu_radio" tvg-name="London Telugu Radio" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/londonteluguradio.png" group-title="FM, ALL",London Telugu Radio
 https://c8.radioboss.fm/stream/33
 #EXTINF:-1 tvg-id="melody_radio" tvg-name="Melody Radio" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/mr.png" group-title="FM, ALL",Melody Radio
 https://a1.asurahosting.com:9580/radio.mp3
+#EXTINF:-1 tvg-id="radio_hungama_telugu" tvg-name="Radio Hungama Telugu" tvg-logo="" group-title="FM, ALL",Radio Hungama Telugu
+https://radioindia.net/radio/humgama-telugu/icecast.audio
+#EXTINF:-1 tvg-id="radio_ranjan_90_4_fm" tvg-name="Radio Ranjan 90.4 FM" tvg-logo="" group-title="FM, ALL",Radio Ranjan 90.4 FM
+https://stream.zeno.fm/rfqqoi2w5u0tv
 #EXTINF:-1 tvg-id="radio_surabhi" tvg-name="Radio Surabhi" tvg-logo="" group-title="FM, ALL",Radio Surabhi
 https://radiosurabhi.streamguys1.com/live1-web
+#EXTINF:-1 tvg-id="radio_vishnu_90_4" tvg-name="Radio Vishnu 90.4" tvg-logo="" group-title="FM, ALL",Radio Vishnu 90.4
+https://streamasiahlscdn.atc-labs.com/radiovishnu.m3u8
 #EXTINF:-1 tvg-id="telugu_hits" tvg-name="Telugu Hits" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/Telugu%20Radio.webp" group-title="FM, ALL",Telugu Hits
-https://stream-173.zeno.fm/ysucrq37uwzuv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJ5c3VjcnEzN3V3enV2IiwiaG9zdCI6InN0cmVhbS0xNzMuemVuby5mbSIsInJ0dGwiOjUsImp0aSI6Ik8xcDFLa0h0UlQtNHVyR1haSHAzWWciLCJpYXQiOjE3NzcwNzI2MDEsImV4cCI6MTc3NzA3MjY2MX0.sOCya0yH2x4T9FPMByjy9d3Mo5VSPAYocZ5YHxA8U14
+https://stream-173.zeno.fm/ysucrq37uwzuv
+#EXTINF:-1 tvg-id="telugu_nri_radio" tvg-name="Telugu NRI Radio" tvg-logo="" group-title="FM, ALL",Telugu NRI Radio
+https://cast5.asurahosting.com:2199/proxy/telugunr?mp=/stream
 #EXTINF:-1 tvg-id="tori" tvg-name="Tori" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/Teluguone-Radio.webp" group-title="FM, ALL",Tori
 https://stream.teluguoneradio.com:8164/;stream/1
+#EXTINF:-1 tvg-id="vividh_bharati_hyderabad" tvg-name="Vividh Bharati Hyderabad" tvg-logo="" group-title="FM, AIR, ALL",Vividh Bharati Hyderabad
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio034/playlist.m3u8
 #EXTINF:-1 tvg-id="vividh_bharati_vijayawada" tvg-name="Vividh Bharati Vijayawada" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/vbstelugu.jpg" group-title="FM, AIR, ALL",Vividh Bharati Vijayawada
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio176/playlist.m3u8
