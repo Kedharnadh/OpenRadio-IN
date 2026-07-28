@@ -112,6 +112,17 @@ h1, h2, h3, p {
   transition: transform 180ms ease, background 180ms ease;
 }
 
+#cast-button {
+  display: inline-block;
+  --connected-color: var(--accent);
+  --disconnected-color: var(--text);
+  width: 38px;
+  height: 38px;
+  padding: 8px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.15);
+}
+
 .pill {
   padding: 8px 12px;
   background: rgba(148, 163, 184, 0.15);

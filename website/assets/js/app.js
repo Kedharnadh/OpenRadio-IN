@@ -21,9 +21,13 @@
     playerMeta: document.getElementById('player-meta'),
     status: document.getElementById('status-pill'),
     install: document.getElementById('install-app'),
+    cast: document.getElementById('cast-button'),
     audio: document.getElementById('audio-player')
   };
   let installPrompt;
+  let castContext;
+  let castPlayer;
+  let castPlayerController;
 
   function setStatus(message) {
     elements.status.textContent = message;
@@ -66,7 +70,8 @@
     }
 
     elements.playerTitle.textContent = station.name;
-    elements.playerMeta.textContent = `${station.language || 'Unknown language'} \u2022 ${station.streams?.[0]?.codec || 'Stream'}`;
+    const destination = isCasting() ? 'Casting' : (station.streams?.[0]?.codec || 'Stream');
+    elements.playerMeta.textContent = `${station.language || 'Unknown language'} \u2022 ${destination}`;
     elements.playToggle.disabled = false;
     elements.playToggle.textContent = state.playing ? '\u23f8 Pause' : '\u25b6 Play';
   }
@@ -129,10 +134,84 @@
     localStorage.setItem('openradio-favorites', JSON.stringify([...state.favorites]));
   }
 
+  function isCasting() {
+    return Boolean(castContext && window.cast && castContext.getCastState() === cast.framework.CastState.CONNECTED);
+  }
+
+  function streamContentType(stream) {
+    const codec = String(stream.codec || '').toLowerCase();
+    if (codec === 'hls' || stream.url.includes('.m3u8')) return 'application/vnd.apple.mpegurl';
+    if (codec === 'aac') return 'audio/aac';
+    if (codec === 'ogg') return 'audio/ogg';
+    return 'audio/mpeg';
+  }
+
+  async function castStation(station) {
+    const stream = [...(station.streams || [])].filter((entry) => entry.url).sort((first, second) => (first.priority || Infinity) - (second.priority || Infinity))[0];
+    const session = castContext?.getCurrentSession();
+    if (!stream || !session) return;
+
+    const media = new chrome.cast.media.MediaInfo(stream.url, streamContentType(stream));
+    media.streamType = chrome.cast.media.StreamType.LIVE;
+    const metadata = new chrome.cast.media.MusicTrackMediaMetadata();
+    metadata.title = station.name;
+    metadata.artist = station.language || 'OpenRadio-IN';
+    if (station.logo) metadata.images = [new chrome.cast.Image(station.logo)];
+    media.metadata = metadata;
+
+    state.currentStation = station;
+    elements.audio.pause();
+    try {
+      await session.loadMedia(new chrome.cast.media.LoadRequest(media));
+      state.playing = true;
+      setStatus(`Casting ${station.name}`);
+    } catch (error) {
+      state.playing = false;
+      setStatus('Unable to cast this stream');
+      console.error(error);
+    }
+    updatePlayer();
+    renderStationLists();
+  }
+
+  function setupCastPlayer() {
+    if (castPlayerController) return;
+    castPlayer = new cast.framework.RemotePlayer();
+    castPlayerController = new cast.framework.RemotePlayerController(castPlayer);
+    castPlayerController.addEventListener(cast.framework.RemotePlayerEventType.IS_PAUSED_CHANGED, () => {
+      state.playing = !castPlayer.isPaused;
+      updatePlayer();
+      renderStationLists();
+    });
+  }
+
+  function initializeCast() {
+    if (!window.cast || castContext) return;
+    castContext = cast.framework.CastContext.getInstance();
+    castContext.setOptions({ receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID, autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED });
+    castContext.addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, (event) => {
+      if (event.castState === cast.framework.CastState.CONNECTED) {
+        setupCastPlayer();
+        if (state.currentStation) castStation(state.currentStation);
+      }
+      if (event.castState === cast.framework.CastState.NOT_CONNECTED || event.castState === cast.framework.CastState.NO_DEVICES_AVAILABLE) {
+        castPlayer = undefined;
+        castPlayerController = undefined;
+      }
+      updatePlayer();
+    });
+    elements.cast.hidden = false;
+  }
+
   async function playStation(station) {
     const streams = [...(station.streams || [])].filter((stream) => stream.url).sort((first, second) => (first.priority || Infinity) - (second.priority || Infinity));
     if (!streams.length) {
       setStatus('No stream available');
+      return;
+    }
+
+    if (isCasting()) {
+      await castStation(station);
       return;
     }
 
@@ -155,6 +234,10 @@
 
   async function togglePlayback() {
     if (!state.currentStation) return;
+    if (isCasting()) {
+      if (castPlayerController) castPlayerController.playOrPause();
+      return;
+    }
     if (state.playing) {
       elements.audio.pause();
       return;
@@ -228,6 +311,11 @@
     elements.install.hidden = true;
   });
   window.addEventListener('appinstalled', () => { elements.install.hidden = true; setStatus('App installed'); });
+
+  window.addEventListener('openradio-cast-api', (event) => {
+    if (event.detail) initializeCast();
+  });
+  if (window.__castApiAvailable) initializeCast();
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(console.error));
