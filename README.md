@@ -2,6 +2,11 @@
 
 > A community-driven collection of verified Indian online radio stations with automatically generated playlists for VLC, Kodi, Home Assistant, TiviMate, Sparkle TV, OTT Navigator, and other compatible players.
 
+
+PWA app available at
+https://kedharnadh.github.io/OpenRadio-IN/
+
+
 ![GitHub](https://img.shields.io/github/license/Kedharnadh/OpenRadio-IN)
 ![GitHub stars](https://img.shields.io/github/stars/Kedharnadh/OpenRadio-IN)
 ![GitHub issues](https://img.shields.io/github/issues/Kedharnadh/OpenRadio-IN)
@@ -143,8 +148,6 @@ python build/generate_stats.py
 The repository includes an installable, offline-capable radio directory in `website/`.
 It lists every station, filters by language or category, and supports instant search and browser playback.
 
-PWA app available at
-`https://kedharnadh.github.io/OpenRadio-IN/`
 
 The workflow copies `database/stations.json` into the published site, so station updates are included automatically in every deployment.
 
