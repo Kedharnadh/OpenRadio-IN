@@ -15,7 +15,7 @@
     "logo": "",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/e47c5f0cec4af335/e47c5f0cec4af335.m3u8",
+        "url": "https://d3hrxqn1tritdh.cloudfront.net/e47c5f0cec4af335/e47c5f0cec4af335.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -39,7 +39,7 @@
     "logo": "https://onlineradiofm.in/assets/image/radio/180/air-anantabpur.jpg",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/3bcd83926d6c3cca/3bcd83926d6c3cca.m3u8",
+        "url": "https://d1tmej9eu7kw5c.cloudfront.net/3bcd83926d6c3cca/3bcd83926d6c3cca.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -63,7 +63,7 @@
     "logo": "https://onlineradiofm.in/assets/image/radio/180/aircuddapah.jpg",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/26ec521ec4f7c684/26ec521ec4f7c684.m3u8",
+        "url": "https://d1tmej9eu7kw5c.cloudfront.net/26ec521ec4f7c684/26ec521ec4f7c684.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -87,7 +87,7 @@
     "logo": "",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/57d77b93b7580e24/57d77b93b7580e24.m3u8",
+        "url": "https://d1tmej9eu7kw5c.cloudfront.net/57d77b93b7580e24/57d77b93b7580e24.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -111,7 +111,7 @@
     "logo": "",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/b11784e3b37b7620/b11784e3b37b7620.m3u8",
+        "url": "https://d3hrxqn1tritdh.cloudfront.net/b11784e3b37b7620/b11784e3b37b7620.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -135,7 +135,7 @@
     "logo": "",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/5d9989b5189a8f4a/5d9989b5189a8f4a.m3u8",
+        "url": "https://d3hrxqn1tritdh.cloudfront.net/5d9989b5189a8f4a/5d9989b5189a8f4a.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -159,7 +159,7 @@
     "logo": "",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/3a02c5c035815bb9/3a02c5c035815bb9.m3u8",
+        "url": "https://d1tmej9eu7kw5c.cloudfront.net/3a02c5c035815bb9/3a02c5c035815bb9.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -183,7 +183,7 @@
     "logo": "https://onlineradiofm.in/assets/image/radio/180/fmrainvijayawada1.jpg",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/bad174fd7eac38d0/bad174fd7eac38d0.m3u8",
+        "url": "https://d1tmej9eu7kw5c.cloudfront.net/bad174fd7eac38d0/bad174fd7eac38d0.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -207,7 +207,7 @@
     "logo": "",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/147314c8aedf4389/147314c8aedf4389.m3u8",
+        "url": "https://d1tmej9eu7kw5c.cloudfront.net/147314c8aedf4389/147314c8aedf4389.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -217,7 +217,7 @@
   },
   {
     "id": "air_simhapuri_fm",
-    "name": "Air Simhapuri FM",
+    "name": "Air Simhapuri Nellore FM",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -231,7 +231,7 @@
     "logo": "",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/8bc9175bb717c13b/8bc9175bb717c13b.m3u8",
+        "url": "https://d1tmej9eu7kw5c.cloudfront.net/8bc9175bb717c13b/8bc9175bb717c13b.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -255,7 +255,7 @@
     "logo": "https://onlineradiofm.in/assets/image/radio/180/air-telugu.jpg",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/2d38e3dcb8d4e0a4/2d38e3dcb8d4e0a4.m3u8",
+        "url": "https://d1tmej9eu7kw5c.cloudfront.net/2d38e3dcb8d4e0a4/2d38e3dcb8d4e0a4.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -279,7 +279,7 @@
     "logo": "",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/deae7120a205bfff/deae7120a205bfff.m3u8",
+        "url": "https://d3hrxqn1tritdh.cloudfront.net/deae7120a205bfff/deae7120a205bfff.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -303,7 +303,7 @@
     "logo": "https://onlineradiofm.in/assets/image/radio/180/airtirupati1.jpg",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/1119aa26b4e9f653/1119aa26b4e9f653.m3u8",
+        "url": "https://d3hrxqn1tritdh.cloudfront.net/1119aa26b4e9f653/1119aa26b4e9f653.m3u8",
         "codec": "HLS",
         "priority": 1
       }
@@ -593,7 +593,7 @@
     "logo": "https://onlineradiofm.in/assets/image/radio/180/vbstelugu.jpg",
     "streams": [
       {
-        "url": "https://radio.wavespb.com/live/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8",
+        "url": "https://d3hrxqn1tritdh.cloudfront.net/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8",
         "codec": "HLS",
         "priority": 1
       }

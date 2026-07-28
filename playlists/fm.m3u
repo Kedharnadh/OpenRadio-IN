@@ -21,3 +21,5 @@ https://cast5.asurahosting.com:2199/proxy/telugunr?mp=/stream
 https://stream.teluguoneradio.com:8164/;stream/1
 #EXTINF:-1 tvg-id="vividh_bharati_hyderabad" tvg-name="Vividh Bharati Hyderabad" tvg-logo="" group-title="FM, AIR, ALL",Vividh Bharati Hyderabad
 https://radio.wavespb.com/live/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8
+#EXTINF:-1 tvg-id="vividh_bharati_vijayawada" tvg-name="Vividh Bharati Vijayawada" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/vbstelugu.jpg" group-title="FM, AIR, ALL",Vividh Bharati Vijayawada
+https://d3hrxqn1tritdh.cloudfront.net/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8
