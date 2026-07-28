@@ -1,4 +1,5 @@
 (() => {
+  const DATA_URL = './data/stations.json';
   const state = {
     stations: [],
     filteredStations: [],
@@ -9,279 +10,227 @@
     playing: false
   };
 
-  const searchInput = document.getElementById('search');
-  const filtersContainer = document.getElementById('filters');
-  const resultsCount = document.getElementById('results-count');
-  const featuredContainer = document.getElementById('featured');
-  const stationsContainer = document.getElementById('stations');
-  const playToggle = document.getElementById('play-toggle');
-  const playerTitle = document.getElementById('player-title');
-  const playerMeta = document.getElementById('player-meta');
-  const statusPill = document.getElementById('status-pill');
-  const audio = document.getElementById('audio-player');
+  const elements = {
+    search: document.getElementById('search'),
+    filters: document.getElementById('filters'),
+    resultsCount: document.getElementById('results-count'),
+    featured: document.getElementById('featured'),
+    stations: document.getElementById('stations'),
+    playToggle: document.getElementById('play-toggle'),
+    playerTitle: document.getElementById('player-title'),
+    playerMeta: document.getElementById('player-meta'),
+    status: document.getElementById('status-pill'),
+    install: document.getElementById('install-app'),
+    audio: document.getElementById('audio-player')
+  };
+  let installPrompt;
 
-  function updateStatus(text) {
-    statusPill.textContent = text;
+  function setStatus(message) {
+    elements.status.textContent = message;
   }
 
-  function updatePlayerUI() {
-    if (!state.currentStation) {
-      playerTitle.textContent = 'Choose a station';
-      playerMeta.textContent = 'Your selected radio station will appear here.';
-      playToggle.disabled = true;
-      playToggle.textContent = '▶ Play';
+  function makeElement(tag, className, text) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (text !== undefined) element.textContent = text;
+    return element;
+  }
+
+  function stationTags(station) {
+    return [...new Set([station.language, ...(station.categories || [])].filter(Boolean))].slice(0, 3).join(' \u2022 ');
+  }
+
+  function hasCategory(station, category) {
+    if (category === 'all') return true;
+    return [station.language, ...(station.categories || [])]
+      .some((value) => String(value).toLowerCase() === category.toLowerCase());
+  }
+
+  function stationMatches(station) {
+    const query = state.search.trim().toLowerCase();
+    const searchable = [station.name, station.language, station.country, station.state, station.city, ...(station.categories || [])]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+    return searchable.includes(query) && hasCategory(station, state.activeCategory);
+  }
+
+  function updatePlayer() {
+    const station = state.currentStation;
+    if (!station) {
+      elements.playerTitle.textContent = 'Choose a station';
+      elements.playerMeta.textContent = 'Your selected radio station will appear here.';
+      elements.playToggle.disabled = true;
+      elements.playToggle.textContent = '\u25b6 Play';
       return;
     }
 
-    playerTitle.textContent = state.currentStation.name;
-    const streamLabel = state.currentStation.streams?.[0]?.codec || 'Stream';
-    playerMeta.textContent = `${state.currentStation.language || 'Unknown language'} • ${streamLabel}`;
-    playToggle.disabled = false;
-    playToggle.textContent = state.playing ? '⏸ Pause' : '▶ Play';
+    elements.playerTitle.textContent = station.name;
+    elements.playerMeta.textContent = `${station.language || 'Unknown language'} \u2022 ${station.streams?.[0]?.codec || 'Stream'}`;
+    elements.playToggle.disabled = false;
+    elements.playToggle.textContent = state.playing ? '\u23f8 Pause' : '\u25b6 Play';
   }
 
-  function getStationLabel(station) {
-    const categories = (station.categories || []).filter(Boolean);
-    const tags = [...new Set([station.language, ...categories].filter(Boolean))].slice(0, 3);
-    return tags.join(' • ');
-  }
+  function createStationCard(station, featured) {
+    const card = makeElement('article', `station-card${featured ? ' featured-card' : ''}`);
+    const top = makeElement('div', 'station-card__top');
+    const titleBlock = document.createElement('div');
+    titleBlock.append(makeElement('h3', '', station.name), makeElement('p', '', stationTags(station)));
 
-  function matchesCategory(station, category) {
-    if (category === 'all') return true;
-    const target = category.toLowerCase();
-    return [station.language, ...(station.categories || [])].some((value) => String(value).toLowerCase() === target);
-  }
+    const favorite = makeElement('button', `icon-btn${state.favorites.has(station.id) ? ' active' : ''}`, state.favorites.has(station.id) ? '\u2665' : '\u2661');
+    favorite.type = 'button';
+    favorite.dataset.action = 'favorite';
+    favorite.dataset.id = station.id;
+    favorite.setAttribute('aria-label', `Favorite ${station.name}`);
+    top.append(titleBlock, favorite);
 
-  function applyFilters() {
-    const query = state.search.trim().toLowerCase();
-    state.filteredStations = state.stations.filter((station) => {
-      const haystack = [station.name, station.language, station.country, station.state, station.city, ...(station.categories || [])]
-        .filter(Boolean)
-        .join(' ')
-        .toLowerCase();
+    const badges = makeElement('div', 'station-badges');
+    (station.categories || []).filter(Boolean).slice(0, featured ? 3 : 4).forEach((category) => badges.append(makeElement('span', '', category)));
 
-      return haystack.includes(query) && matchesCategory(station, state.activeCategory);
-    });
+    const footer = makeElement('div', 'station-card__footer');
+    footer.append(makeElement('span', '', featured ? (station.verified ? 'Verified' : 'Community') : (station.country || 'India')));
+    const play = makeElement('button', 'secondary-btn', state.currentStation?.id === station.id && state.playing ? 'Pause' : 'Play');
+    play.type = 'button';
+    play.dataset.action = 'play';
+    play.dataset.id = station.id;
+    footer.append(play);
 
-    state.filteredStations.sort((a, b) => a.name.localeCompare(b.name));
-    renderFilters();
-    renderFeatured();
-    renderStations();
-    resultsCount.textContent = `${state.filteredStations.length} station${state.filteredStations.length === 1 ? '' : 's'} shown`;
+    card.append(top, badges, footer);
+    return card;
   }
 
   function renderFilters() {
     const categories = ['all', ...new Set(state.stations.flatMap((station) => [station.language, ...(station.categories || [])]))]
       .filter(Boolean)
-      .filter((value) => value !== 'ALL')
-      .sort((a, b) => a.localeCompare(b));
-
-    filtersContainer.innerHTML = categories
-      .map((category) => {
-        const label = category === 'all' ? 'All' : category;
-        const activeClass = state.activeCategory.toLowerCase() === category.toLowerCase() ? 'active' : '';
-        return `<button class="pill ${activeClass}" data-category="${category}">${label}</button>`;
-      })
-      .join('');
+      .filter((category) => String(category).toLowerCase() !== 'all')
+      .sort((first, second) => String(first).localeCompare(String(second)));
+    elements.filters.replaceChildren(...categories.map((category) => {
+      const button = makeElement('button', `pill${state.activeCategory.toLowerCase() === String(category).toLowerCase() ? ' active' : ''}`, category === 'all' ? 'All' : category);
+      button.type = 'button';
+      button.dataset.category = category;
+      return button;
+    }));
   }
 
-  function renderFeatured() {
+  function renderStationLists() {
     const featured = state.filteredStations.slice(0, 6);
-    if (!featured.length) {
-      featuredContainer.innerHTML = '<div class="empty-state">No stations match this search yet.</div>';
-      return;
-    }
-
-    featuredContainer.innerHTML = featured
-      .map((station) => {
-        const isFavorite = state.favorites.has(station.id);
-        const isCurrent = state.currentStation?.id === station.id;
-        const buttonLabel = isCurrent && state.playing ? 'Pause' : 'Play';
-        return `
-          <article class="station-card featured-card">
-            <div class="station-card__top">
-              <div>
-                <h3>${station.name}</h3>
-                <p>${getStationLabel(station)}</p>
-              </div>
-              <button class="icon-btn ${isFavorite ? 'active' : ''}" data-action="favorite" data-id="${station.id}" aria-label="Favorite ${station.name}">${isFavorite ? '♥' : '♡'}</button>
-            </div>
-            <div class="station-badges">${(station.categories || []).slice(0, 3).map((category) => `<span>${category}</span>`).join('')}</div>
-            <div class="station-card__footer">
-              <span>${station.verified ? 'Verified' : 'Community'}</span>
-              <button class="secondary-btn" data-action="play" data-id="${station.id}">${buttonLabel}</button>
-            </div>
-          </article>`;
-      })
-      .join('');
+    elements.featured.replaceChildren(...(featured.length ? featured.map((station) => createStationCard(station, true)) : [makeElement('div', 'empty-state', 'No stations match this search yet.')]));
+    elements.stations.replaceChildren(...(state.filteredStations.length ? state.filteredStations.map((station) => createStationCard(station, false)) : [makeElement('div', 'empty-state', 'No stations match this search yet. Try a different keyword.')]));
   }
 
-  function renderStations() {
-    if (!state.filteredStations.length) {
-      stationsContainer.innerHTML = '<div class="empty-state">No stations match this search yet. Try a different keyword.</div>';
-      return;
-    }
-
-    stationsContainer.innerHTML = state.filteredStations
-      .map((station) => {
-        const isFavorite = state.favorites.has(station.id);
-        const isCurrent = state.currentStation?.id === station.id;
-        const buttonLabel = isCurrent && state.playing ? 'Pause' : 'Play';
-        return `
-          <article class="station-card">
-            <div class="station-card__top">
-              <div>
-                <h3>${station.name}</h3>
-                <p>${getStationLabel(station)}</p>
-              </div>
-              <button class="icon-btn ${isFavorite ? 'active' : ''}" data-action="favorite" data-id="${station.id}" aria-label="Favorite ${station.name}">${isFavorite ? '♥' : '♡'}</button>
-            </div>
-            <div class="station-badges">${(station.categories || []).slice(0, 4).map((category) => `<span>${category}</span>`).join('')}</div>
-            <div class="station-card__footer">
-              <span>${station.country || 'India'}</span>
-              <button class="secondary-btn" data-action="play" data-id="${station.id}">${buttonLabel}</button>
-            </div>
-          </article>`;
-      })
-      .join('');
+  function applyFilters() {
+    state.filteredStations = state.stations.filter(stationMatches).sort((first, second) => first.name.localeCompare(second.name));
+    renderFilters();
+    renderStationLists();
+    elements.resultsCount.textContent = `${state.filteredStations.length} station${state.filteredStations.length === 1 ? '' : 's'} shown`;
   }
 
-  function persistFavorites() {
+  function saveFavorites() {
     localStorage.setItem('openradio-favorites', JSON.stringify([...state.favorites]));
   }
 
-  function toggleFavorite(stationId) {
-    if (state.favorites.has(stationId)) {
-      state.favorites.delete(stationId);
-    } else {
-      state.favorites.add(stationId);
-    }
-    persistFavorites();
-    applyFilters();
-  }
-
   async function playStation(station) {
-    if (!station?.streams?.length) {
-      updateStatus('No stream available');
-      playerMeta.textContent = 'This station does not have a playable stream yet.';
+    const streams = [...(station.streams || [])].filter((stream) => stream.url).sort((first, second) => (first.priority || Infinity) - (second.priority || Infinity));
+    if (!streams.length) {
+      setStatus('No stream available');
       return;
     }
 
     state.currentStation = station;
-    const stream = station.streams[0];
-    audio.src = stream.url;
-    audio.load();
-
+    elements.audio.src = streams[0].url;
+    elements.audio.load();
     try {
-      await audio.play();
+      await elements.audio.play();
       state.playing = true;
-      updateStatus(`Playing ${station.name}`);
+      setStatus(`Playing ${station.name}`);
       localStorage.setItem('openradio-last-station', station.id);
     } catch (error) {
       state.playing = false;
-      updateStatus('Playback blocked');
-      playerMeta.textContent = 'The browser blocked playback. Please tap again or use a supported audio stream.';
+      setStatus('Unable to start this stream');
       console.error(error);
     }
-
-    updatePlayerUI();
+    updatePlayer();
+    renderStationLists();
   }
 
   async function togglePlayback() {
     if (!state.currentStation) return;
     if (state.playing) {
-      audio.pause();
-      state.playing = false;
-      updateStatus(`Paused ${state.currentStation.name}`);
-      updatePlayerUI();
+      elements.audio.pause();
       return;
     }
-
     await playStation(state.currentStation);
   }
 
-  async function handleCardClick(event) {
-    const button = event.target.closest('button');
+  async function handleStationAction(event) {
+    const button = event.target.closest('button[data-action]');
     if (!button) return;
-
-    const stationId = button.getAttribute('data-id');
-    const action = button.getAttribute('data-action');
-    const station = state.stations.find((entry) => entry.id === stationId);
-
+    const station = state.stations.find((entry) => entry.id === button.dataset.id);
     if (!station) return;
-
-    if (action === 'favorite') {
-      toggleFavorite(station.id);
+    if (button.dataset.action === 'favorite') {
+      state.favorites.has(station.id) ? state.favorites.delete(station.id) : state.favorites.add(station.id);
+      saveFavorites();
+      renderStationLists();
       return;
     }
-
-    if (action === 'play') {
-      if (state.currentStation?.id === station.id && state.playing) {
-        await togglePlayback();
-      } else {
-        await playStation(station);
-      }
-    }
+    if (state.currentStation?.id === station.id && state.playing) await togglePlayback();
+    else await playStation(station);
   }
-
-  searchInput.addEventListener('input', (event) => {
-    state.search = event.target.value;
-    applyFilters();
-  });
-
-  filtersContainer.addEventListener('click', (event) => {
-    const button = event.target.closest('button[data-category]');
-    if (!button) return;
-    state.activeCategory = button.getAttribute('data-category');
-    applyFilters();
-  });
-
-  featuredContainer.addEventListener('click', handleCardClick);
-  stationsContainer.addEventListener('click', handleCardClick);
-  playToggle.addEventListener('click', togglePlayback);
-
-  audio.addEventListener('pause', () => {
-    state.playing = false;
-    updatePlayerUI();
-  });
-
-  audio.addEventListener('play', () => {
-    state.playing = true;
-    updatePlayerUI();
-  });
-
-  audio.addEventListener('error', () => {
-    state.playing = false;
-    updateStatus('Unable to stream this station');
-    updatePlayerUI();
-  });
-
-  window.addEventListener('online', () => updateStatus('Online • ready to stream'));
-  window.addEventListener('offline', () => updateStatus('Offline • cached shell available'));
 
   async function loadStations() {
     try {
-      const response = await fetch('../database/stations.json', { cache: 'no-store' });
-      if (!response.ok) throw new Error('Stations data could not be loaded');
-      const stations = await response.json();
-      state.stations = stations.filter(Boolean);
+      let response = await fetch(DATA_URL, { cache: 'no-store' });
+      // This fallback keeps the checked-out repository usable before the Pages
+      // workflow copies the database into website/data.
+      if (!response.ok) response = await fetch('../database/stations.json', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Station data request failed: ${response.status}`);
+      state.stations = (await response.json()).filter(Boolean);
       const lastStationId = localStorage.getItem('openradio-last-station');
       state.currentStation = state.stations.find((station) => station.id === lastStationId) || null;
       applyFilters();
-      updateStatus(`${state.stations.length} stations loaded`);
-      updatePlayerUI();
+      updatePlayer();
+      setStatus(`${state.stations.length} stations loaded`);
     } catch (error) {
       console.error(error);
-      updateStatus('Unable to load station data');
-      resultsCount.textContent = 'Station data is unavailable right now.';
-      stationsContainer.innerHTML = '<div class="empty-state">The station database could not be loaded. Please refresh or check the repository files.</div>';
+      setStatus('Unable to load station data');
+      elements.resultsCount.textContent = 'Station data is unavailable right now.';
+      elements.stations.replaceChildren(makeElement('div', 'empty-state', 'The station database could not be loaded. Please refresh and try again.'));
     }
   }
 
+  elements.search.addEventListener('input', (event) => {
+    state.search = event.target.value;
+    applyFilters();
+  });
+  elements.filters.addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-category]');
+    if (!button) return;
+    state.activeCategory = button.dataset.category;
+    applyFilters();
+  });
+  elements.featured.addEventListener('click', handleStationAction);
+  elements.stations.addEventListener('click', handleStationAction);
+  elements.playToggle.addEventListener('click', togglePlayback);
+  elements.audio.addEventListener('play', () => { state.playing = true; updatePlayer(); renderStationLists(); });
+  elements.audio.addEventListener('pause', () => { state.playing = false; updatePlayer(); renderStationLists(); });
+  elements.audio.addEventListener('error', () => { state.playing = false; setStatus('Unable to stream this station'); updatePlayer(); renderStationLists(); });
+
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    installPrompt = event;
+    elements.install.hidden = false;
+  });
+  elements.install.addEventListener('click', async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    await installPrompt.userChoice;
+    installPrompt = null;
+    elements.install.hidden = true;
+  });
+  window.addEventListener('appinstalled', () => { elements.install.hidden = true; setStatus('App installed'); });
+
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch((error) => console.error('Service worker registration failed', error));
-    });
+    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(console.error));
   }
 
   loadStations();
