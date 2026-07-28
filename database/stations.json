@@ -12,7 +12,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://radiobarfi.com/wp-content/uploads/2022/02/All-India-Radio-Adilabad.webp",
     "streams": [
       {
         "url": "https://d3hrxqn1tritdh.cloudfront.net/e47c5f0cec4af335/e47c5f0cec4af335.m3u8",
@@ -36,7 +36,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "https://onlineradiofm.in/assets/image/radio/180/air-anantabpur.jpg",
+    "logo": "https://radiobarfi.com/wp-content/uploads/2023/06/All-India-Radio-Anantapur.webp",
     "streams": [
       {
         "url": "https://d1tmej9eu7kw5c.cloudfront.net/3bcd83926d6c3cca/3bcd83926d6c3cca.m3u8",
@@ -60,7 +60,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "https://onlineradiofm.in/assets/image/radio/180/aircuddapah.jpg",
+    "logo": "https://onlineradiohub.com/wp-content/uploads/2024/10/air-kadappa-1200x1200.jpg",
     "streams": [
       {
         "url": "https://d1tmej9eu7kw5c.cloudfront.net/26ec521ec4f7c684/26ec521ec4f7c684.m3u8",
@@ -84,7 +84,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://radiobarfi.com/wp-content/uploads/2023/06/All-India-Radio-Kurnool.webp",
     "streams": [
       {
         "url": "https://d1tmej9eu7kw5c.cloudfront.net/57d77b93b7580e24/57d77b93b7580e24.m3u8",
@@ -108,7 +108,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://radiobarfi.com/wp-content/uploads/2023/06/All-India-Radio-Markapur.webp",
     "streams": [
       {
         "url": "https://d3hrxqn1tritdh.cloudfront.net/b11784e3b37b7620/b11784e3b37b7620.m3u8",
@@ -132,7 +132,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://radiobarfi.com/wp-content/uploads/2022/02/All-India-Radio-Nizamabad.webp",
     "streams": [
       {
         "url": "https://d3hrxqn1tritdh.cloudfront.net/5d9989b5189a8f4a/5d9989b5189a8f4a.m3u8",
@@ -156,7 +156,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://d371i8ihhgym7w.cloudfront.net/47770554.jpg",
     "streams": [
       {
         "url": "https://d1tmej9eu7kw5c.cloudfront.net/3a02c5c035815bb9/3a02c5c035815bb9.m3u8",
@@ -180,7 +180,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "https://onlineradiofm.in/assets/image/radio/180/fmrainvijayawada1.jpg",
+    "logo": "https://d371i8ihhgym7w.cloudfront.net/37623161.jpg",
     "streams": [
       {
         "url": "https://d1tmej9eu7kw5c.cloudfront.net/bad174fd7eac38d0/bad174fd7eac38d0.m3u8",
@@ -204,7 +204,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://oetpai.fra1.digitaloceanspaces.com/new_images/radioapp_115612.jpg",
     "streams": [
       {
         "url": "https://d1tmej9eu7kw5c.cloudfront.net/147314c8aedf4389/147314c8aedf4389.m3u8",
@@ -228,7 +228,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://radiobarfi.com/wp-content/uploads/2022/02/AllIndia-Radio-Nellore.webp",
     "streams": [
       {
         "url": "https://d1tmej9eu7kw5c.cloudfront.net/8bc9175bb717c13b/8bc9175bb717c13b.m3u8",
@@ -252,7 +252,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "https://onlineradiofm.in/assets/image/radio/180/air-telugu.jpg",
+    "logo": "https://static.mytuner.mobi/media/tvos_radios/034/air-telugu.da89c6c1.jpg",
     "streams": [
       {
         "url": "https://d1tmej9eu7kw5c.cloudfront.net/2d38e3dcb8d4e0a4/2d38e3dcb8d4e0a4.m3u8",
@@ -276,7 +276,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://radiobarfi.com/wp-content/uploads/2022/02/AIR-Warangal-All-India-Radio.webp",
     "streams": [
       {
         "url": "https://d3hrxqn1tritdh.cloudfront.net/deae7120a205bfff/deae7120a205bfff.m3u8",
@@ -288,8 +288,8 @@
     "last_checked": null
   },
   {
-    "id": "all_india_radio_tirupati",
-    "name": "All India Radio - Tirupati",
+    "id": "air_tirupati",
+    "name": "AIR Tirupati",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -300,7 +300,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "https://onlineradiofm.in/assets/image/radio/180/airtirupati1.jpg",
+    "logo": "https://radiobarfi.com/wp-content/uploads/2022/02/all-india-radio-tirupati.webp",
     "streams": [
       {
         "url": "https://d3hrxqn1tritdh.cloudfront.net/1119aa26b4e9f653/1119aa26b4e9f653.m3u8",
@@ -324,7 +324,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://cdn.aptoide.com/imgs/a/d/c/adcbfd764563ee9cde97fb30c2f25038_fgraphic.jpg",
     "streams": [
       {
         "url": "https://stream.ap9fm.in/radio/8000/radio.mp3",
@@ -348,7 +348,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "https://onlineradiofm.in/assets/image/radio/180/londonteluguradio.png",
+    "logo": "https://radiosindia.com/images/londonteluguradio.jpg",
     "streams": [
       {
         "url": "https://c8.radioboss.fm/stream/33",
@@ -372,7 +372,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "https://onlineradiofm.in/assets/image/radio/180/mr.png",
+    "logo": "https://img1.wsimg.com/isteam/ip/d547af60-4305-4c1a-a90e-b8c81b606aa0/logo_new_.png",
     "streams": [
       {
         "url": "https://a1.asurahosting.com:9580/radio.mp3",
@@ -444,7 +444,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://www.radiosurabhi.com/assets/images/logo_full_new.png",
     "streams": [
       {
         "url": "https://radiosurabhi.streamguys1.com/live1-web",
@@ -516,7 +516,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://radiosindia.com/images/telugunriradio.jpg",
     "streams": [
       {
         "url": "https://cast5.asurahosting.com:2199/proxy/telugunr?mp=/stream",
@@ -540,7 +540,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "https://onlineradiofm.in/assets/image/radio/180/Teluguone-Radio.webp",
+    "logo": "https://www.teluguoneradio.com/hostphotos/TORi-Logo-New.jpg",
     "streams": [
       {
         "url": "https://stream.teluguoneradio.com:8164/;stream/1",
@@ -565,7 +565,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "",
+    "logo": "https://d371i8ihhgym7w.cloudfront.net/54581627.jpg",
     "streams": [
       {
         "url": "https://d3hrxqn1tritdh.cloudfront.net/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8",
@@ -590,7 +590,7 @@
     ],
     "genre": [],
     "homepage": "",
-    "logo": "https://onlineradiofm.in/assets/image/radio/180/vbstelugu.jpg",
+    "logo": "https://radiobarfi.com/wp-content/uploads/2022/02/vividh-bharati-live-radio.webp",
     "streams": [
       {
         "url": "https://d3hrxqn1tritdh.cloudfront.net/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8",
