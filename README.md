@@ -140,14 +140,37 @@ python build/generate_stats.py
 
 # Website and PWA
 
-The repository includes an installable, offline-capable radio directory in `website/`.
-It lists every station, filters by language or category, and supports instant search and browser playback.
+OpenRadio-IN includes an installable Progressive Web App (PWA) in `website/`. It provides a mobile-friendly directory and player for the station database.
+
+## Features
+
+- Browse every available radio station
+- Filter stations by language or category, including AIR and FM
+- Search station names, languages, locations, and categories
+- Play a stream directly in the browser
+- Save favourite stations on the current device
+- Resume the last selected station
+- Install the app on supported desktop and mobile browsers
+- Cache the application shell and station directory for offline browsing after the first successful visit
+- Cast a selected stream to Google Chromecast devices
+
+## Using the app
+
+1. Open the GitHub Pages URL in a browser.
+2. Search for a station or select a category filter.
+3. Select **Play** on a station; the bottom player bar shows the active station and lets you play or pause it.
+4. To install the PWA, select **Install app** when the browser offers it. On browsers that do not show this button, use the browser's **Add to Home Screen** or install option.
+5. To cast, select the Cast icon, choose a Chromecast device on the same network, then select a station. The player bar controls the remote stream while casting.
+
+Some radio providers do not permit Chromecast playback or do not expose the CORS headers required by Chromecast. Those streams can still be available in the browser but may not cast successfully.
+
+## GitHub Pages deployment
 
 The GitHub Actions workflow at `.github/workflows/deploy-pages.yml` deploys it to GitHub Pages whenever `main` is pushed. In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**. The deployed application will then be available at:
 
 `https://<your-github-username>.github.io/OpenRadio-IN/`
 
-The workflow copies `database/stations.json` into the published site, so station updates are included automatically in every deployment.
+The workflow copies `database/stations.json` into the published site, so station updates are included automatically in every deployment. Commit and push changes to `website/` or `database/stations.json` to publish an updated PWA.
 
 ---
 

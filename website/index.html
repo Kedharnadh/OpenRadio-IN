@@ -11,6 +11,13 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="apple-touch-icon" href="icons/icon.svg" />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <script>
+      window.__onGCastApiAvailable = (isAvailable) => {
+        window.__castApiAvailable = isAvailable;
+        window.dispatchEvent(new CustomEvent('openradio-cast-api', { detail: isAvailable }));
+      };
+    </script>
+    <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
   </head>
   <body>
     <div class="app-shell">
@@ -25,6 +32,7 @@
           <input id="search" type="search" placeholder="Search stations, language, or category" />
         </label>
         <button id="install-app" class="secondary-btn" type="button" hidden>Install app</button>
+        <google-cast-launcher id="cast-button" hidden aria-label="Cast radio to a Google Cast device"></google-cast-launcher>
       </header>
 
       <section class="toolbar-card">
