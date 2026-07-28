@@ -2,6 +2,11 @@
 
 > A community-driven collection of verified Indian online radio stations with automatically generated playlists for VLC, Kodi, Home Assistant, TiviMate, Sparkle TV, OTT Navigator, and other compatible players.
 
+
+PWA app available at
+https://kedharnadh.github.io/OpenRadio-IN/
+
+
 ![GitHub](https://img.shields.io/github/license/Kedharnadh/OpenRadio-IN)
 ![GitHub stars](https://img.shields.io/github/stars/Kedharnadh/OpenRadio-IN)
 ![GitHub issues](https://img.shields.io/github/issues/Kedharnadh/OpenRadio-IN)
@@ -166,9 +171,6 @@ Some radio providers do not permit Chromecast playback or do not expose the CORS
 
 ## GitHub Pages deployment
 
-The GitHub Actions workflow at `.github/workflows/deploy-pages.yml` deploys it to GitHub Pages whenever `main` is pushed. In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**. The deployed application will then be available at:
-
-`https://<your-github-username>.github.io/OpenRadio-IN/`
 
 The workflow copies `database/stations.json` into the published site, so station updates are included automatically in every deployment. Commit and push changes to `website/` or `database/stations.json` to publish an updated PWA.
 
