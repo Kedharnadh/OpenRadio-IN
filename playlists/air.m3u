@@ -24,8 +24,6 @@ https://d1tmej9eu7kw5c.cloudfront.net/2d38e3dcb8d4e0a4/2d38e3dcb8d4e0a4.m3u8
 #EXTINF:-1 tvg-id="air_warangal" tvg-name="AIR Warangal" tvg-logo="" group-title="AIR, ALL",AIR Warangal
 https://d3hrxqn1tritdh.cloudfront.net/deae7120a205bfff/deae7120a205bfff.m3u8
 #EXTINF:-1 tvg-id="all_india_radio_tirupati" tvg-name="All India Radio - Tirupati" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/airtirupati1.jpg" group-title="AIR, ALL",All India Radio - Tirupati
-https://radio.wavespb.com/live/1119aa26b4e9f653/1119aa26b4e9f653.m3u8
+https://d3hrxqn1tritdh.cloudfront.net/1119aa26b4e9f653/1119aa26b4e9f653.m3u8
 #EXTINF:-1 tvg-id="vividh_bharati_hyderabad" tvg-name="Vividh Bharati Hyderabad" tvg-logo="" group-title="FM, AIR, ALL",Vividh Bharati Hyderabad
-https://radio.wavespb.com/live/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8
-#EXTINF:-1 tvg-id="vividh_bharati_vijayawada" tvg-name="Vividh Bharati Vijayawada" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/vbstelugu.jpg" group-title="FM, AIR, ALL",Vividh Bharati Vijayawada
 https://d3hrxqn1tritdh.cloudfront.net/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8
