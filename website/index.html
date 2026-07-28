@@ -1,10 +1,64 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><title>OpenRadio-IN</title>
-<link rel="stylesheet" href="assets/css/style.css"></head>
-<body>
-<header><h1>OpenRadio-IN</h1><input id="search" placeholder="Search stations"></header>
-<nav><button>All</button><button>Telugu</button><button>AIR</button></nav>
-<main><div id="stations">Station cards will be generated here.</div></main>
-<footer>OpenRadio-IN</footer>
-<script src="assets/js/app.js"></script>
-</body></html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="OpenRadio-IN brings Indian online radio stations to your device with search, playback, and offline-ready support." />
+    <title>OpenRadio-IN</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/icon.svg" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero-card">
+        <div>
+          <p class="eyebrow">Community radio • PWA</p>
+          <h1>OpenRadio-IN</h1>
+          <p class="hero-copy">Discover and play Indian online radio stations with instant search, filters, and a polished app-style experience.</p>
+        </div>
+        <label class="search-box" for="search">
+          <span aria-hidden="true">🔎</span>
+          <input id="search" type="search" placeholder="Search stations, language, or category" />
+        </label>
+      </header>
+
+      <section class="toolbar-card">
+        <div id="filters" class="pill-row" aria-label="Station categories"></div>
+        <div id="results-count" class="results-count">Loading stations…</div>
+      </section>
+
+      <section class="card-section">
+        <div class="section-head">
+          <h2>Featured stations</h2>
+          <span id="status-pill" class="status-pill">Preparing</span>
+        </div>
+        <div id="featured" class="featured-grid"></div>
+      </section>
+
+      <main class="card-section">
+        <div class="section-head">
+          <h2>All stations</h2>
+          <span class="status-pill">Tap play to start listening</span>
+        </div>
+        <div id="stations" class="station-grid"></div>
+      </main>
+
+      <footer class="player-bar">
+        <div class="player-info">
+          <strong id="player-title">Choose a station</strong>
+          <span id="player-meta">Your selected radio station will appear here.</span>
+        </div>
+        <div class="player-controls">
+          <button id="play-toggle" class="primary-btn" disabled>▶ Play</button>
+        </div>
+      </footer>
+    </div>
+
+    <audio id="audio-player" preload="none"></audio>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
