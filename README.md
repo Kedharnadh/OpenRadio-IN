@@ -143,9 +143,8 @@ python build/generate_stats.py
 The repository includes an installable, offline-capable radio directory in `website/`.
 It lists every station, filters by language or category, and supports instant search and browser playback.
 
-The GitHub Actions workflow at `.github/workflows/deploy-pages.yml` deploys it to GitHub Pages whenever `main` is pushed. In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**. The deployed application will then be available at:
-
-`https://<your-github-username>.github.io/OpenRadio-IN/`
+PWA app available at
+`https://kedharnadh.github.io/OpenRadio-IN/`
 
 The workflow copies `database/stations.json` into the published site, so station updates are included automatically in every deployment.
 
