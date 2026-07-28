@@ -303,7 +303,7 @@
     "logo": "https://onlineradiofm.in/assets/image/radio/180/airtirupati1.jpg",
     "streams": [
       {
-        "url": "https://d3hrxqn1tritdh.cloudfront.net/1119aa26b4e9f653/1119aa26b4e9f653.m3u8",
+        "url": "https://radio.wavespb.com/live/1119aa26b4e9f653/1119aa26b4e9f653.m3u8",
         "codec": "HLS",
         "priority": 1
       }
