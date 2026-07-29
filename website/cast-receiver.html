@@ -20,8 +20,15 @@
         cast.framework.messages.MessageType.LOAD,
         (request) => {
           if (request && request.media) {
-            request.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.TS_AAC;
-            request.media.protocolType = cast.framework.messages.ProtocolType.HLS;
+            // Only apply HLS-specific handling when the content is HLS.
+            // When the HLS proxy is active, the sender sends audio/mpeg
+            // instead of application/vnd.apple.mpegurl, so we skip HLS
+            // config and let the Default Media Receiver handle it natively.
+            const ct = (request.media.contentType || '').toLowerCase();
+            if (ct === 'application/vnd.apple.mpegurl' || ct.includes('mpegurl')) {
+              request.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.TS_AAC;
+              request.media.protocolType = cast.framework.messages.ProtocolType.HLS;
+            }
             request.media.streamType = cast.framework.messages.StreamType.LIVE;
           }
           return request;
