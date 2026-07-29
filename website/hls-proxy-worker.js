@@ -1,87 +1,88 @@
-// Cloudflare Worker: HLS-to-audio proxy for Chromecast
-// Deploy this to https://workers.cloudflare.com (free tier)
-// Steps:
-//   1. Create a new Worker in the Cloudflare Dashboard
-//   2. Paste this file's contents, save & deploy
-//   3. Copy your Worker URL (e.g. https://hls-proxy.username.workers.dev)
-//   4. Set HLS_PROXY_URL at the top of website/assets/js/app.js
-//
-// How it works:
-// Chromecast cannot play audio-only HLS on the Default Media Receiver.
-// This worker fetches HLS segments and streams them as a continuous
-// audio/mpeg stream, which the Default Media Receiver CAN play.
-
 addEventListener('fetch', (event) => {
   event.respondWith(handleRequest(event.request));
 });
 
-async function handleRequest(request) {
-  const url = new URL(request.url);
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Access-Control-Allow-Headers': '*',
-  };
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Access-Control-Allow-Headers': '*',
+};
 
+async function handleRequest(request) {
   if (request.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { headers: CORS_HEADERS });
   }
 
+  const url = new URL(request.url);
   const hlsUrl = url.searchParams.get('url');
   if (!hlsUrl) {
-    return new Response('Missing ?url=<HLS_URL>', {
-      status: 400,
-      headers: corsHeaders,
-    });
+    return new Response('Missing ?url=<HLS_URL>', { status: 400, headers: CORS_HEADERS });
   }
 
-  // Validate URL
+  try { new URL(hlsUrl); } catch {
+    return new Response('Invalid URL', { status: 400, headers: CORS_HEADERS });
+  }
+
+  // 1. Fetch manifest first to determine segment type and validate
+  let manifest;
   try {
-    new URL(hlsUrl);
-  } catch {
-    return new Response('Invalid URL', {
-      status: 400,
-      headers: corsHeaders,
-    });
+    const resp = await fetch(hlsUrl, { headers: { 'Cache-Control': 'no-cache' } });
+    if (!resp.ok) throw new Error('Manifest fetch failed');
+    manifest = await resp.text();
+  } catch (err) {
+    return new Response('Failed to fetch HLS manifest', { status: 502, headers: CORS_HEADERS });
   }
 
+  // 2. Determine correct content type from first segment URL
+  const segmentLines = manifest
+    .split('\n')
+    .map((l) => l.trim())
+    .filter((l) => l && !l.startsWith('#'));
+
+  const firstSegment = segmentLines[0];
+  const contentType = guessContentType(firstSegment, hlsUrl);
+
+  // 3. Stream segments with the correct content type
   const { readable, writable } = new TransformStream();
-  streamHls(hlsUrl, writable);
+  streamSegments(hlsUrl, manifest, writable);
 
   return new Response(readable, {
     headers: {
-      ...corsHeaders,
-      'Content-Type': 'audio/mpeg',
+      ...CORS_HEADERS,
+      'Content-Type': contentType,
       'Cache-Control': 'no-cache',
-      'Transfer-Encoding': 'chunked',
     },
   });
 }
 
-async function streamHls(hlsUrl, writable) {
+function guessContentType(segment, baseUrl) {
+  if (!segment) return 'audio/mpeg';
+  try {
+    const ext = new URL(segment, baseUrl).pathname.split('.').pop()?.toLowerCase() || '';
+    if (ext === 'ts') return 'video/MP2T';
+    if (ext === 'aac' || ext === 'm4a') return 'audio/aac';
+    if (ext === 'mp3') return 'audio/mpeg';
+    if (ext === 'mp4' || ext === 'm4s') return 'video/mp4';
+    if (ext === 'ogg' || ext === 'oga') return 'audio/ogg';
+    if (ext === 'wav') return 'audio/wav';
+    if (ext === 'ac3' || ext === 'eac3') return 'audio/ac3';
+  } catch {}
+  return 'audio/mpeg';
+}
+
+async function streamSegments(hlsUrl, manifest, writable) {
   const writer = writable.getWriter();
-  const baseUrl = new URL(hlsUrl);
   const seenSegments = new Set();
+  let retries = 0;
 
   try {
     while (true) {
-      let manifest;
-      try {
-        const resp = await fetch(hlsUrl, {
-          headers: { 'Cache-Control': 'no-cache' },
-        });
-        manifest = await resp.text();
-      } catch {
-        await sleep(5000);
-        continue;
-      }
-
-      const segmentLines = manifest
+      const lines = manifest
         .split('\n')
-        .map((line) => line.trim())
-        .filter((line) => line && !line.startsWith('#'));
+        .map((l) => l.trim())
+        .filter((l) => l && !l.startsWith('#'));
 
-      for (const segment of segmentLines) {
+      for (const segment of lines) {
         let segmentUrl;
         try {
           segmentUrl = new URL(segment, hlsUrl).href;
@@ -92,16 +93,14 @@ async function streamHls(hlsUrl, writable) {
         if (seenSegments.has(segmentUrl)) continue;
         seenSegments.add(segmentUrl);
 
-        // Keep set from growing unbounded
-        if (seenSegments.size > 100) {
+        if (seenSegments.size > 200) {
           const entries = [...seenSegments];
-          for (let i = 0; i < 50; i++) seenSegments.delete(entries[i]);
+          for (let i = 0; i < 100; i++) seenSegments.delete(entries[i]);
         }
 
         try {
           const segResp = await fetch(segmentUrl);
           if (!segResp.ok) continue;
-
           const reader = segResp.body.getReader();
           while (true) {
             const { done, value } = await reader.read();
@@ -109,19 +108,27 @@ async function streamHls(hlsUrl, writable) {
             await writer.write(value);
           }
         } catch {
-          // skip failed segment, continue to next
+          // skip failed segment
         }
       }
 
-      // Wait before checking for playlist updates
+      // Poll for updated manifest (live HLS)
       await sleep(4000);
+      try {
+        const resp = await fetch(hlsUrl, { headers: { 'Cache-Control': 'no-cache' } });
+        if (resp.ok) {
+          manifest = await resp.text();
+          retries = 0;
+        }
+      } catch {
+        retries++;
+        if (retries > 10) break;
+      }
     }
   } catch (err) {
     console.error('Stream error:', err);
   } finally {
-    try {
-      writer.close();
-    } catch {}
+    try { writer.close(); } catch {}
   }
 }
 

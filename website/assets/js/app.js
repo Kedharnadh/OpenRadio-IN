@@ -207,7 +207,10 @@
   function initializeCast() {
     if (!window.cast || castContext) return;
     castContext = cast.framework.CastContext.getInstance();
-    const appId = CUSTOM_CAST_APP_ID || chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID;
+    // When the HLS proxy is configured, use the Default Media Receiver
+    // since the proxy delivers plain audio/mpeg. Otherwise use the custom
+    // receiver for native HLS handling.
+    const appId = HLS_PROXY_URL ? chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID : CUSTOM_CAST_APP_ID;
     castContext.setOptions({ receiverApplicationId: appId, autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED });
     castContext.addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, (event) => {
       if (event.castState === cast.framework.CastState.CONNECTED) {
