@@ -200,7 +200,6 @@
       }
       updatePlayer();
     });
-    elements.cast.hidden = false;
   }
 
   async function playStation(station) {
