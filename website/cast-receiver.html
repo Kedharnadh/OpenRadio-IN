@@ -26,15 +26,17 @@
             const ct = (request.media.contentType || '').toLowerCase();
             if (ct.includes('mpegurl') || ct.includes('m3u8')) {
               request.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.TS_AAC;
+              request.media.streamType = cast.framework.messages.StreamType.LIVE;
             }
-            request.media.streamType = cast.framework.messages.StreamType.LIVE;
           }
           return request;
         }
       );
 
-      playerManager.addEventListener(cast.framework.events.EventType.ERROR, (event) => {
-        console.error('Receiver error:', event.detailedErrorCode);
+      playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
+        if (loadRequest.media && loadRequest.media.hlsSegmentFormat) {
+          playbackConfig.hlsSegmentFormat = loadRequest.media.hlsSegmentFormat;
+        }
       });
 
       context.start(options);
