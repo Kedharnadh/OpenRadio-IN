@@ -20,4 +20,6 @@ https://cast5.asurahosting.com:2199/proxy/telugunr?mp=/stream
 #EXTINF:-1 tvg-id="tori" tvg-name="Tori" tvg-logo="https://www.teluguoneradio.com/hostphotos/TORi-Logo-New.jpg" group-title="FM, ALL",Tori
 https://stream.teluguoneradio.com:8164/;stream/1
 #EXTINF:-1 tvg-id="vividh_bharati_hyderabad" tvg-name="Vividh Bharati Hyderabad" tvg-logo="https://d371i8ihhgym7w.cloudfront.net/54581627.jpg" group-title="FM, AIR, ALL",Vividh Bharati Hyderabad
-https://d3hrxqn1tritdh.cloudfront.net/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8
+https://radio.wavespb.com/live/89969ad91f106dde/89969ad91f106dde.m3u8
+#EXTINF:-1 tvg-id="vividh_bharati_vijayawada" tvg-name="Vividh Bharati Vijayawada" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/vividh-bharati-live-radio.webp" group-title="FM, AIR, ALL",Vividh Bharati Vijayawada
+https://radio.wavespb.com/live/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8
