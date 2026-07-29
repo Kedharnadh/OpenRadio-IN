@@ -27,6 +27,7 @@
           <p class="eyebrow">Community radio • PWA</p>
           <h1>OpenRadio-IN <google-cast-launcher id="cast-button" aria-label="Cast radio to a Google Cast device"></google-cast-launcher></h1>
           <p class="hero-copy">Discover and play Indian online radio stations with instant search, filters, and a polished app-style experience.</p>
+          <span id="status-pill" class="status-pill">Preparing</span>
         </div>
         <label class="search-box" for="search">
           <span aria-hidden="true">🔎</span>
@@ -40,10 +41,9 @@
         <div id="results-count" class="results-count">Loading stations…</div>
       </section>
 
-      <section class="card-section">
+      <section id="favorites-section" class="card-section">
         <div class="section-head">
-          <h2>Featured stations</h2>
-          <span id="status-pill" class="status-pill">Preparing</span>
+          <h2>Favorite Stations</h2>
         </div>
         <div id="featured" class="featured-grid"></div>
       </section>
@@ -62,7 +62,9 @@
           <span id="player-meta">Your selected radio station will appear here.</span>
         </div>
         <div class="player-controls">
+          <button id="prev-btn" class="icon-btn" disabled title="Previous">⏮</button>
           <button id="play-toggle" class="primary-btn" disabled>▶ Play</button>
+          <button id="next-btn" class="icon-btn" disabled title="Next">⏭</button>
         </div>
       </footer>
     </div>

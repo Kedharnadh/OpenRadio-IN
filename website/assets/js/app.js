@@ -20,6 +20,9 @@
     playerTitle: document.getElementById('player-title'),
     playerMeta: document.getElementById('player-meta'),
     status: document.getElementById('status-pill'),
+    prevBtn: document.getElementById('prev-btn'),
+    nextBtn: document.getElementById('next-btn'),
+    favoritesSection: document.getElementById('favorites-section'),
     install: document.getElementById('install-app'),
     cast: document.getElementById('cast-button'),
     audio: document.getElementById('audio-player')
@@ -71,11 +74,14 @@
 
   function updatePlayer() {
     const station = state.currentStation;
+    const hasMultiple = state.filteredStations.length > 1;
     if (!station) {
       elements.playerTitle.textContent = 'Choose a station';
       elements.playerMeta.textContent = 'Your selected radio station will appear here.';
       elements.playToggle.disabled = true;
       elements.playToggle.textContent = '\u25b6 Play';
+      elements.prevBtn.disabled = true;
+      elements.nextBtn.disabled = true;
       return;
     }
 
@@ -84,6 +90,8 @@
     elements.playerMeta.textContent = `${station.language || 'Unknown language'} \u2022 ${destination}`;
     elements.playToggle.disabled = false;
     elements.playToggle.textContent = state.playing ? '\u23f8 Pause' : '\u25b6 Play';
+    elements.prevBtn.disabled = !hasMultiple;
+    elements.nextBtn.disabled = !hasMultiple;
   }
 
   function createStationCard(station, featured) {
@@ -128,8 +136,13 @@
   }
 
   function renderStationLists() {
-    const featured = state.filteredStations.slice(0, 6);
-    elements.featured.replaceChildren(...(featured.length ? featured.map((station) => createStationCard(station, true)) : [makeElement('div', 'empty-state', 'No stations match this search yet.')]));
+    const favoriteStations = state.stations.filter((s) => state.favorites.has(s.id));
+    if (favoriteStations.length) {
+      elements.favoritesSection.hidden = false;
+      elements.featured.replaceChildren(...favoriteStations.map((station) => createStationCard(station, true)));
+    } else {
+      elements.favoritesSection.hidden = true;
+    }
     elements.stations.replaceChildren(...(state.filteredStations.length ? state.filteredStations.map((station) => createStationCard(station, false)) : [makeElement('div', 'empty-state', 'No stations match this search yet. Try a different keyword.')]));
   }
 
@@ -331,6 +344,14 @@
     await playStation(state.currentStation);
   }
 
+  function playAdjacentStation(direction) {
+    if (!state.currentStation || state.filteredStations.length < 2) return;
+    const currentIndex = state.filteredStations.findIndex((s) => s.id === state.currentStation.id);
+    if (currentIndex === -1) return;
+    const nextIndex = (currentIndex + direction + state.filteredStations.length) % state.filteredStations.length;
+    playStation(state.filteredStations[nextIndex]);
+  }
+
   async function handleStationAction(event) {
     const button = event.target.closest('button[data-action]');
     if (!button) return;
@@ -380,8 +401,17 @@
   elements.featured.addEventListener('click', handleStationAction);
   elements.stations.addEventListener('click', handleStationAction);
   elements.playToggle.addEventListener('click', togglePlayback);
+  elements.prevBtn.addEventListener('click', () => playAdjacentStation(-1));
+  elements.nextBtn.addEventListener('click', () => playAdjacentStation(1));
   elements.audio.addEventListener('play', () => { state.playing = true; updatePlayer(); renderStationLists(); });
   elements.audio.addEventListener('pause', () => { state.playing = false; updatePlayer(); renderStationLists(); });
+  elements.audio.addEventListener('ended', () => {
+    if (state.hls) { state.hls.destroy(); state.hls = null; }
+    state.playing = false;
+    setStatus('Playback ended');
+    updatePlayer();
+    renderStationLists();
+  });
   elements.audio.addEventListener('error', () => {
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     state.playing = false;
