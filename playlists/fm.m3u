@@ -1,12 +1,14 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="ap_9_fm" tvg-name="AP 9 FM" tvg-logo="https://cdn.aptoide.com/imgs/a/d/c/adcbfd764563ee9cde97fb30c2f25038_fgraphic.jpg" group-title="FM, ALL",AP 9 FM
 https://stream.ap9fm.in/radio/8000/radio.mp3
+#EXTINF:-1 tvg-id="geet_Radio_telugu" tvg-name="Geet Radio - Telugu " tvg-logo="https://geetradio.com/wp-content/uploads/2024/08/Geetradio_512_nobg.png" group-title="FM, ALL",Geet Radio - Telugu 
+https://server.geetradio.com:8010/radio.mp3
 #EXTINF:-1 tvg-id="london_telugu_radio" tvg-name="London Telugu Radio" tvg-logo="https://radiosindia.com/images/londonteluguradio.jpg" group-title="FM, ALL",London Telugu Radio
 https://c8.radioboss.fm/stream/33
 #EXTINF:-1 tvg-id="melody_radio" tvg-name="Melody Radio" tvg-logo="https://img1.wsimg.com/isteam/ip/d547af60-4305-4c1a-a90e-b8c81b606aa0/logo_new_.png" group-title="FM, ALL",Melody Radio
 https://a1.asurahosting.com:9580/radio.mp3
 #EXTINF:-1 tvg-id="radio_hungama_telugu" tvg-name="Radio Hungama Telugu" tvg-logo="" group-title="FM, ALL",Radio Hungama Telugu
-https://radioindia.net/radio/humgama-telugu/icecast.audio
+http://103.16.47.70:9444/;stream.nsv
 #EXTINF:-1 tvg-id="radio_ranjan_90_4_fm" tvg-name="Radio Ranjan 90.4 FM" tvg-logo="" group-title="FM, ALL",Radio Ranjan 90.4 FM
 https://stream.zeno.fm/rfqqoi2w5u0tv
 #EXTINF:-1 tvg-id="radio_surabhi" tvg-name="Radio Surabhi" tvg-logo="https://www.radiosurabhi.com/assets/images/logo_full_new.png" group-title="FM, ALL",Radio Surabhi
