@@ -16,7 +16,7 @@
           if (request.media) {
             const ct = request.media.contentType || '';
             if (ct === 'application/vnd.apple.mpegurl' || ct === 'application/x-mpegurl') {
-              request.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.AAC;
+              request.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.TS_AAC;
             }
           }
           return request;
