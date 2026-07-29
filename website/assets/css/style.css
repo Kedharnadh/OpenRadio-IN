@@ -117,7 +117,7 @@ h1 { display: flex; align-items: center; gap: 8px; }
   --connected-color: var(--accent);
   --disconnected-color: var(--muted);
   width: 20px;
-  height: 20px;
+  /*height: 20px;*/
   cursor: pointer;
   flex-shrink: 0;
 }
