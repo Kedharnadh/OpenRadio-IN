@@ -233,15 +233,28 @@
       }
       elements.audio.src = '';
       state.hls = new window.Hls();
-      state.hls.loadSource(stream.url);
       state.hls.attachMedia(elements.audio);
       await new Promise((resolve, reject) => {
-        state.hls.on(window.Hls.Events.MANIFEST_PARSED, resolve);
+        state.hls.on(window.Hls.Events.MEDIA_ATTACHED, () => {
+          state.hls.loadSource(stream.url);
+          state.hls.on(window.Hls.Events.MANIFEST_PARSED, resolve);
+        });
         state.hls.on(window.Hls.Events.ERROR, (event, data) => {
-          if (data.fatal) reject(data);
+          if (data.fatal) reject(new Error(data.type));
         });
       });
-      elements.audio.play();
+      try {
+        await elements.audio.play();
+      } catch (error) {
+        state.hls.destroy();
+        state.hls = null;
+        state.playing = false;
+        setStatus('Unable to start this stream');
+        console.error(error);
+        updatePlayer();
+        renderStationLists();
+        return;
+      }
       state.playing = true;
       setStatus(`Playing ${station.name}`);
       localStorage.setItem('openradio-last-station', station.id);
