@@ -29,6 +29,13 @@
   let castPlayer;
   let castPlayerController;
 
+  // For HLS casting support, register a custom Cast receiver at
+  // https://developers.google.com/cast and host cast-receiver.html.
+  // Replace the ID below with your registered application ID.
+  // Using DEFAULT_MEDIA_RECEIVER_APP_ID will work for non-HLS streams,
+  // but audio-only HLS streams require a custom receiver.
+  const CUSTOM_CAST_APP_ID = ''; // e.g. 'ABCD1234'
+
   function setStatus(message) {
     elements.status.textContent = message;
   }
@@ -167,7 +174,13 @@
       setStatus(`Casting ${station.name}`);
     } catch (error) {
       state.playing = false;
-      setStatus('Unable to cast this stream');
+      const isHls = String(stream.codec || '').toLowerCase() === 'hls' || stream.url.includes('.m3u8');
+      if (isHls && !CUSTOM_CAST_APP_ID) {
+        setStatus('HLS casting requires a custom Cast receiver - see console');
+        console.warn('OpenRadio-IN: HLS streams need a registered Cast receiver. Create one at https://developers.google.com/cast and set CUSTOM_CAST_APP_ID in app.js');
+      } else {
+        setStatus('Unable to cast this stream');
+      }
       console.error(error);
     }
     updatePlayer();
@@ -188,7 +201,8 @@
   function initializeCast() {
     if (!window.cast || castContext) return;
     castContext = cast.framework.CastContext.getInstance();
-    castContext.setOptions({ receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID, autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED });
+    const appId = CUSTOM_CAST_APP_ID || chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID;
+    castContext.setOptions({ receiverApplicationId: appId, autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED });
     castContext.addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, (event) => {
       if (event.castState === cast.framework.CastState.CONNECTED) {
         setupCastPlayer();
