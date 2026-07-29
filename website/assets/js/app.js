@@ -215,7 +215,42 @@
     }
 
     state.currentStation = station;
-    elements.audio.src = streams[0].url;
+    const stream = streams[0];
+
+    if (state.hls) {
+      state.hls.destroy();
+      state.hls = null;
+    }
+
+    const isHls = (stream.codec || '').toLowerCase() === 'hls' || stream.url.includes('.m3u8');
+
+    if (isHls && !elements.audio.canPlayType('application/vnd.apple.mpegurl')) {
+      if (!window.Hls || !window.Hls.isSupported()) {
+        setStatus('HLS playback not supported in this browser');
+        updatePlayer();
+        renderStationLists();
+        return;
+      }
+      elements.audio.src = '';
+      state.hls = new window.Hls();
+      state.hls.loadSource(stream.url);
+      state.hls.attachMedia(elements.audio);
+      await new Promise((resolve, reject) => {
+        state.hls.on(window.Hls.Events.MANIFEST_PARSED, resolve);
+        state.hls.on(window.Hls.Events.ERROR, (event, data) => {
+          if (data.fatal) reject(data);
+        });
+      });
+      elements.audio.play();
+      state.playing = true;
+      setStatus(`Playing ${station.name}`);
+      localStorage.setItem('openradio-last-station', station.id);
+      updatePlayer();
+      renderStationLists();
+      return;
+    }
+
+    elements.audio.src = stream.url;
     elements.audio.load();
     try {
       await elements.audio.play();
@@ -238,6 +273,10 @@
       return;
     }
     if (state.playing) {
+      if (state.hls) {
+        state.hls.destroy();
+        state.hls = null;
+      }
       elements.audio.pause();
       return;
     }
@@ -295,7 +334,13 @@
   elements.playToggle.addEventListener('click', togglePlayback);
   elements.audio.addEventListener('play', () => { state.playing = true; updatePlayer(); renderStationLists(); });
   elements.audio.addEventListener('pause', () => { state.playing = false; updatePlayer(); renderStationLists(); });
-  elements.audio.addEventListener('error', () => { state.playing = false; setStatus('Unable to stream this station'); updatePlayer(); renderStationLists(); });
+  elements.audio.addEventListener('error', () => {
+    if (state.hls) { state.hls.destroy(); state.hls = null; }
+    state.playing = false;
+    setStatus('Unable to stream this station');
+    updatePlayer();
+    renderStationLists();
+  });
 
   window.addEventListener('beforeinstallprompt', (event) => {
     event.preventDefault();
