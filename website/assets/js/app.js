@@ -224,7 +224,7 @@
 
     const isHls = (stream.codec || '').toLowerCase() === 'hls' || stream.url.includes('.m3u8');
 
-    if (isHls && !elements.audio.canPlayType('application/vnd.apple.mpegurl')) {
+    if (isHls) {
       if (!window.Hls || !window.Hls.isSupported()) {
         setStatus('HLS playback not supported in this browser');
         updatePlayer();
@@ -232,24 +232,36 @@
         return;
       }
       elements.audio.src = '';
-      state.hls = new window.Hls();
+      setStatus('Loading HLS stream...');
+      state.hls = new window.Hls({ startLevel: 0 });
+      state.hls.loadSource(stream.url);
       state.hls.attachMedia(elements.audio);
-      await new Promise((resolve, reject) => {
-        state.hls.on(window.Hls.Events.MEDIA_ATTACHED, () => {
-          state.hls.loadSource(stream.url);
-          state.hls.on(window.Hls.Events.MANIFEST_PARSED, resolve);
+      try {
+        await new Promise((resolve, reject) => {
+          const timeout = setTimeout(() => reject(new Error('HLS load timed out')), 20000);
+          state.hls.on(window.Hls.Events.MANIFEST_PARSED, () => { clearTimeout(timeout); resolve(); });
+          state.hls.on(window.Hls.Events.ERROR, (event, data) => {
+            console.warn('HLS error:', data.type, data.details);
+            if (data.fatal) { clearTimeout(timeout); reject(new Error(data.type)); }
+          });
         });
-        state.hls.on(window.Hls.Events.ERROR, (event, data) => {
-          if (data.fatal) reject(new Error(data.type));
-        });
-      });
+      } catch (error) {
+        state.hls.destroy();
+        state.hls = null;
+        state.playing = false;
+        setStatus('Unable to load this stream');
+        console.error(error);
+        updatePlayer();
+        renderStationLists();
+        return;
+      }
       try {
         await elements.audio.play();
       } catch (error) {
         state.hls.destroy();
         state.hls = null;
         state.playing = false;
-        setStatus('Unable to start this stream');
+        setStatus('Unable to start playback');
         console.error(error);
         updatePlayer();
         renderStationLists();
