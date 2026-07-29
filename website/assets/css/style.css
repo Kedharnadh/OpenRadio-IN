@@ -113,13 +113,13 @@ h1, h2, h3, p {
 }
 
 #cast-button {
-  display: inline-block;
   --connected-color: var(--accent);
-  --disconnected-color: var(--text);
-  width: 38px;
-  height: 38px;
-  padding: 8px;
+  --disconnected-color: var(--muted);
+  width: 36px;
+  height: 36px;
+  padding: 6px;
   border-radius: 999px;
+  cursor: pointer;
   background: rgba(148, 163, 184, 0.15);
 }
 
@@ -252,6 +252,12 @@ h1, h2, h3, p {
   font-size: 0.92rem;
 }
 
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .empty-state {
   padding: 20px;
   border: 1px dashed var(--border);
@@ -273,6 +279,7 @@ h1, h2, h3, p {
 
   .player-controls {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
   }
 }

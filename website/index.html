@@ -32,7 +32,6 @@
           <input id="search" type="search" placeholder="Search stations, language, or category" />
         </label>
         <button id="install-app" class="secondary-btn" type="button" hidden>Install app</button>
-        <google-cast-launcher id="cast-button" hidden aria-label="Cast radio to a Google Cast device"></google-cast-launcher>
       </header>
 
       <section class="toolbar-card">
@@ -62,6 +61,7 @@
           <span id="player-meta">Your selected radio station will appear here.</span>
         </div>
         <div class="player-controls">
+          <google-cast-launcher id="cast-button" aria-label="Cast radio to a Google Cast device"></google-cast-launcher>
           <button id="play-toggle" class="primary-btn" disabled>▶ Play</button>
         </div>
       </footer>
