@@ -402,6 +402,11 @@
         "url": "https://radioindia.net/radio/humgama-telugu/icecast.audio",
         "codec": "MP3",
         "priority": 1
+      },
+      {
+        "url": "http://103.16.47.70:9444/;stream.nsv",
+        "codec": "MP3",
+        "priority": 2
       }
     ],
     "verified": false,
@@ -595,6 +600,30 @@
       {
         "url": "https://radio.wavespb.com/live/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8",
         "codec": "HLS",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "geet_radio_telugu",
+    "name": "Geet Radio - Telugu",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "https://geetradio.com",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://server.geetradio.com:8010/radio.mp3",
+        "codec": "MP3",
         "priority": 1
       }
     ],
