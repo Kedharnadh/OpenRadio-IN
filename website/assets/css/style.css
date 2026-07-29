@@ -116,15 +116,9 @@ h1 { display: flex; align-items: center; gap: 8px; }
 #cast-button {
   --connected-color: var(--accent);
   --disconnected-color: var(--muted);
-  width: 24px;
-  height: 24px;
-  padding: 3px;
-  border-radius: 999px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
-  background: rgba(148, 163, 184, 0.15);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   flex-shrink: 0;
 }
 
