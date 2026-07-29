@@ -34,6 +34,11 @@
   // by setting the correct hlsSegmentFormat for TS segments with AAC.
   const CUSTOM_CAST_APP_ID = '45881BB0'; // e.g. 'ABCD1234'
 
+  // Set this to your deployed Cloudflare Worker URL when using HLS proxy.
+  // Deploy hls-proxy-worker.js to https://workers.cloudflare.com (free tier).
+  // Example: const HLS_PROXY_URL = 'https://hls-proxy.username.workers.dev';
+  const HLS_PROXY_URL = '';
+
   function setStatus(message) {
     elements.status.textContent = message;
   }
@@ -143,7 +148,8 @@
     return Boolean(castContext && window.cast && castContext.getCastState() === cast.framework.CastState.CONNECTED);
   }
 
-  function streamContentType(stream) {
+  function streamContentType(stream, useProxy) {
+    if (useProxy) return 'audio/mpeg';
     const codec = String(stream.codec || '').toLowerCase();
     if (codec === 'hls' || stream.url.includes('.m3u8')) return 'application/vnd.apple.mpegurl';
     if (codec === 'aac') return 'audio/aac';
@@ -158,7 +164,13 @@
 
     const isHls = String(stream.codec || '').toLowerCase() === 'hls' || stream.url.includes('.m3u8');
 
-    const media = new chrome.cast.media.MediaInfo(stream.url, streamContentType(stream));
+    // Use the HLS proxy for audio-only HLS streams: the proxy fetches HLS
+    // segments and streams them as continuous audio/mpeg, which the
+    // Default Media Receiver can play reliably.
+    const useProxy = isHls && HLS_PROXY_URL;
+    const castUrl = useProxy ? `${HLS_PROXY_URL}?url=${encodeURIComponent(stream.url)}` : stream.url;
+
+    const media = new chrome.cast.media.MediaInfo(castUrl, streamContentType(stream, useProxy));
     media.streamType = chrome.cast.media.StreamType.LIVE;
     const metadata = new chrome.cast.media.MusicTrackMediaMetadata();
     metadata.title = station.name;

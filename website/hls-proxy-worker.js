@@ -1,6 +1,10 @@
 // Cloudflare Worker: HLS-to-audio proxy for Chromecast
 // Deploy this to https://workers.cloudflare.com (free tier)
-// Then set HLS_PROXY_URL in app.js to your worker URL
+// Steps:
+//   1. Create a new Worker in the Cloudflare Dashboard
+//   2. Paste this file's contents, save & deploy
+//   3. Copy your Worker URL (e.g. https://hls-proxy.username.workers.dev)
+//   4. Set HLS_PROXY_URL at the top of website/assets/js/app.js
 //
 // How it works:
 // Chromecast cannot play audio-only HLS on the Default Media Receiver.
