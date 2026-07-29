@@ -14,31 +14,35 @@
     <script>
       const context = cast.framework.CastReceiverContext.getInstance();
       const playerManager = context.getPlayerManager();
-
-      const options = new cast.framework.CastReceiverOptions();
-      options.disableIdleTimeout = true;
-      options.supportedCommands = cast.framework.messages.Command.ALL_BASIC_MEDIA;
+      let useGenericTs = false;
 
       playerManager.setMessageInterceptor(
         cast.framework.messages.MessageType.LOAD,
         (request) => {
-          if (request.media) {
-            const ct = (request.media.contentType || '').toLowerCase();
-            if (ct.includes('mpegurl') || ct.includes('m3u8')) {
-              request.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.TS_AAC;
-              request.media.streamType = cast.framework.messages.StreamType.LIVE;
-            }
+          if (request && request.media) {
+            request.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.TS_AAC;
+            request.media.protocolType = cast.framework.messages.ProtocolType.HLS;
+            request.media.streamType = cast.framework.messages.StreamType.LIVE;
           }
           return request;
         }
       );
 
       playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
-        if (loadRequest.media && loadRequest.media.hlsSegmentFormat) {
-          playbackConfig.hlsSegmentFormat = loadRequest.media.hlsSegmentFormat;
+        if (loadRequest && loadRequest.media && useGenericTs) {
+          loadRequest.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.TS;
         }
       });
 
+      playerManager.addEventListener(cast.framework.events.EventType.ERROR, (event) => {
+        if (event.detailedErrorCode === cast.framework.events.DetailedErrorCode.HLS_NETWORK_INVALID_SEGMENT) {
+          useGenericTs = true;
+        }
+      });
+
+      const options = new cast.framework.CastReceiverOptions();
+      options.disableIdleTimeout = true;
+      options.supportedCommands = cast.framework.messages.Command.ALL_BASIC_MEDIA;
       context.start(options);
     </script>
   </body>
