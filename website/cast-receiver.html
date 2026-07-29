@@ -2,7 +2,12 @@
 <html>
   <head>
     <title>OpenRadio-IN Cast Receiver</title>
-    <script src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+    <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+    <link rel="stylesheet" href="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.css">
+    <style>
+      html, body { height: 100%; margin: 0; background: #0f172a; color: #e2e8f0; font-family: system-ui, sans-serif; }
+      cast-media-player { width: 100%; height: 100%; }
+    </style>
   </head>
   <body>
     <cast-media-player></cast-media-player>
@@ -10,20 +15,29 @@
       const context = cast.framework.CastReceiverContext.getInstance();
       const playerManager = context.getPlayerManager();
 
+      const options = new cast.framework.CastReceiverOptions();
+      options.disableIdleTimeout = true;
+      options.supportedCommands = cast.framework.messages.Command.ALL_BASIC_MEDIA;
+
       playerManager.setMessageInterceptor(
         cast.framework.messages.MessageType.LOAD,
         (request) => {
           if (request.media) {
-            const ct = request.media.contentType || '';
-            if (ct === 'application/vnd.apple.mpegurl' || ct === 'application/x-mpegurl') {
+            const ct = (request.media.contentType || '').toLowerCase();
+            if (ct.includes('mpegurl') || ct.includes('m3u8')) {
               request.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.TS_AAC;
             }
+            request.media.streamType = cast.framework.messages.StreamType.LIVE;
           }
           return request;
         }
       );
 
-      context.start();
+      playerManager.addEventListener(cast.framework.events.EventType.ERROR, (event) => {
+        console.error('Receiver error:', event.detailedErrorCode);
+      });
+
+      context.start(options);
     </script>
   </body>
 </html>
