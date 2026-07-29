@@ -1,6 +1,8 @@
 const express = require('express');
 const { spawn } = require('child_process');
 const ffmpegPath = require('ffmpeg-static');
+const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,8 +28,10 @@ app.get('/proxy', (req, res) => {
 
   ffmpeg.stdout.pipe(res);
 
+  let stderr = '';
   ffmpeg.stderr.on('data', (data) => {
-    console.error('ffmpeg:', data.toString());
+    stderr += data.toString();
+    console.error('ffmpeg:', data.toString().trim());
   });
 
   ffmpeg.on('error', (err) => {
@@ -35,9 +39,23 @@ app.get('/proxy', (req, res) => {
     if (!res.headersSent) res.status(500).send('ffmpeg error');
   });
 
+  ffmpeg.on('close', (code) => {
+    if (code !== 0 && !res.headersSent) {
+      res.status(500).send('ffmpeg exited with code ' + code);
+    }
+  });
+
   req.on('close', () => {
     ffmpeg.kill('SIGTERM');
   });
 });
 
-app.listen(PORT, () => console.log(`HLS proxy on port ${PORT}`));
+app.get('/', (req, res) => {
+  res.json({
+    name: 'OpenRadio-IN HLS Proxy',
+    usage: '/proxy?url=<HLS_URL>',
+    port: PORT
+  });
+});
+
+app.listen(PORT, '0.0.0.0', () => console.log(`OpenRadio-IN HLS proxy on 0.0.0.0:${PORT}`));
