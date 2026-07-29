@@ -29,11 +29,15 @@
   let castPlayer;
   let castPlayerController;
 
-  // For HLS casting support, the code now sets `hlsSegmentFormat: AAC`
-  // on the sender side. This tells the Default Media Receiver that HLS
-  // segments are audio-only AAC. If that still fails, register a custom
-  // Cast receiver at https://developers.google.com/cast ($5 one-time fee),
-  // host cast-receiver.html, and set the ID below.
+  // For HLS casting: deploy the Cloudflare Worker in hls-proxy-worker.js
+  // to https://workers.cloudflare.com (free) and paste the URL below.
+  // The worker converts HLS segments into a continuous audio/mpeg stream
+  // that Chromecast's Default Media Receiver can play.
+  const HLS_PROXY_URL = ''; // e.g. 'https://hls-proxy.my-username.workers.dev'
+
+  // For HLS casting: register a custom Cast receiver ($5 one-time fee),
+  // host cast-receiver.html, and set the ID below (only needed if
+  // the free proxy approach doesn't work for your streams).
   const CUSTOM_CAST_APP_ID = ''; // e.g. 'ABCD1234'
 
   function setStatus(message) {
@@ -159,10 +163,16 @@
     if (!stream || !session) return;
 
     const isHls = String(stream.codec || '').toLowerCase() === 'hls' || stream.url.includes('.m3u8');
-    const media = new chrome.cast.media.MediaInfo(stream.url, streamContentType(stream));
+
+    // For HLS streams, route through the proxy which converts HLS segments
+    // into a continuous audio/mpeg stream the Default Media Receiver can play.
+    const castUrl = (isHls && HLS_PROXY_URL) ? `${HLS_PROXY_URL}?url=${encodeURIComponent(stream.url)}` : stream.url;
+    const castType = (isHls && HLS_PROXY_URL) ? 'audio/mpeg' : streamContentType(stream);
+
+    const media = new chrome.cast.media.MediaInfo(castUrl, castType);
     media.streamType = chrome.cast.media.StreamType.LIVE;
-    if (isHls && cast.framework?.messages?.HlsSegmentFormat) {
-      media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.AAC;
+    if (isHls && cast.framework?.messages?.HlsSegmentFormat && !HLS_PROXY_URL) {
+      media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.TS_AAC;
     }
     const metadata = new chrome.cast.media.MusicTrackMediaMetadata();
     metadata.title = station.name;
@@ -178,7 +188,9 @@
       setStatus(`Casting ${station.name}`);
     } catch (error) {
       state.playing = false;
-      if (isHls) {
+      if (isHls && !HLS_PROXY_URL) {
+        setStatus('HLS casting needs a proxy - deploy hls-proxy-worker.js to Cloudflare Workers (free)');
+      } else if (isHls) {
         setStatus('HLS stream incompatible with this Cast device');
       } else {
         setStatus('Unable to cast this stream');
