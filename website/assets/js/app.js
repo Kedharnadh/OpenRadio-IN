@@ -566,6 +566,8 @@
       if (state.playing) togglePlayback();
       state.sleepTimerId = null;
       state.sleepTimerEnd = null;
+      elements.sleepTimerStatus.hidden = true;
+      elements.sleepTimerBtn.textContent = '\u23F0 Timer';
       setStatus('Sleep timer: playback stopped');
       updatePlayer();
     }, minutes * 60 * 1000);
