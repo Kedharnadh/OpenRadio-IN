@@ -419,6 +419,13 @@ input[type="range"]::-moz-range-thumb {
   object-fit: cover;
 }
 
+.now-playing-placeholder {
+  font-size: 3rem;
+  line-height: 1;
+  opacity: 0.4;
+  user-select: none;
+}
+
 .now-playing-title {
   font-size: 1.2rem;
   text-align: center;
