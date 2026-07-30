@@ -59,7 +59,9 @@
     sleepTimerBtn: document.getElementById('sleep-timer-btn'),
     sleepTimerPicker: document.getElementById('sleep-timer-picker'),
     sleepTimerStatus: document.getElementById('sleep-timer-status'),
-    themeToggle: document.getElementById('theme-toggle')
+    themeToggle: document.getElementById('theme-toggle'),
+    updateBanner: document.getElementById('update-banner'),
+    updateBtn: document.getElementById('update-btn')
   };
   let installPrompt;
   let castContext;
@@ -730,7 +732,22 @@
   if (window.__castApiAvailable) initializeCast();
 
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(console.error));
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').then((reg) => {
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              elements.updateBanner.hidden = false;
+            }
+          });
+        });
+      }).catch(console.error);
+    });
+    elements.updateBtn.addEventListener('click', () => {
+      elements.updateBanner.hidden = true;
+      window.location.reload();
+    });
   }
 
   loadStations();

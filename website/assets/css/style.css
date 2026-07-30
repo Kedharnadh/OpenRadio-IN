@@ -630,6 +630,30 @@ input[type="range"]::-moz-range-thumb {
   }
 }
 
+.update-banner {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  background: var(--panel);
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-size: 0.9rem;
+  animation: slideUp 250ms ease;
+}
+
+.update-banner .secondary-btn {
+  font-size: 0.82rem;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+
 @media (max-width: 420px) {
   .player-bar {
     padding: 8px 10px;
