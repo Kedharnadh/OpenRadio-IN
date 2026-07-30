@@ -1,11 +1,8 @@
-# 📻 OpenRadio-IN
+# OpenRadio-IN
 
-> A community-driven collection of verified Indian online radio stations with automatically generated playlists for VLC, Kodi, Home Assistant, TiviMate, Sparkle TV, OTT Navigator, and other compatible players.
+> A community-driven collection of verified Indian online radio stations with a progressive web app, Chromecast support, and automatically generated playlists for VLC, Kodi, Home Assistant, and other compatible players.
 
-
-PWA app available at
-https://kedharnadh.github.io/OpenRadio-IN/
-
+PWA: https://kedharnadh.github.io/OpenRadio-IN/
 
 ![GitHub](https://img.shields.io/github/license/Kedharnadh/OpenRadio-IN)
 ![GitHub stars](https://img.shields.io/github/stars/Kedharnadh/OpenRadio-IN)
@@ -14,24 +11,29 @@ https://kedharnadh.github.io/OpenRadio-IN/
 
 ---
 
-## ✨ Features
+## Features
 
-- 🇮🇳 Verified Indian Radio Stations
-- 📻 AIR (Akashvani) Stations
-- 🎵 FM Stations
-- 🛕 Devotional Stations
-- 📰 News Stations
-- 🌐 Internet Radio
-- 🎼 Classical Music
-- 🎯 Automatically generated playlists
-- 🔍 JSON-based station database
-- 🐍 Python build system
-- ⚙️ GitHub Actions automation
-- 🌐 GitHub Pages website (Coming Soon)
+- Indian Radio Stations (AIR, FM, News, Devotional, Classical, Internet Radio)
+- Progressive Web App (installable, offline-capable)
+- Google Cast / Chromecast support
+- HLS proxy worker for AIR streams on Cast devices
+- Search, filter, and favorites
+- Recently played stations
+- Now-playing view with station logo and metadata
+- Volume control with mute toggle
+- Sleep timer
+- Station sharing (Web Share API)
+- Dark/light theme toggle
+- Audio equalizer (bass/treble)
+- Keyboard shortcuts (Space = play/pause, arrows = prev/next)
+- Automatically generated playlists
+- JSON-based station database
+- Python build system
+- GitHub Actions automation
 
 ---
 
-# Supported Players
+## Supported Players
 
 OpenRadio-IN playlists work with:
 
@@ -48,7 +50,7 @@ OpenRadio-IN playlists work with:
 
 ---
 
-# Repository Structure
+## Repository Structure
 
 ```
 OpenRadio-IN
@@ -69,6 +71,14 @@ OpenRadio-IN
 │   └── ...
 │
 ├── website/
+│   ├── index.html
+│   ├── assets/js/app.js
+│   ├── assets/css/style.css
+│   ├── hls-proxy-worker.js
+│   ├── cast-receiver.html
+│   ├── manifest.webmanifest
+│   ├── sw.js
+│   └── icons/
 │
 ├── docs/
 │
@@ -77,10 +87,10 @@ OpenRadio-IN
 
 ---
 
-# Available Playlists
+## Available Playlists
 
 | Playlist | Description |
-|-----------|-------------|
+|----------|-------------|
 | all.m3u | Every station |
 | telugu.m3u | Telugu stations |
 | air.m3u | All India Radio stations |
@@ -92,11 +102,9 @@ More playlists will be added as the database grows.
 
 ---
 
-# Database Format
+## Database Format
 
 Every station is stored in `database/stations.json`.
-
-Example:
 
 ```json
 {
@@ -104,10 +112,7 @@ Example:
   "name": "AIR Tirupati",
   "language": "Telugu",
   "country": "India",
-  "categories": [
-    "AIR",
-    "News"
-  ],
+  "categories": ["AIR", "News"],
   "logo": "https://example.com/logo.png",
   "streams": [
     {
@@ -121,46 +126,62 @@ Example:
 
 ---
 
-# Build Playlists
+## Build Playlists
 
 Generate all playlists:
-
 ```bash
 python build/generate_playlists.py
 ```
 
 Validate the database:
-
 ```bash
 python build/validate_database.py
 ```
 
 Generate statistics:
-
 ```bash
 python build/generate_stats.py
 ```
 
 ---
 
-# Website and PWA
+## Website and PWA
 
-The repository includes an installable, offline-capable radio directory in `website/`.
-It lists every station, filters by language or category, and supports instant search and browser playback.
+The repository includes an installable, offline-capable radio directory in `website/`. It lists every station, filters by language or category, and supports instant search and browser playback.
 
-The GitHub Actions workflow at `.github/workflows/deploy-pages.yml` deploys it to GitHub Pages whenever `main` is pushed. In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**. The deployed application will then be available at:
+The GitHub Actions workflow at `.github/workflows/deploy-pages.yml` deploys it to GitHub Pages whenever `main` is pushed. In the repository settings, set **Pages -> Build and deployment -> Source** to **GitHub Actions**.
 
-`https://<your-github-username>.github.io/OpenRadio-IN/`
+The workflow copies `database/stations.json` into the published site, so station updates are included automatically in every deployment.
 
-The workflow copies `database/stations.json` into the published site, so station updates are included automatically in every deployment. Commit and push changes to `website/` or `database/stations.json` to publish an updated PWA.
+### PWA Features
+
+- Installable (manifest + service worker)
+- Offline app shell and station list caching
+- Google Cast / Chromecast support for all stations
+- HLS proxy worker for AIR streams on Cast devices
+- Dark and light themes
+- Volume control with mute toggle
+- Sleep timer (15/30/60 min)
+- Audio equalizer (bass/treble shelving filters)
+- Station sharing via Web Share API
+- Keyboard shortcuts: Space = play/pause, Arrow keys = prev/next
+- Recently played stations tracking
+
+### HLS Proxy (for Chromecast)
+
+AIR stations use HLS streams from `radio.wavespb.com`, which blocks Google Cast devices. The proxy worker at `website/hls-proxy-worker.js` routes these streams through Cloudflare Workers so they play correctly on Cast devices.
+
+Deploy with:
+```bash
+cd website
+npx wrangler deploy
+```
 
 ---
 
-# Contributing
+## Contributing
 
-Contributions are welcome!
-
-You can help by:
+Contributions are welcome! You can help by:
 
 - Adding new radio stations
 - Updating broken streams
@@ -172,59 +193,54 @@ Please ensure every submitted stream is publicly accessible and legal to redistr
 
 ---
 
-# Roadmap
+## Version History
 
-## Version 0.5
+### v1.0.0
+- Chromecast support with HLS proxy worker
+- Now-playing view with station artwork
+- Volume control, mute toggle
+- Dark/light theme toggle
+- Sleep timer
+- Audio equalizer (bass/treble)
+- Station sharing via Web Share API
+- Keyboard shortcuts
+- Recently played stations
+- PNG icons for PWA install
+- Offline station data caching via service worker
 
+### v0.6
+- Tamil, Kannada, Malayalam, Hindi stations
+
+### v0.5
 - Searchable website
 - Embedded web player
 - Stream validation
 - Statistics generation
 
-## Version 0.6
-
-- Tamil stations
-- Kannada stations
-- Malayalam stations
-- Hindi stations
-
-## Version 1.0
-
-- 500+ verified stations
-- Automatic GitHub releases
-- Stream health monitoring
-- Public JSON API
-- GitHub Pages directory
-
 ---
 
-# License
+## License
 
 MIT License
 
 ---
 
-# Acknowledgements
+## Acknowledgements
 
 Thanks to:
-
 - All India Radio (Akashvani)
 - Public internet radio broadcasters
 - Open source contributors
-- Everyone who helps keep the station database up to date.
+- Everyone who helps keep the station database up to date
 
 ---
 
-## ⭐ Support the Project
+## Support the Project
 
 If you find OpenRadio-IN useful:
-
-⭐ Star this repository
-
-🐛 Report broken streams
-
-📻 Submit new stations
-
-🤝 Contribute improvements
+- Star this repository
+- Report broken streams
+- Submit new stations
+- Contribute improvements
 
 Every contribution helps make OpenRadio-IN a better resource for everyone.

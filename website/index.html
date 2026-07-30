@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" id="theme-color" content="#0f172a" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="description" content="OpenRadio-IN brings Indian online radio stations to your device with search, playback, and offline-ready support." />
     <title>OpenRadio-IN</title>
     <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="icons/icon.svg" />
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <script>
       window.__onGCastApiAvailable = (isAvailable) => {
@@ -24,13 +24,13 @@
     <div class="app-shell">
       <header class="hero-card">
         <div>
-          <p class="eyebrow">Community radio • PWA</p>
+          <p class="eyebrow">Community radio &bull; PWA</p>
           <h1>OpenRadio-IN <google-cast-launcher id="cast-button" aria-label="Cast radio to a Google Cast device"></google-cast-launcher></h1>
           <p class="hero-copy">Discover and play Indian online radio stations with instant search, filters, and a polished app-style experience.</p>
           <span id="status-pill" class="status-pill">Preparing</span>
         </div>
         <label class="search-box" for="search">
-          <span aria-hidden="true">🔎</span>
+          <span aria-hidden="true">&#x1F50E;</span>
           <input id="search" type="search" placeholder="Search stations, language, or category" />
         </label>
         <button id="install-app" class="secondary-btn" type="button" hidden>Install app</button>
@@ -38,7 +38,14 @@
 
       <section class="toolbar-card">
         <div id="filters" class="pill-row" aria-label="Station categories"></div>
-        <div id="results-count" class="results-count">Loading stations…</div>
+        <div id="results-count" class="results-count">Loading stations&hellip;</div>
+      </section>
+
+      <section id="recent-section" class="card-section" hidden>
+        <div class="section-head">
+          <h2>Recently Played</h2>
+        </div>
+        <div id="recent-stations" class="featured-grid"></div>
       </section>
 
       <section id="favorites-section" class="card-section">
@@ -56,17 +63,62 @@
         <div id="stations" class="station-grid"></div>
       </main>
 
-      <footer class="player-bar">
-        <div class="player-info">
+      <footer class="player-bar" id="player-bar">
+        <div class="player-info" id="player-info" role="button" tabindex="0" aria-label="Open now playing view">
           <strong id="player-title">Choose a station</strong>
           <span id="player-meta">Your selected radio station will appear here.</span>
         </div>
         <div class="player-controls">
-          <button id="prev-btn" class="icon-btn" disabled title="Previous">⏮</button>
-          <button id="play-toggle" class="primary-btn" disabled>▶ Play</button>
-          <button id="next-btn" class="icon-btn" disabled title="Next">⏭</button>
+          <button id="prev-btn" class="icon-btn" disabled title="Previous">&nbsp;&#x23EE;&nbsp;</button>
+          <button id="play-toggle" class="primary-btn" disabled>&#x25B6; Play</button>
+          <button id="next-btn" class="icon-btn" disabled title="Next">&nbsp;&#x23ED;&nbsp;</button>
+          <div class="volume-wrap" id="volume-wrap">
+            <button id="volume-btn" class="icon-btn" title="Mute/unmute">&#x1F50A;</button>
+            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume" />
+          </div>
         </div>
       </footer>
+    </div>
+
+    <div id="now-playing" class="now-playing-overlay" hidden>
+      <div class="now-playing-backdrop" id="now-playing-backdrop"></div>
+      <div class="now-playing-sheet">
+        <div class="now-playing-header">
+          <strong>Now Playing</strong>
+          <button id="now-playing-close" class="icon-btn" aria-label="Close">&times;</button>
+        </div>
+        <div class="now-playing-art">
+          <img id="now-playing-logo" src="" alt="" />
+        </div>
+        <strong id="now-playing-title" class="now-playing-title">Choose a station</strong>
+        <span id="now-playing-meta" class="now-playing-meta"></span>
+        <div class="now-playing-controls">
+          <button id="np-prev" class="icon-btn" title="Previous">&nbsp;&#x23EE;&nbsp;</button>
+          <button id="np-play-toggle" class="primary-btn">&#x25B6; Play</button>
+          <button id="np-next" class="icon-btn" title="Next">&nbsp;&#x23ED;&nbsp;</button>
+        </div>
+        <div class="now-playing-volume">
+          <button id="np-volume-btn" class="icon-btn" title="Mute/unmute">&#x1F50A;</button>
+          <input type="range" id="np-volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume" />
+        </div>
+        <div class="now-playing-actions" id="now-playing-actions">
+          <button id="share-btn" class="secondary-btn" title="Share station">&#x1F91D; Share</button>
+          <button id="sleep-timer-btn" class="secondary-btn" title="Sleep timer">&#x23F0; Timer</button>
+          <button id="theme-toggle" class="secondary-btn" title="Toggle theme">&#x2600;&#xFE0F; Light</button>
+          <button id="eq-toggle" class="secondary-btn" title="Toggle equalizer">&#x1F39B;&#xFE0F; EQ</button>
+        </div>
+        <div id="eq-controls" class="eq-controls" hidden>
+          <label>Bass <input type="range" id="bass-slider" min="-20" max="20" step="1" value="0" /></label>
+          <label>Treble <input type="range" id="treble-slider" min="-20" max="20" step="1" value="0" /></label>
+        </div>
+        <div id="sleep-timer-picker" class="sleep-timer-picker" hidden>
+          <button class="secondary-btn" data-minutes="15">15 min</button>
+          <button class="secondary-btn" data-minutes="30">30 min</button>
+          <button class="secondary-btn" data-minutes="60">60 min</button>
+          <button class="secondary-btn" data-minutes="0">Off</button>
+        </div>
+        <div id="sleep-timer-status" class="sleep-timer-status" hidden></div>
+      </div>
     </div>
 
     <audio id="audio-player" preload="none"></audio>

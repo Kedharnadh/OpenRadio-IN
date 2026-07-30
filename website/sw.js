@@ -1,4 +1,4 @@
-const CACHE_NAME = 'openradio-in-v4';
+const CACHE_NAME = 'openradio-in-v5';
 const APP_SHELL = [
   './',
   './index.html',
@@ -6,12 +6,12 @@ const APP_SHELL = [
   './assets/css/style.css',
   './assets/js/app.js',
   './icons/icon.svg',
+  './icons/icon-192x192.png',
+  './icons/icon-512x512.png',
   './data/stations.json'
 ];
 
 self.addEventListener('install', (event) => {
-  // data/stations.json is created by the GitHub Pages workflow. Keeping an
-  // individual cache failure non-fatal also makes local development work.
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => Promise.all(APP_SHELL.map((asset) => cache.add(asset).catch(() => undefined)))));
   self.skipWaiting();
 });
@@ -27,5 +27,15 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(fetch(event.request).catch(() => caches.match('./index.html')));
     return;
   }
-  event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)));
+  event.respondWith(
+    caches.match(event.request).then((cached) => {
+      const fetchPromise = fetch(event.request).then((response) => {
+        if (response.ok && response.type === 'basic') {
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, response.clone()));
+        }
+        return response;
+      }).catch(() => cached);
+      return cached || fetchPromise;
+    })
+  );
 });
