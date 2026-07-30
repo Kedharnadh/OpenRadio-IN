@@ -516,6 +516,19 @@
     setTimeout(() => playStation(state.currentStation), delay);
   }
 
+  function stopPlayback() {
+    state.userInitiatedStop = true;
+    if (state.hls) { state.hls.destroy(); state.hls = null; }
+    elements.audio.pause();
+    elements.audio.src = '';
+    state.playing = false;
+    state.nowPlayingTrack = '';
+    elements.nowPlayingTrack.hidden = true;
+    stopMetadataPolling();
+    updatePlayer();
+    renderStationLists();
+  }
+
   async function togglePlayback() {
     if (!state.currentStation) return;
     if (isCasting()) {
@@ -523,19 +536,7 @@
       return;
     }
     if (state.playing) {
-      state.userInitiatedStop = true;
-      if (state.hls) {
-        state.hls.destroy();
-        state.hls = null;
-      }
-      elements.audio.pause();
-      elements.audio.src = '';
-      state.playing = false;
-      state.nowPlayingTrack = '';
-      elements.nowPlayingTrack.hidden = true;
-      stopMetadataPolling();
-      updatePlayer();
-      renderStationLists();
+      stopPlayback();
       return;
     }
     await playStation(state.currentStation);
@@ -592,11 +593,12 @@
     if (minutes <= 0) {
       elements.sleepTimerPicker.hidden = true;
       elements.sleepTimerStatus.hidden = true;
+      elements.sleepTimerBtn.textContent = '\u23F0 Timer';
       return;
     }
     state.sleepTimerEnd = Date.now() + minutes * 60 * 1000;
     state.sleepTimerId = setTimeout(() => {
-      if (state.playing) togglePlayback();
+      stopPlayback();
       state.sleepTimerId = null;
       state.sleepTimerEnd = null;
       elements.sleepTimerStatus.hidden = true;
