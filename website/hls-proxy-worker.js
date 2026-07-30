@@ -23,6 +23,9 @@ async function handleRequest(request) {
     return new Response('Invalid URL', { status: 400, headers: CORS_HEADERS });
   }
 
+  // Allow caller to force a content type (e.g. audio/mpeg)
+  const forcedContentType = url.searchParams.get('contentType');
+
   // 1. Fetch manifest first to determine segment type and validate
   let manifest;
   try {
@@ -34,13 +37,17 @@ async function handleRequest(request) {
   }
 
   // 2. Determine correct content type from first segment URL
-  const segmentLines = manifest
-    .split('\n')
-    .map((l) => l.trim())
-    .filter((l) => l && !l.startsWith('#'));
-
-  const firstSegment = segmentLines[0];
-  const contentType = guessContentType(firstSegment, hlsUrl);
+  let contentType;
+  if (forcedContentType) {
+    contentType = forcedContentType;
+  } else {
+    const segmentLines = manifest
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l && !l.startsWith('#'));
+    const firstSegment = segmentLines[0];
+    contentType = guessContentType(firstSegment, hlsUrl);
+  }
 
   // 3. Stream segments with the correct content type
   const { readable, writable } = new TransformStream();
