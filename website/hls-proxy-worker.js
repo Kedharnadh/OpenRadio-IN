@@ -23,6 +23,11 @@ async function handleRequest(request) {
     return new Response('Invalid URL', { status: 400, headers: CORS_HEADERS });
   }
 
+  // Metadata proxy mode
+  if (url.searchParams.has('meta')) {
+    return handleMetadataRequest(hlsUrl);
+  }
+
   // Allow caller to force a content type (e.g. audio/mpeg)
   const forcedContentType = url.searchParams.get('contentType');
 
@@ -60,6 +65,67 @@ async function handleRequest(request) {
       'Cache-Control': 'no-cache',
     },
   });
+}
+
+async function handleMetadataRequest(streamUrl) {
+  try {
+    const resp = await fetch(streamUrl, {
+      headers: { 'Icy-MetaData': '1', 'Cache-Control': 'no-cache' },
+    });
+    const metaInt = parseInt(resp.headers.get('icy-metaint') || '0', 10);
+    if (!metaInt || metaInt <= 0) {
+      return new Response(JSON.stringify({ streamTitle: '', error: 'no-icy' }), {
+        headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+      });
+    }
+    const reader = resp.body.getReader();
+    // Read past the first metaInt bytes of audio data
+    let total = 0;
+    while (total < metaInt) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.length;
+    }
+    // Read the metadata block: first byte = metadata length / 16
+    const { value: metaBlock } = await reader.read();
+    if (!metaBlock || metaBlock.length === 0) {
+      return new Response(JSON.stringify({ streamTitle: '', error: 'no-block' }), {
+        headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+      });
+    }
+    const metaLen = metaBlock[0] * 16;
+    if (metaLen === 0) {
+      return new Response(JSON.stringify({ streamTitle: '', error: 'empty' }), {
+        headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+      });
+    }
+    // Read remaining metadata bytes
+    let metaStr = '';
+    let metaRead = metaBlock.length - 1;
+    if (metaRead >= metaLen) {
+      metaStr = new TextDecoder().decode(metaBlock.slice(1, metaLen + 1));
+    } else {
+      const remaining = new Uint8Array(metaLen - metaRead);
+      let offset = 0;
+      while (offset < remaining.length) {
+        const { done: rDone, value: rVal } = await reader.read();
+        if (rDone) break;
+        remaining.set(rVal, offset);
+        offset += rVal.length;
+      }
+      metaStr = new TextDecoder().decode(new Uint8Array([...metaBlock.slice(1), ...remaining]));
+    }
+    const match = metaStr.match(/StreamTitle='([^']*)'/);
+    const streamTitle = match ? match[1].trim() : '';
+    return new Response(JSON.stringify({ streamTitle }), {
+      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ streamTitle: '', error: err.message }), {
+      status: 502,
+      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+    });
+  }
 }
 
 function guessContentType(segment, baseUrl) {

@@ -9,6 +9,7 @@
     search: '',
     currentStation: null,
     playing: false,
+    nowPlayingTrack: '',
     currentSource: 'all',
     volume: parseFloat(localStorage.getItem('openradio-volume') || '1'),
     muted: false,
@@ -18,7 +19,8 @@
     maxRetries: 3,
     sleepTimerId: null,
     sleepTimerEnd: null,
-    userInitiatedStop: false
+    userInitiatedStop: false,
+    metadataIntervalId: null
   };
 
   const elements = {
@@ -50,6 +52,7 @@
     nowPlayingPlaceholder: document.getElementById('now-playing-placeholder'),
     nowPlayingTitle: document.getElementById('now-playing-title'),
     nowPlayingMeta: document.getElementById('now-playing-meta'),
+    nowPlayingTrack: document.getElementById('now-playing-track'),
     npPrev: document.getElementById('np-prev'),
     npPlayToggle: document.getElementById('np-play-toggle'),
     npNext: document.getElementById('np-next'),
@@ -176,6 +179,7 @@
       elements.nowPlayingMeta.textContent = '';
       elements.nowPlayingLogo.hidden = true;
       elements.nowPlayingPlaceholder.hidden = false;
+      elements.nowPlayingTrack.hidden = true;
       return;
     }
 
@@ -197,6 +201,12 @@
     elements.nowPlayingLogo.alt = station.name;
     elements.nowPlayingLogo.hidden = !station.logo;
     elements.nowPlayingPlaceholder.hidden = Boolean(station.logo);
+    if (state.nowPlayingTrack) {
+      elements.nowPlayingTrack.hidden = false;
+      elements.nowPlayingTrack.textContent = state.nowPlayingTrack;
+    } else {
+      elements.nowPlayingTrack.hidden = true;
+    }
   }
 
   /* ---------- Recent Stations ---------- */
@@ -471,6 +481,7 @@
       setStatus(`Playing ${station.name}`);
       localStorage.setItem('openradio-last-station', station.id);
       addRecentStation(station);
+      startMetadataPolling(stream.url);
       updatePlayer();
       renderStationLists();
       return;
@@ -484,6 +495,7 @@
       setStatus(`Playing ${station.name}`);
       localStorage.setItem('openradio-last-station', station.id);
       addRecentStation(station);
+      startMetadataPolling(stream.url);
     } catch (error) {
       state.playing = false;
       setStatus('Unable to start this stream');
@@ -519,6 +531,9 @@
       elements.audio.pause();
       elements.audio.src = '';
       state.playing = false;
+      state.nowPlayingTrack = '';
+      elements.nowPlayingTrack.hidden = true;
+      stopMetadataPolling();
       updatePlayer();
       renderStationLists();
       return;
@@ -610,6 +625,35 @@
       try { await navigator.share(shareData); } catch {}
     } else {
       try { await navigator.clipboard.writeText(shareData.url); setStatus('Link copied!'); } catch {}
+    }
+  }
+
+  /* ---------- Stream Metadata ---------- */
+
+  function fetchStreamMetadata(streamUrl) {
+    const metaUrl = `${HLS_PROXY_URL}?meta=1&url=${encodeURIComponent(streamUrl)}`;
+    fetch(metaUrl, { signal: AbortSignal.timeout(5000) })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.streamTitle) {
+          state.nowPlayingTrack = data.streamTitle;
+          elements.nowPlayingTrack.textContent = state.nowPlayingTrack;
+          elements.nowPlayingTrack.hidden = false;
+        }
+      })
+      .catch(() => {});
+  }
+
+  function startMetadataPolling(url) {
+    stopMetadataPolling();
+    fetchStreamMetadata(url);
+    state.metadataIntervalId = setInterval(() => fetchStreamMetadata(url), 30000);
+  }
+
+  function stopMetadataPolling() {
+    if (state.metadataIntervalId) {
+      clearInterval(state.metadataIntervalId);
+      state.metadataIntervalId = null;
     }
   }
 
@@ -713,6 +757,9 @@
   elements.audio.addEventListener('ended', () => {
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     state.playing = false;
+    state.nowPlayingTrack = '';
+    elements.nowPlayingTrack.hidden = true;
+    stopMetadataPolling();
     setStatus('Playback ended');
     updatePlayer();
     renderStationLists();
@@ -720,6 +767,9 @@
   elements.audio.addEventListener('error', () => {
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     state.playing = false;
+    state.nowPlayingTrack = '';
+    elements.nowPlayingTrack.hidden = true;
+    stopMetadataPolling();
     if (state.currentStation && !state.userInitiatedStop) retryPlayback();
     state.userInitiatedStop = false;
     updatePlayer();
