@@ -174,7 +174,8 @@
 
     const isHls = String(stream.codec || '').toLowerCase() === 'hls' || stream.url.includes('.m3u8');
     const useProxy = isHls && HLS_PROXY_URL;
-    const castUrl = useProxy ? `${HLS_PROXY_URL}?url=${encodeURIComponent(stream.url)}` : stream.url;
+    const contentType = streamContentType(stream, useProxy);
+    const castUrl = useProxy ? `${HLS_PROXY_URL}?url=${encodeURIComponent(stream.url)}&contentType=${encodeURIComponent(contentType)}` : stream.url;
 
     state.currentStation = station;
     if (state.hls) { state.hls.destroy(); state.hls = null; }
@@ -198,7 +199,7 @@
     }
 
     try {
-      await loadOnCast(streamContentType(stream, useProxy));
+      await loadOnCast(contentType);
       state.playing = true;
       setStatus(`Casting ${station.name}`);
     } catch (error) {
