@@ -17,7 +17,8 @@
     retryCount: 0,
     maxRetries: 3,
     sleepTimerId: null,
-    sleepTimerEnd: null
+    sleepTimerEnd: null,
+    userInitiatedStop: false
   };
 
   const elements = {
@@ -46,6 +47,7 @@
     nowPlayingBackdrop: document.getElementById('now-playing-backdrop'),
     nowPlayingClose: document.getElementById('now-playing-close'),
     nowPlayingLogo: document.getElementById('now-playing-logo'),
+    nowPlayingPlaceholder: document.getElementById('now-playing-placeholder'),
     nowPlayingTitle: document.getElementById('now-playing-title'),
     nowPlayingMeta: document.getElementById('now-playing-meta'),
     npPrev: document.getElementById('np-prev'),
@@ -168,6 +170,10 @@
       elements.npPlayToggle.textContent = '\u25b6 Play';
       elements.npPrev.disabled = true;
       elements.npNext.disabled = true;
+      elements.nowPlayingTitle.textContent = 'Choose a station';
+      elements.nowPlayingMeta.textContent = '';
+      elements.nowPlayingLogo.hidden = true;
+      elements.nowPlayingPlaceholder.hidden = false;
       return;
     }
 
@@ -188,6 +194,7 @@
     elements.nowPlayingLogo.src = station.logo || '';
     elements.nowPlayingLogo.alt = station.name;
     elements.nowPlayingLogo.hidden = !station.logo;
+    elements.nowPlayingPlaceholder.hidden = Boolean(station.logo);
   }
 
   /* ---------- Recent Stations ---------- */
@@ -389,6 +396,7 @@
 
     state.currentStation = station;
     state.retryCount = 0;
+    state.userInitiatedStop = false;
     const stream = streams[0];
 
     if (state.hls) {
@@ -485,6 +493,7 @@
       return;
     }
     if (state.playing) {
+      state.userInitiatedStop = true;
       if (state.hls) {
         state.hls.destroy();
         state.hls = null;
@@ -649,7 +658,10 @@
   elements.npPrev.addEventListener('click', () => playAdjacentStation(-1));
   elements.npNext.addEventListener('click', () => playAdjacentStation(1));
 
-  elements.playerInfo.addEventListener('click', openNowPlaying);
+  elements.playerBar.addEventListener('click', (e) => {
+    if (e.target.closest('button') || e.target.closest('input')) return;
+    openNowPlaying();
+  });
   elements.nowPlayingBackdrop.addEventListener('click', closeNowPlaying);
   elements.nowPlayingClose.addEventListener('click', closeNowPlaying);
 
@@ -688,7 +700,8 @@
   elements.audio.addEventListener('error', () => {
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     state.playing = false;
-    if (state.currentStation) retryPlayback();
+    if (state.currentStation && !state.userInitiatedStop) retryPlayback();
+    state.userInitiatedStop = false;
     updatePlayer();
     renderStationLists();
   });
