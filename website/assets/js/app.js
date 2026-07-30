@@ -7,7 +7,8 @@
     activeCategory: 'all',
     search: '',
     currentStation: null,
-    playing: false
+    playing: false,
+    currentSource: 'all'
   };
 
   const elements = {
@@ -356,11 +357,15 @@
   }
 
   function playAdjacentStation(direction) {
-    if (!state.currentStation || state.filteredStations.length < 2) return;
-    const currentIndex = state.filteredStations.findIndex((s) => s.id === state.currentStation.id);
+    if (!state.currentStation) return;
+    const list = state.currentSource === 'favorites'
+      ? state.stations.filter((s) => state.favorites.has(s.id))
+      : state.filteredStations;
+    if (list.length < 2) return;
+    const currentIndex = list.findIndex((s) => s.id === state.currentStation.id);
     if (currentIndex === -1) return;
-    const nextIndex = (currentIndex + direction + state.filteredStations.length) % state.filteredStations.length;
-    playStation(state.filteredStations[nextIndex]);
+    const nextIndex = (currentIndex + direction + list.length) % list.length;
+    playStation(list[nextIndex]);
   }
 
   async function handleStationAction(event) {
@@ -374,6 +379,7 @@
       renderStationLists();
       return;
     }
+    state.currentSource = event.currentTarget === elements.featured ? 'favorites' : 'all';
     if (state.currentStation?.id === station.id && state.playing) await togglePlayback();
     else await playStation(station);
   }
