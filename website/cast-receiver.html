@@ -46,6 +46,11 @@
         ];
         if (hlsErrors.includes(event.detailedErrorCode) && formatFallback < formats.length - 1) {
           formatFallback++;
+          const mediaInfo = playerManager.getMediaInformation();
+          if (mediaInfo) {
+            mediaInfo.hlsSegmentFormat = formats[formatFallback];
+            playerManager.load({ media: mediaInfo });
+          }
         }
       });
 

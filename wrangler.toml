@@ -1,0 +1,3 @@
+name = "openradio-hls-proxy"
+main = "website/hls-proxy-worker.js"
+compatibility_date = "2025-07-30"
