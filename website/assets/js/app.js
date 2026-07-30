@@ -232,13 +232,14 @@
     thumb.loading = 'lazy';
     thumb.alt = station.name;
     thumb.dataset.fallback = initials;
+    const thumbFallback = makeElement('span', 'station-thumb-fallback', initials);
     if (station.logo) {
       thumb.src = station.logo;
+      thumbFallback.hidden = true;
     } else {
       thumb.style.display = 'none';
     }
-    thumb.addEventListener('error', () => { thumb.style.display = 'none'; });
-    const thumbFallback = makeElement('span', 'station-thumb-fallback', initials);
+    thumb.addEventListener('error', () => { thumb.style.display = 'none'; thumbFallback.hidden = false; });
 
     const titleBlock = document.createElement('div');
     titleBlock.append(makeElement('h3', '', station.name), makeElement('p', '', stationTags(station)));
