@@ -239,6 +239,17 @@ h1 { display: flex; align-items: center; gap: 8px; }
   user-select: none;
 }
 
+.station-card__title {
+  flex: 1;
+  min-width: 0;
+}
+
+.station-card__title h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .station-card p,
 .station-card span {
   color: var(--muted);
@@ -554,17 +565,6 @@ input[type="range"]::-moz-range-thumb {
     gap: 8px;
   }
 
-  .station-card__top {
-    gap: 8px;
-  }
-
-  .station-thumb,
-  .station-thumb-fallback {
-    width: 32px;
-    height: 32px;
-    font-size: 0.75rem;
-  }
-
   .player-bar {
     flex-direction: row;
     flex-wrap: wrap;
@@ -712,12 +712,5 @@ input[type="range"]::-moz-range-thumb {
 
   .station-grid {
     grid-template-columns: 1fr;
-  }
-
-  .station-thumb,
-  .station-thumb-fallback {
-    width: 28px;
-    height: 28px;
-    font-size: 0.7rem;
   }
 }
