@@ -37,10 +37,7 @@
   // by setting the correct hlsSegmentFormat for TS segments with AAC.
   const CUSTOM_CAST_APP_ID = '45881BB0'; // e.g. 'ABCD1234'
 
-  // Set this to your deployed Cloudflare Worker URL when using HLS proxy.
-  // Deploy hls-proxy-worker.js to https://workers.cloudflare.com (free tier).
-  // Example: const HLS_PROXY_URL = 'https://hls-proxy.username.workers.dev';
-  const HLS_PROXY_URL = '';
+  const HLS_PROXY_URL = 'https://openradio-hls-proxy.kedharnadh1.workers.dev';
 
   function setStatus(message) {
     elements.status.textContent = message;
@@ -179,13 +176,6 @@
     const useProxy = isHls && HLS_PROXY_URL;
     const castUrl = useProxy ? `${HLS_PROXY_URL}?url=${encodeURIComponent(stream.url)}` : stream.url;
 
-    const media = new chrome.cast.media.MediaInfo(castUrl, streamContentType(stream, useProxy));
-    media.streamType = chrome.cast.media.StreamType.LIVE;
-    media.metadata = new chrome.cast.media.MusicTrackMediaMetadata();
-    media.metadata.title = station.name;
-    media.metadata.artist = station.language || 'OpenRadio-IN';
-    if (station.logo) media.metadata.images = [new chrome.cast.Image(station.logo)];
-
     state.currentStation = station;
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     elements.audio.pause();
@@ -196,14 +186,29 @@
       setStatus('No Cast session available');
       return;
     }
-    try {
+
+    async function loadOnCast(contentType) {
+      const media = new chrome.cast.media.MediaInfo(castUrl, contentType);
+      media.streamType = chrome.cast.media.StreamType.LIVE;
+      media.metadata = new chrome.cast.media.MusicTrackMediaMetadata();
+      media.metadata.title = station.name;
+      media.metadata.artist = station.language || 'OpenRadio-IN';
+      if (station.logo) media.metadata.images = [new chrome.cast.Image(station.logo)];
       await session.loadMedia(new chrome.cast.media.LoadRequest(media));
+    }
+
+    try {
+      await loadOnCast(streamContentType(stream, useProxy));
       state.playing = true;
       setStatus(`Casting ${station.name}`);
     } catch (error) {
       state.playing = false;
-      setStatus('Unable to cast this stream');
-      console.error(error);
+      console.error('Cast loadMedia error:', error.message || error);
+      if (isHls && !useProxy) {
+        setStatus(`Cast blocked for this HLS stream. Deploy the proxy worker (see hls-proxy-worker.js) and set HLS_PROXY_URL in app.js.`);
+      } else {
+        setStatus(`Cast error: ${error.message || 'Unable to cast'}`);
+      }
     }
     updatePlayer();
     renderStationLists();
