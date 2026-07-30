@@ -171,28 +171,31 @@
   }
 
   async function castStation(station) {
-    const stream = [...(station.streams || [])].filter((entry) => entry.url).sort((first, second) => (first.priority || Infinity) - (second.priority || Infinity))[0];
-    const session = castContext?.getCurrentSession();
-    if (!stream || !session) return;
+    const streams = [...(station.streams || [])].filter((s) => s.url).sort((a, b) => (a.priority || Infinity) - (b.priority || Infinity));
+    if (!streams.length) return;
+    const stream = streams[0];
 
     const isHls = String(stream.codec || '').toLowerCase() === 'hls' || stream.url.includes('.m3u8');
-
-    // Use the HLS proxy for audio-only HLS streams: the proxy fetches HLS
-    // segments and streams them as continuous audio/mpeg, which the
-    // Default Media Receiver can play reliably.
     const useProxy = isHls && HLS_PROXY_URL;
     const castUrl = useProxy ? `${HLS_PROXY_URL}?url=${encodeURIComponent(stream.url)}` : stream.url;
 
     const media = new chrome.cast.media.MediaInfo(castUrl, streamContentType(stream, useProxy));
     media.streamType = chrome.cast.media.StreamType.LIVE;
-    const metadata = new chrome.cast.media.MusicTrackMediaMetadata();
-    metadata.title = station.name;
-    metadata.artist = station.language || 'OpenRadio-IN';
-    if (station.logo) metadata.images = [new chrome.cast.Image(station.logo)];
-    media.metadata = metadata;
+    media.metadata = new chrome.cast.media.MusicTrackMediaMetadata();
+    media.metadata.title = station.name;
+    media.metadata.artist = station.language || 'OpenRadio-IN';
+    if (station.logo) media.metadata.images = [new chrome.cast.Image(station.logo)];
 
     state.currentStation = station;
+    if (state.hls) { state.hls.destroy(); state.hls = null; }
     elements.audio.pause();
+    elements.audio.src = '';
+
+    const session = castContext?.getCurrentSession();
+    if (!session) {
+      setStatus('No Cast session available');
+      return;
+    }
     try {
       await session.loadMedia(new chrome.cast.media.LoadRequest(media));
       state.playing = true;
@@ -218,21 +221,22 @@
   }
 
   function initializeCast() {
-    if (!window.cast || castContext) return;
+    if (typeof window.cast === 'undefined' || castContext) return;
     castContext = cast.framework.CastContext.getInstance();
-    // When the HLS proxy is configured, use the Default Media Receiver
-    // since the proxy delivers plain audio/mpeg. Otherwise use the custom
-    // receiver for native HLS handling.
     const appId = HLS_PROXY_URL ? chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID : CUSTOM_CAST_APP_ID;
-    castContext.setOptions({ receiverApplicationId: appId, autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED });
+    castContext.setOptions({ receiverApplicationId: appId, autoJoinPolicy: chrome.cast.AutoJoinPolicy.TAB_AND_ORIGIN_SCOPED });
     castContext.addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, (event) => {
-      if (event.castState === cast.framework.CastState.CONNECTED) {
-        setupCastPlayer();
-        if (state.currentStation) castStation(state.currentStation);
-      }
-      if (event.castState === cast.framework.CastState.NOT_CONNECTED || event.castState === cast.framework.CastState.NO_DEVICES_AVAILABLE) {
-        castPlayer = undefined;
-        castPlayerController = undefined;
+      switch (event.castState) {
+        case cast.framework.CastState.CONNECTED:
+          setupCastPlayer();
+          if (state.currentStation) castStation(state.currentStation);
+          break;
+        case cast.framework.CastState.NOT_CONNECTED:
+        case cast.framework.CastState.NO_DEVICES_AVAILABLE:
+          castPlayer = undefined;
+          castPlayerController = undefined;
+          state.playing = false;
+          break;
       }
       updatePlayer();
     });

@@ -14,36 +14,38 @@
     <script>
       const context = cast.framework.CastReceiverContext.getInstance();
       const playerManager = context.getPlayerManager();
-      let useGenericTs = false;
+      let formatFallback = 0;
+      const formats = [
+        cast.framework.messages.HlsSegmentFormat.TS_AAC,
+        cast.framework.messages.HlsSegmentFormat.TS,
+        cast.framework.messages.HlsSegmentFormat.FMP4
+      ];
 
       playerManager.setMessageInterceptor(
         cast.framework.messages.MessageType.LOAD,
         (request) => {
           if (request && request.media) {
-            // Only apply HLS-specific handling when the content is HLS.
-            // When the HLS proxy is active, the sender sends audio/mpeg
-            // instead of application/vnd.apple.mpegurl, so we skip HLS
-            // config and let the Default Media Receiver handle it natively.
             const ct = (request.media.contentType || '').toLowerCase();
             if (ct === 'application/vnd.apple.mpegurl' || ct.includes('mpegurl')) {
-              request.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.TS_AAC;
+              request.media.hlsSegmentFormat = formats[formatFallback];
               request.media.protocolType = cast.framework.messages.ProtocolType.HLS;
             }
+            request.media.contentId = request.media.contentId || request.media.url || '';
             request.media.streamType = cast.framework.messages.StreamType.LIVE;
           }
           return request;
         }
       );
 
-      playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
-        if (loadRequest && loadRequest.media && useGenericTs) {
-          loadRequest.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.TS;
-        }
-      });
-
       playerManager.addEventListener(cast.framework.events.EventType.ERROR, (event) => {
-        if (event.detailedErrorCode === cast.framework.events.DetailedErrorCode.HLS_NETWORK_INVALID_SEGMENT) {
-          useGenericTs = true;
+        const hlsErrors = [
+          cast.framework.events.DetailedErrorCode.HLS_NETWORK_INVALID_SEGMENT,
+          cast.framework.events.DetailedErrorCode.HLS_NETWORK_MANIFEST_INVALID,
+          cast.framework.events.DetailedErrorCode.HLS_SEGMENT_PARSE_ERROR,
+          cast.framework.events.DetailedErrorCode.MEDIA_SOURCE_OP_FAILED
+        ];
+        if (hlsErrors.includes(event.detailedErrorCode) && formatFallback < formats.length - 1) {
+          formatFallback++;
         }
       });
 
