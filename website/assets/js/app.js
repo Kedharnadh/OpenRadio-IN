@@ -89,7 +89,7 @@
     const destination = isCasting() ? 'Casting' : (station.streams?.[0]?.codec || 'Stream');
     elements.playerMeta.textContent = `${station.language || 'Unknown language'} \u2022 ${destination}`;
     elements.playToggle.disabled = false;
-    elements.playToggle.textContent = state.playing ? '\u23f8 Pause' : '\u25b6 Play';
+    elements.playToggle.textContent = state.playing ? '\u23f9 Stop' : '\u25b6 Play';
     elements.prevBtn.disabled = !hasMultiple;
     elements.nextBtn.disabled = !hasMultiple;
   }
@@ -112,7 +112,7 @@
 
     const footer = makeElement('div', 'station-card__footer');
     footer.append(makeElement('span', '', featured ? (station.verified ? 'Verified' : 'Community') : (station.country || 'India')));
-    const play = makeElement('button', 'secondary-btn', state.currentStation?.id === station.id && state.playing ? 'Pause' : 'Play');
+    const play = makeElement('button', 'secondary-btn', state.currentStation?.id === station.id && state.playing ? 'Stop' : 'Play');
     play.type = 'button';
     play.dataset.action = 'play';
     play.dataset.id = station.id;
@@ -339,6 +339,7 @@
         state.hls = null;
       }
       elements.audio.pause();
+      elements.audio.src = '';
       return;
     }
     await playStation(state.currentStation);
