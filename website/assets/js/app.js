@@ -17,11 +17,7 @@
     retryCount: 0,
     maxRetries: 3,
     sleepTimerId: null,
-    sleepTimerEnd: null,
-    audioContext: null,
-    bassFilter: null,
-    trebleFilter: null,
-    eqGain: { bass: 0, treble: 0 }
+    sleepTimerEnd: null
   };
 
   const elements = {
@@ -61,11 +57,7 @@
     sleepTimerBtn: document.getElementById('sleep-timer-btn'),
     sleepTimerPicker: document.getElementById('sleep-timer-picker'),
     sleepTimerStatus: document.getElementById('sleep-timer-status'),
-    themeToggle: document.getElementById('theme-toggle'),
-    eqToggle: document.getElementById('eq-toggle'),
-    eqControls: document.getElementById('eq-controls'),
-    bassSlider: document.getElementById('bass-slider'),
-    trebleSlider: document.getElementById('treble-slider')
+    themeToggle: document.getElementById('theme-toggle')
   };
   let installPrompt;
   let castContext;
@@ -592,44 +584,6 @@
     }
   }
 
-  /* ---------- Web Audio EQ ---------- */
-
-  function setupEQ() {
-    if (state.audioContext) return;
-    try {
-      state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const source = state.audioContext.createMediaElementSource(elements.audio);
-      state.bassFilter = state.audioContext.createBiquadFilter();
-      state.bassFilter.type = 'lowshelf';
-      state.bassFilter.frequency.value = 200;
-      state.bassFilter.gain.value = 0;
-      state.trebleFilter = state.audioContext.createBiquadFilter();
-      state.trebleFilter.type = 'highshelf';
-      state.trebleFilter.frequency.value = 3000;
-      state.trebleFilter.gain.value = 0;
-      source.connect(state.bassFilter);
-      state.bassFilter.connect(state.trebleFilter);
-      state.trebleFilter.connect(state.audioContext.destination);
-    } catch (e) {
-      console.warn('Web Audio EQ not available:', e);
-    }
-  }
-
-  function applyEQ() {
-    if (state.bassFilter) state.bassFilter.gain.value = state.eqGain.bass;
-    if (state.trebleFilter) state.trebleFilter.gain.value = state.eqGain.treble;
-  }
-
-  function toggleEQ() {
-    if (elements.eqControls.hidden) {
-      elements.eqControls.hidden = false;
-      elements.eqToggle.textContent = '\u{1F39B}\uFE0F Close EQ';
-    } else {
-      elements.eqControls.hidden = true;
-      elements.eqToggle.textContent = '\u{1F39B}\uFE0F EQ';
-    }
-  }
-
   /* ---------- Keyboard Shortcuts ---------- */
 
   function handleKeydown(e) {
@@ -717,16 +671,11 @@
 
   elements.themeToggle.addEventListener('click', toggleTheme);
 
-  elements.eqToggle.addEventListener('click', toggleEQ);
-  elements.bassSlider.addEventListener('input', (e) => { state.eqGain.bass = parseFloat(e.target.value); applyEQ(); });
-  elements.trebleSlider.addEventListener('input', (e) => { state.eqGain.treble = parseFloat(e.target.value); applyEQ(); });
-
   elements.audio.addEventListener('play', () => {
     state.playing = true;
     state.retryCount = 0;
     updatePlayer();
     renderStationLists();
-    if (!state.audioContext && elements.eqControls.hidden === false) setupEQ();
   });
   elements.audio.addEventListener('pause', () => { state.playing = false; updatePlayer(); renderStationLists(); });
   elements.audio.addEventListener('ended', () => {

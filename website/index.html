@@ -85,7 +85,7 @@
       <div class="now-playing-sheet">
         <div class="now-playing-header">
           <strong>Now Playing</strong>
-          <button id="now-playing-close" class="icon-btn" aria-label="Close">&times;</button>
+          <button id="now-playing-close" class="icon-btn close-btn" aria-label="Close">&#x2715;</button>
         </div>
         <div class="now-playing-art">
           <img id="now-playing-logo" src="" alt="" />
@@ -105,11 +105,6 @@
           <button id="share-btn" class="secondary-btn" title="Share station">&#x1F91D; Share</button>
           <button id="sleep-timer-btn" class="secondary-btn" title="Sleep timer">&#x23F0; Timer</button>
           <button id="theme-toggle" class="secondary-btn" title="Toggle theme">&#x2600;&#xFE0F; Light</button>
-          <button id="eq-toggle" class="secondary-btn" title="Toggle equalizer">&#x1F39B;&#xFE0F; EQ</button>
-        </div>
-        <div id="eq-controls" class="eq-controls" hidden>
-          <label>Bass <input type="range" id="bass-slider" min="-20" max="20" step="1" value="0" /></label>
-          <label>Treble <input type="range" id="treble-slider" min="-20" max="20" step="1" value="0" /></label>
         </div>
         <div id="sleep-timer-picker" class="sleep-timer-picker" hidden>
           <button class="secondary-btn" data-minutes="15">15 min</button>
