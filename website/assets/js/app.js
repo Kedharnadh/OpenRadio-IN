@@ -242,6 +242,7 @@
     thumb.addEventListener('error', () => { thumb.style.display = 'none'; thumbFallback.hidden = false; });
 
     const titleBlock = document.createElement('div');
+    titleBlock.className = 'station-card__title';
     titleBlock.append(makeElement('h3', '', station.name), makeElement('p', '', stationTags(station)));
 
     const favorite = makeElement('button', `icon-btn${state.favorites.has(station.id) ? ' active' : ''}`, state.favorites.has(station.id) ? '\u2665' : '\u2661');
