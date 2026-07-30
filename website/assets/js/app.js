@@ -4,11 +4,24 @@
     stations: [],
     filteredStations: [],
     favorites: new Set(JSON.parse(localStorage.getItem('openradio-favorites') || '[]')),
+    recentStations: JSON.parse(localStorage.getItem('openradio-recent') || '[]'),
     activeCategory: 'all',
     search: '',
     currentStation: null,
     playing: false,
-    currentSource: 'all'
+    currentSource: 'all',
+    volume: parseFloat(localStorage.getItem('openradio-volume') || '1'),
+    muted: false,
+    previousVolume: 1,
+    theme: localStorage.getItem('openradio-theme') || 'dark',
+    retryCount: 0,
+    maxRetries: 3,
+    sleepTimerId: null,
+    sleepTimerEnd: null,
+    audioContext: null,
+    bassFilter: null,
+    trebleFilter: null,
+    eqGain: { bass: 0, treble: 0 }
   };
 
   const elements = {
@@ -24,21 +37,44 @@
     prevBtn: document.getElementById('prev-btn'),
     nextBtn: document.getElementById('next-btn'),
     favoritesSection: document.getElementById('favorites-section'),
+    recentSection: document.getElementById('recent-section'),
+    recentStations: document.getElementById('recent-stations'),
     install: document.getElementById('install-app'),
     cast: document.getElementById('cast-button'),
-    audio: document.getElementById('audio-player')
+    audio: document.getElementById('audio-player'),
+    playerBar: document.getElementById('player-bar'),
+    playerInfo: document.getElementById('player-info'),
+    volumeSlider: document.getElementById('volume-slider'),
+    volumeBtn: document.getElementById('volume-btn'),
+    nowPlaying: document.getElementById('now-playing'),
+    nowPlayingBackdrop: document.getElementById('now-playing-backdrop'),
+    nowPlayingClose: document.getElementById('now-playing-close'),
+    nowPlayingLogo: document.getElementById('now-playing-logo'),
+    nowPlayingTitle: document.getElementById('now-playing-title'),
+    nowPlayingMeta: document.getElementById('now-playing-meta'),
+    npPrev: document.getElementById('np-prev'),
+    npPlayToggle: document.getElementById('np-play-toggle'),
+    npNext: document.getElementById('np-next'),
+    npVolumeSlider: document.getElementById('np-volume-slider'),
+    npVolumeBtn: document.getElementById('np-volume-btn'),
+    shareBtn: document.getElementById('share-btn'),
+    sleepTimerBtn: document.getElementById('sleep-timer-btn'),
+    sleepTimerPicker: document.getElementById('sleep-timer-picker'),
+    sleepTimerStatus: document.getElementById('sleep-timer-status'),
+    themeToggle: document.getElementById('theme-toggle'),
+    eqToggle: document.getElementById('eq-toggle'),
+    eqControls: document.getElementById('eq-controls'),
+    bassSlider: document.getElementById('bass-slider'),
+    trebleSlider: document.getElementById('treble-slider')
   };
   let installPrompt;
   let castContext;
   let castPlayer;
   let castPlayerController;
 
-  // Custom Cast receiver App ID registered in Google Cast SDK Console.
-  // The receiver (cast-receiver.html) handles HLS audio-only streams
-  // by setting the correct hlsSegmentFormat for TS segments with AAC.
-  const CUSTOM_CAST_APP_ID = '45881BB0'; // e.g. 'ABCD1234'
-
+  const CUSTOM_CAST_APP_ID = '45881BB0';
   const HLS_PROXY_URL = 'https://openradio-hls-proxy.kedharnadh1.workers.dev';
+  const RECENT_MAX = 10;
 
   function setStatus(message) {
     elements.status.textContent = message;
@@ -70,9 +106,65 @@
     return searchable.includes(query) && hasCategory(station, state.activeCategory);
   }
 
+  /* ---------- Theme ---------- */
+
+  function setTheme(theme) {
+    state.theme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('openradio-theme', theme);
+    const metaTheme = document.getElementById('theme-color');
+    if (theme === 'light') {
+      elements.themeToggle.textContent = '\u{1F319} Dark';
+      if (metaTheme) metaTheme.content = '#f1f5f9';
+    } else {
+      elements.themeToggle.textContent = '\u2600\uFE0F Light';
+      if (metaTheme) metaTheme.content = '#0f172a';
+    }
+  }
+
+  function toggleTheme() {
+    setTheme(state.theme === 'dark' ? 'light' : 'dark');
+  }
+
+  /* ---------- Volume ---------- */
+
+  function applyVolume(value) {
+    const vol = Math.max(0, Math.min(1, value));
+    state.volume = vol;
+    elements.audio.volume = vol;
+    elements.volumeSlider.value = vol;
+    elements.npVolumeSlider.value = vol;
+    localStorage.setItem('openradio-volume', String(vol));
+    updateVolumeIcon();
+  }
+
+  function updateVolumeIcon() {
+    const icon = state.muted || state.volume === 0 ? '\u{1F507}' : state.volume < 0.5 ? '\u{1F509}' : '\u{1F50A}';
+    elements.volumeBtn.textContent = icon;
+    elements.npVolumeBtn.textContent = icon;
+  }
+
+  function toggleMute() {
+    if (state.muted) {
+      state.muted = false;
+      applyVolume(state.previousVolume);
+    } else {
+      state.muted = true;
+      state.previousVolume = state.volume;
+      applyVolume(0);
+    }
+    updateVolumeIcon();
+  }
+
+  /* ---------- Update Player ---------- */
+
   function updatePlayer() {
     const station = state.currentStation;
-    const hasMultiple = state.filteredStations.length > 1;
+    const list = state.currentSource === 'favorites'
+      ? state.stations.filter((s) => state.favorites.has(s.id))
+      : state.filteredStations;
+    const hasMultiple = list.length > 1;
+
     if (!station) {
       elements.playerTitle.textContent = 'Choose a station';
       elements.playerMeta.textContent = 'Your selected radio station will appear here.';
@@ -80,17 +172,55 @@
       elements.playToggle.textContent = '\u25b6 Play';
       elements.prevBtn.disabled = true;
       elements.nextBtn.disabled = true;
+      elements.npPlayToggle.disabled = true;
+      elements.npPlayToggle.textContent = '\u25b6 Play';
+      elements.npPrev.disabled = true;
+      elements.npNext.disabled = true;
       return;
     }
 
+    const stationText = state.playing ? '\u23f9 Stop' : '\u25b6 Play';
     elements.playerTitle.textContent = station.name;
     const destination = isCasting() ? 'Casting' : (station.streams?.[0]?.codec || 'Stream');
     elements.playerMeta.textContent = `${station.language || 'Unknown language'} \u2022 ${destination}`;
     elements.playToggle.disabled = false;
-    elements.playToggle.textContent = state.playing ? '\u23f9 Stop' : '\u25b6 Play';
+    elements.playToggle.textContent = stationText;
     elements.prevBtn.disabled = !hasMultiple;
     elements.nextBtn.disabled = !hasMultiple;
+    elements.npPlayToggle.disabled = false;
+    elements.npPlayToggle.textContent = stationText;
+    elements.npPrev.disabled = !hasMultiple;
+    elements.npNext.disabled = !hasMultiple;
+    elements.nowPlayingTitle.textContent = station.name;
+    elements.nowPlayingMeta.textContent = `${station.language || 'Unknown language'} \u2022 ${destination}`;
+    elements.nowPlayingLogo.src = station.logo || '';
+    elements.nowPlayingLogo.alt = station.name;
+    elements.nowPlayingLogo.hidden = !station.logo;
   }
+
+  /* ---------- Recent Stations ---------- */
+
+  function addRecentStation(station) {
+    state.recentStations = state.recentStations.filter((s) => s.id !== station.id);
+    state.recentStations.unshift({ id: station.id, name: station.name, language: station.language, categories: station.categories });
+    if (state.recentStations.length > RECENT_MAX) state.recentStations.pop();
+    localStorage.setItem('openradio-recent', JSON.stringify(state.recentStations));
+    renderRecent();
+  }
+
+  function renderRecent() {
+    if (!state.recentStations.length) {
+      elements.recentSection.hidden = true;
+      return;
+    }
+    elements.recentSection.hidden = false;
+    const recentList = state.recentStations
+      .map((r) => state.stations.find((s) => s.id === r.id))
+      .filter(Boolean);
+    elements.recentStations.replaceChildren(...recentList.map((s) => createStationCard(s, true)));
+  }
+
+  /* ---------- Station Card, Filters, Render ---------- */
 
   function createStationCard(station, featured) {
     const card = makeElement('article', `station-card${featured ? ' featured-card' : ''}`);
@@ -142,6 +272,7 @@
       elements.favoritesSection.hidden = true;
     }
     elements.stations.replaceChildren(...(state.filteredStations.length ? state.filteredStations.map((station) => createStationCard(station, false)) : [makeElement('div', 'empty-state', 'No stations match this search yet. Try a different keyword.')]));
+    renderRecent();
   }
 
   function applyFilters() {
@@ -154,6 +285,8 @@
   function saveFavorites() {
     localStorage.setItem('openradio-favorites', JSON.stringify([...state.favorites]));
   }
+
+  /* ---------- Cast ---------- */
 
   function isCasting() {
     return Boolean(castContext && window.cast && castContext.getCastState() === cast.framework.CastState.CONNECTED);
@@ -172,7 +305,6 @@
     const streams = [...(station.streams || [])].filter((s) => s.url).sort((a, b) => (a.priority || Infinity) - (b.priority || Infinity));
     if (!streams.length) return;
     const stream = streams[0];
-
     const isHls = String(stream.codec || '').toLowerCase() === 'hls' || stream.url.includes('.m3u8');
     const useProxy = isHls && HLS_PROXY_URL;
     const contentType = streamContentType(stream, useProxy);
@@ -189,8 +321,8 @@
       return;
     }
 
-    async function loadOnCast(contentType) {
-      const media = new chrome.cast.media.MediaInfo(castUrl, contentType);
+    async function loadOnCast(ct) {
+      const media = new chrome.cast.media.MediaInfo(castUrl, ct);
       media.streamType = chrome.cast.media.StreamType.LIVE;
       media.metadata = new chrome.cast.media.MusicTrackMediaMetadata();
       media.metadata.title = station.name;
@@ -249,6 +381,8 @@
     });
   }
 
+  /* ---------- Playback & Retry ---------- */
+
   async function playStation(station) {
     const streams = [...(station.streams || [])].filter((stream) => stream.url).sort((first, second) => (first.priority || Infinity) - (second.priority || Infinity));
     if (!streams.length) {
@@ -262,6 +396,7 @@
     }
 
     state.currentStation = station;
+    state.retryCount = 0;
     const stream = streams[0];
 
     if (state.hls) {
@@ -317,6 +452,7 @@
       state.playing = true;
       setStatus(`Playing ${station.name}`);
       localStorage.setItem('openradio-last-station', station.id);
+      addRecentStation(station);
       updatePlayer();
       renderStationLists();
       return;
@@ -329,6 +465,7 @@
       state.playing = true;
       setStatus(`Playing ${station.name}`);
       localStorage.setItem('openradio-last-station', station.id);
+      addRecentStation(station);
     } catch (error) {
       state.playing = false;
       setStatus('Unable to start this stream');
@@ -336,6 +473,17 @@
     }
     updatePlayer();
     renderStationLists();
+  }
+
+  function retryPlayback() {
+    if (!state.currentStation || state.retryCount >= state.maxRetries) {
+      state.retryCount = 0;
+      return;
+    }
+    state.retryCount++;
+    const delay = Math.min(1000 * Math.pow(2, state.retryCount), 15000);
+    setStatus(`Retrying in ${Math.round(delay / 1000)}s (${state.retryCount}/${state.maxRetries})...`);
+    setTimeout(() => playStation(state.currentStation), delay);
   }
 
   async function togglePlayback() {
@@ -351,6 +499,9 @@
       }
       elements.audio.pause();
       elements.audio.src = '';
+      state.playing = false;
+      updatePlayer();
+      renderStationLists();
       return;
     }
     await playStation(state.currentStation);
@@ -379,16 +530,130 @@
       renderStationLists();
       return;
     }
-    state.currentSource = event.currentTarget === elements.featured ? 'favorites' : 'all';
+    state.currentSource = event.currentTarget === elements.featured || event.currentTarget === elements.recentStations ? 'favorites' : 'all';
     if (state.currentStation?.id === station.id && state.playing) await togglePlayback();
     else await playStation(station);
   }
 
+  /* ---------- Now Playing Sheet ---------- */
+
+  function openNowPlaying() {
+    elements.nowPlaying.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeNowPlaying() {
+    elements.nowPlaying.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  /* ---------- Sleep Timer ---------- */
+
+  function setSleepTimer(minutes) {
+    if (state.sleepTimerId) {
+      clearTimeout(state.sleepTimerId);
+      state.sleepTimerId = null;
+    }
+    state.sleepTimerEnd = null;
+    if (minutes <= 0) {
+      elements.sleepTimerPicker.hidden = true;
+      elements.sleepTimerStatus.hidden = true;
+      return;
+    }
+    state.sleepTimerEnd = Date.now() + minutes * 60 * 1000;
+    state.sleepTimerId = setTimeout(() => {
+      if (state.playing) togglePlayback();
+      state.sleepTimerId = null;
+      state.sleepTimerEnd = null;
+      setStatus('Sleep timer: playback stopped');
+      updatePlayer();
+    }, minutes * 60 * 1000);
+    elements.sleepTimerPicker.hidden = true;
+    elements.sleepTimerStatus.hidden = false;
+    const mins = minutes >= 60 ? `${Math.floor(minutes / 60)}h ${minutes % 60}m` : `${minutes}m`;
+    elements.sleepTimerStatus.textContent = `Sleeping in ${mins}`;
+    elements.sleepTimerBtn.textContent = `\u23F0 ${mins}`;
+  }
+
+  /* ---------- Share ---------- */
+
+  async function shareStation() {
+    const station = state.currentStation;
+    if (!station) return;
+    const shareData = {
+      title: station.name,
+      text: `Listen to ${station.name} on OpenRadio-IN`,
+      url: `${window.location.origin}${window.location.pathname}?station=${station.id}`
+    };
+    if (navigator.share) {
+      try { await navigator.share(shareData); } catch {}
+    } else {
+      try { await navigator.clipboard.writeText(shareData.url); setStatus('Link copied!'); } catch {}
+    }
+  }
+
+  /* ---------- Web Audio EQ ---------- */
+
+  function setupEQ() {
+    if (state.audioContext) return;
+    try {
+      state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const source = state.audioContext.createMediaElementSource(elements.audio);
+      state.bassFilter = state.audioContext.createBiquadFilter();
+      state.bassFilter.type = 'lowshelf';
+      state.bassFilter.frequency.value = 200;
+      state.bassFilter.gain.value = 0;
+      state.trebleFilter = state.audioContext.createBiquadFilter();
+      state.trebleFilter.type = 'highshelf';
+      state.trebleFilter.frequency.value = 3000;
+      state.trebleFilter.gain.value = 0;
+      source.connect(state.bassFilter);
+      state.bassFilter.connect(state.trebleFilter);
+      state.trebleFilter.connect(state.audioContext.destination);
+    } catch (e) {
+      console.warn('Web Audio EQ not available:', e);
+    }
+  }
+
+  function applyEQ() {
+    if (state.bassFilter) state.bassFilter.gain.value = state.eqGain.bass;
+    if (state.trebleFilter) state.trebleFilter.gain.value = state.eqGain.treble;
+  }
+
+  function toggleEQ() {
+    if (elements.eqControls.hidden) {
+      elements.eqControls.hidden = false;
+      elements.eqToggle.textContent = '\u{1F39B}\uFE0F Close EQ';
+    } else {
+      elements.eqControls.hidden = true;
+      elements.eqToggle.textContent = '\u{1F39B}\uFE0F EQ';
+    }
+  }
+
+  /* ---------- Keyboard Shortcuts ---------- */
+
+  function handleKeydown(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (!elements.nowPlaying.hidden && e.key === 'Escape') { closeNowPlaying(); return; }
+    switch (e.key) {
+      case ' ':
+        e.preventDefault();
+        togglePlayback();
+        break;
+      case 'ArrowLeft':
+        playAdjacentStation(-1);
+        break;
+      case 'ArrowRight':
+        playAdjacentStation(1);
+        break;
+    }
+  }
+
+  /* ---------- Load Stations ---------- */
+
   async function loadStations() {
     try {
       let response = await fetch(DATA_URL, { cache: 'no-store' });
-      // This fallback keeps the checked-out repository usable before the Pages
-      // workflow copies the database into website/data.
       if (!response.ok) response = await fetch('../database/stations.json', { cache: 'no-store' });
       if (!response.ok) throw new Error(`Station data request failed: ${response.status}`);
       state.stations = (await response.json()).filter(Boolean);
@@ -405,6 +670,11 @@
     }
   }
 
+  /* ---------- Init ---------- */
+
+  setTheme(state.theme);
+  applyVolume(state.volume);
+
   elements.search.addEventListener('input', (event) => {
     state.search = event.target.value;
     applyFilters();
@@ -416,11 +686,48 @@
     applyFilters();
   });
   elements.featured.addEventListener('click', handleStationAction);
+  elements.recentStations.addEventListener('click', handleStationAction);
   elements.stations.addEventListener('click', handleStationAction);
   elements.playToggle.addEventListener('click', togglePlayback);
   elements.prevBtn.addEventListener('click', () => playAdjacentStation(-1));
   elements.nextBtn.addEventListener('click', () => playAdjacentStation(1));
-  elements.audio.addEventListener('play', () => { state.playing = true; updatePlayer(); renderStationLists(); });
+  elements.npPlayToggle.addEventListener('click', togglePlayback);
+  elements.npPrev.addEventListener('click', () => playAdjacentStation(-1));
+  elements.npNext.addEventListener('click', () => playAdjacentStation(1));
+
+  elements.playerInfo.addEventListener('click', openNowPlaying);
+  elements.nowPlayingBackdrop.addEventListener('click', closeNowPlaying);
+  elements.nowPlayingClose.addEventListener('click', closeNowPlaying);
+
+  elements.volumeSlider.addEventListener('input', (e) => { state.muted = false; applyVolume(parseFloat(e.target.value)); updateVolumeIcon(); });
+  elements.npVolumeSlider.addEventListener('input', (e) => { state.muted = false; applyVolume(parseFloat(e.target.value)); updateVolumeIcon(); });
+  elements.volumeBtn.addEventListener('click', toggleMute);
+  elements.npVolumeBtn.addEventListener('click', toggleMute);
+
+  elements.shareBtn.addEventListener('click', shareStation);
+
+  elements.sleepTimerBtn.addEventListener('click', () => {
+    elements.sleepTimerPicker.hidden = !elements.sleepTimerPicker.hidden;
+  });
+  elements.sleepTimerPicker.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-minutes]');
+    if (!btn) return;
+    setSleepTimer(parseInt(btn.dataset.minutes, 10));
+  });
+
+  elements.themeToggle.addEventListener('click', toggleTheme);
+
+  elements.eqToggle.addEventListener('click', toggleEQ);
+  elements.bassSlider.addEventListener('input', (e) => { state.eqGain.bass = parseFloat(e.target.value); applyEQ(); });
+  elements.trebleSlider.addEventListener('input', (e) => { state.eqGain.treble = parseFloat(e.target.value); applyEQ(); });
+
+  elements.audio.addEventListener('play', () => {
+    state.playing = true;
+    state.retryCount = 0;
+    updatePlayer();
+    renderStationLists();
+    if (!state.audioContext && elements.eqControls.hidden === false) setupEQ();
+  });
   elements.audio.addEventListener('pause', () => { state.playing = false; updatePlayer(); renderStationLists(); });
   elements.audio.addEventListener('ended', () => {
     if (state.hls) { state.hls.destroy(); state.hls = null; }
@@ -432,10 +739,12 @@
   elements.audio.addEventListener('error', () => {
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     state.playing = false;
-    setStatus('Unable to stream this station');
+    if (state.currentStation) retryPlayback();
     updatePlayer();
     renderStationLists();
   });
+
+  document.addEventListener('keydown', handleKeydown);
 
   window.addEventListener('beforeinstallprompt', (event) => {
     event.preventDefault();
