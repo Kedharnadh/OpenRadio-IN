@@ -226,6 +226,20 @@
   function createStationCard(station, featured) {
     const card = makeElement('article', `station-card${featured ? ' featured-card' : ''}`);
     const top = makeElement('div', 'station-card__top');
+
+    const initials = (station.name.match(/\b\w/g) || []).slice(0, 2).join('').toUpperCase() || station.name[0] || '?';
+    const thumb = makeElement('img', 'station-thumb');
+    thumb.loading = 'lazy';
+    thumb.alt = station.name;
+    thumb.dataset.fallback = initials;
+    if (station.logo) {
+      thumb.src = station.logo;
+    } else {
+      thumb.style.display = 'none';
+    }
+    thumb.addEventListener('error', () => { thumb.style.display = 'none'; });
+    const thumbFallback = makeElement('span', 'station-thumb-fallback', initials);
+
     const titleBlock = document.createElement('div');
     titleBlock.append(makeElement('h3', '', station.name), makeElement('p', '', stationTags(station)));
 
@@ -234,7 +248,7 @@
     favorite.dataset.action = 'favorite';
     favorite.dataset.id = station.id;
     favorite.setAttribute('aria-label', `Favorite ${station.name}`);
-    top.append(titleBlock, favorite);
+    top.append(thumb, thumbFallback, titleBlock, favorite);
 
     const badges = makeElement('div', 'station-badges');
     (station.categories || []).filter(Boolean).slice(0, featured ? 3 : 4).forEach((category) => badges.append(makeElement('span', '', category)));
