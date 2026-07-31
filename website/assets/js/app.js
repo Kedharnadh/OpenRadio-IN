@@ -38,6 +38,7 @@
     favoritesSection: document.getElementById('favorites-section'),
     recentSection: document.getElementById('recent-section'),
     recentStations: document.getElementById('recent-stations'),
+    allSection: document.getElementById('all-section'),
     install: document.getElementById('install-app'),
     cast: document.getElementById('cast-button'),
     audio: document.getElementById('audio-player'),
@@ -155,6 +156,64 @@
     updateVolumeIcon();
   }
 
+  /* ---------- Media Session ---------- */
+
+  function setupMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+    navigator.mediaSession.setActionHandler('play', () => togglePlayback());
+    navigator.mediaSession.setActionHandler('pause', () => togglePlayback());
+    navigator.mediaSession.setActionHandler('stop', () => stopPlayback());
+    navigator.mediaSession.setActionHandler('previoustrack', () => playAdjacentStation(-1));
+    navigator.mediaSession.setActionHandler('nexttrack', () => playAdjacentStation(1));
+  }
+
+  function updateMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+    const station = state.currentStation;
+    if (!station) {
+      navigator.mediaSession.metadata = null;
+      return;
+    }
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: station.name,
+      artist: station.language || 'OpenRadio-IN',
+      artwork: station.logo ? [{ src: station.logo, sizes: '512x512', type: 'image/png' }] : []
+    });
+  }
+
+  /* ---------- Collapse Sections ---------- */
+
+  function getCollapsedSections() {
+    try { return JSON.parse(localStorage.getItem('openradio-collapsed') || '[]'); } catch { return []; }
+  }
+
+  function saveCollapsedSections(sections) {
+    localStorage.setItem('openradio-collapsed', JSON.stringify(sections));
+  }
+
+  function toggleSection(sectionId) {
+    const collapsed = getCollapsedSections();
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+    const idx = collapsed.indexOf(sectionId);
+    if (idx > -1) {
+      collapsed.splice(idx, 1);
+      section.classList.remove('collapsed');
+    } else {
+      collapsed.push(sectionId);
+      section.classList.add('collapsed');
+    }
+    saveCollapsedSections(collapsed);
+  }
+
+  function restoreCollapsedStates() {
+    const collapsed = getCollapsedSections();
+    collapsed.forEach((sectionId) => {
+      const section = document.getElementById(sectionId);
+      if (section) section.classList.add('collapsed');
+    });
+  }
+
   /* ---------- Update Player ---------- */
 
   function updatePlayer() {
@@ -180,6 +239,7 @@
       elements.nowPlayingLogo.hidden = true;
       elements.nowPlayingPlaceholder.hidden = false;
       elements.nowPlayingTrack.hidden = true;
+      updateMediaSession();
       return;
     }
 
@@ -207,6 +267,7 @@
     } else {
       elements.nowPlayingTrack.hidden = true;
     }
+    updateMediaSession();
   }
 
   /* ---------- Recent Stations ---------- */
@@ -703,6 +764,8 @@
 
   setTheme(state.theme);
   applyVolume(state.volume);
+  setupMediaSession();
+  restoreCollapsedStates();
 
   elements.search.addEventListener('input', (event) => {
     state.search = event.target.value;
@@ -723,6 +786,11 @@
   elements.npPlayToggle.addEventListener('click', togglePlayback);
   elements.npPrev.addEventListener('click', () => playAdjacentStation(-1));
   elements.npNext.addEventListener('click', () => playAdjacentStation(1));
+
+  document.querySelector('.app-shell').addEventListener('click', (e) => {
+    const toggle = e.target.closest('.collapse-toggle');
+    if (toggle && toggle.dataset.section) toggleSection(toggle.dataset.section);
+  });
 
   elements.playerBar.addEventListener('click', (e) => {
     if (e.target.closest('button') || e.target.closest('input')) return;

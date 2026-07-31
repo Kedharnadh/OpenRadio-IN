@@ -44,6 +44,7 @@
       <section id="recent-section" class="card-section" hidden>
         <div class="section-head">
           <h2>Recently Played</h2>
+          <button class="collapse-toggle" data-section="recent-section" aria-label="Collapse section">&#x25BC;</button>
         </div>
         <div id="recent-stations" class="featured-grid"></div>
       </section>
@@ -51,14 +52,16 @@
       <section id="favorites-section" class="card-section">
         <div class="section-head">
           <h2>Favorite Stations</h2>
+          <button class="collapse-toggle" data-section="favorites-section" aria-label="Collapse section">&#x25BC;</button>
         </div>
         <div id="featured" class="featured-grid"></div>
       </section>
 
-      <main class="card-section">
+      <main id="all-section" class="card-section">
         <div class="section-head">
           <h2>All stations</h2>
           <span class="status-pill">Tap play to start listening</span>
+          <button class="collapse-toggle" data-section="all-section" aria-label="Collapse section">&#x25BC;</button>
         </div>
         <div id="stations" class="station-grid"></div>
       </main>
