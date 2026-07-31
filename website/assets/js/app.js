@@ -788,8 +788,11 @@
   elements.npNext.addEventListener('click', () => playAdjacentStation(1));
 
   document.querySelector('.app-shell').addEventListener('click', (e) => {
-    const toggle = e.target.closest('.collapse-toggle');
-    if (toggle && toggle.dataset.section) toggleSection(toggle.dataset.section);
+    const sectionHead = e.target.closest('.section-head');
+    if (!sectionHead) return;
+    const section = sectionHead.closest('.card-section');
+    if (!section) return;
+    toggleSection(section.id);
   });
 
   elements.playerBar.addEventListener('click', (e) => {
