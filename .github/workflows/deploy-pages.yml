@@ -27,6 +27,9 @@ jobs:
           mkdir -p public/data
           cp -R website/. public/
           cp database/stations.json public/data/stations.json
+      - name: Check station health
+        run: |
+          python build/health_check.py database/stations.json public/data/stations.json || true
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
