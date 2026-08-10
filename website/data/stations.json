@@ -21,7 +21,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_anantapur",
@@ -45,7 +46,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_kadapa",
@@ -69,7 +71,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_kurnool",
@@ -93,7 +96,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_markapur",
@@ -117,7 +121,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_nizamabad",
@@ -141,7 +146,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_rainbow_hyderabad",
@@ -165,7 +171,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_rainbow_vijayawada",
@@ -189,7 +196,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_rainbow_visakhapatnam",
@@ -213,7 +221,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_simhapuri_fm",
@@ -237,7 +246,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_telugu",
@@ -261,7 +271,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_warangal",
@@ -285,7 +296,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "air_tirupati",
@@ -309,7 +321,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "ap_9_fm",
@@ -333,7 +346,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "london_telugu_radio",
@@ -357,7 +371,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "melody_radio",
@@ -381,7 +396,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "offline"
   },
   {
     "id": "radio_hungama_telugu",
@@ -399,18 +415,14 @@
     "logo": "",
     "streams": [
       {
-        "url": "https://radioindia.net/radio/humgama-telugu/icecast.audio",
-        "codec": "MP3",
-        "priority": 1
-      },
-      {
         "url": "http://103.16.47.70:9444/;stream.nsv",
         "codec": "MP3",
-        "priority": 2
+        "priority": 1
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "unknown"
   },
   {
     "id": "radio_ranjan_90_4_fm",
@@ -434,7 +446,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "radio_surabhi",
@@ -458,7 +471,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "radio_vishnu_90_4",
@@ -482,7 +496,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "telugu_hits",
@@ -506,7 +521,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "telugu_nri_radio",
@@ -530,7 +546,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "tori",
@@ -554,7 +571,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "offline"
   },
   {
     "id": "vividh_bharati_hyderabad",
@@ -579,7 +597,8 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
     "id": "vividh_bharati_vijayawada",
@@ -604,11 +623,12 @@
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "online"
   },
   {
-    "id": "geet_radio_telugu",
-    "name": "Geet Radio - Telugu",
+    "id": "geet_Radio_telugu",
+    "name": "Geet Radio - Telugu ",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -618,16 +638,17 @@
       "ALL"
     ],
     "genre": [],
-    "homepage": "https://geetradio.com",
-    "logo": "",
+    "homepage": "",
+    "logo": "https://geetradio.com/wp-content/uploads/2024/08/Geetradio_512_nobg.png",
     "streams": [
       {
         "url": "https://server.geetradio.com:8010/radio.mp3",
-        "codec": "MP3",
+        "codec": "HLS",
         "priority": 1
       }
     ],
     "verified": false,
-    "last_checked": null
+    "last_checked": "2026-08-10T03:04:36+00:00",
+    "status": "offline"
   }
 ]

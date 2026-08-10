@@ -1,11 +1,239 @@
 (() => {
   const DATA_URL = './data/stations.json';
+
+  const I18N = {
+    en: {
+      'app.eyebrow': 'Community radio \u2022 PWA',
+      'app.tagline': 'Discover and play Indian online radio stations with instant search, filters, and a polished app-style experience.',
+      'search.placeholder': 'Search stations, language, or category',
+      'install': 'Install app',
+      'section.recent': 'Recently Played',
+      'section.favorites': 'Favorite Stations',
+      'section.all': 'All stations',
+      'filter.all': 'All',
+      'filter.allLanguages': 'All languages',
+      'player.defaultTitle': 'Choose a station',
+      'player.defaultMeta': 'Your selected radio station will appear here.',
+      'controls.play': 'Play',
+      'controls.resume': 'Resume',
+      'controls.pause': 'Pause',
+      'controls.stop': 'Stop',
+      'controls.previous': 'Previous',
+      'controls.next': 'Next',
+      'controls.volume': 'Mute/unmute',
+      'np.title': 'Now Playing',
+      'np.share': 'Share',
+      'np.timer': 'Timer',
+      'np.alarm': 'Alarm',
+      'np.sleeptimer': 'Sleeping in {time}',
+      'theme.light': 'Light',
+      'theme.dark': 'Dark',
+      'theme.auto': 'Auto',
+      'theme.toggle': 'Toggle theme',
+      'update.available': 'Update available',
+      'update.refresh': 'Refresh',
+      'status.loading': 'Loading stations\u2026',
+      'status.loaded': '{n} stations loaded',
+      'status.playing': 'Playing {name}',
+      'status.resumed': 'Playback resumed',
+      'status.playingCast': 'Casting {name}',
+      'status.casting': 'Casting',
+      'status.noCastSession': 'No Cast session available',
+      'status.castBlocked': 'Cast blocked for this HLS stream. Deploy the proxy worker and set HLS_PROXY_URL in app.js.',
+      'status.castError': 'Cast error: {error}',
+      'status.appInstalled': 'App installed',
+      'player.unknownLanguage': 'Unknown language',
+      'player.stream': 'Stream',
+      'share.text': 'Listen to {name} on OpenRadio-IN',
+      'status.retrying': 'Retrying in {sec}s ({attempt}/{max})\u2026',
+      'status.noStream': 'No stream available',
+      'status.hlsUnsupported': 'HLS playback not supported in this browser',
+      'status.loadingHls': 'Loading HLS stream\u2026',
+      'status.loadFailed': 'Unable to load this stream',
+      'status.playFailed': 'Unable to start playback',
+      'status.streamFailed': 'Unable to start this stream',
+      'status.ended': 'Playback ended',
+      'status.error': 'Unable to load station data',
+      'status.dataUnavailable': 'Station data is unavailable right now.',
+      'status.emptyData': 'The station database could not be loaded. Please refresh and try again.',
+      'status.emptyList': 'No stations match this search yet. Try a different keyword.',
+      'status.sleeptimerStopped': 'Sleep timer: playback stopped',
+      'status.copied': 'Link copied!',
+      'results.shown.one': '1 station shown',
+      'results.shown.many': '{n} stations shown',
+      'verified': 'Verified',
+      'community': 'Community',
+      'status.online': 'Online',
+      'status.offline': 'Offline',
+      'status.unknown': 'Status unknown',
+      'alarm.timeLabel': 'Time',
+      'alarm.stationLabel': 'Station',
+      'alarm.set': 'Set alarm',
+      'alarm.off': 'Turn off',
+      'alarm.status': 'Alarm at {time}',
+      'alarm.fired': 'Wake up \u2014 playing {name}'
+    },
+    te: {
+      'app.eyebrow': '\u0C15\u0C2E\u0C4D\u0C2F\u0C42\u0C28\u0C3F\u0C1F\u0C40 \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u2022 PWA',
+      'app.tagline': '\u0C2D\u0C3E\u0C30\u0C24\u0C40\u0C2F \u0C06\u0C28\u0C4D\u0C32\u0C48\u0C28\u0C4D \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C28\u0C41 \u0C24\u0C15\u0C4D\u0C37\u0C23 \u0C36\u0C4B\u0C27\u0C28, \u0C2B\u0C3F\u0C32\u0C4D\u0C1F\u0C30\u0C4D\u0C32\u0C24\u0C4B \u0C35\u0C3F\u0C28\u0C02\u0C21\u0C3F.',
+      'search.placeholder': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41, \u0C2D\u0C3E\u0C37 \u0C32\u0C47\u0C26\u0C3E \u0C35\u0C30\u0C4D\u0C17\u0C02 \u0C15\u0C4B\u0C38\u0C02 \u0C35\u0C46\u0C24\u0C15\u0C02\u0C21\u0C3F',
+      'install': '\u0C2F\u0C3E\u0C2A\u0C4D\u0C28\u0C41 \u0C07\u0C28\u0C4D\u0C38\u0C4D\u0C1F\u0C3E\u0C32\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      'section.recent': '\u0C07\u0C24\u0C40\u0C35\u0C32 \u0C35\u0C3F\u0C28\u0C4D\u0C28\u0C35\u0C3F',
+      'section.favorites': '\u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28 \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41',
+      'section.all': '\u0C05\u0C28\u0C4D\u0C28\u0C3F \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41',
+      'filter.all': '\u0C05\u0C28\u0C4D\u0C28\u0C40',
+      'filter.allLanguages': '\u0C05\u0C28\u0C4D\u0C28\u0C3F \u0C2D\u0C3E\u0C37\u0C32\u0C41',
+      'player.defaultTitle': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C28\u0C41 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C02\u0C21\u0C3F',
+      'player.defaultMeta': '\u0C2E\u0C40\u0C30\u0C41 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C41\u0C28\u0C4D\u0C28 \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C07\u0C15\u0C4D\u0C15\u0C21 \u0C15\u0C28\u0C3F\u0C2A\u0C3F\u0C38\u0C4D\u0C24\u0C41\u0C02\u0C26\u0C3F.',
+      'controls.play': '\u0C2A\u0C4D\u0C32\u0C47',
+      'controls.resume': '\u0C15\u0C4A\u0C28\u0C38\u0C3E\u0C17\u0C3F\u0C02\u0C1A\u0C41',
+      'controls.pause': '\u0C2A\u0C3E\u0C1C\u0C4D',
+      'controls.stop': '\u0C06\u0C2A\u0C41',
+      'controls.previous': '\u0C2E\u0C41\u0C28\u0C41\u0C2A\u0C1F\u0C3F',
+      'controls.next': '\u0C24\u0C30\u0C41\u0C35\u0C3E\u0C24',
+      'controls.volume': '\u0C2E\u0C4D\u0C2F\u0C42\u0C1F\u0C4D/\u0C05\u0C28\u0C4D\u0C2E\u0C4D\u0C2F\u0C42\u0C1F\u0C4D',
+      'np.title': '\u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24\u0C02 \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
+      'np.share': '\u0C37\u0C47\u0C30\u0C4D',
+      'np.timer': '\u0C1F\u0C48\u0C2E\u0C30\u0C4D',
+      'np.alarm': '\u0C05\u0C32\u0C3E\u0C30\u0C02',
+      'np.sleeptimer': '{time} \u0C32\u0C4B \u0C28\u0C3F\u0C26\u0C4D\u0C30',
+      'theme.light': '\u0C32\u0C48\u0C1F\u0C4D',
+      'theme.dark': '\u0C21\u0C3E\u0C30\u0C4D\u0C15\u0C4D',
+      'theme.auto': '\u0C06\u0C1F\u0C4B',
+      'theme.toggle': '\u0C25\u0C3F\u0C2E\u0C4D \u0C2E\u0C3E\u0C30\u0C4D\u0C1A\u0C02\u0C21\u0C3F',
+      'update.available': '\u0C05\u0C2A\u0C4D\u0C21\u0C47\u0C1F\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C09\u0C02\u0C26\u0C3F',
+      'update.refresh': '\u0C30\u0C3F\u0C2B\u0C4D\u0C30\u0C47\u0C37\u0C4D',
+      'status.loading': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C41\u0C28\u0C4D\u0C28\u0C3E\u0C2F\u0C3F\u2026',
+      'status.loaded': '{n} \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C2F\u0C4D\u0C2F\u0C3E\u0C2F\u0C3F',
+      'status.playing': '{name} \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
+      'status.playingCast': '{name} \u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C3F\u0C02\u0C17\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
+      'status.casting': '\u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C3F\u0C02\u0C17\u0C4D',
+      'status.noCastSession': '\u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C38\u0C47\u0C37\u0C28\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41',
+      'status.castBlocked': '\u0C08 HLS \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02\u0C15\u0C3F \u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C28\u0C3F\u0C30\u0C4B\u0C26\u0C4D\u0C27\u0C3F\u0C02\u0C1A\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F. HLS_PROXY_URL \u0C38\u0C46\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F.',
+      'status.castError': '\u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C26\u0C4B\u0C37\u0C02: {error}',
+      'status.appInstalled': '\u0C2F\u0C3E\u0C2A\u0C4D \u0C07\u0C28\u0C4D\u0C38\u0C4D\u0C1F\u0C3E\u0C32\u0C4D \u0C05\u0C2F\u0C4D\u0C2F\u0C3F\u0C02\u0C26\u0C3F',
+      'player.unknownLanguage': '\u0C24\u0C46\u0C32\u0C3F\u0C2F\u0C28\u0C3F \u0C2D\u0C3E\u0C37',
+      'player.stream': '\u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02',
+      'share.text': 'OpenRadio-IN \u0C32\u0C4B {name} \u0C35\u0C3F\u0C28\u0C02\u0C21\u0C3F',
+      'status.resumed': '\u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C2A\u0C41\u0C28\u0C03\u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D\u0C3F\u0C02\u0C1A\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F',
+      'status.noStream': '\u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02 \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41',
+      'status.hlsUnsupported': '\u0C08 \u0C2C\u0C4D\u0C30\u0C4C\u0C1C\u0C30\u0C4D\u0C32\u0C4B HLS \u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C38\u0C2A\u0C4B\u0C30\u0C4D\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C2C\u0C21\u0C26\u0C41',
+      'status.loadingHls': 'HLS \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F\u2026',
+      'status.loadFailed': '\u0C08 \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02\u0C28\u0C3F \u0C32\u0C4B\u0C21\u0C4D \u0C1A\u0C47\u0C2F\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
+      'status.playFailed': '\u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D\u0C3F\u0C02\u0C1A\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
+      'status.streamFailed': '\u0C08 \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02\u0C28\u0C3F \u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D\u0C3F\u0C02\u0C1A\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
+      'status.ended': '\u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C2E\u0C41\u0C17\u0C3F\u0C38\u0C3F\u0C02\u0C26\u0C3F',
+      'status.error': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C21\u0C3E\u0C1F\u0C3E\u0C28\u0C41 \u0C32\u0C4B\u0C21\u0C4D \u0C1A\u0C47\u0C2F\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
+      'status.dataUnavailable': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C21\u0C3E\u0C1F\u0C3E \u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24\u0C02 \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41.',
+      'status.emptyData': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C21\u0C3E\u0C1F\u0C3E\u0C2C\u0C47\u0C38\u0C4D \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C32\u0C47\u0C26\u0C41. \u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C2E\u0C33\u0C4D\u0C33\u0C40 \u0C2A\u0C4D\u0C30\u0C2F\u0C24\u0C4D\u0C28\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F.',
+      'status.emptyList': '\u0C08 \u0C36\u0C4B\u0C27\u0C28\u0C15\u0C3F \u0C38\u0C30\u0C3F\u0C2A\u0C4B\u0C32\u0C47 \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C32\u0C47\u0C35\u0C41.',
+      'status.sleeptimerStopped': '\u0C28\u0C3F\u0C26\u0C4D\u0C30 \u0C1F\u0C48\u0C2E\u0C30\u0C4D: \u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C06\u0C2A\u0C3F\u0C02\u0C26\u0C3F',
+      'status.copied': '\u0C32\u0C3F\u0C02\u0C15\u0C4D \u0C15\u0C3E\u0C2A\u0C40 \u0C05\u0C2F\u0C4D\u0C2F\u0C3F\u0C02\u0C26\u0C3F!',
+      'results.shown.one': '1 \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C1A\u0C42\u0C2A\u0C2C\u0C21\u0C41\u0C24\u0C41\u0C02\u0C26\u0C3F',
+      'results.shown.many': '{n} \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C1A\u0C42\u0C2A\u0C2C\u0C21\u0C41\u0C24\u0C41\u0C28\u0C4D\u0C28\u0C3E\u0C2F\u0C3F',
+      'verified': '\u0C27\u0C43\u0C35\u0C40\u0C15\u0C30\u0C3F\u0C02\u0C1A\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F',
+      'community': '\u0C15\u0C2E\u0C4D\u0C2F\u0C42\u0C28\u0C3F\u0C1F\u0C40',
+      'status.online': '\u0C06\u0C28\u0C4D\u0C32\u0C48\u0C28\u0C4D',
+      'status.offline': '\u0C06\u0C2B\u0C4D\u0C32\u0C48\u0C28\u0C4D',
+      'status.unknown': '\u0C38\u0C4D\u0C25\u0C3F\u0C24\u0C3F \u0C24\u0C46\u0C32\u0C3F\u0C2F\u0C26\u0C41',
+      'alarm.timeLabel': '\u0C38\u0C2E\u0C2F\u0C02',
+      'alarm.stationLabel': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D',
+      'alarm.set': '\u0C05\u0C32\u0C3E\u0C30\u0C02 \u0C38\u0C46\u0C1F\u0C4D',
+      'alarm.off': '\u0C06\u0C2B\u0C4D \u0C1A\u0C47\u0C2F\u0C3F',
+      'alarm.status': '{time} \u0C15\u0C3F \u0C05\u0C32\u0C3E\u0C30\u0C02',
+      'alarm.fired': '\u0C32\u0C46\u0C02\u0C1A\u0C02\u0C21\u0C3F \u2014 {name} \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F'
+    },
+    hi: {
+      'app.eyebrow': '\u0915\u092E\u094D\u092F\u0942\u0928\u093F\u091F\u0940 \u0930\u0947\u0921\u093F\u092F\u094B \u2022 PWA',
+      'app.tagline': '\u0924\u0941\u0930\u0902\u0924 \u0916\u094B\u091C \u0914\u0930 \u092B\u093C\u093F\u0932\u094D\u091F\u0930 \u0915\u0947 \u0938\u093E\u0925 \u092D\u093E\u0930\u0924\u0940\u092F \u0911\u0928\u0932\u093E\u0907\u0928 \u0930\u0947\u0921\u093F\u092F\u094B \u0938\u094D\u091F\u0947\u0936\u0928 \u0938\u0941\u0928\u0947\u0902\u0964',
+      'search.placeholder': '\u0938\u094D\u091F\u0947\u0936\u0928, \u092D\u093E\u0937\u093E \u092F\u093E \u0936\u094D\u0930\u0947\u0923\u0940 \u0916\u094B\u091C\u0947\u0902',
+      'install': '\u0910\u092A \u0907\u0902\u0938\u094D\u091F\u093E\u0932 \u0915\u0930\u0947\u0902',
+      'section.recent': '\u0939\u093E\u0932 \u092E\u0947\u0902 \u0938\u0941\u0928\u0947 \u0917\u090F',
+      'section.favorites': '\u092A\u0938\u0902\u0926\u0940\u0926\u093E \u0938\u094D\u091F\u0947\u0936\u0928',
+      'section.all': '\u0938\u092D\u0940 \u0938\u094D\u091F\u0947\u0936\u0928',
+      'filter.all': '\u0938\u092D\u0940',
+      'filter.allLanguages': '\u0938\u092D\u0940 \u092D\u093E\u0937\u093E\u090F\u0901',
+      'player.defaultTitle': '\u0938\u094D\u091F\u0947\u0936\u0928 \u091A\u0941\u0928\u0947\u0902',
+      'player.defaultMeta': '\u0906\u092A\u0915\u093E \u091A\u0941\u0928\u093E \u0939\u0941\u0906 \u0930\u0947\u0921\u093F\u092F\u094B \u0938\u094D\u091F\u0947\u0936\u0928 \u092F\u0939\u093E\u0902 \u0926\u093F\u0916\u0947\u0917\u093E\u0964',
+      'controls.play': '\u092A\u094D\u0932\u0947',
+      'controls.resume': '\u092B\u093C\u093F\u0930 \u0936\u0941\u0930\u0942 \u0915\u0930\u0947\u0902',
+      'controls.pause': '\u092A\u0949\u091C\u093C',
+      'controls.stop': '\u0930\u094B\u0915\u0947\u0902',
+      'controls.previous': '\u092A\u093F\u091B\u0932\u093E',
+      'controls.next': '\u0905\u0917\u0932\u093E',
+      'controls.volume': '\u092E\u094D\u092F\u0942\u091F/\u0905\u0928\u092E\u094D\u092F\u0942\u091F',
+      'np.title': '\u0905\u092D\u0940 \u091A\u0932 \u0930\u0939\u093E \u0939\u0948',
+      'np.share': '\u0936\u0947\u092F\u0930',
+      'np.timer': '\u091F\u093E\u0907\u092E\u0930',
+      'np.alarm': '\u0905\u0932\u093E\u0930\u094D\u092E',
+      'np.sleeptimer': '{time} \u092E\u0947\u0902 \u0938\u094B \u091C\u093E\u090F\u0902',
+      'theme.light': '\u0932\u093E\u0907\u091F',
+      'theme.dark': '\u0921\u093E\u0930\u094D\u0915',
+      'theme.auto': '\u0911\u091F\u094B',
+      'theme.toggle': '\u0925\u0940\u092E \u092C\u0926\u0932\u0947\u0902',
+      'update.available': '\u0905\u092A\u0921\u0947\u091F \u0909\u092A\u0932\u092C\u094D\u0927 \u0939\u0948',
+      'update.refresh': '\u0930\u093F\u092B\u093C\u094D\u0930\u0947\u0936',
+      'status.loading': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0932\u094B\u0921 \u0939\u094B \u0930\u0939\u0947 \u0939\u0948\u0902\u2026',
+      'status.loaded': '{n} \u0938\u094D\u091F\u0947\u0936\u0928 \u0932\u094B\u0921 \u0939\u0941\u090F',
+      'status.playing': '{name} \u091A\u0932 \u0930\u0939\u093E \u0939\u0948',
+      'status.playingCast': '{name} \u0915\u093E\u0938\u094D\u091F \u0939\u094B \u0930\u0939\u093E \u0939\u0948',
+      'status.casting': '\u0915\u093E\u0938\u094D\u091F\u093F\u0902\u0917',
+      'status.noCastSession': '\u0915\u094B\u0908 \u0915\u093E\u0938\u094D\u091F \u0938\u0947\u0936\u0928 \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902',
+      'status.castBlocked': '\u0907\u0938 HLS \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0915\u0947 \u0932\u093F\u090F \u0915\u093E\u0938\u094D\u091F \u092C\u094D\u0932\u0949\u0915 \u0939\u0948. HLS_PROXY_URL \u0938\u0947\u091F \u0915\u0930\u0947\u0902.',
+      'status.castError': '\u0915\u093E\u0938\u094D\u091F \u0924\u094D\u0930\u0941\u091F\u093F: {error}',
+      'status.appInstalled': '\u0910\u092A \u0907\u0902\u0938\u094D\u091F\u093E\u0932 \u0939\u094B \u0917\u092F\u093E',
+      'player.unknownLanguage': '\u0905\u091C\u094D\u091E\u093E\u0924 \u092D\u093E\u0937\u093E',
+      'player.stream': '\u0938\u094D\u091F\u094D\u0930\u0940\u092E',
+      'share.text': 'OpenRadio-IN \u092A\u0930 {name} \u0938\u0941\u0928\u0947\u0902',
+      'status.resumed': '\u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u092B\u093F\u0930 \u0936\u0941\u0930\u0942 \u0939\u0941\u0906',
+      'status.noStream': '\u0915\u094B\u0908 \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902',
+      'status.hlsUnsupported': '\u0907\u0938 \u092C\u094D\u0930\u093E\u0909\u091C\u093C\u0930 \u092E\u0947\u0902 HLS \u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0938\u092E\u0930\u094D\u0925\u093F\u0924 \u0928\u0939\u0940\u0902 \u0939\u0948',
+      'status.loadingHls': 'HLS \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0932\u094B\u0921 \u0939\u094B \u0930\u0939\u0940 \u0939\u0948\u2026',
+      'status.loadFailed': '\u092F\u0939 \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0932\u094B\u0921 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u0940',
+      'status.playFailed': '\u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0936\u0941\u0930\u0942 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u093E',
+      'status.streamFailed': '\u092F\u0939 \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0936\u0941\u0930\u0942 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u0940',
+      'status.ended': '\u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0938\u092E\u093E\u092A\u094D\u0924',
+      'status.error': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0921\u0947\u091F\u093E \u0932\u094B\u0921 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u093E',
+      'status.dataUnavailable': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0921\u0947\u091F\u093E \u0905\u092D\u0940 \u0905\u0928\u0941\u092A\u0932\u092C\u094D\u0927 \u0939\u0948\u0964',
+      'status.emptyData': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0921\u0947\u091F\u093E\u092C\u0947\u0938 \u0932\u094B\u0921 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u0940\u0964 \u0915\u0943\u092A\u092F\u093E \u092B\u093F\u0930 \u0938\u0947 \u0915\u094B\u0936\u093F\u0936 \u0915\u0930\u0947\u0902\u0964',
+      'status.emptyList': '\u0907\u0938 \u0916\u094B\u091C \u0938\u0947 \u0915\u094B\u0908 \u0938\u094D\u091F\u0947\u0936\u0928 \u092E\u0947\u0932 \u0928\u0939\u0940\u0902 \u0916\u093E\u0924\u093E\u0964',
+      'status.sleeptimerStopped': '\u0938\u094D\u0932\u0940\u092A \u091F\u093E\u0907\u092E\u0930: \u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0930\u094B\u0915 \u0939\u0941\u0906',
+      'status.copied': '\u0932\u093F\u0902\u0915 \u0915\u0949\u092A\u0940 \u0939\u0941\u0906!',
+      'results.shown.one': '1 \u0938\u094D\u091F\u0947\u0936\u0928 \u0926\u093F\u0916\u093E\u092F\u093E \u0917\u092F\u093E',
+      'results.shown.many': '{n} \u0938\u094D\u091F\u0947\u0936\u0928 \u0926\u093F\u0916\u093E\u090F \u091C\u093E \u0930\u0939\u0947 \u0939\u0948\u0902',
+      'verified': '\u0938\u0924\u094D\u092F\u093E\u092A\u093F\u0924',
+      'community': '\u0915\u092E\u094D\u092F\u0942\u0928\u093F\u091F\u0940',
+      'status.online': '\u0911\u0928\u0932\u093E\u0907\u0928',
+      'status.offline': '\u0911\u092B\u093C\u0932\u093E\u0907\u0928',
+      'status.unknown': '\u0938\u094D\u0925\u093F\u0924\u093F \u0905\u091C\u094D\u091E\u093E\u0924',
+      'alarm.timeLabel': '\u0938\u092E\u092F',
+      'alarm.stationLabel': '\u0938\u094D\u091F\u0947\u0936\u0928',
+      'alarm.set': '\u0905\u0932\u093E\u0930\u094D\u092E \u0938\u0947\u091F \u0915\u0930\u0947\u0902',
+      'alarm.off': '\u092C\u0902\u0926 \u0915\u0930\u0947\u0902',
+      'alarm.status': '{time} \u092A\u0930 \u0905\u0932\u093E\u0930\u094D\u092E',
+      'alarm.fired': '\u091C\u093E\u0917\u094B \u2014 {name} \u091A\u0932 \u0930\u0939\u093E \u0939\u0948'
+    }
+  };
+  let uiLang = localStorage.getItem('openradio-ui-lang') || 'en';
+
+  function t(key, vars) {
+    const dict = I18N[uiLang] || I18N.en;
+    let text = dict[key] ?? I18N.en[key] ?? key;
+    if (vars) {
+      for (const [k, v] of Object.entries(vars)) {
+        text = text.split(`{${k}}`).join(String(v));
+      }
+    }
+    return text;
+  }
+
   const state = {
     stations: [],
     filteredStations: [],
     favorites: new Set(JSON.parse(localStorage.getItem('openradio-favorites') || '[]')),
     recentStations: JSON.parse(localStorage.getItem('openradio-recent') || '[]'),
     activeCategory: 'all',
+    activeLanguage: 'all',
     search: '',
     currentStation: null,
     playing: false,
@@ -14,7 +242,8 @@
     volume: parseFloat(localStorage.getItem('openradio-volume') || '1'),
     muted: false,
     previousVolume: 1,
-    theme: localStorage.getItem('openradio-theme') || 'dark',
+    theme: localStorage.getItem('openradio-theme') || 'system',
+    alarm: JSON.parse(localStorage.getItem('openradio-alarm') || 'null'),
     retryCount: 0,
     maxRetries: 3,
     sleepTimerId: null,
@@ -71,7 +300,16 @@
     sleepTimerStatus: document.getElementById('sleep-timer-status'),
     themeToggle: document.getElementById('theme-toggle'),
     updateBanner: document.getElementById('update-banner'),
-    updateBtn: document.getElementById('update-btn')
+    updateBtn: document.getElementById('update-btn'),
+    languageSelect: document.getElementById('language-select'),
+    uiLang: document.getElementById('ui-lang'),
+    alarmBtn: document.getElementById('alarm-btn'),
+    alarmPicker: document.getElementById('alarm-picker'),
+    alarmTimeInput: document.getElementById('alarm-time-input'),
+    alarmStationSelect: document.getElementById('alarm-station-select'),
+    alarmSet: document.getElementById('alarm-set'),
+    alarmOff: document.getElementById('alarm-off'),
+    alarmStatus: document.getElementById('alarm-status')
   };
   let installPrompt;
   let castContext;
@@ -112,27 +350,45 @@
       .filter(Boolean)
       .join(' ')
       .toLowerCase();
-    return searchable.includes(query) && hasCategory(station, state.activeCategory);
+    const languageOk = state.activeLanguage === 'all' || String(station.language || '').toLowerCase() === state.activeLanguage.toLowerCase();
+    return languageOk && searchable.includes(query) && hasCategory(station, state.activeCategory);
   }
 
   /* ---------- Theme ---------- */
 
+  const SYSTEM_DARK_QUERY = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function resolveTheme(theme) {
+    return theme === 'system' ? (SYSTEM_DARK_QUERY.matches ? 'dark' : 'light') : theme;
+  }
+
   function setTheme(theme) {
     state.theme = theme;
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', resolveTheme(theme));
     localStorage.setItem('openradio-theme', theme);
     const metaTheme = document.getElementById('theme-color');
-    if (theme === 'light') {
-      elements.themeToggle.textContent = '\u{1F319} Dark';
-      if (metaTheme) metaTheme.content = '#f1f5f9';
-    } else {
-      elements.themeToggle.textContent = '\u2600\uFE0F Light';
-      if (metaTheme) metaTheme.content = '#0f172a';
-    }
+    if (metaTheme) metaTheme.content = resolveTheme(theme) === 'light' ? '#f1f5f9' : '#0f172a';
+    renderThemeToggle();
+  }
+
+  function renderThemeToggle() {
+    elements.themeToggle.textContent = state.theme === 'light'
+      ? '\u{1F319} ' + t('theme.dark')
+      : state.theme === 'dark'
+        ? '\u2600\uFE0F ' + t('theme.light')
+        : '\u{1F319}/\u2600 ' + t('theme.auto');
   }
 
   function toggleTheme() {
-    setTheme(state.theme === 'dark' ? 'light' : 'dark');
+    const order = ['light', 'dark', 'system'];
+    const next = order[(order.indexOf(state.theme) + 1) % order.length];
+    setTheme(next);
+  }
+
+  function watchSystemTheme() {
+    SYSTEM_DARK_QUERY.addEventListener('change', () => {
+      if (state.theme === 'system') setTheme('system');
+    });
   }
 
   /* ---------- Volume ---------- */
@@ -189,9 +445,10 @@
       navigator.mediaSession.playbackState = 'none';
       return;
     }
+    const track = state.nowPlayingTrack;
     navigator.mediaSession.metadata = new MediaMetadata({
-      title: station.name,
-      artist: station.language || 'OpenRadio-IN',
+      title: track || station.name,
+      artist: track ? station.name : (station.language || 'OpenRadio-IN'),
       artwork: station.logo ? [{ src: station.logo, sizes: '512x512', type: 'image/png' }] : []
     });
     navigator.mediaSession.playbackState = state.playing ? 'playing' : (state.paused ? 'paused' : 'none');
@@ -240,19 +497,19 @@
     const hasMultiple = list.length > 1;
 
     if (!station) {
-      elements.playerTitle.textContent = 'Choose a station';
-      elements.playerMeta.textContent = 'Your selected radio station will appear here.';
+      elements.playerTitle.textContent = t('player.defaultTitle');
+      elements.playerMeta.textContent = t('player.defaultMeta');
       elements.playToggle.disabled = true;
-      elements.playToggle.textContent = '\u25b6 Play';
+      elements.playToggle.textContent = '\u25b6 ' + t('controls.play');
       elements.stopBtn.disabled = true;
       elements.prevBtn.disabled = true;
       elements.nextBtn.disabled = true;
       elements.npPlayToggle.disabled = true;
-      elements.npPlayToggle.textContent = '\u25b6 Play';
+      elements.npPlayToggle.textContent = '\u25b6 ' + t('controls.play');
       elements.npStopBtn.disabled = true;
       elements.npPrev.disabled = true;
       elements.npNext.disabled = true;
-      elements.nowPlayingTitle.textContent = 'Choose a station';
+      elements.nowPlayingTitle.textContent = t('player.defaultTitle');
       elements.nowPlayingMeta.textContent = '';
       elements.nowPlayingLogo.hidden = true;
       elements.nowPlayingPlaceholder.hidden = false;
@@ -261,15 +518,16 @@
       return;
     }
 
-    const destination = isCasting() ? 'Casting' : (station.streams?.[0]?.codec || 'Stream');
+    const destination = isCasting() ? t('status.casting') : (station.streams?.[0]?.codec || t('player.stream'));
+    const languageLabel = station.language || t('player.unknownLanguage');
     elements.playerTitle.textContent = station.name;
-    elements.playerMeta.textContent = `${station.language || 'Unknown language'} \u2022 ${destination}`;
+    elements.playerMeta.textContent = `${languageLabel} \u2022 ${destination}`;
     elements.prevBtn.disabled = !hasMultiple;
     elements.nextBtn.disabled = !hasMultiple;
     elements.npPrev.disabled = !hasMultiple;
     elements.npNext.disabled = !hasMultiple;
     elements.nowPlayingTitle.textContent = station.name;
-    elements.nowPlayingMeta.textContent = `${station.language || 'Unknown language'} \u2022 ${destination}`;
+    elements.nowPlayingMeta.textContent = `${languageLabel} \u2022 ${destination}`;
     elements.nowPlayingLogo.src = station.logo || '';
     elements.nowPlayingLogo.alt = station.name;
     elements.nowPlayingLogo.hidden = !station.logo;
@@ -284,10 +542,10 @@
     const isPlaying = state.playing;
     const isPaused = state.paused;
     elements.playToggle.disabled = false;
-    elements.playToggle.textContent = isPlaying ? '\u23f8 Pause' : (isPaused ? '\u25b6 Resume' : '\u25b6 Play');
+    elements.playToggle.textContent = isPlaying ? '\u23f8 ' + t('controls.pause') : (isPaused ? '\u25b6 ' + t('controls.resume') : '\u25b6 ' + t('controls.play'));
     elements.stopBtn.disabled = !isPlaying && !isPaused;
     elements.npPlayToggle.disabled = false;
-    elements.npPlayToggle.textContent = isPlaying ? '\u23f8 Pause' : (isPaused ? '\u25b6 Resume' : '\u25b6 Play');
+    elements.npPlayToggle.textContent = isPlaying ? '\u23f8 ' + t('controls.pause') : (isPaused ? '\u25b6 ' + t('controls.resume') : '\u25b6 ' + t('controls.play'));
     elements.npStopBtn.disabled = !isPlaying && !isPaused;
     updateMediaSession();
   }
@@ -338,21 +596,26 @@
     titleBlock.className = 'station-card__title';
     titleBlock.append(makeElement('h3', '', station.name), makeElement('p', '', stationTags(station)));
 
+    const status = station.status || 'unknown';
+    const dot = makeElement('span', `status-dot status-dot--${status}`, '');
+    dot.title = t(`status.${status}`);
+    dot.setAttribute('aria-label', t(`status.${status}`));
+
     const favorite = makeElement('button', `icon-btn${state.favorites.has(station.id) ? ' active' : ''}`, state.favorites.has(station.id) ? '\u2665' : '\u2661');
     favorite.type = 'button';
     favorite.dataset.action = 'favorite';
     favorite.dataset.id = station.id;
     favorite.setAttribute('aria-label', `Favorite ${station.name}`);
-    top.append(thumb, thumbFallback, titleBlock, favorite);
+    top.append(thumb, thumbFallback, titleBlock, dot, favorite);
 
     const badges = makeElement('div', 'station-badges');
     (station.categories || []).filter(Boolean).slice(0, featured ? 3 : 4).forEach((category) => badges.append(makeElement('span', '', category)));
 
     const footer = makeElement('div', 'station-card__footer');
-    footer.append(makeElement('span', '', featured ? (station.verified ? 'Verified' : 'Community') : (station.country || 'India')));
+    footer.append(makeElement('span', '', featured ? (station.verified ? t('verified') : t('community')) : (station.country || t('player.stream'))));
     const playLabel = state.currentStation?.id === station.id
-      ? (state.playing ? 'Pause' : (state.paused ? 'Resume' : 'Play'))
-      : 'Play';
+      ? (state.playing ? t('controls.pause') : (state.paused ? t('controls.resume') : t('controls.play')))
+      : t('controls.play');
     const play = makeElement('button', 'secondary-btn', playLabel);
     play.type = 'button';
     play.dataset.action = 'play';
@@ -364,35 +627,61 @@
   }
 
   function renderFilters() {
-    const categories = ['all', ...new Set(state.stations.flatMap((station) => [station.language, ...(station.categories || [])]))]
+    const categories = ['all', ...new Set(state.stations.flatMap((station) => station.categories || []))]
       .filter(Boolean)
       .filter((category) => String(category).toLowerCase() !== 'all')
       .sort((first, second) => String(first).localeCompare(String(second)));
     elements.filters.replaceChildren(...categories.map((category) => {
-      const button = makeElement('button', `pill${state.activeCategory.toLowerCase() === String(category).toLowerCase() ? ' active' : ''}`, category === 'all' ? 'All' : category);
+      const button = makeElement('button', `pill${state.activeCategory.toLowerCase() === String(category).toLowerCase() ? ' active' : ''}`, category === 'all' ? t('filter.all') : category);
       button.type = 'button';
       button.dataset.category = category;
       return button;
     }));
+    renderLanguageOptions();
+  }
+
+  function renderLanguageOptions() {
+    const languages = [...new Set(state.stations.map((station) => station.language).filter(Boolean))]
+      .sort((first, second) => String(first).localeCompare(String(second)));
+    const allOption = makeElement('option', '', t('filter.allLanguages'));
+    allOption.value = 'all';
+    elements.languageSelect.replaceChildren(
+      allOption,
+      ...languages.map((language) => {
+        const option = makeElement('option', '', language);
+        option.value = language;
+        return option;
+      })
+    );
+    elements.languageSelect.value = state.activeLanguage;
   }
 
   function renderStationLists() {
-    const favoriteStations = state.stations.filter((s) => state.favorites.has(s.id));
+    const favoriteStations = state.stations.filter((s) => state.favorites.has(s.id)).sort(statusSort);
     if (favoriteStations.length) {
       elements.favoritesSection.hidden = false;
       elements.featured.replaceChildren(...favoriteStations.map((station) => createStationCard(station, true)));
     } else {
       elements.favoritesSection.hidden = true;
     }
-    elements.stations.replaceChildren(...(state.filteredStations.length ? state.filteredStations.map((station) => createStationCard(station, false)) : [makeElement('div', 'empty-state', 'No stations match this search yet. Try a different keyword.')]));
+    elements.stations.replaceChildren(...(state.filteredStations.length ? state.filteredStations.map((station) => createStationCard(station, false)) : [makeElement('div', 'empty-state', t('status.emptyList'))]));
     renderRecent();
   }
 
+  function statusRank(station) {
+    return station.status === 'online' ? 0 : (station.status === 'offline' ? 2 : 1);
+  }
+
+  function statusSort(first, second) {
+    return statusRank(first) - statusRank(second) || String(first.name).localeCompare(String(second.name));
+  }
+
   function applyFilters() {
-    state.filteredStations = state.stations.filter(stationMatches).sort((first, second) => first.name.localeCompare(second.name));
+    state.filteredStations = state.stations.filter(stationMatches).sort(statusSort);
     renderFilters();
     renderStationLists();
-    elements.resultsCount.textContent = `${state.filteredStations.length} station${state.filteredStations.length === 1 ? '' : 's'} shown`;
+    const count = state.filteredStations.length;
+    elements.resultsCount.textContent = t(count === 1 ? 'results.shown.one' : 'results.shown.many', { n: count });
   }
 
   function saveFavorites() {
@@ -414,11 +703,26 @@
     return 'audio/mpeg';
   }
 
+  function isHlsStream(stream) {
+    return String(stream.codec || '').toLowerCase() === 'hls' || String(stream.url || '').includes('.m3u8');
+  }
+
+  function sortStreamsForPlayback(streams) {
+    return [...(streams || [])]
+      .filter((s) => s.url)
+      .sort((a, b) => {
+        const aHls = isHlsStream(a);
+        const bHls = isHlsStream(b);
+        if (aHls !== bHls) return aHls ? 1 : -1;
+        return (a.priority || Infinity) - (b.priority || Infinity);
+      });
+  }
+
   async function castStation(station) {
-    const streams = [...(station.streams || [])].filter((s) => s.url).sort((a, b) => (a.priority || Infinity) - (b.priority || Infinity));
+    const streams = sortStreamsForPlayback(station.streams);
     if (!streams.length) return;
     const stream = streams[0];
-    const isHls = String(stream.codec || '').toLowerCase() === 'hls' || stream.url.includes('.m3u8');
+    const isHls = isHlsStream(stream);
     const useProxy = isHls && HLS_PROXY_URL;
     const contentType = streamContentType(stream, useProxy);
     const castUrl = useProxy ? `${HLS_PROXY_URL}?url=${encodeURIComponent(stream.url)}&contentType=${encodeURIComponent(contentType)}` : stream.url;
@@ -430,7 +734,7 @@
 
     const session = castContext?.getCurrentSession();
     if (!session) {
-      setStatus('No Cast session available');
+      setStatus(t('status.noCastSession'));
       return;
     }
 
@@ -448,15 +752,15 @@
       await loadOnCast(contentType);
       state.playing = true;
       state.paused = false;
-      setStatus(`Casting ${station.name}`);
+      setStatus(t('status.playingCast', { name: station.name }));
     } catch (error) {
       state.playing = false;
       state.paused = false;
       console.error('Cast loadMedia error:', error.message || error);
       if (isHls && !useProxy) {
-        setStatus(`Cast blocked for this HLS stream. Deploy the proxy worker (see hls-proxy-worker.js) and set HLS_PROXY_URL in app.js.`);
+        setStatus(t('status.castBlocked'));
       } else {
-        setStatus(`Cast error: ${error.message || 'Unable to cast'}`);
+        setStatus(t('status.castError', { error: error.message || t('status.castError') }));
       }
     }
     updatePlayer();
@@ -501,9 +805,9 @@
   /* ---------- Playback & Retry ---------- */
 
   async function playStation(station) {
-    const streams = [...(station.streams || [])].filter((stream) => stream.url).sort((first, second) => (first.priority || Infinity) - (second.priority || Infinity));
+    const streams = sortStreamsForPlayback(station.streams);
     if (!streams.length) {
-      setStatus('No stream available');
+      setStatus(t('status.noStream'));
       return;
     }
 
@@ -519,6 +823,8 @@
     state.pauseIntent = true;
     state.pendingAutoResume = false;
     state.resumeAttempts = 0;
+    state.nowPlayingTrack = '';
+    elements.nowPlayingTrack.hidden = true;
     const stream = streams[0];
 
     if (state.hls) {
@@ -526,17 +832,17 @@
       state.hls = null;
     }
 
-    const isHls = (stream.codec || '').toLowerCase() === 'hls' || stream.url.includes('.m3u8');
+    const isHls = isHlsStream(stream);
 
     if (isHls) {
       if (!window.Hls || !window.Hls.isSupported()) {
-        setStatus('HLS playback not supported in this browser');
+        setStatus(t('status.hlsUnsupported'));
         updatePlayer();
         renderStationLists();
         return;
       }
       elements.audio.src = '';
-      setStatus('Loading HLS stream...');
+      setStatus(t('status.loadingHls'));
       state.hls = new window.Hls({ startLevel: 0 });
       state.hls.loadSource(stream.url);
       state.hls.attachMedia(elements.audio);
@@ -554,7 +860,7 @@
         state.hls = null;
         state.playing = false;
         state.pauseIntent = false;
-        setStatus('Unable to load this stream');
+        setStatus(t('status.loadFailed'));
         console.error(error);
         updatePlayer();
         renderStationLists();
@@ -567,14 +873,14 @@
         state.hls = null;
         state.playing = false;
         state.pauseIntent = false;
-        setStatus('Unable to start playback');
+        setStatus(t('status.playFailed'));
         console.error(error);
         updatePlayer();
         renderStationLists();
         return;
       }
       state.playing = true;
-      setStatus(`Playing ${station.name}`);
+      setStatus(t('status.playing', { name: station.name }));
       localStorage.setItem('openradio-last-station', station.id);
       addRecentStation(station);
       startMetadataPolling(stream.url);
@@ -588,14 +894,14 @@
     try {
       await elements.audio.play();
       state.playing = true;
-      setStatus(`Playing ${station.name}`);
+      setStatus(t('status.playing', { name: station.name }));
       localStorage.setItem('openradio-last-station', station.id);
       addRecentStation(station);
       startMetadataPolling(stream.url);
     } catch (error) {
       state.playing = false;
       state.pauseIntent = false;
-      setStatus('Unable to start this stream');
+      setStatus(t('status.streamFailed'));
       console.error(error);
     }
     updatePlayer();
@@ -609,7 +915,7 @@
     }
     state.retryCount++;
     const delay = Math.min(1000 * Math.pow(2, state.retryCount), 15000);
-    setStatus(`Retrying in ${Math.round(delay / 1000)}s (${state.retryCount}/${state.maxRetries})...`);
+    setStatus(t('status.retrying', { sec: Math.round(delay / 1000), attempt: state.retryCount, max: state.maxRetries }));
     setTimeout(() => playStation(state.currentStation), delay);
   }
 
@@ -704,7 +1010,7 @@
       .then(() => {
         state.pendingAutoResume = false;
         state.resumeAttempts = 0;
-        setStatus('Playback resumed');
+        setStatus(t('status.resumed'));
       })
       .catch(() => {
         state.resumeAttempts += 1;
@@ -783,7 +1089,7 @@
     if (minutes <= 0) {
       elements.sleepTimerPicker.hidden = true;
       elements.sleepTimerStatus.hidden = true;
-      elements.sleepTimerBtn.textContent = '\u23F0 Timer';
+      elements.sleepTimerBtn.textContent = '\u23F0 ' + t('np.timer');
       return;
     }
     state.sleepTimerEnd = Date.now() + minutes * 60 * 1000;
@@ -792,14 +1098,14 @@
       state.sleepTimerId = null;
       state.sleepTimerEnd = null;
       elements.sleepTimerStatus.hidden = true;
-      elements.sleepTimerBtn.textContent = '\u23F0 Timer';
-      setStatus('Sleep timer: playback stopped');
+      elements.sleepTimerBtn.textContent = '\u23F0 ' + t('np.timer');
+      setStatus(t('status.sleeptimerStopped'));
       updatePlayer();
     }, minutes * 60 * 1000);
     elements.sleepTimerPicker.hidden = true;
     elements.sleepTimerStatus.hidden = false;
     const mins = minutes >= 60 ? `${Math.floor(minutes / 60)}h ${minutes % 60}m` : `${minutes}m`;
-    elements.sleepTimerStatus.textContent = `Sleeping in ${mins}`;
+    elements.sleepTimerStatus.textContent = t('np.sleeptimer', { time: mins });
     elements.sleepTimerBtn.textContent = `\u23F0 ${mins}`;
   }
 
@@ -810,13 +1116,13 @@
     if (!station) return;
     const shareData = {
       title: station.name,
-      text: `Listen to ${station.name} on OpenRadio-IN`,
+      text: t('share.text', { name: station.name }),
       url: `${window.location.origin}${window.location.pathname}?station=${station.id}`
     };
     if (navigator.share) {
       try { await navigator.share(shareData); } catch {}
     } else {
-      try { await navigator.clipboard.writeText(shareData.url); setStatus('Link copied!'); } catch {}
+      try { await navigator.clipboard.writeText(shareData.url); setStatus(t('status.copied')); } catch {}
     }
   }
 
@@ -831,6 +1137,7 @@
           state.nowPlayingTrack = data.streamTitle;
           elements.nowPlayingTrack.textContent = state.nowPlayingTrack;
           elements.nowPlayingTrack.hidden = false;
+          updateMediaSession();
         }
       })
       .catch(() => {});
@@ -852,7 +1159,7 @@
   /* ---------- Keyboard Shortcuts ---------- */
 
   function handleKeydown(e) {
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
     if (!elements.nowPlaying.hidden && e.key === 'Escape') { closeNowPlaying(); return; }
     switch (e.key) {
       case ' ':
@@ -878,23 +1185,104 @@
       state.stations = (await response.json()).filter(Boolean);
       const lastStationId = localStorage.getItem('openradio-last-station');
       state.currentStation = state.stations.find((station) => station.id === lastStationId) || null;
+      populateAlarmStations();
       applyFilters();
       updatePlayer();
-      setStatus(`${state.stations.length} stations loaded`);
+      setStatus(t('status.loaded', { n: state.stations.length }));
     } catch (error) {
       console.error(error);
-      setStatus('Unable to load station data');
-      elements.resultsCount.textContent = 'Station data is unavailable right now.';
-      elements.stations.replaceChildren(makeElement('div', 'empty-state', 'The station database could not be loaded. Please refresh and try again.'));
+      setStatus(t('status.error'));
+      elements.resultsCount.textContent = t('status.dataUnavailable');
+      elements.stations.replaceChildren(makeElement('div', 'empty-state', t('status.emptyData')));
     }
+  }
+
+  /* ---------- Alarm ---------- */
+
+  function populateAlarmStations() {
+    const options = state.stations.map((station) => {
+      const option = makeElement('option', '', station.name);
+      option.value = station.id;
+      return option;
+    });
+    elements.alarmStationSelect.replaceChildren(...options);
+    if (state.alarm) {
+      elements.alarmTimeInput.value = state.alarm.time || '';
+      elements.alarmStationSelect.value = state.stations.some((s) => s.id === state.alarm.stationId) ? state.alarm.stationId : '';
+    }
+    renderAlarmStatus();
+  }
+
+  function renderAlarmStatus() {
+    if (!state.alarm) {
+      elements.alarmStatus.hidden = true;
+      elements.alarmStatus.textContent = '';
+      elements.alarmOff.disabled = true;
+      elements.alarmBtn.textContent = '\u23F0 ' + t('np.alarm');
+      return;
+    }
+    elements.alarmStatus.hidden = false;
+    elements.alarmStatus.textContent = t('alarm.status', { time: state.alarm.time });
+    elements.alarmOff.disabled = false;
+    elements.alarmBtn.textContent = `\u23F0 ${state.alarm.time}`;
+  }
+
+  function saveAlarm() {
+    localStorage.setItem('openradio-alarm', JSON.stringify(state.alarm));
+    renderAlarmStatus();
+  }
+
+  function setAlarm(time, stationId) {
+    if (!time || !stationId) return;
+    state.alarm = { time, stationId };
+    saveAlarm();
+    elements.alarmTimeInput.value = time;
+    elements.alarmStationSelect.value = stationId;
+    elements.alarmPicker.hidden = true;
+  }
+
+  function clearAlarm() {
+    state.alarm = null;
+    localStorage.removeItem('openradio-alarm');
+    renderAlarmStatus();
+  }
+
+  function checkAlarm() {
+    if (!state.alarm) return;
+    const now = new Date();
+    const nowTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    if (nowTime !== state.alarm.time) return;
+    const station = state.stations.find((s) => s.id === state.alarm.stationId);
+    state.alarm = null;
+    localStorage.removeItem('openradio-alarm');
+    renderAlarmStatus();
+    if (station) {
+      playStation(station).then(() => setStatus(t('alarm.fired', { name: station.name })));
+    }
+  }
+
+  /* ---------- UI Language ---------- */
+
+  function applyUiLanguage() {
+    localStorage.setItem('openradio-ui-lang', uiLang);
+    document.documentElement.lang = uiLang;
+    elements.uiLang.value = uiLang;
+    document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => { el.placeholder = t(el.dataset.i18nPlaceholder); });
+    renderThemeToggle();
+    applyFilters();
+    updatePlayer();
+    renderAlarmStatus();
   }
 
   /* ---------- Init ---------- */
 
   setTheme(state.theme);
+  watchSystemTheme();
   applyVolume(state.volume);
   setupMediaSession();
   restoreCollapsedStates();
+  applyUiLanguage();
 
   elements.search.addEventListener('input', (event) => {
     state.search = event.target.value;
@@ -905,6 +1293,14 @@
     if (!button) return;
     state.activeCategory = button.dataset.category;
     applyFilters();
+  });
+  elements.languageSelect.addEventListener('change', (event) => {
+    state.activeLanguage = event.target.value;
+    applyFilters();
+  });
+  elements.uiLang.addEventListener('change', (event) => {
+    uiLang = event.target.value;
+    applyUiLanguage();
   });
   elements.featured.addEventListener('click', handleStationAction);
   elements.recentStations.addEventListener('click', handleStationAction);
@@ -951,6 +1347,16 @@
 
   elements.themeToggle.addEventListener('click', toggleTheme);
 
+  elements.alarmBtn.addEventListener('click', () => {
+    elements.alarmPicker.hidden = !elements.alarmPicker.hidden;
+  });
+  elements.alarmSet.addEventListener('click', () => {
+    setAlarm(elements.alarmTimeInput.value, elements.alarmStationSelect.value);
+  });
+  elements.alarmOff.addEventListener('click', clearAlarm);
+  setInterval(checkAlarm, 15000);
+  checkAlarm();
+
   elements.audio.addEventListener('play', () => {
     state.playing = true;
     state.paused = false;
@@ -978,7 +1384,7 @@
     state.nowPlayingTrack = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
-    setStatus('Playback ended');
+    setStatus(t('status.ended'));
     updatePlayer();
     renderStationLists();
   });
@@ -1019,7 +1425,7 @@
     installPrompt = null;
     elements.install.hidden = true;
   });
-  window.addEventListener('appinstalled', () => { elements.install.hidden = true; setStatus('App installed'); });
+  window.addEventListener('appinstalled', () => { elements.install.hidden = true; setStatus(t('status.appInstalled')); });
 
   window.addEventListener('openradio-cast-api', (event) => {
     if (event.detail) initializeCast();

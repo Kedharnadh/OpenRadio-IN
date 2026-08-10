@@ -24,26 +24,38 @@
     <div class="app-shell">
       <header class="hero-card">
         <div>
-          <p class="eyebrow">Community radio &bull; PWA</p>
+          <p class="eyebrow" data-i18n="app.eyebrow">Community radio &bull; PWA</p>
           <h1>OpenRadio-IN <google-cast-launcher id="cast-button" aria-label="Cast radio to a Google Cast device"></google-cast-launcher></h1>
-          <p class="hero-copy">Discover and play Indian online radio stations with instant search, filters, and a polished app-style experience.</p>
-          <span id="status-pill" class="status-pill">Preparing</span>
+          <p class="hero-copy" data-i18n="app.tagline">Discover and play Indian online radio stations with instant search, filters, and a polished app-style experience.</p>
+          <span id="status-pill" class="status-pill" data-i18n="status.loading">Preparing</span>
         </div>
-        <label class="search-box" for="search">
-          <span aria-hidden="true">&#x1F50E;</span>
-          <input id="search" type="search" placeholder="Search stations, language, or category" />
-        </label>
-        <button id="install-app" class="secondary-btn" type="button" hidden>Install app</button>
+        <div class="hero-side">
+          <label class="search-box" for="search">
+            <span aria-hidden="true">&#x1F50E;</span>
+            <input id="search" type="search" placeholder="Search stations, language, or category" data-i18n-placeholder="search.placeholder" />
+          </label>
+          <label class="ui-lang" for="ui-lang">
+            <select id="ui-lang">
+              <option value="en">English</option>
+              <option value="te">&#x0C24;&#x0C46;&#x0C32;&#x0C41;&#x0C17;&#x0C41;</option>
+              <option value="hi">&#x0939;&#x093F;&#x0928;&#x094D;&#x0926;&#x0940;</option>
+            </select>
+          </label>
+          <button id="install-app" class="secondary-btn" type="button" hidden data-i18n="install">Install app</button>
+        </div>
       </header>
 
       <section class="toolbar-card">
         <div id="filters" class="pill-row" aria-label="Station categories"></div>
-        <div id="results-count" class="results-count">Loading stations&hellip;</div>
+        <label class="lang-filter" for="language-select">
+          <select id="language-select"></select>
+        </label>
+        <div id="results-count" class="results-count" data-i18n="status.loading">Loading stations&hellip;</div>
       </section>
 
       <section id="recent-section" class="card-section" hidden>
         <div class="section-head">
-          <h2>Recently Played</h2>
+          <h2 data-i18n="section.recent">Recently Played</h2>
           <button class="collapse-toggle" data-section="recent-section" aria-label="Collapse section">&#x25BC;</button>
         </div>
         <div id="recent-stations" class="featured-grid"></div>
@@ -51,7 +63,7 @@
 
       <section id="favorites-section" class="card-section">
         <div class="section-head">
-          <h2>Favorite Stations</h2>
+          <h2 data-i18n="section.favorites">Favorite Stations</h2>
           <button class="collapse-toggle" data-section="favorites-section" aria-label="Collapse section">&#x25BC;</button>
         </div>
         <div id="featured" class="featured-grid"></div>
@@ -59,7 +71,7 @@
 
       <main id="all-section" class="card-section">
         <div class="section-head">
-          <h2>All stations</h2>
+          <h2 data-i18n="section.all">All stations</h2>
           <button class="collapse-toggle" data-section="all-section" aria-label="Collapse section">&#x25BC;</button>
         </div>
         <div id="stations" class="station-grid"></div>
@@ -67,8 +79,8 @@
 
       <footer class="player-bar" id="player-bar">
         <div class="player-info" id="player-info" role="button" tabindex="0" aria-label="Open now playing view">
-          <strong id="player-title">Choose a station</strong>
-          <span id="player-meta">Your selected radio station will appear here.</span>
+          <strong id="player-title" data-i18n="player.defaultTitle">Choose a station</strong>
+          <span id="player-meta" data-i18n="player.defaultMeta">Your selected radio station will appear here.</span>
         </div>
         <div class="player-controls">
           <button id="prev-btn" class="icon-btn" disabled title="Previous">&nbsp;&#x23EE;&nbsp;</button>
@@ -87,14 +99,14 @@
       <div class="now-playing-backdrop" id="now-playing-backdrop"></div>
       <div class="now-playing-sheet">
         <div class="now-playing-header">
-          <strong>Now Playing</strong>
+          <strong data-i18n="np.title">Now Playing</strong>
           <button id="now-playing-close" class="icon-btn close-btn" aria-label="Close">&#x2715;</button>
         </div>
         <div class="now-playing-art">
           <img id="now-playing-logo" src="" alt="" hidden />
           <span id="now-playing-placeholder" class="now-playing-placeholder">&#x1F4FB;</span>
         </div>
-        <strong id="now-playing-title" class="now-playing-title">Choose a station</strong>
+        <strong id="now-playing-title" class="now-playing-title" data-i18n="player.defaultTitle">Choose a station</strong>
         <span id="now-playing-meta" class="now-playing-meta"></span>
         <span id="now-playing-track" class="now-playing-track" hidden></span>
         <div class="now-playing-controls">
@@ -108,9 +120,10 @@
           <input type="range" id="np-volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume" />
         </div>
         <div class="now-playing-actions" id="now-playing-actions">
-          <button id="share-btn" class="secondary-btn" title="Share station">&#x1F91D; Share</button>
-          <button id="sleep-timer-btn" class="secondary-btn" title="Sleep timer">&#x23F0; Timer</button>
+          <button id="share-btn" class="secondary-btn" title="Share station">&#x1F91D; <span data-i18n="np.share">Share</span></button>
+          <button id="sleep-timer-btn" class="secondary-btn" title="Sleep timer">&#x23F0; <span data-i18n="np.timer">Timer</span></button>
           <button id="theme-toggle" class="secondary-btn" title="Toggle theme">&#x2600;&#xFE0F; Light</button>
+          <button id="alarm-btn" class="secondary-btn" title="Alarm">&#x23F0; <span data-i18n="np.alarm">Alarm</span></button>
         </div>
         <div id="sleep-timer-picker" class="sleep-timer-picker" hidden>
           <button class="secondary-btn" data-minutes="15">15 min</button>
@@ -119,12 +132,25 @@
           <button class="secondary-btn" data-minutes="0">Off</button>
         </div>
         <div id="sleep-timer-status" class="sleep-timer-status" hidden></div>
+        <div id="alarm-picker" class="alarm-picker" hidden>
+          <label for="alarm-time-input"><span data-i18n="alarm.timeLabel">Time</span>
+            <input type="time" id="alarm-time-input" />
+          </label>
+          <label for="alarm-station-select"><span data-i18n="alarm.stationLabel">Station</span>
+            <select id="alarm-station-select"></select>
+          </label>
+          <div class="alarm-actions">
+            <button id="alarm-set" class="secondary-btn" data-i18n="alarm.set">Set alarm</button>
+            <button id="alarm-off" class="secondary-btn" data-i18n="alarm.off">Turn off</button>
+          </div>
+        </div>
+        <div id="alarm-status" class="sleep-timer-status" hidden></div>
       </div>
     </div>
 
     <div id="update-banner" class="update-banner" hidden>
-      <span>Update available</span>
-      <button id="update-btn" class="secondary-btn">Refresh</button>
+      <span data-i18n="update.available">Update available</span>
+      <button id="update-btn" class="secondary-btn" data-i18n="update.refresh">Refresh</button>
     </div>
 
     <audio id="audio-player" preload="none"></audio>
