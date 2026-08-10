@@ -81,6 +81,9 @@
   const CUSTOM_CAST_APP_ID = '45881BB0';
   const HLS_PROXY_URL = 'https://openradio-hls-proxy.kedharnadh1.workers.dev';
   const RECENT_MAX = 10;
+  const RESUME_GRACE_MS = 3000;
+  const RESUME_BACKOFF_MS = [5000, 10000, 20000, 30000, 30000];
+  const RESUME_MAX_ATTEMPTS = 10;
 
   function setStatus(message) {
     elements.status.textContent = message;
@@ -166,6 +169,11 @@
 
   function setupMediaSession() {
     if (!('mediaSession' in navigator)) return;
+    try {
+      if (typeof navigator.mediaSession.setAudioFocusMode === 'function') {
+        navigator.mediaSession.setAudioFocusMode('multicast');
+      }
+    } catch {}
     navigator.mediaSession.setActionHandler('play', () => playPlayback());
     navigator.mediaSession.setActionHandler('pause', () => pausePlayback());
     navigator.mediaSession.setActionHandler('stop', () => stopPlayback());
@@ -666,7 +674,7 @@
   function scheduleAutoResume() {
     state.pendingAutoResume = true;
     state.resumeAttempts = 0;
-    attemptResume();
+    setTimeout(attemptResume, RESUME_GRACE_MS);
   }
 
   function attemptResume() {
@@ -680,6 +688,18 @@
       state.pendingAutoResume = false;
       return;
     }
+
+    if (!elements.audio.src) {
+      if (document.hidden) {
+        setTimeout(attemptResume, RESUME_BACKOFF_MS[RESUME_BACKOFF_MS.length - 1]);
+      } else {
+        state.pendingAutoResume = false;
+        state.resumeAttempts = 0;
+        playStation(state.currentStation);
+      }
+      return;
+    }
+
     elements.audio.play()
       .then(() => {
         state.pendingAutoResume = false;
@@ -688,15 +708,13 @@
       })
       .catch(() => {
         state.resumeAttempts += 1;
-        if (state.resumeAttempts >= 60) {
+        if (state.resumeAttempts > RESUME_MAX_ATTEMPTS) {
           state.pendingAutoResume = false;
           state.resumeAttempts = 0;
           return;
         }
-        if (!elements.audio.src || state.resumeAttempts % 30 === 0) {
-          playStation(state.currentStation);
-        }
-        setTimeout(attemptResume, 3000);
+        const delay = RESUME_BACKOFF_MS[Math.min(state.resumeAttempts - 1, RESUME_BACKOFF_MS.length - 1)];
+        setTimeout(attemptResume, delay);
       });
   }
 
@@ -982,7 +1000,7 @@
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) return;
-    if (state.currentStation && !state.userInitiatedStop && !state.paused && !state.pauseIntent && !state.playing && elements.audio.paused) {
+    if (state.currentStation && !state.userInitiatedStop && !state.paused && !state.pauseIntent && elements.audio.paused) {
       scheduleAutoResume();
     } else if (state.pendingAutoResume) {
       attemptResume();
