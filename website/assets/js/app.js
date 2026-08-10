@@ -20,6 +20,10 @@
     sleepTimerId: null,
     sleepTimerEnd: null,
     userInitiatedStop: false,
+    paused: false,
+    pauseIntent: false,
+    pendingAutoResume: false,
+    resumeAttempts: 0,
     metadataIntervalId: null
   };
 
@@ -30,6 +34,8 @@
     featured: document.getElementById('featured'),
     stations: document.getElementById('stations'),
     playToggle: document.getElementById('play-toggle'),
+    pauseBtn: document.getElementById('pause-btn'),
+    stopBtn: document.getElementById('stop-btn'),
     playerTitle: document.getElementById('player-title'),
     playerMeta: document.getElementById('player-meta'),
     status: document.getElementById('status-pill'),
@@ -56,6 +62,8 @@
     nowPlayingTrack: document.getElementById('now-playing-track'),
     npPrev: document.getElementById('np-prev'),
     npPlayToggle: document.getElementById('np-play-toggle'),
+    npPauseBtn: document.getElementById('np-pause'),
+    npStopBtn: document.getElementById('np-stop'),
     npNext: document.getElementById('np-next'),
     npVolumeSlider: document.getElementById('np-volume-slider'),
     npVolumeBtn: document.getElementById('np-volume-btn'),
@@ -160,8 +168,8 @@
 
   function setupMediaSession() {
     if (!('mediaSession' in navigator)) return;
-    navigator.mediaSession.setActionHandler('play', () => togglePlayback());
-    navigator.mediaSession.setActionHandler('pause', () => togglePlayback());
+    navigator.mediaSession.setActionHandler('play', () => playPlayback());
+    navigator.mediaSession.setActionHandler('pause', () => pausePlayback());
     navigator.mediaSession.setActionHandler('stop', () => stopPlayback());
     navigator.mediaSession.setActionHandler('previoustrack', () => playAdjacentStation(-1));
     navigator.mediaSession.setActionHandler('nexttrack', () => playAdjacentStation(1));
@@ -172,6 +180,7 @@
     const station = state.currentStation;
     if (!station) {
       navigator.mediaSession.metadata = null;
+      navigator.mediaSession.playbackState = 'none';
       return;
     }
     navigator.mediaSession.metadata = new MediaMetadata({
@@ -179,6 +188,7 @@
       artist: station.language || 'OpenRadio-IN',
       artwork: station.logo ? [{ src: station.logo, sizes: '512x512', type: 'image/png' }] : []
     });
+    navigator.mediaSession.playbackState = state.playing ? 'playing' : (state.paused ? 'paused' : 'none');
   }
 
   /* ---------- Collapse Sections ---------- */
@@ -228,10 +238,14 @@
       elements.playerMeta.textContent = 'Your selected radio station will appear here.';
       elements.playToggle.disabled = true;
       elements.playToggle.textContent = '\u25b6 Play';
+      elements.pauseBtn.disabled = true;
+      elements.stopBtn.disabled = true;
       elements.prevBtn.disabled = true;
       elements.nextBtn.disabled = true;
       elements.npPlayToggle.disabled = true;
       elements.npPlayToggle.textContent = '\u25b6 Play';
+      elements.npPauseBtn.disabled = true;
+      elements.npStopBtn.disabled = true;
       elements.npPrev.disabled = true;
       elements.npNext.disabled = true;
       elements.nowPlayingTitle.textContent = 'Choose a station';
@@ -243,16 +257,11 @@
       return;
     }
 
-    const stationText = state.playing ? '\u23f9 Stop' : '\u25b6 Play';
-    elements.playerTitle.textContent = station.name;
     const destination = isCasting() ? 'Casting' : (station.streams?.[0]?.codec || 'Stream');
+    elements.playerTitle.textContent = station.name;
     elements.playerMeta.textContent = `${station.language || 'Unknown language'} \u2022 ${destination}`;
-    elements.playToggle.disabled = false;
-    elements.playToggle.textContent = stationText;
     elements.prevBtn.disabled = !hasMultiple;
     elements.nextBtn.disabled = !hasMultiple;
-    elements.npPlayToggle.disabled = false;
-    elements.npPlayToggle.textContent = stationText;
     elements.npPrev.disabled = !hasMultiple;
     elements.npNext.disabled = !hasMultiple;
     elements.nowPlayingTitle.textContent = station.name;
@@ -267,6 +276,17 @@
     } else {
       elements.nowPlayingTrack.hidden = true;
     }
+
+    const isPlaying = state.playing;
+    const isPaused = state.paused;
+    elements.playToggle.disabled = false;
+    elements.playToggle.textContent = isPaused ? '\u25b6 Resume' : '\u25b6 Play';
+    elements.pauseBtn.disabled = !isPlaying;
+    elements.stopBtn.disabled = !isPlaying && !isPaused;
+    elements.npPlayToggle.disabled = false;
+    elements.npPlayToggle.textContent = isPaused ? '\u25b6 Resume' : '\u25b6 Play';
+    elements.npPauseBtn.disabled = !isPlaying;
+    elements.npStopBtn.disabled = !isPlaying && !isPaused;
     updateMediaSession();
   }
 
@@ -328,7 +348,10 @@
 
     const footer = makeElement('div', 'station-card__footer');
     footer.append(makeElement('span', '', featured ? (station.verified ? 'Verified' : 'Community') : (station.country || 'India')));
-    const play = makeElement('button', 'secondary-btn', state.currentStation?.id === station.id && state.playing ? 'Stop' : 'Play');
+    const playLabel = state.currentStation?.id === station.id
+      ? (state.playing ? 'Pause' : (state.paused ? 'Resume' : 'Play'))
+      : 'Play';
+    const play = makeElement('button', 'secondary-btn', playLabel);
     play.type = 'button';
     play.dataset.action = 'play';
     play.dataset.id = station.id;
@@ -422,9 +445,11 @@
     try {
       await loadOnCast(contentType);
       state.playing = true;
+      state.paused = false;
       setStatus(`Casting ${station.name}`);
     } catch (error) {
       state.playing = false;
+      state.paused = false;
       console.error('Cast loadMedia error:', error.message || error);
       if (isHls && !useProxy) {
         setStatus(`Cast blocked for this HLS stream. Deploy the proxy worker (see hls-proxy-worker.js) and set HLS_PROXY_URL in app.js.`);
@@ -442,6 +467,7 @@
     castPlayerController = new cast.framework.RemotePlayerController(castPlayer);
     castPlayerController.addEventListener(cast.framework.RemotePlayerEventType.IS_PAUSED_CHANGED, () => {
       state.playing = !castPlayer.isPaused;
+      state.paused = castPlayer.isPaused;
       updatePlayer();
       renderStationLists();
     });
@@ -463,6 +489,7 @@
           castPlayer = undefined;
           castPlayerController = undefined;
           state.playing = false;
+          state.paused = false;
           break;
       }
       updatePlayer();
@@ -486,6 +513,10 @@
     state.currentStation = station;
     state.retryCount = 0;
     state.userInitiatedStop = false;
+    state.paused = false;
+    state.pauseIntent = true;
+    state.pendingAutoResume = false;
+    state.resumeAttempts = 0;
     const stream = streams[0];
 
     if (state.hls) {
@@ -520,6 +551,7 @@
         state.hls.destroy();
         state.hls = null;
         state.playing = false;
+        state.pauseIntent = false;
         setStatus('Unable to load this stream');
         console.error(error);
         updatePlayer();
@@ -532,6 +564,7 @@
         state.hls.destroy();
         state.hls = null;
         state.playing = false;
+        state.pauseIntent = false;
         setStatus('Unable to start playback');
         console.error(error);
         updatePlayer();
@@ -559,6 +592,7 @@
       startMetadataPolling(stream.url);
     } catch (error) {
       state.playing = false;
+      state.pauseIntent = false;
       setStatus('Unable to start this stream');
       console.error(error);
     }
@@ -579,6 +613,10 @@
 
   function stopPlayback() {
     state.userInitiatedStop = true;
+    state.paused = false;
+    state.pauseIntent = true;
+    state.pendingAutoResume = false;
+    state.resumeAttempts = 0;
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     elements.audio.pause();
     elements.audio.src = '';
@@ -590,17 +628,91 @@
     renderStationLists();
   }
 
-  async function togglePlayback() {
+  function pausePlayback() {
+    if (!state.currentStation || !state.playing) return;
+    if (isCasting()) {
+      if (castPlayerController) castPlayerController.playOrPause();
+      return;
+    }
+    state.paused = true;
+    state.pauseIntent = true;
+    state.pendingAutoResume = false;
+    state.resumeAttempts = 0;
+    elements.audio.pause();
+    updatePlayer();
+    renderStationLists();
+  }
+
+  async function playPlayback() {
     if (!state.currentStation) return;
     if (isCasting()) {
       if (castPlayerController) castPlayerController.playOrPause();
       return;
     }
-    if (state.playing) {
-      stopPlayback();
+    if (state.playing) return;
+    state.userInitiatedStop = false;
+    state.pauseIntent = false;
+    state.pendingAutoResume = false;
+    state.resumeAttempts = 0;
+    if (state.paused) {
+      state.paused = false;
+      try {
+        await elements.audio.play();
+      } catch (error) {
+        console.error(error);
+        await playStation(state.currentStation);
+      }
+      updatePlayer();
+      renderStationLists();
       return;
     }
     await playStation(state.currentStation);
+  }
+
+  function scheduleAutoResume() {
+    state.pendingAutoResume = true;
+    state.resumeAttempts = 0;
+    attemptResume();
+  }
+
+  function attemptResume() {
+    if (!state.pendingAutoResume || !state.currentStation) return;
+    if (state.userInitiatedStop || state.paused || state.pauseIntent) {
+      state.pendingAutoResume = false;
+      state.resumeAttempts = 0;
+      return;
+    }
+    if (isCasting()) {
+      state.pendingAutoResume = false;
+      return;
+    }
+    elements.audio.play()
+      .then(() => {
+        state.pendingAutoResume = false;
+        state.resumeAttempts = 0;
+        setStatus('Playback resumed');
+      })
+      .catch(() => {
+        state.resumeAttempts += 1;
+        if (state.resumeAttempts >= 60) {
+          state.pendingAutoResume = false;
+          state.resumeAttempts = 0;
+          return;
+        }
+        if (!elements.audio.src || state.resumeAttempts % 30 === 0) {
+          playStation(state.currentStation);
+        }
+        setTimeout(attemptResume, 3000);
+      });
+  }
+
+  async function togglePlayback() {
+    if (!state.currentStation) return;
+    if (state.playing) {
+      pausePlayback();
+    } else {
+      await playPlayback();
+    }
   }
 
   function playAdjacentStation(direction) {
@@ -627,8 +739,13 @@
       return;
     }
     state.currentSource = event.currentTarget === elements.featured || event.currentTarget === elements.recentStations ? 'favorites' : 'all';
-    if (state.currentStation?.id === station.id && state.playing) await togglePlayback();
-    else await playStation(station);
+    if (state.currentStation?.id === station.id) {
+      if (state.playing) pausePlayback();
+      else if (state.paused) await playPlayback();
+      else await playStation(station);
+    } else {
+      await playStation(station);
+    }
   }
 
   /* ---------- Now Playing Sheet ---------- */
@@ -780,10 +897,14 @@
   elements.featured.addEventListener('click', handleStationAction);
   elements.recentStations.addEventListener('click', handleStationAction);
   elements.stations.addEventListener('click', handleStationAction);
-  elements.playToggle.addEventListener('click', togglePlayback);
+  elements.playToggle.addEventListener('click', playPlayback);
+  elements.pauseBtn.addEventListener('click', pausePlayback);
+  elements.stopBtn.addEventListener('click', stopPlayback);
   elements.prevBtn.addEventListener('click', () => playAdjacentStation(-1));
   elements.nextBtn.addEventListener('click', () => playAdjacentStation(1));
-  elements.npPlayToggle.addEventListener('click', togglePlayback);
+  elements.npPlayToggle.addEventListener('click', playPlayback);
+  elements.npPauseBtn.addEventListener('click', pausePlayback);
+  elements.npStopBtn.addEventListener('click', stopPlayback);
   elements.npPrev.addEventListener('click', () => playAdjacentStation(-1));
   elements.npNext.addEventListener('click', () => playAdjacentStation(1));
 
@@ -822,14 +943,28 @@
 
   elements.audio.addEventListener('play', () => {
     state.playing = true;
+    state.paused = false;
+    state.pauseIntent = false;
+    state.pendingAutoResume = false;
+    state.resumeAttempts = 0;
     state.retryCount = 0;
     updatePlayer();
     renderStationLists();
   });
-  elements.audio.addEventListener('pause', () => { state.playing = false; updatePlayer(); renderStationLists(); });
+  elements.audio.addEventListener('pause', () => {
+    state.playing = false;
+    if (state.pauseIntent) {
+      state.pauseIntent = false;
+    } else if (state.currentStation && !state.userInitiatedStop) {
+      scheduleAutoResume();
+    }
+    updatePlayer();
+    renderStationLists();
+  });
   elements.audio.addEventListener('ended', () => {
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     state.playing = false;
+    state.paused = false;
     state.nowPlayingTrack = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
@@ -840,6 +975,8 @@
   elements.audio.addEventListener('error', () => {
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     state.playing = false;
+    state.paused = false;
+    state.pendingAutoResume = false;
     state.nowPlayingTrack = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
@@ -850,6 +987,15 @@
   });
 
   document.addEventListener('keydown', handleKeydown);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) return;
+    if (state.currentStation && !state.userInitiatedStop && !state.paused && !state.pauseIntent && !state.playing && elements.audio.paused) {
+      scheduleAutoResume();
+    } else if (state.pendingAutoResume) {
+      attemptResume();
+    }
+  });
 
   window.addEventListener('beforeinstallprompt', (event) => {
     event.preventDefault();
