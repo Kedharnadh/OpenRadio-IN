@@ -34,7 +34,6 @@
     featured: document.getElementById('featured'),
     stations: document.getElementById('stations'),
     playToggle: document.getElementById('play-toggle'),
-    pauseBtn: document.getElementById('pause-btn'),
     stopBtn: document.getElementById('stop-btn'),
     playerTitle: document.getElementById('player-title'),
     playerMeta: document.getElementById('player-meta'),
@@ -62,7 +61,6 @@
     nowPlayingTrack: document.getElementById('now-playing-track'),
     npPrev: document.getElementById('np-prev'),
     npPlayToggle: document.getElementById('np-play-toggle'),
-    npPauseBtn: document.getElementById('np-pause'),
     npStopBtn: document.getElementById('np-stop'),
     npNext: document.getElementById('np-next'),
     npVolumeSlider: document.getElementById('np-volume-slider'),
@@ -238,13 +236,11 @@
       elements.playerMeta.textContent = 'Your selected radio station will appear here.';
       elements.playToggle.disabled = true;
       elements.playToggle.textContent = '\u25b6 Play';
-      elements.pauseBtn.disabled = true;
       elements.stopBtn.disabled = true;
       elements.prevBtn.disabled = true;
       elements.nextBtn.disabled = true;
       elements.npPlayToggle.disabled = true;
       elements.npPlayToggle.textContent = '\u25b6 Play';
-      elements.npPauseBtn.disabled = true;
       elements.npStopBtn.disabled = true;
       elements.npPrev.disabled = true;
       elements.npNext.disabled = true;
@@ -280,12 +276,10 @@
     const isPlaying = state.playing;
     const isPaused = state.paused;
     elements.playToggle.disabled = false;
-    elements.playToggle.textContent = isPaused ? '\u25b6 Resume' : '\u25b6 Play';
-    elements.pauseBtn.disabled = !isPlaying;
+    elements.playToggle.textContent = isPlaying ? '\u23f8 Pause' : (isPaused ? '\u25b6 Resume' : '\u25b6 Play');
     elements.stopBtn.disabled = !isPlaying && !isPaused;
     elements.npPlayToggle.disabled = false;
-    elements.npPlayToggle.textContent = isPaused ? '\u25b6 Resume' : '\u25b6 Play';
-    elements.npPauseBtn.disabled = !isPlaying;
+    elements.npPlayToggle.textContent = isPlaying ? '\u23f8 Pause' : (isPaused ? '\u25b6 Resume' : '\u25b6 Play');
     elements.npStopBtn.disabled = !isPlaying && !isPaused;
     updateMediaSession();
   }
@@ -897,13 +891,11 @@
   elements.featured.addEventListener('click', handleStationAction);
   elements.recentStations.addEventListener('click', handleStationAction);
   elements.stations.addEventListener('click', handleStationAction);
-  elements.playToggle.addEventListener('click', playPlayback);
-  elements.pauseBtn.addEventListener('click', pausePlayback);
+  elements.playToggle.addEventListener('click', togglePlayback);
   elements.stopBtn.addEventListener('click', stopPlayback);
   elements.prevBtn.addEventListener('click', () => playAdjacentStation(-1));
   elements.nextBtn.addEventListener('click', () => playAdjacentStation(1));
-  elements.npPlayToggle.addEventListener('click', playPlayback);
-  elements.npPauseBtn.addEventListener('click', pausePlayback);
+  elements.npPlayToggle.addEventListener('click', togglePlayback);
   elements.npStopBtn.addEventListener('click', stopPlayback);
   elements.npPrev.addEventListener('click', () => playAdjacentStation(-1));
   elements.npNext.addEventListener('click', () => playAdjacentStation(1));
