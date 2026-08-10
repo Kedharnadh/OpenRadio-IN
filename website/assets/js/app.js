@@ -657,7 +657,7 @@
   }
 
   function renderStationLists() {
-    const favoriteStations = state.stations.filter((s) => state.favorites.has(s.id)).sort(statusSort);
+    const favoriteStations = state.stations.filter((s) => state.favorites.has(s.id));
     if (favoriteStations.length) {
       elements.favoritesSection.hidden = false;
       elements.featured.replaceChildren(...favoriteStations.map((station) => createStationCard(station, true)));
@@ -668,16 +668,8 @@
     renderRecent();
   }
 
-  function statusRank(station) {
-    return station.status === 'online' ? 0 : (station.status === 'offline' ? 2 : 1);
-  }
-
-  function statusSort(first, second) {
-    return statusRank(first) - statusRank(second) || String(first.name).localeCompare(String(second.name));
-  }
-
   function applyFilters() {
-    state.filteredStations = state.stations.filter(stationMatches).sort(statusSort);
+    state.filteredStations = state.stations.filter(stationMatches).sort((first, second) => String(first.name).localeCompare(String(second.name)));
     renderFilters();
     renderStationLists();
     const count = state.filteredStations.length;
