@@ -20,6 +20,7 @@ PWA: https://kedharnadh.github.io/OpenRadio-IN/
 - Search, filter, and favorites
 - Recently played stations
 - Now-playing view with station logo and metadata
+- Program schedule (EPG) with Now Playing / Up Next for AIR stations
 - Volume control with mute toggle
 - Sleep timer
 - Station sharing (Web Share API)
@@ -113,6 +114,7 @@ Every station is stored in `database/stations.json`.
   "language": "Telugu",
   "country": "India",
   "categories": ["AIR", "News"],
+  "epg_id": 411,
   "logo": "https://example.com/logo.png",
   "streams": [
     {
@@ -167,9 +169,13 @@ The workflow copies `database/stations.json` into the published site, so station
 - Keyboard shortcuts: Space = play/pause, Arrow keys = prev/next
 - Recently played stations tracking
 
+### EPG (Program Schedule)
+
+AIR stations with an `epg_id` show the current ("Now Playing") and next ("Up Next") scheduled program in the now-playing view. The app fetches the official Akashvani cuesheets from `cuesheets.prasarbharati.org` directly in the browser (the site sends `Access-Control-Allow-Origin: *`), falling back to the HLS proxy worker's `?epg=<id>` endpoint when the direct fetch is unreachable. The schedule is cached per station per day and refreshes every minute.
+
 ### HLS Proxy (for Chromecast)
 
-AIR stations use HLS streams from `radio.wavespb.com`, which blocks Google Cast devices. The proxy worker at `website/hls-proxy-worker.js` routes these streams through Cloudflare Workers so they play correctly on Cast devices.
+AIR stations use HLS streams from `radio.wavespb.com`, which blocks Google Cast devices. The proxy worker at `website/hls-proxy-worker.js` routes these streams through Cloudflare Workers so they play correctly on Cast devices. It also exposes an `?epg=<stationId>` route that returns a parsed, cached copy of the Akashvani cuesheet (`{ date, programs: [...] }`) used as a fallback when the browser cannot reach the cuesheet site directly.
 
 Deploy with:
 ```bash
@@ -194,6 +200,11 @@ Please ensure every submitted stream is publicly accessible and legal to redistr
 ---
 
 ## Version History
+
+### v1.1.0
+- EPG program schedule for AIR stations: Now Playing / Up Next in the now-playing view
+- Fetches Akashvani cuesheets directly in the browser, with the HLS proxy worker as fallback
+- Per-station `epg_id` in the station database (14 AIR stations)
 
 ### v1.0.0
 - Chromecast support with HLS proxy worker
