@@ -310,8 +310,13 @@ function secondsUntilIstMidnight() {
 
 async function handleEpgRequest(epgId) {
   const upstream = `https://cuesheets.prasarbharati.org/viewsheet/${encodeURIComponent(epgId)}`;
+  const headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+    'Accept-Language': 'en-IN,en;q=0.9',
+    'Cache-Control': 'no-cache',
+  };
   try {
-    const resp = await fetch(upstream, { headers: { 'Cache-Control': 'no-cache' } });
+    const resp = await fetch(upstream, { headers });
     if (!resp.ok) {
       return new Response(JSON.stringify({ error: `HTTP ${resp.status}` }), {
         status: resp.status,

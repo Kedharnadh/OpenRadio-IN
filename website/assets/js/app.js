@@ -1322,6 +1322,34 @@
     if (elements.nowPlayingEpg) elements.nowPlayingEpg.hidden = true;
   }
 
+  function parseCuesheetHtml(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const dateMatch = html.match(/(\d{2})-(\d{2})-(\d{4})/);
+    const date = dateMatch ? `${dateMatch[3]}-${dateMatch[2]}-${dateMatch[1]}` : '';
+    const table = doc.getElementById('st');
+    const programs = [];
+    if (!table) return { date, programs };
+    const cellText = (cell) => (cell ? cell.textContent.replace(/\s+/g, ' ').trim() : '');
+    table.querySelectorAll('tbody tr').forEach((tr) => {
+      const cells = tr.querySelectorAll('td');
+      if (cells.length < 9) return;
+      const start = cellText(cells[1]);
+      const end = cellText(cells[2]);
+      const title = cellText(cells[4]);
+      if (!/^\d{1,2}:\d{2}\s*(AM|PM)/i.test(start)) return;
+      if (!/^\d{1,2}:\d{2}\s*(AM|PM)/i.test(end)) return;
+      if (!title) return;
+      programs.push({
+        start,
+        end,
+        title,
+        language: cellText(cells[7]),
+        type: cellText(cells[8]),
+      });
+    });
+    return { date, programs };
+  }
+
   async function fetchEpg(station) {
     const epgId = station && station.epg_id;
     if (!epgId) return;
@@ -1334,15 +1362,24 @@
         programs = cached.programs;
       }
       if (!programs) {
-        const response = await fetch(`${HLS_PROXY_URL}?epg=${encodeURIComponent(epgId)}`, { signal: AbortSignal.timeout(8000) });
-        if (response.ok) {
-          const data = await response.json();
-          if (data && Array.isArray(data.programs) && data.programs.length) {
-            programs = data.programs;
-            try {
-              localStorage.setItem(cacheKey, JSON.stringify({ date: today, programs }));
-            } catch {}
-          }
+        let data = null;
+        // The cuesheet site sends ACAO:*, so the browser can fetch it directly.
+        try {
+          const response = await fetch(`https://cuesheets.prasarbharati.org/viewsheet/${encodeURIComponent(epgId)}`, { signal: AbortSignal.timeout(8000) });
+          if (response.ok) data = parseCuesheetHtml(await response.text());
+        } catch {}
+        // Fall back to the proxy worker if the direct fetch is blocked/unreachable.
+        if (!data || !data.programs || !data.programs.length) {
+          try {
+            const response = await fetch(`${HLS_PROXY_URL}?epg=${encodeURIComponent(epgId)}`, { signal: AbortSignal.timeout(8000) });
+            if (response.ok) data = await response.json();
+          } catch {}
+        }
+        if (data && data.date === today && Array.isArray(data.programs) && data.programs.length) {
+          programs = data.programs;
+          try {
+            localStorage.setItem(cacheKey, JSON.stringify({ date: today, programs }));
+          } catch {}
         }
       }
     } catch (error) {
