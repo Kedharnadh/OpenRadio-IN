@@ -21,6 +21,8 @@ https://radio.wavespb.com/live/bd41e24a31710397/bd41e24a31710397.m3u8
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio063/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_marathi_mumbai_asmita" tvg-name="Akashvani Marathi Mumbai Asmita" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airmumbaiasmita.jpg" group-title="AIR, ALL",Akashvani Marathi Mumbai Asmita
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio010/hlspbaudio010_Auto.m3u8
+#EXTINF:-1 tvg-id="akashvani_mhadei_panaji" tvg-name="Akashvani Mhadei Panaji" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airmhadei.jpg" group-title="AIR, ALL",Akashvani Mhadei Panaji
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio049/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_nagpur" tvg-name="Akashvani Nagpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airnagpur.jpg" group-title="AIR, ALL",Akashvani Nagpur
 https://radio.wavespb.com/live/84ad8273437552d7/84ad8273437552d7.m3u8
 #EXTINF:-1 tvg-id="akashvani_nanded" tvg-name="Akashvani Nanded" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airnanded.jpg" group-title="AIR, ALL",Akashvani Nanded
@@ -47,6 +49,8 @@ https://radio.wavespb.com/live/2792d5e06dbdc800/2792d5e06dbdc800.m3u8
 https://radio.wavespb.com/live/b8a30c8945577840/b8a30c8945577840.m3u8
 #EXTINF:-1 tvg-id="fm_gold_mumbai" tvg-name="FM Gold Mumbai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/goldmumbai.jpg" group-title="FM, ALL",FM Gold Mumbai
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio007/hlspbaudio007_Auto.m3u8
+#EXTINF:-1 tvg-id="fm_rainbow_goa" tvg-name="FM Rainbow Goa" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/fmgoa.jpg" group-title="FM, ALL",FM Rainbow Goa
+https://radio.wavespb.com/live/39dd51a3e97b19b1/39dd51a3e97b19b1.m3u8
 #EXTINF:-1 tvg-id="fm_rainbow_mumbai" tvg-name="FM Rainbow Mumbai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/rainmumbai.jpg" group-title="FM, ALL",FM Rainbow Mumbai
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio008/hlspbaudio008_Auto.m3u8
 #EXTINF:-1 tvg-id="samvadita_mumbai" tvg-name="Samvadita Mumbai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/sammumbai.jpg" group-title="AIR, ALL",Samvadita Mumbai
@@ -55,3 +59,5 @@ https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio009/hlspbaudio009_Au
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio011/hlspbaudio011_Auto.m3u8
 #EXTINF:-1 tvg-id="vbs_nagpur" tvg-name="VBS Nagpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_811388.jpg" group-title="FM, AIR, ALL",VBS Nagpur
 https://radio.wavespb.com/live/019f90c3d79daeb9/019f90c3d79daeb9.m3u8
+#EXTINF:-1 tvg-id="vbs_panaji" tvg-name="VBS Panaji" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_892562.jpg" group-title="FM, AIR, ALL",VBS Panaji
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio280/playlist.m3u8

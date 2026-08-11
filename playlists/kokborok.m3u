@@ -1,4 +1,6 @@
 #EXTM3U
+#EXTINF:-1 tvg-id="akashvani_agartala" tvg-name="Akashvani Agartala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_690649.jpg" group-title="AIR, ALL",Akashvani Agartala
+https://radio.wavespb.com/live/8e8696f98500ad60/8e8696f98500ad60.m3u8
 #EXTINF:-1 tvg-id="akashvani_belonia" tvg-name="Akashvani Belonia" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_736495.jpg" group-title="AIR, ALL",Akashvani Belonia
 https://radio.wavespb.com/live/00ff79c493fe8353/00ff79c493fe8353.m3u8
 #EXTINF:-1 tvg-id="akashvani_kailashahar" tvg-name="Akashvani Kailashahar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_237652.jpg" group-title="AIR, ALL",Akashvani Kailashahar

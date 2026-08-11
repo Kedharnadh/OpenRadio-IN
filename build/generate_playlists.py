@@ -40,16 +40,19 @@ for station in stations:
 
     station_id = station.get("id", "")
     station_name = station.get("name", "")
-    language = station.get("language", "").strip().lower()
+    languages = [lang.strip().lower() for lang in str(station.get("language", "")).split(",") if lang.strip() and lang.strip().lower() != "all"]
 
     logo = station.get("logo", "")
 
     categories = station.get("categories", [])
 
     # -----------------------------
-    # Language playlist
+    # Language playlists
     # -----------------------------
-    if language:
+    # Multi-language stations are added to one playlist per language, e.g.
+    # "Assamese, Hindi, English" appears in assamese.m3u, hindi.m3u and
+    # english.m3u (never in a combined "assamese, hindi, english.m3u").
+    for language in languages:
 
         if language not in playlists:
             playlists[language] = ["#EXTM3U"]
@@ -62,8 +65,8 @@ for station in stations:
 
         category_name = category.strip().lower()
 
-        # Skip ALL and Language
-        if category_name in ("all", language):
+        # Skip ALL and any language playlists
+        if category_name == "all" or category_name in languages:
             continue
 
         if category_name not in playlists:
@@ -103,9 +106,9 @@ for station in stations:
             playlist_streams["all"].add(url)
 
         # -----------------------------
-        # Language playlist
+        # Language playlists
         # -----------------------------
-        if language:
+        for language in languages:
 
             if url not in playlist_streams[language]:
                 playlists[language].append(entry)
@@ -120,7 +123,7 @@ for station in stations:
             category_name = category.strip().lower()
 
             # Skip language and ALL
-            if category_name in ("all", language):
+            if category_name == "all" or category_name in languages:
                 continue
 
             if url not in playlist_streams[category_name]:
@@ -139,6 +142,12 @@ for playlist_name in sorted(playlists.keys()):
         "\n".join(playlists[playlist_name]),
         encoding="utf-8"
     )
+
+# Remove stale playlist files that are no longer generated.
+for existing in sorted(OUTPUT_DIR.glob("*.m3u")):
+
+    if existing.stem not in playlists:
+        existing.unlink()
 
 # ----------------------------------------
 # Summary

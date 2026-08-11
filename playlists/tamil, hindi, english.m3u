@@ -1,7 +1,0 @@
-#EXTM3U
-#EXTINF:-1 tvg-id="akashvani_karaikal" tvg-name="Akashvani Karaikal" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_850420.jpg" group-title="AIR, ALL",Akashvani Karaikal
-https://radio.wavespb.com/live/51065e9e2f00e83e/51065e9e2f00e83e.m3u8
-#EXTINF:-1 tvg-id="akashvani_puducherry" tvg-name="Akashvani Puducherry" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_330207.jpg" group-title="AIR, ALL",Akashvani Puducherry
-https://radio.wavespb.com/live/6b93ba50696fddcd/6b93ba50696fddcd.m3u8
-#EXTINF:-1 tvg-id="fm_rainbow_puducherry" tvg-name="FM Rainbow Puducherry" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_224333.jpg" group-title="FM, ALL",FM Rainbow Puducherry
-https://radio.wavespb.com/live/0e2a3509c6d25e11/0e2a3509c6d25e11.m3u8
