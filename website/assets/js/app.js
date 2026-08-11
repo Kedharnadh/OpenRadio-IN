@@ -663,7 +663,7 @@
       .sort((first, second) => String(first).localeCompare(String(second)));
     const availableCategories = new Set(categories.map((category) => String(category).toLowerCase()));
     availableCategories.add('all');
-    if (!availableCategories.has(String(state.activeCategory).toLowerCase())) state.activeCategory = 'all';
+    if (state.stations.length && !availableCategories.has(String(state.activeCategory).toLowerCase())) state.activeCategory = 'all';
     elements.filters.replaceChildren(...categories.map((category) => {
       const button = makeElement('button', `pill${state.activeCategory.toLowerCase() === String(category).toLowerCase() ? ' active' : ''}`, category === 'all' ? t('filter.all') : category);
       button.type = 'button';
@@ -681,7 +681,7 @@
     )]
       .sort((first, second) => String(first).localeCompare(String(second)));
     const availableLanguages = new Set(languages.map((language) => String(language).toLowerCase()));
-    if (!availableLanguages.has(String(state.activeLanguage).toLowerCase())) state.activeLanguage = 'all';
+    if (state.stations.length && !availableLanguages.has(String(state.activeLanguage).toLowerCase())) state.activeLanguage = 'all';
     const allOption = makeElement('option', '', t('filter.allLanguages'));
     allOption.value = 'all';
     elements.languageSelect.replaceChildren(
