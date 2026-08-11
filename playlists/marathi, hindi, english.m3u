@@ -1,0 +1,57 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_ahilyanagar_ahmednagar" tvg-name="Akashvani Ahilyanagar (Ahmednagar)" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airahmednagar.jpg" group-title="AIR, ALL",Akashvani Ahilyanagar (Ahmednagar)
+https://radio.wavespb.com/live/e52945b98fa63678/e52945b98fa63678.m3u8
+#EXTINF:-1 tvg-id="akashvani_akola" tvg-name="Akashvani Akola" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airakola.jpg" group-title="AIR, ALL",Akashvani Akola
+https://radio.wavespb.com/live/5dd27f81c839f0f5/5dd27f81c839f0f5.m3u8
+#EXTINF:-1 tvg-id="akashvani_amravati" tvg-name="Akashvani Amravati" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_917014.jpg" group-title="AIR, ALL",Akashvani Amravati
+https://radio.wavespb.com/live/662185c15bea296f/662185c15bea296f.m3u8
+#EXTINF:-1 tvg-id="akashvani_beed" tvg-name="Akashvani Beed" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_341177.jpg" group-title="AIR, ALL",Akashvani Beed
+https://radio.wavespb.com/live/3f62bdf39635ed61/3f62bdf39635ed61.m3u8
+#EXTINF:-1 tvg-id="akashvani_chandrapur" tvg-name="Akashvani Chandrapur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_119620.jpg" group-title="AIR, ALL",Akashvani Chandrapur
+https://radio.wavespb.com/live/8469b942291df38f/8469b942291df38f.m3u8
+#EXTINF:-1 tvg-id="akashvani_chhatrapati_sambhaji_nagar" tvg-name="Akashvani Chhatrapati Sambhaji Nagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airaurangabad.jpg" group-title="AIR, ALL",Akashvani Chhatrapati Sambhaji Nagar
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio065/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_dharashiv" tvg-name="Akashvani Dharashiv" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airosmanabad.jpg" group-title="AIR, ALL",Akashvani Dharashiv
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio132/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_dhule" tvg-name="Akashvani Dhule" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_868166.jpg 	" group-title="AIR, ALL",Akashvani Dhule
+https://radio.wavespb.com/live/c0040b54233d76a1/c0040b54233d76a1.m3u8
+#EXTINF:-1 tvg-id="akashvani_jalgaon" tvg-name="Akashvani Jalgaon" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airjalgaon.jpg" group-title="AIR, ALL",Akashvani Jalgaon
+https://radio.wavespb.com/live/bd41e24a31710397/bd41e24a31710397.m3u8
+#EXTINF:-1 tvg-id="akashvani_kolhapur" tvg-name="Akashvani Kolhapur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkolhapur.jpg" group-title="AIR, ALL",Akashvani Kolhapur
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio063/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_marathi_mumbai_asmita" tvg-name="Akashvani Marathi Mumbai Asmita" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airmumbaiasmita.jpg" group-title="AIR, ALL",Akashvani Marathi Mumbai Asmita
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio010/hlspbaudio010_Auto.m3u8
+#EXTINF:-1 tvg-id="akashvani_nagpur" tvg-name="Akashvani Nagpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airnagpur.jpg" group-title="AIR, ALL",Akashvani Nagpur
+https://radio.wavespb.com/live/84ad8273437552d7/84ad8273437552d7.m3u8
+#EXTINF:-1 tvg-id="akashvani_nanded" tvg-name="Akashvani Nanded" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airnanded.jpg" group-title="AIR, ALL",Akashvani Nanded
+https://radio.wavespb.com/live/111df0bc650820de/111df0bc650820de.m3u8
+#EXTINF:-1 tvg-id="akashvani_nasik" tvg-name="Akashvani Nasik" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_414066.jpg" group-title="AIR, ALL",Akashvani Nasik
+https://radio.wavespb.com/live/810a1db2ef684745/810a1db2ef684745.m3u8
+#EXTINF:-1 tvg-id="akashvani_parbhani" tvg-name="Akashvani Parbhani" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airparbhani.jpg" group-title="AIR, ALL",Akashvani Parbhani
+https://radio.wavespb.com/live/825fdd17744384f5/825fdd17744384f5.m3u8
+#EXTINF:-1 tvg-id="akashvani_pune" tvg-name="Akashvani Pune" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airpune.jpg" group-title="AIR, ALL",Akashvani Pune
+https://radio.wavespb.com/live/39d650ca0476a1fe/39d650ca0476a1fe.m3u8
+#EXTINF:-1 tvg-id="akashvani_pune_fm" tvg-name="Akashvani Pune FM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airpunefm.jpg" group-title="FM, AIR, ALL",Akashvani Pune FM
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio013/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_ratnagiri" tvg-name="Akashvani Ratnagiri" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airratnagiri.jpg" group-title="AIR, ALL",Akashvani Ratnagiri
+https://radio.wavespb.com/live/615b82703c7e8a4c/615b82703c7e8a4c.m3u8
+#EXTINF:-1 tvg-id="akashvani_sangli" tvg-name="Akashvani Sangli" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airsangli.jpg" group-title="AIR, ALL",Akashvani Sangli
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio106/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_satara" tvg-name="Akashvani Satara" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airsatara.jpg" group-title="AIR, ALL",Akashvani Satara
+https://radio.wavespb.com/live/6878cc031c86befd/6878cc031c86befd.m3u8
+#EXTINF:-1 tvg-id="akashvani_sindhudurg" tvg-name="Akashvani Sindhudurg" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_934689.jpg" group-title="AIR, ALL",Akashvani Sindhudurg
+https://radio.wavespb.com/live/77aa8f10f47897a3/77aa8f10f47897a3.m3u8
+#EXTINF:-1 tvg-id="akashvani_solapur" tvg-name="Akashvani Solapur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airsolapur.jpg" group-title="AIR, ALL",Akashvani Solapur
+https://radio.wavespb.com/live/2792d5e06dbdc800/2792d5e06dbdc800.m3u8
+#EXTINF:-1 tvg-id="akashvani_yavatmal" tvg-name="Akashvani Yavatmal" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_795221.jpg" group-title="AIR, ALL",Akashvani Yavatmal
+https://radio.wavespb.com/live/b8a30c8945577840/b8a30c8945577840.m3u8
+#EXTINF:-1 tvg-id="fm_gold_mumbai" tvg-name="FM Gold Mumbai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/goldmumbai.jpg" group-title="FM, ALL",FM Gold Mumbai
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio007/hlspbaudio007_Auto.m3u8
+#EXTINF:-1 tvg-id="fm_rainbow_mumbai" tvg-name="FM Rainbow Mumbai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/rainmumbai.jpg" group-title="FM, ALL",FM Rainbow Mumbai
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio008/hlspbaudio008_Auto.m3u8
+#EXTINF:-1 tvg-id="samvadita_mumbai" tvg-name="Samvadita Mumbai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/sammumbai.jpg" group-title="AIR, ALL",Samvadita Mumbai
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio009/hlspbaudio009_Auto.m3u8
+#EXTINF:-1 tvg-id="vbs_mumbai" tvg-name="VBS Mumbai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_597242.jpg" group-title="FM, AIR, ALL",VBS Mumbai
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio011/hlspbaudio011_Auto.m3u8
+#EXTINF:-1 tvg-id="vbs_nagpur" tvg-name="VBS Nagpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_811388.jpg" group-title="FM, AIR, ALL",VBS Nagpur
+https://radio.wavespb.com/live/019f90c3d79daeb9/019f90c3d79daeb9.m3u8

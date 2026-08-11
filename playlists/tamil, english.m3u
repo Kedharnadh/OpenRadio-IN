@@ -1,0 +1,35 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_coimbatore" tvg-name="Akashvani Coimbatore" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/aircoimbatore.jpg" group-title="AIR, ALL",Akashvani Coimbatore
+https://radio.wavespb.com/live/a6eec8ec7d6ee49d/a6eec8ec7d6ee49d.m3u8
+#EXTINF:-1 tvg-id="akashvani_dharmapuri" tvg-name="Akashvani Dharmapuri" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_431421.jpg" group-title="AIR, ALL",Akashvani Dharmapuri
+https://radio.wavespb.com/live/36378083c1be092b/36378083c1be092b.m3u8
+#EXTINF:-1 tvg-id="akashvani_kodaikanal" tvg-name="Akashvani Kodaikanal" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkodaikanal.jpg" group-title="AIR, ALL",Akashvani Kodaikanal
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio051/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_madurai" tvg-name="Akashvani Madurai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_503678.jpg" group-title="AIR, ALL",Akashvani Madurai
+https://radio.wavespb.com/live/5c28fdbb318c1f13/5c28fdbb318c1f13.m3u8
+#EXTINF:-1 tvg-id="akashvani_madurai_fm" tvg-name="Akashvani Madurai FM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_503678.jpg" group-title="FM, AIR, ALL",Akashvani Madurai FM
+https://radio.wavespb.com/live/f910c4cf0415b953/f910c4cf0415b953.m3u8
+#EXTINF:-1 tvg-id="akashvani_ooty" tvg-name="Akashvani Ooty" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airooty.jpg" group-title="AIR, ALL",Akashvani Ooty
+https://radio.wavespb.com/live/e2ac3971fdada7d1/e2ac3971fdada7d1.m3u8
+#EXTINF:-1 tvg-id="akashvani_tamil_nadu" tvg-name="Akashvani Tamil Nadu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/air-tamil.jpg" group-title="AIR, ALL",Akashvani Tamil Nadu
+https://radio.wavespb.com/live/d533f2af4f49bd6f/d533f2af4f49bd6f.m3u8
+#EXTINF:-1 tvg-id="akashvani_tiruchirappalli" tvg-name="Akashvani Tiruchirappalli" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airtiruchirappallifm.jpg" group-title="AIR, ALL",Akashvani Tiruchirappalli
+https://radio.wavespb.com/live/bd8f073da8cde368/bd8f073da8cde368.m3u8
+#EXTINF:-1 tvg-id="akashvani_tiruchirappalli_fm" tvg-name="Akashvani Tiruchirappalli FM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airtiruchirappallifm.jpg" group-title="FM, AIR, ALL",Akashvani Tiruchirappalli FM
+https://radio.wavespb.com/live/340834aaac8e1081/340834aaac8e1081.m3u8
+#EXTINF:-1 tvg-id="akashvani_tirunelveli" tvg-name="Akashvani Tirunelveli" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airtirunelveli.jpg" group-title="AIR, ALL",Akashvani Tirunelveli
+https://radio.wavespb.com/live/ee7f2a29ab3b6bf9/ee7f2a29ab3b6bf9.m3u8
+#EXTINF:-1 tvg-id="akashvani_tuticorin" tvg-name="Akashvani Tuticorin" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_750850.jpg" group-title="AIR, ALL",Akashvani Tuticorin
+https://radio.wavespb.com/live/2e8cfad789dc692d/2e8cfad789dc692d.m3u8
+#EXTINF:-1 tvg-id="fm_gold_chennai" tvg-name="FM Gold Chennai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_121071.jpg" group-title="FM, ALL",FM Gold Chennai
+https://radio.wavespb.com/live/84ad819b3f45dc08/84ad819b3f45dc08.m3u8
+#EXTINF:-1 tvg-id="fm_nagercoil_kumari" tvg-name="FM Nagercoil Kumari" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/nagercoilkumarifm.jpg" group-title="FM, ALL",FM Nagercoil Kumari
+https://radio.wavespb.com/live/10c64309264eb009/10c64309264eb009.m3u8
+#EXTINF:-1 tvg-id="fm_rainbow_chennai" tvg-name="FM Rainbow Chennai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_327320.jpg" group-title="FM, ALL",FM Rainbow Chennai
+https://radio.wavespb.com/live/b20ff2fc0bb34b3d/b20ff2fc0bb34b3d.m3u8
+#EXTINF:-1 tvg-id="fm_rainbow_coimbatore" tvg-name="FM Rainbow Coimbatore" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/aircoimbatorefmrainbow.jpg" group-title="FM, ALL",FM Rainbow Coimbatore
+https://radio.wavespb.com/live/3622d8d5aa1809b2/3622d8d5aa1809b2.m3u8
+#EXTINF:-1 tvg-id="fm_rainbow_tirunelveli" tvg-name="FM Rainbow Tirunelveli" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_405676.jpg" group-title="FM, ALL",FM Rainbow Tirunelveli
+https://radio.wavespb.com/live/a8b9f00a52568fbd/a8b9f00a52568fbd.m3u8
+#EXTINF:-1 tvg-id="vb_tamil_chennai" tvg-name="VB Tamil Chennai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_361667.jpg" group-title="FM, AIR, ALL",VB Tamil Chennai
+https://radio.wavespb.com/live/f893db91dedcb4ab/f893db91dedcb4ab.m3u8

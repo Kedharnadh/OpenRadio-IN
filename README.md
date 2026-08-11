@@ -93,13 +93,11 @@ OpenRadio-IN
 | Playlist | Description |
 |----------|-------------|
 | all.m3u | Every station |
-| telugu.m3u | Telugu stations |
-| air.m3u | All India Radio stations |
+| air.m3u | All India Radio (AIR/Akashvani) stations |
 | fm.m3u | FM stations |
-| devotional.m3u | Devotional stations |
-| news.m3u | News stations |
+| telugu.m3u | Telugu stations |
 
-More playlists will be added as the database grows.
+Language playlists (e.g. `hindi.m3u`, `tamil, english.m3u`, `marathi, hindi, english.m3u`) are generated for every distinct language combination in the database.
 
 ---
 

@@ -1,0 +1,21 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_ahwa" tvg-name="Akashvani Ahwa" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_483257.jpg" group-title="AIR, ALL",Akashvani Ahwa
+https://radio.wavespb.com/live/0b169b8c30f2f151/0b169b8c30f2f151.m3u8
+#EXTINF:-1 tvg-id="akashvani_bhuj" tvg-name="Akashvani Bhuj" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/bhuj.jpg" group-title="AIR, ALL",Akashvani Bhuj
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio195/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_godhra" tvg-name="Akashvani Godhra" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_568172.jpg" group-title="AIR, ALL",Akashvani Godhra
+https://radio.wavespb.com/live/3fa69e2c950b70e8/3fa69e2c950b70e8.m3u8
+#EXTINF:-1 tvg-id="akashvani_himmatnagar" tvg-name="Akashvani Himmatnagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_512587.jpg" group-title="AIR, ALL",Akashvani Himmatnagar
+https://radio.wavespb.com/live/76ca5a0d02d6ba94/76ca5a0d02d6ba94.m3u8
+#EXTINF:-1 tvg-id="akashvani_rajkot" tvg-name="Akashvani Rajkot" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airrajkot.jpg" group-title="AIR, ALL",Akashvani Rajkot
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio155/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_surat" tvg-name="Akashvani Surat" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airsurat.jpg" group-title="AIR, ALL",Akashvani Surat
+https://radio.wavespb.com/live/fc6ce69c53a3d739/fc6ce69c53a3d739.m3u8
+#EXTINF:-1 tvg-id="akashvani_vadodara" tvg-name="Akashvani Vadodara" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airvadodara.jpg" group-title="AIR, ALL",Akashvani Vadodara
+https://radio.wavespb.com/live/e1c63b2c2b58921f/e1c63b2c2b58921f.m3u8
+#EXTINF:-1 tvg-id="akashwani_gujarati" tvg-name="Akashwani Gujarati" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/air-gujarati.jpg" group-title="AIR, ALL",Akashwani Gujarati
+https://radio.wavespb.com/live/8a1bb2ca9d2a6741/8a1bb2ca9d2a6741.m3u8
+#EXTINF:-1 tvg-id="vbs_ahmedabad" tvg-name="VBS Ahmedabad" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_519561.jpg" group-title="FM, AIR, ALL",VBS Ahmedabad
+https://radio.wavespb.com/live/983903b6acb669f3/983903b6acb669f3.m3u8
+#EXTINF:-1 tvg-id="vbs_rajkot" tvg-name="VBS Rajkot" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_355425.jpg" group-title="FM, AIR, ALL",VBS Rajkot
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio156/playlist.m3u8

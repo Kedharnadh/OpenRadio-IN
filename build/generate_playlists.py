@@ -143,7 +143,7 @@ for playlist_name in sorted(playlists.keys()):
 # ----------------------------------------
 # Summary
 # ----------------------------------------
-print("\n✅ Playlists generated:\n")
+print("\nPlaylists generated:\n")
 
 for playlist_name in sorted(playlists.keys()):
 
@@ -151,4 +151,4 @@ for playlist_name in sorted(playlists.keys()):
 
     print(f"{playlist_name}.m3u ({stations_count} stations)")
 
-print("\n🎉 Done!")
+print("\nDone!")

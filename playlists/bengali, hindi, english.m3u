@@ -1,0 +1,7 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="fm_gold_kolkata" tvg-name="FM Gold Kolkata" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkolkatafmgold.jpg" group-title="FM, ALL",FM Gold Kolkata
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio057/hlspbaudio057_Auto.m3u8
+#EXTINF:-1 tvg-id="fm_rainbow_kolkata" tvg-name="FM Rainbow Kolkata" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkolkatafmrainbow.jpg" group-title="FM, ALL",FM Rainbow Kolkata
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio058/hlspbaudio058_Auto.m3u8
+#EXTINF:-1 tvg-id="vbs_kolkata" tvg-name="VBS Kolkata" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_258910.jpg" group-title="FM, AIR, ALL",VBS Kolkata
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio275/hlspbaudio275_Auto.m3u8

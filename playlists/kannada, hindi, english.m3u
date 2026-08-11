@@ -1,0 +1,31 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_bellari" tvg-name="Akashvani Bellari" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_120851.jpg" group-title="AIR, ALL",Akashvani Bellari
+https://radio.wavespb.com/live/5a457983e1e7e12f/5a457983e1e7e12f.m3u8
+#EXTINF:-1 tvg-id="akashvani_bhadravati" tvg-name="Akashvani Bhadravati" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airbhadravati.jpg" group-title="AIR, ALL",Akashvani Bhadravati
+https://radio.wavespb.com/live/ad5b1f0e1fd2e000/ad5b1f0e1fd2e000.m3u8
+#EXTINF:-1 tvg-id="akashvani_bijapur" tvg-name="Akashvani Bijapur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_581147.jpg" group-title="AIR, ALL",Akashvani Bijapur
+https://radio.wavespb.com/live/8a8894314ac7be31/8a8894314ac7be31.m3u8
+#EXTINF:-1 tvg-id="akashvani_chitradurga" tvg-name="Akashvani Chitradurga" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airchitradurga.jpg" group-title="AIR, ALL",Akashvani Chitradurga
+https://radio.wavespb.com/live/c0b739e6443d99be/c0b739e6443d99be.m3u8
+#EXTINF:-1 tvg-id="akashvani_hassan" tvg-name="Akashvani Hassan" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airhassan.jpg" group-title="AIR, ALL",Akashvani Hassan
+https://radio.wavespb.com/live/9b1044084099f01c/9b1044084099f01c.m3u8
+#EXTINF:-1 tvg-id="akashvani_hospet" tvg-name="Akashvani Hospet" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_998276.jpg" group-title="AIR, ALL",Akashvani Hospet
+https://radio.wavespb.com/live/113d144f4ecf1dd5/113d144f4ecf1dd5.m3u8
+#EXTINF:-1 tvg-id="akashvani_kalaburgi_gulbarga" tvg-name="Akashvani Kalaburgi (Gulbarga)" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_797239.jpg" group-title="AIR, ALL",Akashvani Kalaburgi (Gulbarga)
+https://radio.wavespb.com/live/9b085f63b2c25275/9b085f63b2c25275.m3u8
+#EXTINF:-1 tvg-id="akashvani_karnataka" tvg-name="Akashvani Karnataka" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airbangaluru.jpg" group-title="AIR, ALL",Akashvani Karnataka
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio030/hlspbaudio030_Auto.m3u8
+#EXTINF:-1 tvg-id="akashvani_karwar" tvg-name="Akashvani Karwar" tvg-logo="https://https://airdco.pc.cdn.bitgravity.com/images/RADIO_857926.jpg" group-title="AIR, ALL",Akashvani Karwar
+https://radio.wavespb.com/live/723ab703b250900f/723ab703b250900f.m3u8
+#EXTINF:-1 tvg-id="akashvani_madikeri" tvg-name="Akashvani Madikeri" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_329609.jpg" group-title="AIR, ALL",Akashvani Madikeri
+https://radio.wavespb.com/live/5f58506ab7d090ec/5f58506ab7d090ec.m3u8
+#EXTINF:-1 tvg-id="akashvani_mysuru" tvg-name="Akashvani Mysuru" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/mysuru.jpg" group-title="AIR, ALL",Akashvani Mysuru
+https://radio.wavespb.com/live/9d18e57ddfb1d4b4/9d18e57ddfb1d4b4.m3u8
+#EXTINF:-1 tvg-id="akashvani_raichur" tvg-name="Akashvani Raichur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_919759.jpg" group-title="AIR, ALL",Akashvani Raichur
+https://radio.wavespb.com/live/e39bab8a1a843e9e/e39bab8a1a843e9e.m3u8
+#EXTINF:-1 tvg-id="amrutvarshini" tvg-name="Amrutvarshini" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/amrutvarshini.jpg" group-title="AIR, ALL",Amrutvarshini
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio028/hlspbaudio028_Auto.m3u8
+#EXTINF:-1 tvg-id="rainbow_kannada_kaamanbilu" tvg-name="Rainbow Kannada Kaamanbilu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/rainbowkan.jpg" group-title="AIR, ALL",Rainbow Kannada Kaamanbilu
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio027/hlspbaudio027_Auto.m3u8
+#EXTINF:-1 tvg-id="vb_kannada" tvg-name="VB KANNADA" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/vbbang.jpg" group-title="FM, AIR, ALL",VB KANNADA
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio026/hlspbaudio026_Auto.m3u8

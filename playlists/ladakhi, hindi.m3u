@@ -1,0 +1,5 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_kargil" tvg-name="Akashvani Kargil" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_389223.jpg 	" group-title="AIR, ALL",Akashvani Kargil
+https://radio.wavespb.com/live/283b994f330d1e21/283b994f330d1e21.m3u8
+#EXTINF:-1 tvg-id="akashvani_leh" tvg-name="Akashvani Leh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_410707.jpg" group-title="AIR, ALL",Akashvani Leh
+https://radio.wavespb.com/live/f0dd9a4b04d3df3f/f0dd9a4b04d3df3f.m3u8

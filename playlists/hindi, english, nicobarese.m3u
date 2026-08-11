@@ -1,0 +1,5 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_sri_vijaya_puram_port_blair" tvg-name="Akashvani Sri Vijaya Puram (Port Blair)" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/srivijayapuram.jpeg" group-title="AIR, ALL",Akashvani Sri Vijaya Puram (Port Blair)
+https://radio.wavespb.com/live/dc9ff2a05098df5b/dc9ff2a05098df5b.m3u8
+#EXTINF:-1 tvg-id="vividh_bharati_vijayapuram" tvg-name="Vividh Bharati Vijayapuram" tvg-logo="https://akashvani.gov.in/images/vbvijayapuram.png" group-title="FM, AIR, ALL",Vividh Bharati Vijayapuram
+https://radio.wavespb.com/live/fbc6b60c0bdf0293/fbc6b60c0bdf0293.m3u8

@@ -1,0 +1,7 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_mhadei_panaji" tvg-name="Akashvani Mhadei Panaji" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airmhadei.jpg" group-title="AIR, ALL",Akashvani Mhadei Panaji
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio049/playlist.m3u8
+#EXTINF:-1 tvg-id="fm_rainbow_goa" tvg-name="FM Rainbow Goa" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/fmgoa.jpg" group-title="FM, ALL",FM Rainbow Goa
+https://radio.wavespb.com/live/39dd51a3e97b19b1/39dd51a3e97b19b1.m3u8
+#EXTINF:-1 tvg-id="vbs_panaji" tvg-name="VBS Panaji" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_892562.jpg" group-title="FM, AIR, ALL",VBS Panaji
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio280/playlist.m3u8
