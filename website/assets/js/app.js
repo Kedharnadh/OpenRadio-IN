@@ -1327,8 +1327,9 @@
 
     if (next && parseEpgTime(next.start) !== null) {
       const nextRow = makeElement('div', 'epg-row epg-next');
-      nextRow.append(makeElement('span', 'epg-label', t('np.next')), document.createTextNode(`  ${next.title}  `));
+      nextRow.append(makeElement('span', 'epg-label', t('np.next')), document.createTextNode(' '));
       nextRow.append(makeElement('span', 'epg-time', next.start));
+      nextRow.append(document.createTextNode(`  ${next.title}`));
       rows.push(nextRow);
     }
 
