@@ -94,8 +94,7 @@ select:focus {
 }
 
 .ui-lang {
-  display: flex;
-  justify-content: flex-end;
+  display: none;
 }
 
 .lang-filter {
