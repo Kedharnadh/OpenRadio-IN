@@ -576,6 +576,15 @@ input[type="range"]::-moz-range-thumb {
   word-wrap: break-word;
 }
 
+.now-playing-epg {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 6px 12px;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
 .now-playing-controls {
   display: flex;
   align-items: center;

@@ -26,6 +26,9 @@
       'np.timer': 'Timer',
       'np.alarm': 'Alarm',
       'np.sleeptimer': 'Sleeping in {time}',
+      'np.now': 'Now',
+      'np.next': 'Next',
+      'np.noSchedule': 'No schedule available',
       'theme.light': 'Light',
       'theme.dark': 'Dark',
       'theme.auto': 'Auto',
@@ -97,6 +100,9 @@
       'np.timer': '\u0C1F\u0C48\u0C2E\u0C30\u0C4D',
       'np.alarm': '\u0C05\u0C32\u0C3E\u0C30\u0C02',
       'np.sleeptimer': '{time} \u0C32\u0C4B \u0C28\u0C3F\u0C26\u0C4D\u0C30',
+      'np.now': '\u0C07\u0C2A\u0C4D\u0C2A\u0C41\u0C21\u0C41',
+      'np.next': '\u0C24\u0C30\u0C4D\u0C35\u0C3E\u0C24',
+      'np.noSchedule': '\u0C36\u0C47\u0C26\u0C4D\u0C2F\u0C42\u0C32\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41',
       'theme.light': '\u0C32\u0C48\u0C1F\u0C4D',
       'theme.dark': '\u0C21\u0C3E\u0C30\u0C4D\u0C15\u0C4D',
       'theme.auto': '\u0C06\u0C1F\u0C4B',
@@ -167,6 +173,9 @@
       'np.timer': '\u091F\u093E\u0907\u092E\u0930',
       'np.alarm': '\u0905\u0932\u093E\u0930\u094D\u092E',
       'np.sleeptimer': '{time} \u092E\u0947\u0902 \u0938\u094B \u091C\u093E\u090F\u0902',
+      'np.now': '\u0905\u092D\u0940',
+      'np.next': '\u0905\u0917\u0932\u093E',
+      'np.noSchedule': '\u0936\u0947\u0921\u094D\u092F\u0942\u0932 \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948',
       'theme.light': '\u0932\u093E\u0907\u091F',
       'theme.dark': '\u0921\u093E\u0930\u094D\u0915',
       'theme.auto': '\u0911\u091F\u094B',
@@ -254,7 +263,10 @@
     pauseIntent: false,
     pendingAutoResume: false,
     resumeAttempts: 0,
-    metadataIntervalId: null
+    metadataIntervalId: null,
+    epgPrograms: null,
+    epgDate: null,
+    epgRefreshIntervalId: null
   };
 
   const elements = {
@@ -289,6 +301,7 @@
     nowPlayingTitle: document.getElementById('now-playing-title'),
     nowPlayingMeta: document.getElementById('now-playing-meta'),
     nowPlayingTrack: document.getElementById('now-playing-track'),
+    nowPlayingEpg: document.getElementById('now-playing-epg'),
     npPrev: document.getElementById('np-prev'),
     npPlayToggle: document.getElementById('np-play-toggle'),
     npStopBtn: document.getElementById('np-stop'),
@@ -557,6 +570,7 @@
     elements.npPlayToggle.disabled = false;
     elements.npPlayToggle.textContent = isPlaying ? '\u23f8 ' + t('controls.pause') : (isPaused ? '\u25b6 ' + t('controls.resume') : '\u25b6 ' + t('controls.play'));
     elements.npStopBtn.disabled = !isPlaying && !isPaused;
+    renderEpg();
     updateMediaSession();
   }
 
@@ -828,6 +842,8 @@
     state.nowPlayingTrack = '';
     state.nowPlayingArt = '';
     elements.nowPlayingTrack.hidden = true;
+    clearEpg();
+    fetchEpg(station);
     const stream = streams[0];
 
     if (state.hls) {
@@ -936,6 +952,7 @@
     state.nowPlayingArt = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
+    clearEpg();
     updatePlayer();
     renderStationLists();
   }
@@ -1075,6 +1092,7 @@
   function openNowPlaying() {
     elements.nowPlaying.hidden = false;
     document.body.style.overflow = 'hidden';
+    renderEpg();
   }
 
   function closeNowPlaying() {
@@ -1232,6 +1250,108 @@
       clearInterval(state.metadataIntervalId);
       state.metadataIntervalId = null;
     }
+  }
+
+  /* ---------- EPG (scheduled programming) ---------- */
+
+  function istNowParts() {
+    const ist = new Date(Date.now() + 5.5 * 3600 * 1000);
+    const yyyy = ist.getUTCFullYear();
+    const mm = String(ist.getUTCMonth() + 1).padStart(2, '0');
+    const dd = String(ist.getUTCDate()).padStart(2, '0');
+    return { date: `${yyyy}-${mm}-${dd}`, minutes: ist.getUTCHours() * 60 + ist.getUTCMinutes() };
+  }
+
+  function parseEpgTime(timeStr) {
+    const match = String(timeStr || '').trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    if (!match) return null;
+    let hours = parseInt(match[1], 10);
+    const minutes = parseInt(match[2], 10);
+    const period = match[3].toUpperCase();
+    if (period === 'AM' && hours === 12) hours = 0;
+    if (period === 'PM' && hours !== 12) hours += 12;
+    return hours * 60 + minutes;
+  }
+
+  function renderEpg() {
+    if (!elements.nowPlayingEpg) return;
+    const programs = state.epgPrograms;
+    if (!state.currentStation || !programs || !programs.length) {
+      elements.nowPlayingEpg.hidden = true;
+      return;
+    }
+    const now = istNowParts().minutes;
+    let current = null;
+    let next = null;
+    for (let i = 0; i < programs.length; i++) {
+      const start = parseEpgTime(programs[i].start);
+      const end = parseEpgTime(programs[i].end);
+      if (start === null || end === null) continue;
+      if (now >= start && now < end) {
+        current = programs[i];
+        next = i + 1 < programs.length ? programs[i + 1] : null;
+        break;
+      }
+    }
+    if (!current) {
+      elements.nowPlayingEpg.hidden = true;
+      return;
+    }
+    const parts = [`${t('np.now')}: ${current.title}`];
+    if (next && parseEpgTime(next.start) !== null) parts.push(`${t('np.next')}: ${next.title}`);
+    elements.nowPlayingEpg.textContent = parts.join('  \u2022  ');
+    elements.nowPlayingEpg.hidden = false;
+  }
+
+  function startEpgTimer() {
+    stopEpgTimer();
+    state.epgRefreshIntervalId = setInterval(renderEpg, 60000);
+  }
+
+  function stopEpgTimer() {
+    if (state.epgRefreshIntervalId) {
+      clearInterval(state.epgRefreshIntervalId);
+      state.epgRefreshIntervalId = null;
+    }
+  }
+
+  function clearEpg() {
+    stopEpgTimer();
+    state.epgPrograms = null;
+    state.epgDate = null;
+    if (elements.nowPlayingEpg) elements.nowPlayingEpg.hidden = true;
+  }
+
+  async function fetchEpg(station) {
+    const epgId = station && station.epg_id;
+    if (!epgId) return;
+    const today = istNowParts().date;
+    let programs = null;
+    try {
+      const cacheKey = `openradio-epg-${epgId}`;
+      const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+      if (cached && cached.date === today && Array.isArray(cached.programs)) {
+        programs = cached.programs;
+      }
+      if (!programs) {
+        const response = await fetch(`${HLS_PROXY_URL}?epg=${encodeURIComponent(epgId)}`, { signal: AbortSignal.timeout(8000) });
+        if (response.ok) {
+          const data = await response.json();
+          if (data && Array.isArray(data.programs) && data.programs.length) {
+            programs = data.programs;
+            try {
+              localStorage.setItem(cacheKey, JSON.stringify({ date: today, programs }));
+            } catch {}
+          }
+        }
+      }
+    } catch (error) {
+      console.warn('EPG fetch failed:', error.message || error);
+    }
+    state.epgPrograms = programs;
+    state.epgDate = today;
+    startEpgTimer();
+    renderEpg();
   }
 
   /* ---------- Keyboard Shortcuts ---------- */
