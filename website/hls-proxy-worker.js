@@ -14,6 +14,12 @@ async function handleRequest(request) {
   }
 
   const url = new URL(request.url);
+
+  // EPG proxy mode: fetch + parse a Prasar Bharati cuesheet (no ?url= needed)
+  if (url.searchParams.has('epg')) {
+    return handleEpgRequest(url.searchParams.get('epg'));
+  }
+
   const hlsUrl = url.searchParams.get('url');
   if (!hlsUrl) {
     return new Response('Missing ?url=<HLS_URL>', { status: 400, headers: CORS_HEADERS });
@@ -234,4 +240,97 @@ async function streamSegments(hlsUrl, manifest, writable) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/* ---------- EPG (Prasar Bharati cuesheet) ---------- */
+
+function decodeEntities(str) {
+  return str
+    .replace(/&#0*39;/g, "'")
+    .replace(/&#0*34;/g, '"')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+function cellText(cellHtml) {
+  return decodeEntities(cellHtml.replace(/<[^>]*>/g, ' '))
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function parseCuesheet(html) {
+  // Date appears in an <h4> as DD-MM-YYYY; normalise to YYYY-MM-DD
+  const dateMatch = html.match(/(\d{2})-(\d{2})-(\d{4})/);
+  const date = dateMatch ? `${dateMatch[3]}-${dateMatch[2]}-${dateMatch[1]}` : '';
+
+  const tableMatch = html.match(/<table[^>]*id="st"[^>]*>([\s\S]*?)<\/table>/i);
+  const programs = [];
+  if (!tableMatch) return { date, programs };
+
+  const rowRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+  let rowMatch;
+  while ((rowMatch = rowRe.exec(tableMatch[1])) !== null) {
+    const cells = [];
+    const tdRe = /<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi;
+    let tdMatch;
+    while ((tdMatch = tdRe.exec(rowMatch[1])) !== null) cells.push(tdMatch[1]);
+
+    if (cells.length < 9) continue;
+    const start = cellText(cells[1]);
+    const end = cellText(cells[2]);
+    const title = cellText(cells[4]);
+    if (!/^\d{1,2}:\d{2}\s*(AM|PM)/i.test(start)) continue;
+    if (!/^\d{1,2}:\d{2}\s*(AM|PM)/i.test(end)) continue;
+    if (!title) continue;
+
+    programs.push({
+      start,
+      end,
+      title,
+      language: cellText(cells[7]),
+      type: cellText(cells[8]),
+    });
+    if (programs.length >= 200) break;
+  }
+  return { date, programs };
+}
+
+function secondsUntilIstMidnight() {
+  const nowMs = Date.now();
+  const istNow = new Date(nowMs + 5.5 * 3600 * 1000);
+  const nextIstMidnight = Date.UTC(
+    istNow.getUTCFullYear(),
+    istNow.getUTCMonth(),
+    istNow.getUTCDate() + 1
+  );
+  return Math.max(60, Math.floor((nextIstMidnight - nowMs) / 1000));
+}
+
+async function handleEpgRequest(epgId) {
+  const upstream = `https://cuesheets.prasarbharati.org/viewsheet/${encodeURIComponent(epgId)}`;
+  try {
+    const resp = await fetch(upstream, { headers: { 'Cache-Control': 'no-cache' } });
+    if (!resp.ok) {
+      return new Response(JSON.stringify({ error: `HTTP ${resp.status}` }), {
+        status: resp.status,
+        headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+      });
+    }
+    const html = await resp.text();
+    const parsed = parseCuesheet(html);
+    return new Response(JSON.stringify(parsed), {
+      headers: {
+        ...CORS_HEADERS,
+        'Content-Type': 'application/json',
+        'Cache-Control': `max-age=${secondsUntilIstMidnight()}`,
+      },
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), {
+      status: 502,
+      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+    });
+  }
 }
