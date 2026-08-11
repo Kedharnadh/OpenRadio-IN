@@ -1332,7 +1332,7 @@
     const cellText = (cell) => (cell ? cell.textContent.replace(/\s+/g, ' ').trim() : '');
     table.querySelectorAll('tbody tr').forEach((tr) => {
       const cells = tr.querySelectorAll('td');
-      if (cells.length < 9) return;
+      if (cells.length < 8) return;
       const start = cellText(cells[1]);
       const end = cellText(cells[2]);
       const title = cellText(cells[4]);
@@ -1343,8 +1343,8 @@
         start,
         end,
         title,
-        language: cellText(cells[7]),
-        type: cellText(cells[8]),
+        language: cellText(cells[5]),
+        type: cellText(cells[6]),
       });
     });
     return { date, programs };
