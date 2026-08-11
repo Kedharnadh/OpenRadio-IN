@@ -366,7 +366,11 @@
       .filter(Boolean)
       .join(' ')
       .toLowerCase();
-    const languageOk = state.activeLanguage === 'all' || String(station.language || '').toLowerCase() === state.activeLanguage.toLowerCase();
+    const languages = String(station.language || '')
+      .split(',')
+      .map((language) => language.trim().toLowerCase())
+      .filter(Boolean);
+    const languageOk = state.activeLanguage === 'all' || languages.includes(state.activeLanguage.toLowerCase());
     return languageOk && searchable.includes(query) && hasCategory(station, state.activeCategory);
   }
 
@@ -670,7 +674,11 @@
   }
 
   function renderLanguageOptions() {
-    const languages = [...new Set(state.stations.map((station) => station.language).filter(Boolean))]
+    const languages = [...new Set(
+      state.stations
+        .map((station) => String(station.language || ''))
+        .flatMap((languages) => languages.split(',').map((language) => language.trim()).filter(Boolean))
+    )]
       .sort((first, second) => String(first).localeCompare(String(second)));
     const availableLanguages = new Set(languages.map((language) => String(language).toLowerCase()));
     if (!availableLanguages.has(String(state.activeLanguage).toLowerCase())) state.activeLanguage = 'all';
