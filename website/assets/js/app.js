@@ -241,8 +241,8 @@
     filteredStations: [],
     favorites: new Set(JSON.parse(localStorage.getItem('openradio-favorites') || '[]')),
     recentStations: JSON.parse(localStorage.getItem('openradio-recent') || '[]'),
-    activeCategory: 'all',
-    activeLanguage: 'all',
+    activeCategory: localStorage.getItem('openradio-category') || 'all',
+    activeLanguage: localStorage.getItem('openradio-language') || 'all',
     search: '',
     currentStation: null,
     playing: false,
@@ -463,9 +463,11 @@
     }
     const track = state.nowPlayingTrack;
     const artSrc = state.nowPlayingArt || station.logo || '';
+    const hit = getCurrentEpgProgram();
+    const nowEpg = hit && hit.program ? hit.program.title : '';
     navigator.mediaSession.metadata = new MediaMetadata({
-      title: track || station.name,
-      artist: track ? station.name : (station.language || 'OpenRadio-IN'),
+      title: nowEpg || track || station.name,
+      artist: nowEpg || track ? station.name : (station.language || 'OpenRadio-IN'),
       artwork: artSrc ? [{ src: artSrc, sizes: '512x512' }] : []
     });
     navigator.mediaSession.playbackState = state.playing ? 'playing' : (state.paused ? 'paused' : 'none');
@@ -655,6 +657,9 @@
       .filter(Boolean)
       .filter((category) => String(category).toLowerCase() !== 'all')
       .sort((first, second) => String(first).localeCompare(String(second)));
+    const availableCategories = new Set(categories.map((category) => String(category).toLowerCase()));
+    availableCategories.add('all');
+    if (!availableCategories.has(String(state.activeCategory).toLowerCase())) state.activeCategory = 'all';
     elements.filters.replaceChildren(...categories.map((category) => {
       const button = makeElement('button', `pill${state.activeCategory.toLowerCase() === String(category).toLowerCase() ? ' active' : ''}`, category === 'all' ? t('filter.all') : category);
       button.type = 'button';
@@ -667,6 +672,8 @@
   function renderLanguageOptions() {
     const languages = [...new Set(state.stations.map((station) => station.language).filter(Boolean))]
       .sort((first, second) => String(first).localeCompare(String(second)));
+    const availableLanguages = new Set(languages.map((language) => String(language).toLowerCase()));
+    if (!availableLanguages.has(String(state.activeLanguage).toLowerCase())) state.activeLanguage = 'all';
     const allOption = makeElement('option', '', t('filter.allLanguages'));
     allOption.value = 'all';
     elements.languageSelect.replaceChildren(
@@ -702,6 +709,11 @@
 
   function saveFavorites() {
     localStorage.setItem('openradio-favorites', JSON.stringify([...state.favorites]));
+  }
+
+  function saveFilters() {
+    localStorage.setItem('openradio-category', state.activeCategory);
+    localStorage.setItem('openradio-language', state.activeLanguage);
   }
 
   /* ---------- Cast ---------- */
@@ -1273,34 +1285,48 @@
     return hours * 60 + minutes;
   }
 
-  function renderEpg() {
-    if (!elements.nowPlayingEpg) return;
+  function getCurrentEpgProgram() {
     const programs = state.epgPrograms;
-    if (!state.currentStation || !programs || !programs.length) {
-      elements.nowPlayingEpg.hidden = true;
-      return;
-    }
+    if (!programs || !programs.length) return null;
     const now = istNowParts().minutes;
-    let current = null;
-    let next = null;
     for (let i = 0; i < programs.length; i++) {
       const start = parseEpgTime(programs[i].start);
       const end = parseEpgTime(programs[i].end);
       if (start === null || end === null) continue;
       if (now >= start && now < end) {
-        current = programs[i];
-        next = i + 1 < programs.length ? programs[i + 1] : null;
-        break;
+        return { program: programs[i], next: i + 1 < programs.length ? programs[i + 1] : null };
       }
     }
-    if (!current) {
+    return null;
+  }
+
+  function renderEpg() {
+    if (!elements.nowPlayingEpg) return;
+    const hit = getCurrentEpgProgram();
+    if (!state.currentStation || !hit) {
       elements.nowPlayingEpg.hidden = true;
+      updateMediaSession();
       return;
     }
-    const parts = [`${t('np.now')}: ${current.title}`];
-    if (next && parseEpgTime(next.start) !== null) parts.push(`${t('np.next')}: ${next.title}`);
-    elements.nowPlayingEpg.textContent = parts.join('  \u2022  ');
+    const current = hit.program;
+    const next = hit.next;
+
+    const rows = [];
+
+    const nowRow = makeElement('div', 'epg-row epg-now');
+    nowRow.append(makeElement('span', 'epg-label', t('np.now')), document.createTextNode(`  ${current.title}`));
+    rows.push(nowRow);
+
+    if (next && parseEpgTime(next.start) !== null) {
+      const nextRow = makeElement('div', 'epg-row epg-next');
+      nextRow.append(makeElement('span', 'epg-label', t('np.next')), document.createTextNode(`  ${next.title}  `));
+      nextRow.append(makeElement('span', 'epg-time', next.start));
+      rows.push(nextRow);
+    }
+
+    elements.nowPlayingEpg.replaceChildren(...rows);
     elements.nowPlayingEpg.hidden = false;
+    updateMediaSession();
   }
 
   function startEpgTimer() {
@@ -1527,10 +1553,12 @@
     const button = event.target.closest('button[data-category]');
     if (!button) return;
     state.activeCategory = button.dataset.category;
+    saveFilters();
     applyFilters();
   });
   elements.languageSelect.addEventListener('change', (event) => {
     state.activeLanguage = event.target.value;
+    saveFilters();
     applyFilters();
   });
   elements.uiLang.addEventListener('change', (event) => {

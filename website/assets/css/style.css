@@ -577,12 +577,56 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .now-playing-epg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
   color: var(--muted);
   font-size: 0.8rem;
   text-align: center;
   padding: 6px 12px;
   max-width: 100%;
   word-wrap: break-word;
+}
+
+.epg-row {
+  text-align: center;
+  padding: 2px 0;
+}
+
+.epg-now {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.epg-next {
+  color: var(--muted);
+}
+
+.epg-label {
+  display: inline-block;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.epg-now .epg-label {
+  color: var(--bg);
+  background: var(--accent);
+}
+
+.epg-next .epg-label {
+  color: var(--accent-2);
+  background: rgba(124, 58, 237, 0.15);
+}
+
+.epg-time {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.75rem;
 }
 
 .now-playing-controls {
