@@ -97,7 +97,7 @@ OpenRadio-IN
 | fm.m3u | FM stations |
 | telugu.m3u | Telugu stations |
 
-Language playlists (e.g. `hindi.m3u`, `tamil, english.m3u`, `marathi, hindi, english.m3u`) are generated for every distinct language combination in the database.
+Language playlists (e.g. `hindi.m3u`, `tamil.m3u`, `marathi.m3u`) are generated for every language in the database. A station with multiple languages (e.g. "Assamese, Hindi, English") is added to each of its language playlists separately.
 
 ---
 

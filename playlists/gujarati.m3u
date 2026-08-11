@@ -3,6 +3,8 @@
 https://radio.wavespb.com/live/0b169b8c30f2f151/0b169b8c30f2f151.m3u8
 #EXTINF:-1 tvg-id="akashvani_bhuj" tvg-name="Akashvani Bhuj" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/bhuj.jpg" group-title="AIR, ALL",Akashvani Bhuj
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio195/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_daman" tvg-name="Akashvani Daman" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_294651.jpg" group-title="AIR, ALL",Akashvani Daman
+https://radio.wavespb.com/live/c124a58382e75a46/c124a58382e75a46.m3u8
 #EXTINF:-1 tvg-id="akashvani_godhra" tvg-name="Akashvani Godhra" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_568172.jpg" group-title="AIR, ALL",Akashvani Godhra
 https://radio.wavespb.com/live/3fa69e2c950b70e8/3fa69e2c950b70e8.m3u8
 #EXTINF:-1 tvg-id="akashvani_himmatnagar" tvg-name="Akashvani Himmatnagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_512587.jpg" group-title="AIR, ALL",Akashvani Himmatnagar

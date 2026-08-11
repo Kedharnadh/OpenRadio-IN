@@ -1,0 +1,15 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_bhaderwah" tvg-name="Akashvani Bhaderwah" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_937767.jpg" group-title="AIR, ALL",Akashvani Bhaderwah
+https://radio.wavespb.com/live/92100ec0c2058b1a/92100ec0c2058b1a.m3u8
+#EXTINF:-1 tvg-id="akashvani_jammu" tvg-name="Akashvani Jammu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airjammu.jpg" group-title="AIR, ALL",Akashvani Jammu
+https://radio.wavespb.com/live/42c7dca503e95fec/42c7dca503e95fec.m3u8
+#EXTINF:-1 tvg-id="akashvani_kathua" tvg-name="Akashvani Kathua" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_433421.jpg" group-title="AIR, ALL",Akashvani Kathua
+https://radio.wavespb.com/live/b4173082e8f5e716/b4173082e8f5e716.m3u8
+#EXTINF:-1 tvg-id="akashvani_lucknow" tvg-name="Akashvani Lucknow" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airlucknow.jpg" group-title="AIR, ALL",Akashvani Lucknow
+https://radio.wavespb.com/live/75c01e54cb46ad29/75c01e54cb46ad29.m3u8
+#EXTINF:-1 tvg-id="akashvani_poonch" tvg-name="Akashvani Poonch" tvg-logo="https://i3.ytimg.com/vi/cdNMg3-pX1I/hqdefault.jpg" group-title="AIR, ALL",Akashvani Poonch
+https://radio.wavespb.com/live/a52d55fcbee4f4db/a52d55fcbee4f4db.m3u8
+#EXTINF:-1 tvg-id="akashvani_srinagar" tvg-name="Akashvani Srinagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/radio-kashmir.jpg" group-title="AIR, ALL",Akashvani Srinagar
+https://radio.wavespb.com/live/01e2be674a0543a6/01e2be674a0543a6.m3u8
+#EXTINF:-1 tvg-id="fm_rainbow_lucknow" tvg-name="FM Rainbow Lucknow" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_188882.jpg" group-title="FM, ALL",FM Rainbow Lucknow
+https://radio.wavespb.com/live/81c465a355a1ea65/81c465a355a1ea65.m3u8
