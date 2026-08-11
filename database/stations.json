@@ -375,7 +375,7 @@
     "logo": "https://img1.wsimg.com/isteam/ip/d547af60-4305-4c1a-a90e-b8c81b606aa0/logo_new_.png",
     "streams": [
       {
-        "url": "https://a1.asurahosting.com:9580/radio.mp3",
+        "url": "https://a1.asurahosting.com/listen/melody_radio/radio.mp3",
         "codec": "MP3",
         "priority": 1
       }
@@ -617,7 +617,7 @@
     "logo": "https://geetradio.com/wp-content/uploads/2024/08/Geetradio_512_nobg.png",
     "streams": [
       {
-        "url": "https://server.geetradio.com:8010/radio.mp3",
+        "url": "http://server.geetradio.com:8010/radio.mp3",
         "codec": "HLS",
         "priority": 1
       }
