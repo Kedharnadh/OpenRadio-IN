@@ -270,14 +270,15 @@ function parseCuesheet(html) {
   if (!tableMatch) return { date, programs };
 
   const rowRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+  const tableHtml = tableMatch[1].replace(/<!--[\s\S]*?-->/g, '');
   let rowMatch;
-  while ((rowMatch = rowRe.exec(tableMatch[1])) !== null) {
+  while ((rowMatch = rowRe.exec(tableHtml)) !== null) {
     const cells = [];
     const tdRe = /<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi;
     let tdMatch;
     while ((tdMatch = tdRe.exec(rowMatch[1])) !== null) cells.push(tdMatch[1]);
 
-    if (cells.length < 9) continue;
+    if (cells.length < 8) continue;
     const start = cellText(cells[1]);
     const end = cellText(cells[2]);
     const title = cellText(cells[4]);
@@ -289,8 +290,8 @@ function parseCuesheet(html) {
       start,
       end,
       title,
-      language: cellText(cells[7]),
-      type: cellText(cells[8]),
+      language: cellText(cells[5]),
+      type: cellText(cells[6]),
     });
     if (programs.length >= 200) break;
   }
