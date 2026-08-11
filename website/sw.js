@@ -1,4 +1,4 @@
-const CACHE_NAME = 'openradio-in-v10';
+const CACHE_NAME = 'openradio-in-v11';
 const APP_SHELL = [
   './',
   './index.html',
@@ -25,6 +25,20 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   if (event.request.mode === 'navigate') {
     event.respondWith(fetch(event.request).catch(() => caches.match('./index.html')));
+    return;
+  }
+  // Station data changes often (URL fixes, health status); always fetch fresh.
+  if (event.request.url.includes('/data/stations.json')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response.ok && response.type === 'basic') {
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, response.clone()));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
     return;
   }
   event.respondWith(

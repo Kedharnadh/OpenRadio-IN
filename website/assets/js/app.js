@@ -238,6 +238,7 @@
     currentStation: null,
     playing: false,
     nowPlayingTrack: '',
+    nowPlayingArt: '',
     currentSource: 'all',
     volume: parseFloat(localStorage.getItem('openradio-volume') || '1'),
     muted: false,
@@ -322,6 +323,8 @@
   const RESUME_GRACE_MS = 3000;
   const RESUME_BACKOFF_MS = [5000, 10000, 20000, 30000, 30000];
   const RESUME_MAX_ATTEMPTS = 10;
+  const ART_CACHE_KEY = 'openradio-art-cache';
+  const ART_CACHE_TTL = 24 * 60 * 60 * 1000;
 
   function setStatus(message) {
     elements.status.textContent = message;
@@ -446,10 +449,11 @@
       return;
     }
     const track = state.nowPlayingTrack;
+    const artSrc = state.nowPlayingArt || station.logo || '';
     navigator.mediaSession.metadata = new MediaMetadata({
       title: track || station.name,
       artist: track ? station.name : (station.language || 'OpenRadio-IN'),
-      artwork: station.logo ? [{ src: station.logo, sizes: '512x512', type: 'image/png' }] : []
+      artwork: artSrc ? [{ src: artSrc, sizes: '512x512' }] : []
     });
     navigator.mediaSession.playbackState = state.playing ? 'playing' : (state.paused ? 'paused' : 'none');
   }
@@ -488,6 +492,15 @@
   }
 
   /* ---------- Update Player ---------- */
+
+  function renderNowPlayingArt() {
+    const station = state.currentStation;
+    const art = state.nowPlayingArt || station?.logo || '';
+    elements.nowPlayingLogo.src = art;
+    elements.nowPlayingLogo.alt = station?.name || '';
+    elements.nowPlayingLogo.hidden = !art;
+    elements.nowPlayingPlaceholder.hidden = Boolean(art);
+  }
 
   function updatePlayer() {
     const station = state.currentStation;
@@ -528,10 +541,7 @@
     elements.npNext.disabled = !hasMultiple;
     elements.nowPlayingTitle.textContent = station.name;
     elements.nowPlayingMeta.textContent = `${languageLabel} \u2022 ${destination}`;
-    elements.nowPlayingLogo.src = station.logo || '';
-    elements.nowPlayingLogo.alt = station.name;
-    elements.nowPlayingLogo.hidden = !station.logo;
-    elements.nowPlayingPlaceholder.hidden = Boolean(station.logo);
+    renderNowPlayingArt();
     if (state.nowPlayingTrack) {
       elements.nowPlayingTrack.hidden = false;
       elements.nowPlayingTrack.textContent = state.nowPlayingTrack;
@@ -816,6 +826,7 @@
     state.pendingAutoResume = false;
     state.resumeAttempts = 0;
     state.nowPlayingTrack = '';
+    state.nowPlayingArt = '';
     elements.nowPlayingTrack.hidden = true;
     const stream = streams[0];
 
@@ -875,7 +886,7 @@
       setStatus(t('status.playing', { name: station.name }));
       localStorage.setItem('openradio-last-station', station.id);
       addRecentStation(station);
-      startMetadataPolling(stream.url);
+      startMetadataPolling(stream.url, station);
       updatePlayer();
       renderStationLists();
       return;
@@ -889,7 +900,7 @@
       setStatus(t('status.playing', { name: station.name }));
       localStorage.setItem('openradio-last-station', station.id);
       addRecentStation(station);
-      startMetadataPolling(stream.url);
+      startMetadataPolling(stream.url, station);
     } catch (error) {
       state.playing = false;
       state.pauseIntent = false;
@@ -922,6 +933,7 @@
     elements.audio.src = '';
     state.playing = false;
     state.nowPlayingTrack = '';
+    state.nowPlayingArt = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
     updatePlayer();
@@ -1120,25 +1132,99 @@
 
   /* ---------- Stream Metadata ---------- */
 
-  function fetchStreamMetadata(streamUrl) {
-    const metaUrl = `${HLS_PROXY_URL}?meta=1&url=${encodeURIComponent(streamUrl)}`;
-    fetch(metaUrl, { signal: AbortSignal.timeout(5000) })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.streamTitle) {
-          state.nowPlayingTrack = data.streamTitle;
-          elements.nowPlayingTrack.textContent = state.nowPlayingTrack;
-          elements.nowPlayingTrack.hidden = false;
-          updateMediaSession();
-        }
-      })
-      .catch(() => {});
+  async function fetchStreamMetadata(streamUrl, station) {
+    try {
+      const metaUrl = `${HLS_PROXY_URL}?meta=1&url=${encodeURIComponent(streamUrl)}`;
+      const response = await fetch(metaUrl, { signal: AbortSignal.timeout(5000) });
+      const data = await response.json();
+      let title = data.streamTitle || '';
+      if (!title && station?.metadata_url) {
+        const statusUrl = `${HLS_PROXY_URL}?meta=1&metaUrl=${encodeURIComponent(station.metadata_url)}`;
+        const statusResponse = await fetch(statusUrl, { signal: AbortSignal.timeout(5000) });
+        const statusData = await statusResponse.json();
+        title = statusData.streamTitle || '';
+      }
+      applyTrackMetadata(title, station);
+    } catch (error) {
+      console.warn('Metadata fetch failed:', error.message || error);
+    }
   }
 
-  function startMetadataPolling(url) {
+  function applyTrackMetadata(title, station) {
+    if (!title || title === state.nowPlayingTrack) return;
+    state.nowPlayingTrack = title;
+    elements.nowPlayingTrack.textContent = title;
+    elements.nowPlayingTrack.hidden = false;
+    updateMediaSession();
+    lookupArtwork(title, station);
+  }
+
+  function splitArtistTrack(title) {
+    const separator = title.indexOf(' - ');
+    if (separator > 0) {
+      const artist = title.slice(0, separator).trim();
+      const track = title.slice(separator + 3).trim();
+      return [artist, track].filter(Boolean);
+    }
+    return ['', title.trim()];
+  }
+
+  function getCachedArtwork(key) {
+    try {
+      const store = JSON.parse(localStorage.getItem(ART_CACHE_KEY) || '{}');
+      const entry = store[key];
+      if (entry && Date.now() - entry.t < ART_CACHE_TTL) return entry.url;
+    } catch {}
+    return '';
+  }
+
+  function setCachedArtwork(key, url) {
+    try {
+      const store = JSON.parse(localStorage.getItem(ART_CACHE_KEY) || '{}');
+      store[key] = { url, t: Date.now() };
+      localStorage.setItem(ART_CACHE_KEY, JSON.stringify(store));
+    } catch {}
+  }
+
+  async function lookupArtwork(title, station) {
+    const key = title.toLowerCase().trim();
+    const cached = getCachedArtwork(key);
+    if (cached) {
+      applyArtwork(cached);
+      return;
+    }
+    const [artist, track] = splitArtistTrack(title);
+    const term = [artist, track].filter(Boolean).join(' ');
+    try {
+      const response = await fetch(
+        `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&media=music&entity=song&limit=1`,
+        { signal: AbortSignal.timeout(6000) }
+      );
+      const data = await response.json();
+      const result = data.results && data.results[0];
+      if (result && result.artworkUrl100) {
+        const art = result.artworkUrl100.replace('100x100', '600x600');
+        setCachedArtwork(key, art);
+        applyArtwork(art);
+      } else {
+        applyArtwork('');
+      }
+    } catch (error) {
+      console.warn('Artwork lookup failed:', error.message || error);
+      applyArtwork('');
+    }
+  }
+
+  function applyArtwork(art) {
+    state.nowPlayingArt = art || '';
+    renderNowPlayingArt();
+    updateMediaSession();
+  }
+
+  function startMetadataPolling(url, station) {
     stopMetadataPolling();
-    fetchStreamMetadata(url);
-    state.metadataIntervalId = setInterval(() => fetchStreamMetadata(url), 30000);
+    fetchStreamMetadata(url, station);
+    state.metadataIntervalId = setInterval(() => fetchStreamMetadata(url, station), 30000);
   }
 
   function stopMetadataPolling() {
