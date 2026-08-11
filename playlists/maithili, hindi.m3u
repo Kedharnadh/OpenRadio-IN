@@ -1,0 +1,15 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_bhagalpur" tvg-name="Akashvani Bhagalpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_687132.jpg" group-title="AIR, ALL",Akashvani Bhagalpur
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio292/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_darbhanga" tvg-name="Akashvani Darbhanga" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_645992.jpg" group-title="AIR, ALL",Akashvani Darbhanga
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio160/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_patna" tvg-name="Akashvani Patna" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airpatna.jpg" group-title="AIR, ALL",Akashvani Patna
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio087/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_purnia_bihar" tvg-name="Akashvani Purnia Bihar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_763725.jpg" group-title="AIR, ALL",Akashvani Purnia Bihar
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio147/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_sasaram" tvg-name="Akashvani Sasaram" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_330465.jpg" group-title="AIR, ALL",Akashvani Sasaram
+https://radio.wavespb.com/live/cd626d48acead509/cd626d48acead509.m3u8
+#EXTINF:-1 tvg-id="fm_rainbow_patna" tvg-name="FM Rainbow Patna" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_384572.jpg" group-title="FM, ALL",FM Rainbow Patna
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio252/playlist.m3u8
+#EXTINF:-1 tvg-id="vbs_patna" tvg-name="VBS Patna" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_681982.jpg" group-title="FM, AIR, ALL",VBS Patna
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio251/playlist.m3u8

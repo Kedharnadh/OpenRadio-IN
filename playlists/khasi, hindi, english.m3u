@@ -1,0 +1,11 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_jowai" tvg-name="Akashvani Jowai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_595144.jpg" group-title="AIR, ALL",Akashvani Jowai
+https://radio.wavespb.com/live/56465e7d42632ff1/56465e7d42632ff1.m3u8
+#EXTINF:-1 tvg-id="akashvani_north_east_livestream" tvg-name="Akashvani North East Livestream" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_289258.jpg" group-title="AIR, ALL",Akashvani North East Livestream
+https://radio.wavespb.com/live/0ce240322bab1873/0ce240322bab1873.m3u8
+#EXTINF:-1 tvg-id="akashvani_shillong" tvg-name="Akashvani Shillong" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_505076.jpg" group-title="AIR, ALL",Akashvani Shillong
+https://radio.wavespb.com/live/8d920d17847ba75e/8d920d17847ba75e.m3u8
+#EXTINF:-1 tvg-id="akashvani_tura" tvg-name="Akashvani Tura" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_500280.jpg" group-title="AIR, ALL",Akashvani Tura
+https://radio.wavespb.com/live/a4c3a057df68d422/a4c3a057df68d422.m3u8
+#EXTINF:-1 tvg-id="fm_jongphi_shillong" tvg-name="FM Jongphi Shillong" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_268715.jpg" group-title="FM, ALL",FM Jongphi Shillong
+https://radio.wavespb.com/live/989abf4a5fee9240/989abf4a5fee9240.m3u8

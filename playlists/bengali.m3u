@@ -1,0 +1,17 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_bangla" tvg-name="Akashvani Bangla" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/air-bangla.jpg" group-title="AIR, ALL",Akashvani Bangla
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio137/hlspbaudio137_Auto.m3u8
+#EXTINF:-1 tvg-id="akashvani_kolkata_geetanjali" tvg-name="Akashvani Kolkata Geetanjali" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_817824.jpg" group-title="AIR, ALL",Akashvani Kolkata Geetanjali
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio055/hlspbaudio055_Auto.m3u8
+#EXTINF:-1 tvg-id="akashvani_kolkata_sanchayita" tvg-name="Akashvani Kolkata Sanchayita" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_480353.jpg" group-title="AIR, ALL",Akashvani Kolkata Sanchayita
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio056/hlspbaudio056_Auto.m3u8
+#EXTINF:-1 tvg-id="akashvani_kurseong" tvg-name="Akashvani Kurseong" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_319202.jpg" group-title="AIR, ALL",Akashvani Kurseong
+https://radio.wavespb.com/live/1f781b48497e67d3/1f781b48497e67d3.m3u8
+#EXTINF:-1 tvg-id="akashvani_maitree" tvg-name="Akashvani Maitree" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_895638.jpg" group-title="AIR, ALL",Akashvani Maitree
+https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio245/hlspbaudio245_Auto.m3u8
+#EXTINF:-1 tvg-id="akashvani_murshidabad" tvg-name="Akashvani Murshidabad" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_565906.jpg" group-title="AIR, ALL",Akashvani Murshidabad
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio169/playlist.m3u8
+#EXTINF:-1 tvg-id="akashvani_shantiniketan" tvg-name="Akashvani Shantiniketan" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_121090.jpg" group-title="AIR, ALL",Akashvani Shantiniketan
+https://radio.wavespb.com/live/66249dfecaf80241/66249dfecaf80241.m3u8
+#EXTINF:-1 tvg-id="akashvani_siliguri" tvg-name="Akashvani Siliguri" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_229808.jpg" group-title="AIR, ALL",Akashvani Siliguri
+https://radio.wavespb.com/live/165856ba98ca031a/165856ba98ca031a.m3u8

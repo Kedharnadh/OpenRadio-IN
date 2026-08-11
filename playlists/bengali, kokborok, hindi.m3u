@@ -1,0 +1,7 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_belonia" tvg-name="Akashvani Belonia" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_736495.jpg" group-title="AIR, ALL",Akashvani Belonia
+https://radio.wavespb.com/live/00ff79c493fe8353/00ff79c493fe8353.m3u8
+#EXTINF:-1 tvg-id="akashvani_kailashahar" tvg-name="Akashvani Kailashahar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_237652.jpg" group-title="AIR, ALL",Akashvani Kailashahar
+https://radio.wavespb.com/live/c84f390b94a07703/c84f390b94a07703.m3u8
+#EXTINF:-1 tvg-id="fm_ujjayanta_agartala" tvg-name="FM Ujjayanta Agartala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_332705.jpg" group-title="FM, ALL",FM Ujjayanta Agartala
+https://radio.wavespb.com/live/d65912ef9829b8c9/d65912ef9829b8c9.m3u8

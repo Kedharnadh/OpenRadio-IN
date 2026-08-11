@@ -1,0 +1,5 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_lucknow" tvg-name="Akashvani Lucknow" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airlucknow.jpg" group-title="AIR, ALL",Akashvani Lucknow
+https://radio.wavespb.com/live/75c01e54cb46ad29/75c01e54cb46ad29.m3u8
+#EXTINF:-1 tvg-id="fm_rainbow_lucknow" tvg-name="FM Rainbow Lucknow" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_188882.jpg" group-title="FM, ALL",FM Rainbow Lucknow
+https://radio.wavespb.com/live/81c465a355a1ea65/81c465a355a1ea65.m3u8

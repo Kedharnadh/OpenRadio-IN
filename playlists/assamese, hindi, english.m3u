@@ -1,0 +1,17 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_dibrugarh" tvg-name="Akashvani Dibrugarh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_499538.jpg" group-title="AIR, ALL",Akashvani Dibrugarh
+https://radio.wavespb.com/live/6db6683f71f6df13/6db6683f71f6df13.m3u8
+#EXTINF:-1 tvg-id="akashvani_diphu" tvg-name="Akashvani Diphu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_399279.jpg" group-title="AIR, ALL",Akashvani Diphu
+https://radio.wavespb.com/live/24092163948ab5d8/24092163948ab5d8.m3u8
+#EXTINF:-1 tvg-id="akashvani_guwahati_mahabahu" tvg-name="Akashvani Guwahati Mahabahu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/air-assamese.jpg" group-title="AIR, ALL",Akashvani Guwahati Mahabahu
+https://radio.wavespb.com/live/d1712a1355f27abb/d1712a1355f27abb.m3u8
+#EXTINF:-1 tvg-id="akashvani_guwahati_pragjyotishpur" tvg-name="Akashvani Guwahati Pragjyotishpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_646762.jpg" group-title="AIR, ALL",Akashvani Guwahati Pragjyotishpur
+https://radio.wavespb.com/live/c8a130239e27ded0/c8a130239e27ded0.m3u8
+#EXTINF:-1 tvg-id="akashvani_haflong" tvg-name="Akashvani Haflong" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_226622.jpg" group-title="AIR, ALL",Akashvani Haflong
+https://radio.wavespb.com/live/0625378643a5d9ba/0625378643a5d9ba.m3u8
+#EXTINF:-1 tvg-id="akashvani_kokrajhar" tvg-name="Akashvani Kokrajhar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/KOKRAJHAR.jpeg" group-title="AIR, ALL",Akashvani Kokrajhar
+https://radio.wavespb.com/live/f6fa349221f25803/f6fa349221f25803.m3u8
+#EXTINF:-1 tvg-id="akashvani_nagaon" tvg-name="Akashvani Nagaon" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_706896.jpg" group-title="AIR, ALL",Akashvani Nagaon
+https://radio.wavespb.com/live/f2619d605f469c55/f2619d605f469c55.m3u8
+#EXTINF:-1 tvg-id="akashvani_tezpur" tvg-name="Akashvani Tezpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_797923.jpg" group-title="AIR, ALL",Akashvani Tezpur
+https://radio.wavespb.com/live/9260e7a38d76ffda/9260e7a38d76ffda.m3u8

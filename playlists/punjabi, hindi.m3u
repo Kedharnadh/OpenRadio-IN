@@ -1,0 +1,11 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_bhatinda" tvg-name="Akashvani Bhatinda" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_283995.jpg" group-title="AIR, ALL",Akashvani Bhatinda
+https://radio.wavespb.com/live/8651d3d0c2021750/8651d3d0c2021750.m3u8
+#EXTINF:-1 tvg-id="akashvani_ludhiana" tvg-name="Akashvani Ludhiana" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/Ludhiana.jpg" group-title="AIR, ALL",Akashvani Ludhiana
+https://radio.wavespb.com/live/1a7150879f9e362c/1a7150879f9e362c.m3u8
+#EXTINF:-1 tvg-id="akashvani_patiala" tvg-name="Akashvani Patiala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airpatiala.jpg" group-title="AIR, ALL",Akashvani Patiala
+https://radio.wavespb.com/live/8d1636496b33c77e/8d1636496b33c77e.m3u8
+#EXTINF:-1 tvg-id="akashvani_punjabi" tvg-name="Akashvani Punjabi" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/air-punjabi.jpg" group-title="AIR, ALL",Akashvani Punjabi
+https://radio.wavespb.com/live/5adc4acbbdd1f6cf/5adc4acbbdd1f6cf.m3u8
+#EXTINF:-1 tvg-id="fm_rainbow_jalandhar" tvg-name="FM Rainbow Jalandhar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_667521.jpg" group-title="FM, ALL",FM Rainbow Jalandhar
+https://radio.wavespb.com/live/027744169f5fad66/027744169f5fad66.m3u8

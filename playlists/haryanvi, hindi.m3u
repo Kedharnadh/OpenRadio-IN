@@ -1,0 +1,7 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_hisar" tvg-name="Akashvani Hisar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_618853.jpg" group-title="AIR, ALL",Akashvani Hisar
+https://radio.wavespb.com/live/d3f37eacc0dc6495/d3f37eacc0dc6495.m3u8
+#EXTINF:-1 tvg-id="akashvani_kurukshetra" tvg-name="Akashvani Kurukshetra" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_689198.jpg" group-title="AIR, ALL",Akashvani Kurukshetra
+https://radio.wavespb.com/live/f71ea3f12ae3111c/f71ea3f12ae3111c.m3u8
+#EXTINF:-1 tvg-id="akashvani_rohtak" tvg-name="Akashvani Rohtak" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/rohtak.jpg" group-title="AIR, ALL",Akashvani Rohtak
+https://radio.wavespb.com/live/d617676f1e7ac0a1/d617676f1e7ac0a1.m3u8

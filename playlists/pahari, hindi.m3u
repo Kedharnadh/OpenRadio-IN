@@ -1,0 +1,9 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="akashvani_dharamshala" tvg-name="Akashvani Dharamshala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_181135.jpg" group-title="AIR, ALL",Akashvani Dharamshala
+https://radio.wavespb.com/live/c3ae5f110a14d3ba/c3ae5f110a14d3ba.m3u8
+#EXTINF:-1 tvg-id="akashvani_hamirpur_fm" tvg-name="Akashvani Hamirpur FM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_247066.jpg" group-title="FM, AIR, ALL",Akashvani Hamirpur FM
+https://radio.wavespb.com/live/51244bb8a94ec8ec/51244bb8a94ec8ec.m3u8
+#EXTINF:-1 tvg-id="akashvani_shimla" tvg-name="Akashvani Shimla" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_336736.jpg" group-title="AIR, ALL",Akashvani Shimla
+https://radio.wavespb.com/live/0b6f48bb61b49957/0b6f48bb61b49957.m3u8
+#EXTINF:-1 tvg-id="akashvani_shimla_fm" tvg-name="Akashvani Shimla FM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/shimla.jpg" group-title="FM, AIR, ALL",Akashvani Shimla FM
+https://radio.wavespb.com/live/66f234a8585d2fe0/66f234a8585d2fe0.m3u8
