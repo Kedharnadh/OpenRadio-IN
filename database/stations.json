@@ -293,6 +293,11 @@
         "url": "https://radio.wavespb.com/live/1119aa26b4e9f653/1119aa26b4e9f653.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio144/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
