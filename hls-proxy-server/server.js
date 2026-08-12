@@ -16,9 +16,19 @@ app.get('/proxy', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   const ffmpeg = spawn(ffmpegPath, [
+    '-hide_banner',
+    '-allowed_extensions', 'ALL',
+    '-rw_timeout', '15000000',
+    '-reconnect', '1',
+    '-reconnect_streamed', '1',
+    '-reconnect_delay_max', '2',
+    '-fflags', '+genpts',
+    '-analyzeduration', '5000000',
+    '-probesize', '5000000',
     '-i', hlsUrl,
+    '-vn',
     '-acodec', 'libmp3lame',
-    '-ab', '128k',
+    '-b:a', '128k',
     '-ar', '44100',
     '-ac', '2',
     '-f', 'mp3',

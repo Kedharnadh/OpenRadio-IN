@@ -330,7 +330,6 @@
   let castPlayer;
   let castPlayerController;
 
-  const CUSTOM_CAST_APP_ID = '45881BB0';
   const HLS_PROXY_URL = 'https://openradio-hls-proxy.kedharnadh1.workers.dev';
   const RECENT_MAX = 10;
   const RESUME_GRACE_MS = 3000;
@@ -730,8 +729,7 @@
     return Boolean(castContext && window.cast && castContext.getCastState() === cast.framework.CastState.CONNECTED);
   }
 
-  function streamContentType(stream, useProxy) {
-    if (useProxy) return 'audio/mpeg';
+  function streamContentType(stream) {
     const codec = String(stream.codec || '').toLowerCase();
     if (codec === 'hls' || stream.url.includes('.m3u8')) return 'application/vnd.apple.mpegurl';
     if (codec === 'aac') return 'audio/aac';
@@ -759,9 +757,6 @@
     if (!streams.length) return;
     const stream = streams[0];
     const isHls = isHlsStream(stream);
-    const useProxy = isHls && HLS_PROXY_URL;
-    const contentType = streamContentType(stream, useProxy);
-    const castUrl = useProxy ? `${HLS_PROXY_URL}?url=${encodeURIComponent(stream.url)}&contentType=${encodeURIComponent(contentType)}` : stream.url;
 
     state.currentStation = station;
     if (state.hls) { state.hls.destroy(); state.hls = null; }
@@ -774,8 +769,26 @@
       return;
     }
 
-    async function loadOnCast(ct) {
-      const media = new chrome.cast.media.MediaInfo(castUrl, ct);
+    const candidates = [{ url: stream.url, contentType: streamContentType(stream) }];
+    if (isHls && HLS_PROXY_URL) {
+      try {
+        const probeResponse = await fetch(`${HLS_PROXY_URL}?probe=1&url=${encodeURIComponent(stream.url)}`, { signal: AbortSignal.timeout(10000) });
+        if (probeResponse.ok) {
+          const probe = await probeResponse.json();
+          if (probe && probe.contentType && probe.url) {
+            candidates.push({
+              url: `${HLS_PROXY_URL}?url=${encodeURIComponent(probe.url)}&contentType=${encodeURIComponent(probe.contentType)}`,
+              contentType: probe.contentType
+            });
+          }
+        }
+      } catch (error) {
+        console.warn('Cast HLS probe failed:', error.message || error);
+      }
+    }
+
+    async function loadOnCast(ct, url) {
+      const media = new chrome.cast.media.MediaInfo(url, ct);
       media.streamType = chrome.cast.media.StreamType.LIVE;
       media.metadata = new chrome.cast.media.MusicTrackMediaMetadata();
       media.metadata.title = station.name;
@@ -784,21 +797,25 @@
       await session.loadMedia(new chrome.cast.media.LoadRequest(media));
     }
 
-    try {
-      await loadOnCast(contentType);
-      state.playing = true;
-      state.paused = false;
-      setStatus(t('status.playingCast', { name: station.name }));
-    } catch (error) {
-      state.playing = false;
-      state.paused = false;
-      console.error('Cast loadMedia error:', error.message || error);
-      if (isHls && !useProxy) {
-        setStatus(t('status.castBlocked'));
-      } else {
-        setStatus(t('status.castError', { error: error.message || t('status.castError') }));
+    let lastError = '';
+    for (const candidate of candidates) {
+      try {
+        await loadOnCast(candidate.contentType, candidate.url);
+        state.playing = true;
+        state.paused = false;
+        setStatus(t('status.playingCast', { name: station.name }));
+        updatePlayer();
+        renderStationLists();
+        return;
+      } catch (error) {
+        lastError = error.message || String(error);
+        console.warn('Cast loadMedia failed:', candidate.url, error);
       }
     }
+
+    state.playing = false;
+    state.paused = false;
+    setStatus(t('status.castError', { error: lastError || t('status.castError') }));
     updatePlayer();
     renderStationLists();
   }
@@ -818,8 +835,7 @@
   function initializeCast() {
     if (typeof window.cast === 'undefined' || castContext) return;
     castContext = cast.framework.CastContext.getInstance();
-    const appId = HLS_PROXY_URL ? chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID : CUSTOM_CAST_APP_ID;
-    castContext.setOptions({ receiverApplicationId: appId, autoJoinPolicy: chrome.cast.AutoJoinPolicy.TAB_AND_ORIGIN_SCOPED });
+    castContext.setOptions({ receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID, autoJoinPolicy: chrome.cast.AutoJoinPolicy.TAB_AND_ORIGIN_SCOPED });
     castContext.addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, (event) => {
       switch (event.castState) {
         case cast.framework.CastState.CONNECTED:
@@ -882,7 +898,17 @@
       }
       elements.audio.src = '';
       setStatus(t('status.loadingHls'));
-      state.hls = new window.Hls({ startLevel: 0 });
+      state.hls = new window.Hls({
+        startLevel: 0,
+        enableWorker: true,
+        maxBufferLength: 90,
+        maxMaxBufferLength: 120,
+        backBufferLength: 30,
+        liveSyncDurationCount: 6,
+        liveMaxLatencyDurationCount: 12,
+        fragLoadingMaxRetry: 8,
+        manifestLoadingMaxRetry: 4
+      });
       state.hls.loadSource(stream.url);
       state.hls.attachMedia(elements.audio);
       try {
@@ -1024,6 +1050,16 @@
     setTimeout(attemptResume, RESUME_GRACE_MS);
   }
 
+  function tryPlayAudio() {
+    const promise = elements.audio.play();
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => resolve(false), 2500);
+      promise
+        .then(() => { clearTimeout(timer); resolve(true); })
+        .catch(() => { clearTimeout(timer); resolve(false); });
+    });
+  }
+
   function attemptResume() {
     if (!state.pendingAutoResume || !state.currentStation) return;
     if (state.userInitiatedStop || state.paused || state.pauseIntent) {
@@ -1036,7 +1072,14 @@
       return;
     }
 
-    if (!elements.audio.src) {
+    if (!elements.audio.paused) {
+      state.pendingAutoResume = false;
+      state.resumeAttempts = 0;
+      return;
+    }
+
+    const canReplay = Boolean(elements.audio.src) || Boolean(state.hls);
+    if (!canReplay) {
       if (document.hidden) {
         setTimeout(attemptResume, RESUME_BACKOFF_MS[RESUME_BACKOFF_MS.length - 1]);
       } else {
@@ -1047,22 +1090,23 @@
       return;
     }
 
-    elements.audio.play()
-      .then(() => {
+    tryPlayAudio().then((resumed) => {
+      if (!state.pendingAutoResume) return;
+      if (resumed) {
         state.pendingAutoResume = false;
         state.resumeAttempts = 0;
         setStatus(t('status.resumed'));
-      })
-      .catch(() => {
-        state.resumeAttempts += 1;
-        if (state.resumeAttempts > RESUME_MAX_ATTEMPTS) {
-          state.pendingAutoResume = false;
-          state.resumeAttempts = 0;
-          return;
-        }
-        const delay = RESUME_BACKOFF_MS[Math.min(state.resumeAttempts - 1, RESUME_BACKOFF_MS.length - 1)];
-        setTimeout(attemptResume, delay);
-      });
+        return;
+      }
+      state.resumeAttempts += 1;
+      if (!document.hidden && state.resumeAttempts > RESUME_MAX_ATTEMPTS) {
+        state.pendingAutoResume = false;
+        state.resumeAttempts = 0;
+        return;
+      }
+      const delay = RESUME_BACKOFF_MS[Math.min(state.resumeAttempts, RESUME_BACKOFF_MS.length - 1)];
+      setTimeout(attemptResume, delay);
+    });
   }
 
   async function togglePlayback() {
@@ -1639,6 +1683,16 @@
     updatePlayer();
     renderStationLists();
   });
+  function resumeInterruptedPlayback() {
+    if (state.pendingAutoResume) {
+      attemptResume();
+      return;
+    }
+    if (state.currentStation && !state.userInitiatedStop && !state.paused && !state.pauseIntent && elements.audio.paused) {
+      scheduleAutoResume();
+    }
+  }
+
   elements.audio.addEventListener('pause', () => {
     state.playing = false;
     if (state.pauseIntent) {
@@ -1648,6 +1702,12 @@
     }
     updatePlayer();
     renderStationLists();
+  });
+  elements.audio.addEventListener('stalled', () => {
+    if (state.playing && !state.userInitiatedStop && !state.pauseIntent && !isCasting()) scheduleAutoResume();
+  });
+  elements.audio.addEventListener('waiting', () => {
+    if (state.playing && !state.userInitiatedStop && !state.pauseIntent && !isCasting()) scheduleAutoResume();
   });
   elements.audio.addEventListener('ended', () => {
     if (state.hls) { state.hls.destroy(); state.hls = null; }
@@ -1678,12 +1738,10 @@
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) return;
-    if (state.currentStation && !state.userInitiatedStop && !state.paused && !state.pauseIntent && elements.audio.paused) {
-      scheduleAutoResume();
-    } else if (state.pendingAutoResume) {
-      attemptResume();
-    }
+    resumeInterruptedPlayback();
   });
+  window.addEventListener('focus', resumeInterruptedPlayback);
+  document.addEventListener('pageshow', resumeInterruptedPlayback);
 
   window.addEventListener('beforeinstallprompt', (event) => {
     event.preventDefault();

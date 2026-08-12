@@ -35,35 +35,33 @@ async function handleRequest(request) {
     return handleMetadataRequest(hlsUrl, metaUrl);
   }
 
-  // Allow caller to force a content type (e.g. audio/mpeg)
+  // Allow caller to force a content type (e.g. video/MP2T)
   const forcedContentType = url.searchParams.get('contentType');
+  const probeOnly = url.searchParams.has('probe');
 
-  // 1. Fetch manifest first to determine segment type and validate
-  let manifest;
+  // Resolve the (possibly multi-variant) playlist down to a media playlist
+  let resolution;
   try {
-    const resp = await fetch(hlsUrl, { headers: { 'Cache-Control': 'no-cache' } });
-    if (!resp.ok) throw new Error('Manifest fetch failed');
-    manifest = await resp.text();
+    resolution = await resolvePlaylist(hlsUrl);
   } catch (err) {
     return new Response('Failed to fetch HLS manifest', { status: 502, headers: CORS_HEADERS });
   }
 
-  // 2. Determine correct content type from first segment URL
-  let contentType;
-  if (forcedContentType) {
-    contentType = forcedContentType;
-  } else {
-    const segmentLines = manifest
-      .split('\n')
-      .map((l) => l.trim())
-      .filter((l) => l && !l.startsWith('#'));
-    const firstSegment = segmentLines[0];
-    contentType = guessContentType(firstSegment, hlsUrl);
+  const contentType = forcedContentType || resolution.contentType;
+
+  // probe mode: report the resolved URL and content type without streaming
+  if (probeOnly) {
+    return new Response(JSON.stringify({
+      url: resolution.url,
+      contentType,
+      type: resolution.fromMaster ? 'hls-master' : 'hls-media',
+    }), {
+      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+    });
   }
 
-  // 3. Stream segments with the correct content type
   const { readable, writable } = new TransformStream();
-  streamSegments(hlsUrl, manifest, writable);
+  streamSegments(resolution, writable);
 
   return new Response(readable, {
     headers: {
@@ -161,7 +159,64 @@ async function fetchIcecastStatus(metaUrl) {
   return { streamTitle };
 }
 
-function guessContentType(segment, baseUrl) {
+function segmentLines(manifest) {
+  return manifest
+    .split('\n')
+    .map((l) => l.trim())
+    .filter((l) => l && !l.startsWith('#'));
+}
+
+function isMasterPlaylist(manifest) {
+  return /#EXT-X-STREAM-INF:/i.test(manifest);
+}
+
+async function fetchText(target) {
+  const resp = await fetch(target, { headers: { 'Cache-Control': 'no-cache' } });
+  if (!resp.ok) throw new Error('Manifest fetch failed');
+  return resp.text();
+}
+
+function pickVariant(manifest, baseUrl) {
+  let bestUrl = null;
+  let bestBw = -1;
+  const lines = manifest.split('\n').map((l) => l.trim()).filter(Boolean);
+  for (let i = 0; i < lines.length; i++) {
+    if (!lines[i].startsWith('#EXT-X-STREAM-INF:')) continue;
+    const variant = lines[i + 1];
+    if (!variant || variant.startsWith('#')) continue;
+    const bw = parseInt((/BANDWIDTH=(\d+)/i.exec(lines[i]) || [])[1] || '0', 10);
+    if (bw > bestBw) {
+      bestBw = bw;
+      bestUrl = new URL(variant, baseUrl).href;
+    }
+  }
+  if (!bestUrl) {
+    const fallback = segmentLines(manifest)[0];
+    if (fallback) bestUrl = new URL(fallback, baseUrl).href;
+  }
+  if (!bestUrl) throw new Error('No variant found');
+  return bestUrl;
+}
+
+async function resolvePlaylist(hlsUrl) {
+  let baseUrl = hlsUrl;
+  let manifest = await fetchText(baseUrl);
+  let fromMaster = false;
+  if (isMasterPlaylist(manifest)) {
+    baseUrl = pickVariant(manifest, hlsUrl);
+    manifest = await fetchText(baseUrl);
+    fromMaster = true;
+  }
+  return {
+    url: baseUrl,
+    manifest,
+    fromMaster,
+    contentType: guessContentType(manifest, baseUrl),
+  };
+}
+
+function guessContentType(manifest, baseUrl) {
+  const segment = segmentLines(manifest)[0];
   if (!segment) return 'audio/mpeg';
   try {
     const ext = new URL(segment, baseUrl).pathname.split('.').pop()?.toLowerCase() || '';
@@ -176,22 +231,46 @@ function guessContentType(segment, baseUrl) {
   return 'audio/mpeg';
 }
 
-async function streamSegments(hlsUrl, manifest, writable) {
+async function fetchAndWrite(writer, target) {
+  const resp = await fetch(target);
+  if (!resp.ok) throw new Error(`Fetch failed: ${resp.status}`);
+  const reader = resp.body.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    await writer.write(value);
+  }
+}
+
+function parseInitMap(manifest, baseUrl) {
+  const match = /#EXT-X-MAP:URI="([^"]+)"/i.exec(manifest);
+  if (!match) return null;
+  try {
+    return { url: new URL(match[1], baseUrl).href };
+  } catch {}
+  return null;
+}
+
+async function streamSegments(resolution, writable) {
   const writer = writable.getWriter();
   const seenSegments = new Set();
+  let manifest = resolution.manifest;
+  const baseUrl = resolution.url;
+  const live = /#EXT-X-MEDIA-SEQUENCE/i.test(manifest);
+  const initMap = parseInitMap(manifest, baseUrl);
+  let initWritten = false;
   let retries = 0;
 
   try {
     while (true) {
-      const lines = manifest
-        .split('\n')
-        .map((l) => l.trim())
-        .filter((l) => l && !l.startsWith('#'));
+      const lines = segmentLines(manifest);
+      // For live playlists, join near the live edge instead of the oldest segment.
+      const startIndex = live && seenSegments.size === 0 ? Math.max(0, lines.length - 2) : 0;
 
-      for (const segment of lines) {
+      for (let i = startIndex; i < lines.length; i++) {
         let segmentUrl;
         try {
-          segmentUrl = new URL(segment, hlsUrl).href;
+          segmentUrl = new URL(lines[i], baseUrl).href;
         } catch {
           continue;
         }
@@ -201,18 +280,15 @@ async function streamSegments(hlsUrl, manifest, writable) {
 
         if (seenSegments.size > 200) {
           const entries = [...seenSegments];
-          for (let i = 0; i < 100; i++) seenSegments.delete(entries[i]);
+          for (let k = 0; k < 100; k++) seenSegments.delete(entries[k]);
         }
 
         try {
-          const segResp = await fetch(segmentUrl);
-          if (!segResp.ok) continue;
-          const reader = segResp.body.getReader();
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            await writer.write(value);
+          if (!initWritten && initMap) {
+            await fetchAndWrite(writer, initMap.url);
+            initWritten = true;
           }
+          await fetchAndWrite(writer, segmentUrl);
         } catch {
           // skip failed segment
         }
@@ -221,7 +297,7 @@ async function streamSegments(hlsUrl, manifest, writable) {
       // Poll for updated manifest (live HLS)
       await sleep(4000);
       try {
-        const resp = await fetch(hlsUrl, { headers: { 'Cache-Control': 'no-cache' } });
+        const resp = await fetch(baseUrl, { headers: { 'Cache-Control': 'no-cache' } });
         if (resp.ok) {
           manifest = await resp.text();
           retries = 0;
