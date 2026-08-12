@@ -51,17 +51,18 @@ def probe_stream(url, codec):
 def probe_station(station):
     streams = [s for s in (station.get("streams") or []) if s.get("url")]
     streams.sort(key=lambda s: s.get("priority", float("inf")))
-    status = "unknown"
+    if not streams:
+        return "unknown"
+    had_failure = False
     for stream in streams:
         result = probe_stream(stream["url"], stream.get("codec"))
         if result is True:
-            status = "online"
-            break
+            return "online"
         if result is False:
-            status = "offline"
-            break
+            # Definitive failure for this stream; keep probing backup streams.
+            had_failure = True
         # None -> keep probing other streams
-    return status
+    return "offline" if had_failure else "unknown"
 
 
 def main():

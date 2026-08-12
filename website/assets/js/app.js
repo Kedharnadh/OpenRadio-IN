@@ -53,6 +53,7 @@
       'status.hlsUnsupported': 'HLS playback not supported in this browser',
       'status.loadingHls': 'Loading HLS stream\u2026',
       'status.loadFailed': 'Unable to load this stream',
+      'status.tryingBackup': 'Main stream failed \u2014 trying backup\u2026',
       'status.playFailed': 'Unable to start playback',
       'status.streamFailed': 'Unable to start this stream',
       'status.ended': 'Playback ended',
@@ -126,6 +127,7 @@
       'status.hlsUnsupported': '\u0C08 \u0C2C\u0C4D\u0C30\u0C4C\u0C1C\u0C30\u0C4D\u0C32\u0C4B HLS \u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C38\u0C2A\u0C4B\u0C30\u0C4D\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C2C\u0C21\u0C26\u0C41',
       'status.loadingHls': 'HLS \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F\u2026',
       'status.loadFailed': '\u0C08 \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02\u0C28\u0C3F \u0C32\u0C4B\u0C21\u0C4D \u0C1A\u0C47\u0C2F\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
+      'status.tryingBackup': '\u0C2E\u0C42\u0C32 \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02 \u0C2C\u0C3F\u0C32\u0C4D\u0C32\u0C2F\u0C48\u0C02\u0A26\u0C3F \u2014 \u0C2C\u0C48\u0C15\u0C4D\u0C2A\u0C4D \u0C2A\u0C4D\u0C30\u0C2F\u0C24\u0C4D\u0C28\u0C3F\u0C38\u0C4D\u0C24\u0C41\u0C28\u0C4D\u0C28\u0C3E\u0C2E\u0C41\u2026',
       'status.playFailed': '\u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D\u0C3F\u0C02\u0C1A\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
       'status.streamFailed': '\u0C08 \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02\u0C28\u0C3F \u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D\u0C3F\u0C02\u0C1A\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
       'status.ended': '\u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C2E\u0C41\u0C17\u0C3F\u0C38\u0C3F\u0C02\u0C26\u0C3F',
@@ -199,6 +201,7 @@
       'status.hlsUnsupported': '\u0907\u0938 \u092C\u094D\u0930\u093E\u0909\u091C\u093C\u0930 \u092E\u0947\u0902 HLS \u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0938\u092E\u0930\u094D\u0925\u093F\u0924 \u0928\u0939\u0940\u0902 \u0939\u0948',
       'status.loadingHls': 'HLS \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0932\u094B\u0921 \u0939\u094B \u0930\u0939\u0940 \u0939\u0948\u2026',
       'status.loadFailed': '\u092F\u0939 \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0932\u094B\u0921 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u0940',
+      'status.tryingBackup': '\u092E\u0941\u0916\u094D\u092F \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0935\u093F\u092B\u0932 \u0939\u0941\u0908 \u2014 \u092C\u0948\u0915\u0905\u092A \u0915\u0940 \u0915\u094B\u0936\u093F\u0936 \u0915\u0940 \u091C\u093E \u0930\u0939\u0940 \u0939\u0948\u2026',
       'status.playFailed': '\u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0936\u0941\u0930\u0942 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u093E',
       'status.streamFailed': '\u092F\u0939 \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0936\u0941\u0930\u0942 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u0940',
       'status.ended': '\u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0938\u092E\u093E\u092A\u094D\u0924',
@@ -263,6 +266,9 @@
     pauseIntent: false,
     pendingAutoResume: false,
     resumeAttempts: 0,
+    streamIndex: 0,
+    playGeneration: 0,
+    streamSwitching: false,
     metadataIntervalId: null,
     epgPrograms: null,
     epgDate: null,
@@ -567,14 +573,14 @@
       elements.nowPlayingTrack.hidden = true;
     }
 
-    const isPlaying = state.playing;
-    const isPaused = state.paused;
+    const isPlaying = state.playing || (!!elements.audio.src && !elements.audio.paused);
+    const isPaused = state.paused && !isPlaying;
     elements.playToggle.disabled = false;
     elements.playToggle.textContent = isPlaying ? '\u23f8 ' + t('controls.pause') : (isPaused ? '\u25b6 ' + t('controls.resume') : '\u25b6 ' + t('controls.play'));
-    elements.stopBtn.disabled = !isPlaying && !isPaused;
+    elements.stopBtn.disabled = false;
     elements.npPlayToggle.disabled = false;
     elements.npPlayToggle.textContent = isPlaying ? '\u23f8 ' + t('controls.pause') : (isPaused ? '\u25b6 ' + t('controls.resume') : '\u25b6 ' + t('controls.play'));
-    elements.npStopBtn.disabled = !isPlaying && !isPaused;
+    elements.npStopBtn.disabled = false;
     renderEpg();
     updateMediaSession();
   }
@@ -856,12 +862,36 @@
 
   /* ---------- Playback & Retry ---------- */
 
-  async function playStation(station) {
+  function advanceStream() {
+    const station = state.currentStation;
+    if (!station || state.userInitiatedStop) return false;
+    const streams = sortStreamsForPlayback(station.streams);
+    const next = (state.streamIndex || 0) + 1;
+    if (next >= streams.length || !streams[next]) return false;
+    state.streamSwitching = true;
+    setStatus(t('status.tryingBackup'));
+    playStation(station, next);
+    return true;
+  }
+
+  async function playStation(station, streamIndex = 0) {
     const streams = sortStreamsForPlayback(station.streams);
     if (!streams.length) {
       setStatus(t('status.noStream'));
       return;
     }
+    const stream = streams[streamIndex];
+    if (!stream) {
+      state.streamSwitching = false;
+      state.playing = false;
+      state.pauseIntent = false;
+      setStatus(t('status.streamFailed'));
+      updatePlayer();
+      renderStationLists();
+      return;
+    }
+    state.streamIndex = streamIndex;
+    const generation = ++state.playGeneration;
 
     if (isCasting()) {
       await castStation(station);
@@ -880,7 +910,6 @@
     elements.nowPlayingTrack.hidden = true;
     clearEpg();
     fetchEpg(station);
-    const stream = streams[0];
 
     if (state.hls) {
       state.hls.destroy();
@@ -898,6 +927,8 @@
       }
       elements.audio.src = '';
       setStatus(t('status.loadingHls'));
+      let started = false;
+      let loadReject = null;
       state.hls = new window.Hls({
         startLevel: 0,
         enableWorker: true,
@@ -909,24 +940,56 @@
         fragLoadingMaxRetry: 8,
         manifestLoadingMaxRetry: 4
       });
-      state.hls.loadSource(stream.url);
-      state.hls.attachMedia(elements.audio);
+      const hls = state.hls;
+      hls.on(window.Hls.Events.ERROR, (event, data) => {
+        if (!data.fatal) return;
+        if (state.playGeneration !== generation) return;
+        console.warn('HLS fatal error:', data.type, data.details);
+        try { hls.destroy(); } catch {}
+        if (state.hls === hls) state.hls = null;
+        if (loadReject) {
+          // failed during initial load — let the load promise reject and handle fallback
+          loadReject(new Error(data.type));
+          return;
+        }
+        if (started && !state.streamSwitching && !advanceStream()) {
+          state.streamSwitching = false;
+          state.playing = false;
+          state.pauseIntent = false;
+          setStatus(t('status.streamFailed'));
+          updatePlayer();
+          renderStationLists();
+        }
+      });
+      hls.loadSource(stream.url);
+      hls.attachMedia(elements.audio);
       try {
         await new Promise((resolve, reject) => {
+          loadReject = reject;
           const timeout = setTimeout(() => reject(new Error('HLS load timed out')), 20000);
-          state.hls.on(window.Hls.Events.MANIFEST_PARSED, () => { clearTimeout(timeout); resolve(); });
-          state.hls.on(window.Hls.Events.ERROR, (event, data) => {
-            console.warn('HLS error:', data.type, data.details);
-            if (data.fatal) { clearTimeout(timeout); reject(new Error(data.type)); }
-          });
+          hls.on(window.Hls.Events.MANIFEST_PARSED, () => { clearTimeout(timeout); resolve(); });
         });
       } catch (error) {
-        state.hls.destroy();
-        state.hls = null;
-        state.playing = false;
-        state.pauseIntent = false;
-        setStatus(t('status.loadFailed'));
-        console.error(error);
+        if (state.playGeneration !== generation) return;
+        if (state.userInitiatedStop) {
+          updatePlayer();
+          renderStationLists();
+          return;
+        }
+        if (!advanceStream()) {
+          state.streamSwitching = false;
+          state.playing = false;
+          state.pauseIntent = false;
+          setStatus(t('status.loadFailed'));
+          console.error(error);
+          updatePlayer();
+          renderStationLists();
+        }
+        return;
+      }
+      if (state.userInitiatedStop || state.paused) {
+        try { hls.destroy(); } catch {}
+        if (state.hls === hls) state.hls = null;
         updatePlayer();
         renderStationLists();
         return;
@@ -934,16 +997,26 @@
       try {
         await elements.audio.play();
       } catch (error) {
-        state.hls.destroy();
-        state.hls = null;
-        state.playing = false;
-        state.pauseIntent = false;
-        setStatus(t('status.playFailed'));
-        console.error(error);
-        updatePlayer();
-        renderStationLists();
+        if (state.playGeneration !== generation) return;
+        if (state.userInitiatedStop || state.paused) {
+          updatePlayer();
+          renderStationLists();
+          return;
+        }
+        if (!advanceStream()) {
+          state.streamSwitching = false;
+          state.playing = false;
+          state.pauseIntent = false;
+          setStatus(t('status.playFailed'));
+          console.error(error);
+          updatePlayer();
+          renderStationLists();
+        }
         return;
       }
+      if (state.playGeneration !== generation || state.userInitiatedStop) return;
+      state.streamSwitching = false;
+      started = true;
       state.playing = true;
       setStatus(t('status.playing', { name: station.name }));
       localStorage.setItem('openradio-last-station', station.id);
@@ -958,16 +1031,27 @@
     elements.audio.load();
     try {
       await elements.audio.play();
+      if (state.playGeneration !== generation || state.userInitiatedStop) return;
+      state.streamSwitching = false;
       state.playing = true;
       setStatus(t('status.playing', { name: station.name }));
       localStorage.setItem('openradio-last-station', station.id);
       addRecentStation(station);
       startMetadataPolling(stream.url, station);
     } catch (error) {
-      state.playing = false;
-      state.pauseIntent = false;
-      setStatus(t('status.streamFailed'));
-      console.error(error);
+      if (state.playGeneration !== generation) return;
+      if (state.userInitiatedStop || state.paused) {
+        updatePlayer();
+        renderStationLists();
+        return;
+      }
+      if (!advanceStream()) {
+        state.streamSwitching = false;
+        state.playing = false;
+        state.pauseIntent = false;
+        setStatus(t('status.streamFailed'));
+        console.error(error);
+      }
     }
     updatePlayer();
     renderStationLists();
@@ -981,7 +1065,10 @@
     state.retryCount++;
     const delay = Math.min(1000 * Math.pow(2, state.retryCount), 15000);
     setStatus(t('status.retrying', { sec: Math.round(delay / 1000), attempt: state.retryCount, max: state.maxRetries }));
-    setTimeout(() => playStation(state.currentStation), delay);
+    setTimeout(() => {
+      if (state.userInitiatedStop) return;
+      playStation(state.currentStation, state.streamIndex || 0);
+    }, delay);
   }
 
   function stopPlayback() {
@@ -990,6 +1077,7 @@
     state.pauseIntent = true;
     state.pendingAutoResume = false;
     state.resumeAttempts = 0;
+    state.streamSwitching = false;
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     elements.audio.pause();
     elements.audio.src = '';
@@ -1004,7 +1092,7 @@
   }
 
   function pausePlayback() {
-    if (!state.currentStation || !state.playing) return;
+    if (!state.currentStation) return;
     if (isCasting()) {
       if (castPlayerController) castPlayerController.playOrPause();
       return;
@@ -1035,13 +1123,13 @@
         await elements.audio.play();
       } catch (error) {
         console.error(error);
-        await playStation(state.currentStation);
+        await playStation(state.currentStation, state.streamIndex || 0);
       }
       updatePlayer();
       renderStationLists();
       return;
     }
-    await playStation(state.currentStation);
+    await playStation(state.currentStation, state.streamIndex || 0);
   }
 
   function scheduleAutoResume() {
@@ -1073,8 +1161,14 @@
     }
 
     if (!elements.audio.paused) {
+      // Audio recovered on its own (e.g. HLS.js resumed) — reconcile state so the
+      // play/stop buttons reflect reality instead of staying stuck on the reset state.
+      state.playing = true;
+      state.paused = false;
       state.pendingAutoResume = false;
       state.resumeAttempts = 0;
+      updatePlayer();
+      renderStationLists();
       return;
     }
 
@@ -1085,7 +1179,7 @@
       } else {
         state.pendingAutoResume = false;
         state.resumeAttempts = 0;
-        playStation(state.currentStation);
+        playStation(state.currentStation, state.streamIndex || 0);
       }
       return;
     }
@@ -1111,7 +1205,8 @@
 
   async function togglePlayback() {
     if (!state.currentStation) return;
-    if (state.playing) {
+    const actuallyPlaying = !elements.audio.paused;
+    if (state.playing || actuallyPlaying) {
       pausePlayback();
     } else {
       await playPlayback();
@@ -1143,7 +1238,8 @@
     }
     state.currentSource = event.currentTarget === elements.featured || event.currentTarget === elements.recentStations ? 'favorites' : 'all';
     if (state.currentStation?.id === station.id) {
-      if (state.playing) pausePlayback();
+      const actuallyPlaying = !elements.audio.paused;
+      if (state.playing || actuallyPlaying) pausePlayback();
       else if (state.paused) await playPlayback();
       else await playStation(station);
     } else {
@@ -1721,6 +1817,11 @@
     renderStationLists();
   });
   elements.audio.addEventListener('error', () => {
+    if (state.streamSwitching) {
+      updatePlayer();
+      renderStationLists();
+      return;
+    }
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     state.playing = false;
     state.paused = false;
@@ -1728,7 +1829,14 @@
     state.nowPlayingTrack = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
-    if (state.currentStation && !state.userInitiatedStop) retryPlayback();
+    if (state.currentStation && !state.userInitiatedStop && !advanceStream()) {
+      state.streamSwitching = false;
+      state.userInitiatedStop = false;
+      retryPlayback();
+      updatePlayer();
+      renderStationLists();
+      return;
+    }
     state.userInitiatedStop = false;
     updatePlayer();
     renderStationLists();
