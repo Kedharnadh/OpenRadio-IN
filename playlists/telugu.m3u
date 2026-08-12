@@ -1,6 +1,8 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="air_adilabad" tvg-name="AIR Adilabad" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/All-India-Radio-Adilabad.webp" group-title="AIR, ALL",AIR Adilabad
 https://radio.wavespb.com/live/e47c5f0cec4af335/e47c5f0cec4af335.m3u8
+#EXTINF:-1 tvg-id="air_adilabad" tvg-name="AIR Adilabad" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/All-India-Radio-Adilabad.webp" group-title="AIR, ALL",AIR Adilabad
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio218/chunklist.m3u8
 #EXTINF:-1 tvg-id="air_anantapur" tvg-name="AIR Anantapur" tvg-logo="https://radiobarfi.com/wp-content/uploads/2023/06/All-India-Radio-Anantapur.webp" group-title="AIR, ALL",AIR Anantapur
 https://radio.wavespb.com/live/3bcd83926d6c3cca/3bcd83926d6c3cca.m3u8
 #EXTINF:-1 tvg-id="air_kadapa" tvg-name="AIR Kadapa" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2024/10/air-kadappa-1200x1200.jpg" group-title="AIR, ALL",AIR Kadapa
@@ -11,6 +13,8 @@ https://radio.wavespb.com/live/57d77b93b7580e24/57d77b93b7580e24.m3u8
 https://radio.wavespb.com/live/b11784e3b37b7620/b11784e3b37b7620.m3u8
 #EXTINF:-1 tvg-id="air_nizamabad" tvg-name="AIR Nizamabad" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/All-India-Radio-Nizamabad.webp" group-title="AIR, ALL",AIR Nizamabad
 https://radio.wavespb.com/live/5d9989b5189a8f4a/5d9989b5189a8f4a.m3u8
+#EXTINF:-1 tvg-id="air_nizamabad" tvg-name="AIR Nizamabad" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/All-India-Radio-Nizamabad.webp" group-title="AIR, ALL",AIR Nizamabad
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio222/chunklist.m3u8
 #EXTINF:-1 tvg-id="air_rainbow_hyderabad" tvg-name="Air Rainbow Hyderabad" tvg-logo="https://d371i8ihhgym7w.cloudfront.net/47770554.jpg" group-title="AIR, ALL",Air Rainbow Hyderabad
 https://radio.wavespb.com/live/3a02c5c035815bb9/3a02c5c035815bb9.m3u8
 #EXTINF:-1 tvg-id="air_rainbow_vijayawada" tvg-name="Air Rainbow Vijayawada" tvg-logo="https://d371i8ihhgym7w.cloudfront.net/37623161.jpg" group-title="AIR, ALL",Air Rainbow Vijayawada
@@ -19,14 +23,20 @@ https://radio.wavespb.com/live/bad174fd7eac38d0/bad174fd7eac38d0.m3u8
 https://radio.wavespb.com/live/147314c8aedf4389/147314c8aedf4389.m3u8
 #EXTINF:-1 tvg-id="air_simhapuri_fm" tvg-name="Air Simhapuri Nellore FM" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/AllIndia-Radio-Nellore.webp" group-title="AIR, ALL",Air Simhapuri Nellore FM
 https://radio.wavespb.com/live/8bc9175bb717c13b/8bc9175bb717c13b.m3u8
+#EXTINF:-1 tvg-id="air_simhapuri_fm" tvg-name="Air Simhapuri Nellore FM" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/AllIndia-Radio-Nellore.webp" group-title="AIR, ALL",Air Simhapuri Nellore FM
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio168/chunklist.m3u8
 #EXTINF:-1 tvg-id="air_telugu" tvg-name="Air Telugu" tvg-logo="https://static.mytuner.mobi/media/tvos_radios/034/air-telugu.da89c6c1.jpg" group-title="AIR, ALL",Air Telugu
 https://radio.wavespb.com/live/2d38e3dcb8d4e0a4/2d38e3dcb8d4e0a4.m3u8
 #EXTINF:-1 tvg-id="air_tirupati" tvg-name="AIR Tirupati" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/all-india-radio-tirupati.webp" group-title="AIR, ALL",AIR Tirupati
 https://radio.wavespb.com/live/1119aa26b4e9f653/1119aa26b4e9f653.m3u8
+#EXTINF:-1 tvg-id="air_tirupati" tvg-name="AIR Tirupati" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/all-india-radio-tirupati.webp" group-title="AIR, ALL",AIR Tirupati
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio144/chunklist.m3u8
 #EXTINF:-1 tvg-id="air_warangal" tvg-name="AIR Warangal" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/AIR-Warangal-All-India-Radio.webp" group-title="AIR, ALL",AIR Warangal
 https://radio.wavespb.com/live/deae7120a205bfff/deae7120a205bfff.m3u8
 #EXTINF:-1 tvg-id="akashvani_kothagudem" tvg-name="Akashvani Kothagudem" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_509111.jpg" group-title="AIR, ALL",Akashvani Kothagudem
 https://radio.wavespb.com/live/8416764ec0889597/8416764ec0889597.m3u8
+#EXTINF:-1 tvg-id="akashvani_kothagudem" tvg-name="Akashvani Kothagudem" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_509111.jpg" group-title="AIR, ALL",Akashvani Kothagudem
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio116/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_telangana" tvg-name="Akashvani Telangana" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_705851.jpg" group-title="AIR, ALL",Akashvani Telangana
 https://radio.wavespb.com/live/1c701f7b70df2568/1c701f7b70df2568.m3u8
 #EXTINF:-1 tvg-id="akashvani_visakhapatnam" tvg-name="Akashvani Visakhapatnam" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airvisakhapc.jpg" group-title="AIR, ALL",Akashvani Visakhapatnam

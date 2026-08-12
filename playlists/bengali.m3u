@@ -7,12 +7,16 @@ https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio137/hlspbaudio137_Au
 https://radio.wavespb.com/live/00ff79c493fe8353/00ff79c493fe8353.m3u8
 #EXTINF:-1 tvg-id="akashvani_kailashahar" tvg-name="Akashvani Kailashahar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_237652.jpg" group-title="AIR, ALL",Akashvani Kailashahar
 https://radio.wavespb.com/live/c84f390b94a07703/c84f390b94a07703.m3u8
+#EXTINF:-1 tvg-id="akashvani_kailashahar" tvg-name="Akashvani Kailashahar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_237652.jpg" group-title="AIR, ALL",Akashvani Kailashahar
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio276/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_kolkata_geetanjali" tvg-name="Akashvani Kolkata Geetanjali" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_817824.jpg" group-title="AIR, ALL",Akashvani Kolkata Geetanjali
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio055/hlspbaudio055_Auto.m3u8
 #EXTINF:-1 tvg-id="akashvani_kolkata_sanchayita" tvg-name="Akashvani Kolkata Sanchayita" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_480353.jpg" group-title="AIR, ALL",Akashvani Kolkata Sanchayita
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio056/hlspbaudio056_Auto.m3u8
 #EXTINF:-1 tvg-id="akashvani_kurseong" tvg-name="Akashvani Kurseong" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_319202.jpg" group-title="AIR, ALL",Akashvani Kurseong
 https://radio.wavespb.com/live/1f781b48497e67d3/1f781b48497e67d3.m3u8
+#EXTINF:-1 tvg-id="akashvani_kurseong" tvg-name="Akashvani Kurseong" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_319202.jpg" group-title="AIR, ALL",Akashvani Kurseong
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio183/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_maitree" tvg-name="Akashvani Maitree" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_895638.jpg" group-title="AIR, ALL",Akashvani Maitree
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio245/hlspbaudio245_Auto.m3u8
 #EXTINF:-1 tvg-id="akashvani_murshidabad" tvg-name="Akashvani Murshidabad" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_565906.jpg" group-title="AIR, ALL",Akashvani Murshidabad
@@ -23,6 +27,8 @@ https://radio.wavespb.com/live/66249dfecaf80241/66249dfecaf80241.m3u8
 https://radio.wavespb.com/live/389a55127e012f97/389a55127e012f97.m3u8
 #EXTINF:-1 tvg-id="akashvani_siliguri" tvg-name="Akashvani Siliguri" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_229808.jpg" group-title="AIR, ALL",Akashvani Siliguri
 https://radio.wavespb.com/live/165856ba98ca031a/165856ba98ca031a.m3u8
+#EXTINF:-1 tvg-id="akashvani_siliguri" tvg-name="Akashvani Siliguri" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_229808.jpg" group-title="AIR, ALL",Akashvani Siliguri
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio164/chunklist.m3u8
 #EXTINF:-1 tvg-id="fm_gold_kolkata" tvg-name="FM Gold Kolkata" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkolkatafmgold.jpg" group-title="FM, ALL",FM Gold Kolkata
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio057/hlspbaudio057_Auto.m3u8
 #EXTINF:-1 tvg-id="fm_rainbow_kolkata" tvg-name="FM Rainbow Kolkata" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkolkatafmrainbow.jpg" group-title="FM, ALL",FM Rainbow Kolkata

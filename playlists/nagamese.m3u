@@ -1,6 +1,8 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="akashvani_kohima" tvg-name="Akashvani Kohima" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_125467.jpg" group-title="AIR, ALL",Akashvani Kohima
 https://radio.wavespb.com/live/f5861f9687811aae/f5861f9687811aae.m3u8
+#EXTINF:-1 tvg-id="akashvani_kohima" tvg-name="Akashvani Kohima" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_125467.jpg" group-title="AIR, ALL",Akashvani Kohima
+https://air.pc.cdn.bitgravity.com/air/live/pbaudio274/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_mokokchung" tvg-name="Akashvani Mokokchung" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_927073.jpg" group-title="AIR, ALL",Akashvani Mokokchung
 https://radio.wavespb.com/live/4bf7a85c38f41705/4bf7a85c38f41705.m3u8
 #EXTINF:-1 tvg-id="fm_tragopan_kohima" tvg-name="FM Tragopan Kohima" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkohima.jpg" group-title="FM, ALL",FM Tragopan Kohima
