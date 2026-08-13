@@ -830,8 +830,21 @@
       sessionObj: session && typeof session.getSessionObj === 'function' ? session.getSessionObj() : session
     });
 
-    const candidates = [{ url: stream.url, contentType: streamContentType(stream) }];
-    if (HLS_PROXY_URL) {
+    const directContentType = streamContentType(stream);
+    const isHls = directContentType === 'application/vnd.apple.mpegurl';
+    const candidates = [{ url: stream.url, contentType: directContentType }];
+    if (isHls) {
+      try {
+        const redirectResponse = await fetch(stream.url, { redirect: 'follow', signal: AbortSignal.timeout(10000) });
+        if (redirectResponse.ok && redirectResponse.url && redirectResponse.url !== stream.url) {
+          console.log('OpenRadio-IN: resolved HLS redirect', stream.url, '->', redirectResponse.url);
+          candidates.unshift({ url: redirectResponse.url, contentType: directContentType });
+        }
+      } catch (error) {
+        console.warn('Cast HLS redirect resolve failed:', error.message || error);
+      }
+    }
+    if (HLS_PROXY_URL && !isHls) {
       try {
         const probeResponse = await fetch(`${HLS_PROXY_URL}?probe=1&url=${encodeURIComponent(stream.url)}`, { signal: AbortSignal.timeout(10000) });
         if (probeResponse.ok) {
