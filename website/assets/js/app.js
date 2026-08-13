@@ -806,6 +806,14 @@
       return;
     }
 
+    const receiverAppId = session && typeof session.getSessionObj === 'function' ? session.getSessionObj().receiverApplicationId : null;
+    console.log('OpenRadio-IN: active Cast session', {
+      sessionId: session.getSessionId ? session.getSessionId() : 'n/a',
+      receiverAppId,
+      expectedAppId: CAST_RECEIVER_APP_ID,
+      sessionObj: session && typeof session.getSessionObj === 'function' ? session.getSessionObj() : session
+    });
+
     const candidates = [];
     if (HLS_PROXY_URL) {
       try {
