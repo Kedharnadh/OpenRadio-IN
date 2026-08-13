@@ -786,18 +786,22 @@
     let session = castContext?.getCurrentSession();
     if (!session) {
       try {
+        console.log('OpenRadio-IN: requesting Cast session for station', station.name, 'appId', CAST_RECEIVER_APP_ID);
         if (castContext && typeof castContext.requestSession === 'function') {
           await castContext.requestSession();
           session = castContext.getCurrentSession();
+          console.log('OpenRadio-IN: session created', session && session.getSessionId ? session.getSessionId() : session);
         }
       } catch (error) {
         const message = error && error.message ? error.message : 'session_error';
+        console.error('OpenRadio-IN: Cast session request failed', error);
         setStatus(t('status.castError', { error: message }));
         return;
       }
     }
 
     if (!session) {
+      console.warn('OpenRadio-IN: no active Cast session after request');
       setStatus(t('status.noCastSession'));
       return;
     }
@@ -821,7 +825,9 @@
     }
 
     async function loadOnCast(ct, url) {
-      const media = new chrome.cast.media.MediaInfo(url, normalizeCastContentType(ct, url));
+      const normalizedCt = normalizeCastContentType(ct, url);
+      console.log('OpenRadio-IN: launching Cast media', { url, normalizedCt, station: station.name, sessionId: session.getSessionId ? session.getSessionId() : 'n/a' });
+      const media = new chrome.cast.media.MediaInfo(url, normalizedCt);
       media.streamType = chrome.cast.media.StreamType.LIVE;
       media.metadata = new chrome.cast.media.MusicTrackMediaMetadata();
       media.metadata.title = station.name;
