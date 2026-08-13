@@ -26,6 +26,14 @@
         (request) => {
           if (request && request.media) {
             const ct = (request.media.contentType || '').toLowerCase();
+            console.log('OpenRadio-IN receiver LOAD:', {
+              url: request.media.contentId || request.media.url,
+              contentType: request.media.contentType,
+              protocolType: request.media.protocolType,
+              streamType: request.media.streamType,
+              hlsSegmentFormat: request.media.hlsSegmentFormat,
+              receiverFallback: formatFallback
+            });
             if (ct === 'application/vnd.apple.mpegurl' || ct.includes('mpegurl')) {
               request.media.hlsSegmentFormat = formats[formatFallback];
               request.media.protocolType = cast.framework.messages.ProtocolType.HLS;
@@ -38,6 +46,7 @@
       );
 
       playerManager.addEventListener(cast.framework.events.EventType.ERROR, (event) => {
+        console.error('OpenRadio-IN receiver ERROR:', event);
         const hlsErrors = [
           cast.framework.events.DetailedErrorCode.HLS_NETWORK_INVALID_SEGMENT,
           cast.framework.events.DetailedErrorCode.HLS_NETWORK_MANIFEST_INVALID,
@@ -48,6 +57,7 @@
           formatFallback++;
           const mediaInfo = playerManager.getMediaInformation();
           if (mediaInfo) {
+            console.log('OpenRadio-IN receiver retrying HLS with fallback', formatFallback, mediaInfo.contentId);
             mediaInfo.hlsSegmentFormat = formats[formatFallback];
             playerManager.load({ media: mediaInfo });
           }
