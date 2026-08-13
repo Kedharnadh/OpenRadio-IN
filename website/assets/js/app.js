@@ -338,7 +338,7 @@
   let castPlayer;
   let castPlayerController;
 
-  const CAST_RECEIVER_APP_ID = '45881BB0';
+  const CAST_RECEIVER_APP_ID = 'CC1AD845'; // Google Default Media Receiver (plays HLS/MP3/AAC/TS natively)
   const HLS_PROXY_URL = 'https://openradio-hls-proxy.kedharnadh1.workers.dev';
   const RECENT_MAX = 10;
   const RESUME_GRACE_MS = 3000;
