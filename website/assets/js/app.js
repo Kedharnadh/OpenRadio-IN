@@ -262,6 +262,7 @@
     sleepTimerId: null,
     sleepTimerEnd: null,
     sleepTimerIntervalId: null,
+    castInProgress: false,
     userInitiatedStop: false,
     paused: false,
     pauseIntent: false,
@@ -749,11 +750,17 @@
     if (window.OpenRadioCast && typeof window.OpenRadioCast.normalizeCastContentType === 'function') {
       return window.OpenRadioCast.normalizeCastContentType(contentType, streamUrl);
     }
-    const ct = String(contentType || '').toLowerCase();
-    if (ct.includes('mpegurl') || String(streamUrl || '').includes('.m3u8')) return 'application/vnd.apple.mpegurl';
-    if (ct === 'audio/aac') return 'audio/aac';
-    if (ct === 'audio/ogg') return 'audio/ogg';
-    if (ct === 'video/mp2t') return 'video/mp2t';
+    const ct = String(contentType || '').trim().toLowerCase();
+    if (ct.includes('mpegurl')) return 'application/vnd.apple.mpegurl';
+    if (ct === 'audio/mpeg' || ct === 'audio/mp3') return 'audio/mpeg';
+    if (ct === 'audio/aac' || ct === 'audio/aacp') return 'audio/aac';
+    if (ct === 'audio/ogg' || ct === 'application/ogg') return 'audio/ogg';
+    if (ct === 'video/mp2t' || ct === 'video/mpeg') return 'video/mp2t';
+    if (ct === 'video/mp4' || ct === 'audio/mp4') return ct;
+    if (ct === 'audio/ac3' || ct === 'audio/eac3') return ct;
+    if (ct === 'audio/wav') return 'audio/wav';
+    if (ct === 'audio/flac') return 'audio/flac';
+    if (!ct && String(streamUrl || '').includes('.m3u8')) return 'application/vnd.apple.mpegurl';
     return ct || 'audio/mpeg';
   }
 
@@ -773,10 +780,19 @@
   }
 
   async function castStation(station) {
+    if (state.castInProgress) return;
+    state.castInProgress = true;
+    try {
+      await castStationInner(station);
+    } finally {
+      state.castInProgress = false;
+    }
+  }
+
+  async function castStationInner(station) {
     const streams = sortStreamsForPlayback(station.streams);
     if (!streams.length) return;
     const stream = streams[0];
-    const isHls = isHlsStream(stream);
 
     state.currentStation = station;
     if (state.hls) { state.hls.destroy(); state.hls = null; }
@@ -814,7 +830,7 @@
       sessionObj: session && typeof session.getSessionObj === 'function' ? session.getSessionObj() : session
     });
 
-    const candidates = [];
+    const candidates = [{ url: stream.url, contentType: streamContentType(stream) }];
     if (HLS_PROXY_URL) {
       try {
         const probeResponse = await fetch(`${HLS_PROXY_URL}?probe=1&url=${encodeURIComponent(stream.url)}`, { signal: AbortSignal.timeout(10000) });
@@ -830,11 +846,6 @@
       } catch (error) {
         console.warn('Cast proxy probe failed:', error.message || error);
       }
-    }
-    if (isHls) {
-      candidates.unshift({ url: stream.url, contentType: streamContentType(stream) });
-    } else {
-      candidates.unshift({ url: stream.url, contentType: streamContentType(stream) });
     }
 
     async function loadOnCast(ct, url) {
