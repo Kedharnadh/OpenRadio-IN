@@ -838,14 +838,27 @@
     const isHls = directContentType === 'application/vnd.apple.mpegurl';
     const candidates = [{ url: stream.url, contentType: directContentType }];
     if (isHls) {
+      const hsf = (cast.framework.messages && cast.framework.messages.HlsSegmentFormat) || {};
+      const hlsSegmentFormats = [
+        hsf.TS_AAC || 'ts_aac',
+        hsf.TS_MP3 || 'ts_mp3',
+        hsf.TS || 'ts',
+        hsf.AAC || 'aac'
+      ];
+      let resolvedUrl = stream.url;
       try {
         const redirectResponse = await fetch(stream.url, { redirect: 'follow', signal: AbortSignal.timeout(10000) });
         if (redirectResponse.ok && redirectResponse.url && redirectResponse.url !== stream.url) {
           console.log('OpenRadio-IN: resolved HLS redirect', stream.url, '->', redirectResponse.url);
-          candidates.unshift({ url: redirectResponse.url, contentType: directContentType });
+          resolvedUrl = redirectResponse.url;
         }
       } catch (error) {
         console.warn('Cast HLS redirect resolve failed:', error.message || error);
+      }
+      candidates.length = 0;
+      hlsSegmentFormats.forEach((fmt) => candidates.push({ url: resolvedUrl, contentType: directContentType, hlsSegmentFormat: fmt }));
+      if (resolvedUrl !== stream.url) {
+        candidates.push({ url: stream.url, contentType: directContentType, hlsSegmentFormat: hlsSegmentFormats[0] });
       }
     }
     if (HLS_PROXY_URL && !isHls) {
@@ -865,10 +878,27 @@
       }
     }
 
-    async function loadOnCast(ct, url) {
-      const normalizedCt = normalizeCastContentType(ct, url);
-      console.log('OpenRadio-IN: launching Cast media', { url, normalizedCt, station: station.name, sessionId: session.getSessionId ? session.getSessionId() : 'n/a' });
-      const media = new chrome.cast.media.MediaInfo(url, normalizedCt);
+    async function loadOnCast(candidate) {
+      const normalizedCt = normalizeCastContentType(candidate.contentType, candidate.url);
+      console.log('OpenRadio-IN: launching Cast media', { url: candidate.url, normalizedCt, hlsSegmentFormat: candidate.hlsSegmentFormat, station: station.name, sessionId: session.getSessionId ? session.getSessionId() : 'n/a' });
+      if (normalizedCt === 'application/vnd.apple.mpegurl') {
+        const mediaInfo = new cast.framework.messages.MediaInformation();
+        mediaInfo.contentId = candidate.url;
+        mediaInfo.contentType = normalizedCt;
+        mediaInfo.streamType = cast.framework.messages.StreamType.LIVE;
+        if (candidate.hlsSegmentFormat) mediaInfo.hlsSegmentFormat = candidate.hlsSegmentFormat;
+        mediaInfo.metadata = {
+          metadataType: (cast.framework.messages.MetadataType && cast.framework.messages.MetadataType.MUSIC_TRACK) || 1,
+          title: station.name,
+          artist: station.language || 'OpenRadio-IN'
+        };
+        if (station.logo) mediaInfo.metadata.images = [{ url: station.logo }];
+        const request = new cast.framework.messages.LoadRequestData();
+        request.media = mediaInfo;
+        await session.loadMedia(request);
+        return;
+      }
+      const media = new chrome.cast.media.MediaInfo(candidate.url, normalizedCt);
       media.streamType = chrome.cast.media.StreamType.LIVE;
       media.metadata = new chrome.cast.media.MusicTrackMediaMetadata();
       media.metadata.title = station.name;
@@ -880,7 +910,7 @@
     let lastError = '';
     for (const candidate of candidates) {
       try {
-        await loadOnCast(candidate.contentType, candidate.url);
+        await loadOnCast(candidate);
         state.playing = true;
         state.paused = false;
         setStatus(t('status.playingCast', { name: station.name }));
@@ -889,7 +919,7 @@
         return;
       } catch (error) {
         lastError = error.message || String(error);
-        console.warn('Cast loadMedia failed:', candidate.url, error);
+        console.warn('Cast loadMedia failed:', candidate.url, 'hlsSegmentFormat:', candidate.hlsSegmentFormat, error);
       }
     }
 
