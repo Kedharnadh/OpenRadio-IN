@@ -783,7 +783,20 @@
     elements.audio.pause();
     elements.audio.src = '';
 
-    const session = castContext?.getCurrentSession();
+    let session = castContext?.getCurrentSession();
+    if (!session) {
+      try {
+        if (castContext && typeof castContext.requestSession === 'function') {
+          await castContext.requestSession();
+          session = castContext.getCurrentSession();
+        }
+      } catch (error) {
+        const message = error && error.message ? error.message : 'session_error';
+        setStatus(t('status.castError', { error: message }));
+        return;
+      }
+    }
+
     if (!session) {
       setStatus(t('status.noCastSession'));
       return;
