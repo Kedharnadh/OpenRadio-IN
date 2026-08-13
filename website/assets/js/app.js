@@ -879,7 +879,7 @@
   function initializeCast() {
     if (typeof window.cast === 'undefined' || castContext) return;
     castContext = cast.framework.CastContext.getInstance();
-    castContext.setOptions({ receiverApplicationId: CAST_RECEIVER_APP_ID, autoJoinPolicy: chrome.cast.AutoJoinPolicy.TAB_AND_ORIGIN_SCOPED });
+    castContext.setOptions({ receiverApplicationId: CAST_RECEIVER_APP_ID, autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED });
     castContext.addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, (event) => {
       switch (event.castState) {
         case cast.framework.CastState.CONNECTED:
