@@ -781,6 +781,10 @@
 
   async function castStation(station) {
     if (state.castInProgress) return;
+    if (state.playing && isCasting() && state.currentStation && station && state.currentStation.id === station.id) {
+      console.log('OpenRadio-IN: already casting station', station.name, '- skipping redundant load');
+      return;
+    }
     state.castInProgress = true;
     try {
       await castStationInner(station);
