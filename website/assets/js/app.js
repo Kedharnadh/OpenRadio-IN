@@ -261,6 +261,7 @@
     maxRetries: 3,
     sleepTimerId: null,
     sleepTimerEnd: null,
+    sleepTimerIntervalId: null,
     userInitiatedStop: false,
     paused: false,
     pauseIntent: false,
@@ -1262,10 +1263,36 @@
 
   /* ---------- Sleep Timer ---------- */
 
+  function formatSleepTimerRemaining(ms) {
+    const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+    if (h > 0) return `${h}h ${m}m ${s}s`;
+    if (m > 0) return `${m}m ${s}s`;
+    return `${s}s`;
+  }
+
+  function updateSleepTimerDisplay() {
+    if (!state.sleepTimerEnd) {
+      elements.sleepTimerStatus.hidden = true;
+      elements.sleepTimerBtn.textContent = '\u23F0 ' + t('np.timer');
+      return;
+    }
+    const time = formatSleepTimerRemaining(state.sleepTimerEnd - Date.now());
+    elements.sleepTimerStatus.hidden = false;
+    elements.sleepTimerStatus.textContent = t('np.sleeptimer', { time });
+    elements.sleepTimerBtn.textContent = `\u23F0 ${time}`;
+  }
+
   function setSleepTimer(minutes) {
     if (state.sleepTimerId) {
       clearTimeout(state.sleepTimerId);
       state.sleepTimerId = null;
+    }
+    if (state.sleepTimerIntervalId) {
+      clearInterval(state.sleepTimerIntervalId);
+      state.sleepTimerIntervalId = null;
     }
     state.sleepTimerEnd = null;
     if (minutes <= 0) {
@@ -1279,16 +1306,18 @@
       stopPlayback();
       state.sleepTimerId = null;
       state.sleepTimerEnd = null;
+      if (state.sleepTimerIntervalId) {
+        clearInterval(state.sleepTimerIntervalId);
+        state.sleepTimerIntervalId = null;
+      }
       elements.sleepTimerStatus.hidden = true;
       elements.sleepTimerBtn.textContent = '\u23F0 ' + t('np.timer');
       setStatus(t('status.sleeptimerStopped'));
       updatePlayer();
     }, minutes * 60 * 1000);
+    state.sleepTimerIntervalId = setInterval(updateSleepTimerDisplay, 1000);
     elements.sleepTimerPicker.hidden = true;
-    elements.sleepTimerStatus.hidden = false;
-    const mins = minutes >= 60 ? `${Math.floor(minutes / 60)}h ${minutes % 60}m` : `${minutes}m`;
-    elements.sleepTimerStatus.textContent = t('np.sleeptimer', { time: mins });
-    elements.sleepTimerBtn.textContent = `\u23F0 ${mins}`;
+    updateSleepTimerDisplay();
   }
 
   /* ---------- Share ---------- */
@@ -1683,6 +1712,7 @@
     applyFilters();
     updatePlayer();
     renderAlarmStatus();
+    updateSleepTimerDisplay();
   }
 
   /* ---------- Init ---------- */
