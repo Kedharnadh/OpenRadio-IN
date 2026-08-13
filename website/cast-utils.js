@@ -1,6 +1,11 @@
 (function () {
   function isHlsUrl(url) {
-    return typeof url === 'string' && /\.m3u8(?:[?#]|$)/i.test(url);
+    if (typeof url !== 'string') return false;
+    try {
+      return /\.m3u8(?:[?#]|$)/i.test(new URL(url).pathname);
+    } catch {
+      return /\.m3u8(?:[?#]|$)/i.test(url);
+    }
   }
 
   function resolveOriginalUrl(streamUrl) {
@@ -14,14 +19,20 @@
   }
 
   function normalizeCastContentType(contentType, streamUrl) {
-    const originalUrl = resolveOriginalUrl(streamUrl);
-    const ct = String(contentType || '').toLowerCase();
-    if (ct.includes('mpegurl') || isHlsUrl(originalUrl)) {
-      return 'application/vnd.apple.mpegurl';
+    const ct = String(contentType || '').trim().toLowerCase();
+    if (ct.includes('mpegurl')) return 'application/vnd.apple.mpegurl';
+    if (ct === 'audio/mpeg' || ct === 'audio/mp3') return 'audio/mpeg';
+    if (ct === 'audio/aac' || ct === 'audio/aacp') return 'audio/aac';
+    if (ct === 'audio/ogg' || ct === 'application/ogg') return 'audio/ogg';
+    if (ct === 'video/mp2t' || ct === 'video/mpeg') return 'video/mp2t';
+    if (ct === 'video/mp4' || ct === 'audio/mp4') return ct;
+    if (ct === 'audio/ac3' || ct === 'audio/eac3') return ct;
+    if (ct === 'audio/wav') return 'audio/wav';
+    if (ct === 'audio/flac') return 'audio/flac';
+    if (!ct) {
+      const originalUrl = resolveOriginalUrl(streamUrl);
+      if (isHlsUrl(originalUrl)) return 'application/vnd.apple.mpegurl';
     }
-    if (ct === 'audio/aac') return 'audio/aac';
-    if (ct === 'audio/ogg') return 'audio/ogg';
-    if (ct === 'video/mp2t') return 'video/mp2t';
     return ct || 'audio/mpeg';
   }
 

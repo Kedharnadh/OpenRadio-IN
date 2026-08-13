@@ -18,8 +18,12 @@
       const formats = [
         cast.framework.messages.HlsSegmentFormat.TS_AAC,
         cast.framework.messages.HlsSegmentFormat.TS,
+        cast.framework.messages.HlsSegmentFormat.TS_MP3,
+        cast.framework.messages.HlsSegmentFormat.TS_E_AC3,
         cast.framework.messages.HlsSegmentFormat.FMP4
       ];
+      let lastRetryContentId = null;
+      let lastRetryIndex = -1;
 
       playerManager.setMessageInterceptor(
         cast.framework.messages.MessageType.LOAD,
@@ -53,15 +57,17 @@
           cast.framework.events.DetailedErrorCode.HLS_SEGMENT_PARSE_ERROR,
           cast.framework.events.DetailedErrorCode.MEDIA_SOURCE_OP_FAILED
         ];
-        if (hlsErrors.includes(event.detailedErrorCode) && formatFallback < formats.length - 1) {
-          formatFallback++;
-          const mediaInfo = playerManager.getMediaInformation();
-          if (mediaInfo) {
-            console.log('OpenRadio-IN receiver retrying HLS with fallback', formatFallback, mediaInfo.contentId);
-            mediaInfo.hlsSegmentFormat = formats[formatFallback];
-            playerManager.load({ media: mediaInfo });
-          }
-        }
+        if (!hlsErrors.includes(event.detailedErrorCode)) return;
+        const mediaInfo = playerManager.getMediaInformation();
+        if (!mediaInfo) return;
+        if (formatFallback >= formats.length - 1) return;
+        if (lastRetryContentId === mediaInfo.contentId && lastRetryIndex === formatFallback) return;
+        lastRetryContentId = mediaInfo.contentId;
+        lastRetryIndex = formatFallback;
+        formatFallback++;
+        console.log('OpenRadio-IN receiver retrying HLS with fallback', formatFallback, mediaInfo.contentId);
+        mediaInfo.hlsSegmentFormat = formats[formatFallback];
+        playerManager.load({ media: mediaInfo });
       });
 
       const options = new cast.framework.CastReceiverOptions();
