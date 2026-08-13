@@ -738,10 +738,22 @@
 
   function streamContentType(stream) {
     const codec = String(stream.codec || '').toLowerCase();
-    if (codec === 'hls' || stream.url.includes('.m3u8')) return 'application/vnd.apple.mpegurl';
+    if (codec === 'hls' || String(stream.url || '').includes('.m3u8')) return 'application/vnd.apple.mpegurl';
     if (codec === 'aac') return 'audio/aac';
     if (codec === 'ogg') return 'audio/ogg';
     return 'audio/mpeg';
+  }
+
+  function normalizeCastContentType(contentType, streamUrl) {
+    if (window.OpenRadioCast && typeof window.OpenRadioCast.normalizeCastContentType === 'function') {
+      return window.OpenRadioCast.normalizeCastContentType(contentType, streamUrl);
+    }
+    const ct = String(contentType || '').toLowerCase();
+    if (ct.includes('mpegurl') || String(streamUrl || '').includes('.m3u8')) return 'application/vnd.apple.mpegurl';
+    if (ct === 'audio/aac') return 'audio/aac';
+    if (ct === 'audio/ogg') return 'audio/ogg';
+    if (ct === 'video/mp2t') return 'video/mp2t';
+    return ct || 'audio/mpeg';
   }
 
   function isHlsStream(stream) {
@@ -785,7 +797,7 @@
           if (probe && probe.contentType && probe.url) {
             candidates.push({
               url: `${HLS_PROXY_URL}?url=${encodeURIComponent(probe.url)}&contentType=${encodeURIComponent(probe.contentType)}`,
-              contentType: probe.contentType
+              contentType: normalizeCastContentType(probe.contentType, stream.url)
             });
           }
         }
@@ -795,7 +807,7 @@
     }
 
     async function loadOnCast(ct, url) {
-      const media = new chrome.cast.media.MediaInfo(url, ct);
+      const media = new chrome.cast.media.MediaInfo(url, normalizeCastContentType(ct, url));
       media.streamType = chrome.cast.media.StreamType.LIVE;
       media.metadata = new chrome.cast.media.MusicTrackMediaMetadata();
       media.metadata.title = station.name;
