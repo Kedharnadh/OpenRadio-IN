@@ -337,6 +337,7 @@
   let castPlayer;
   let castPlayerController;
 
+  const CAST_RECEIVER_APP_ID = '45881BB0';
   const HLS_PROXY_URL = 'https://openradio-hls-proxy.kedharnadh1.workers.dev';
   const RECENT_MAX = 10;
   const RESUME_GRACE_MS = 3000;
@@ -789,7 +790,7 @@
     }
 
     const candidates = [{ url: stream.url, contentType: streamContentType(stream) }];
-    if (isHls && HLS_PROXY_URL) {
+    if (!isHls && HLS_PROXY_URL) {
       try {
         const probeResponse = await fetch(`${HLS_PROXY_URL}?probe=1&url=${encodeURIComponent(stream.url)}`, { signal: AbortSignal.timeout(10000) });
         if (probeResponse.ok) {
@@ -797,12 +798,12 @@
           if (probe && probe.contentType && probe.url) {
             candidates.push({
               url: `${HLS_PROXY_URL}?url=${encodeURIComponent(probe.url)}&contentType=${encodeURIComponent(probe.contentType)}`,
-              contentType: normalizeCastContentType(probe.contentType, stream.url)
+              contentType: normalizeCastContentType(probe.contentType, probe.url)
             });
           }
         }
       } catch (error) {
-        console.warn('Cast HLS probe failed:', error.message || error);
+        console.warn('Cast proxy probe failed:', error.message || error);
       }
     }
 
@@ -854,7 +855,7 @@
   function initializeCast() {
     if (typeof window.cast === 'undefined' || castContext) return;
     castContext = cast.framework.CastContext.getInstance();
-    castContext.setOptions({ receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID, autoJoinPolicy: chrome.cast.AutoJoinPolicy.TAB_AND_ORIGIN_SCOPED });
+    castContext.setOptions({ receiverApplicationId: CAST_RECEIVER_APP_ID, autoJoinPolicy: chrome.cast.AutoJoinPolicy.TAB_AND_ORIGIN_SCOPED });
     castContext.addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, (event) => {
       switch (event.castState) {
         case cast.framework.CastState.CONNECTED:
