@@ -841,9 +841,10 @@
       const hsf = (cast.framework.messages && cast.framework.messages.HlsSegmentFormat) || {};
       const hlsSegmentFormats = [
         hsf.TS_AAC || 'ts_aac',
-        hsf.TS_MP3 || 'ts_mp3',
+        hsf.TS_HE_AAC || 'ts_he_aac',
         hsf.TS || 'ts',
-        hsf.AAC || 'aac'
+        hsf.AAC || 'aac',
+        hsf.MP3 || 'mp3'
       ];
       let resolvedUrl = stream.url;
       try {
