@@ -806,8 +806,8 @@
       return;
     }
 
-    const candidates = [{ url: stream.url, contentType: streamContentType(stream) }];
-    if (!isHls && HLS_PROXY_URL) {
+    const candidates = [];
+    if (HLS_PROXY_URL) {
       try {
         const probeResponse = await fetch(`${HLS_PROXY_URL}?probe=1&url=${encodeURIComponent(stream.url)}`, { signal: AbortSignal.timeout(10000) });
         if (probeResponse.ok) {
@@ -822,6 +822,11 @@
       } catch (error) {
         console.warn('Cast proxy probe failed:', error.message || error);
       }
+    }
+    if (isHls) {
+      candidates.unshift({ url: stream.url, contentType: streamContentType(stream) });
+    } else {
+      candidates.unshift({ url: stream.url, contentType: streamContentType(stream) });
     }
 
     async function loadOnCast(ct, url) {
