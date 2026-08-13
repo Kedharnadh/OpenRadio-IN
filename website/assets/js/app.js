@@ -25,7 +25,6 @@
       'np.share': 'Share',
       'np.timer': 'Timer',
       'np.alarm': 'Alarm',
-      'np.sleeptimer': 'Sleeping in {time}',
       'np.now': 'Now',
       'np.next': 'Next',
       'np.noSchedule': 'No schedule available',
@@ -100,7 +99,6 @@
       'np.share': '\u0C37\u0C47\u0C30\u0C4D',
       'np.timer': '\u0C1F\u0C48\u0C2E\u0C30\u0C4D',
       'np.alarm': '\u0C05\u0C32\u0C3E\u0C30\u0C02',
-      'np.sleeptimer': '{time} \u0C32\u0C4B \u0C28\u0C3F\u0C26\u0C4D\u0C30',
       'np.now': '\u0C07\u0C2A\u0C4D\u0C2A\u0C41\u0C21\u0C41',
       'np.next': '\u0C24\u0C30\u0C4D\u0C35\u0C3E\u0C24',
       'np.noSchedule': '\u0C36\u0C47\u0C26\u0C4D\u0C2F\u0C42\u0C32\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41',
@@ -174,7 +172,6 @@
       'np.share': '\u0936\u0947\u092F\u0930',
       'np.timer': '\u091F\u093E\u0907\u092E\u0930',
       'np.alarm': '\u0905\u0932\u093E\u0930\u094D\u092E',
-      'np.sleeptimer': '{time} \u092E\u0947\u0902 \u0938\u094B \u091C\u093E\u090F\u0902',
       'np.now': '\u0905\u092D\u0940',
       'np.next': '\u0905\u0917\u0932\u093E',
       'np.noSchedule': '\u0936\u0947\u0921\u094D\u092F\u0942\u0932 \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948',
@@ -319,7 +316,6 @@
     shareBtn: document.getElementById('share-btn'),
     sleepTimerBtn: document.getElementById('sleep-timer-btn'),
     sleepTimerPicker: document.getElementById('sleep-timer-picker'),
-    sleepTimerStatus: document.getElementById('sleep-timer-status'),
     themeToggle: document.getElementById('theme-toggle'),
     updateBanner: document.getElementById('update-banner'),
     updateBtn: document.getElementById('update-btn'),
@@ -782,7 +778,6 @@
   async function castStation(station) {
     if (state.castInProgress) return;
     if (state.playing && isCasting() && state.currentStation && station && state.currentStation.id === station.id) {
-      console.log('OpenRadio-IN: already casting station', station.name, '- skipping redundant load');
       return;
     }
     state.castInProgress = true;
@@ -806,33 +801,21 @@
     let session = castContext?.getCurrentSession();
     if (!session) {
       try {
-        console.log('OpenRadio-IN: requesting Cast session for station', station.name, 'appId', CAST_RECEIVER_APP_ID);
         if (castContext && typeof castContext.requestSession === 'function') {
           await castContext.requestSession();
           session = castContext.getCurrentSession();
-          console.log('OpenRadio-IN: session created', session && session.getSessionId ? session.getSessionId() : session);
         }
       } catch (error) {
         const message = error && error.message ? error.message : 'session_error';
-        console.error('OpenRadio-IN: Cast session request failed', error);
         setStatus(t('status.castError', { error: message }));
         return;
       }
     }
 
     if (!session) {
-      console.warn('OpenRadio-IN: no active Cast session after request');
       setStatus(t('status.noCastSession'));
       return;
     }
-
-    const receiverAppId = session && typeof session.getSessionObj === 'function' ? session.getSessionObj().receiverApplicationId : null;
-    console.log('OpenRadio-IN: active Cast session', {
-      sessionId: session.getSessionId ? session.getSessionId() : 'n/a',
-      receiverAppId,
-      expectedAppId: CAST_RECEIVER_APP_ID,
-      sessionObj: session && typeof session.getSessionObj === 'function' ? session.getSessionObj() : session
-    });
 
     const directContentType = streamContentType(stream);
     const isHls = directContentType === 'application/vnd.apple.mpegurl';
@@ -843,12 +826,9 @@
       try {
         const redirectResponse = await fetch(stream.url, { redirect: 'follow', signal: AbortSignal.timeout(10000) });
         if (redirectResponse.ok && redirectResponse.url && redirectResponse.url !== stream.url) {
-          console.log('OpenRadio-IN: resolved HLS redirect', stream.url, '->', redirectResponse.url);
           resolvedUrl = redirectResponse.url;
         }
-      } catch (error) {
-        console.warn('Cast HLS redirect resolve failed:', error.message || error);
-      }
+      } catch {}
       candidates.length = 0;
       hlsSegmentFormats.forEach((fmt) => candidates.push({ url: resolvedUrl, contentType: directContentType, hlsSegmentFormat: fmt }));
       if (resolvedUrl !== stream.url) {
@@ -867,14 +847,11 @@
             });
           }
         }
-      } catch (error) {
-        console.warn('Cast proxy probe failed:', error.message || error);
-      }
+      } catch {}
     }
 
     async function loadOnCast(candidate) {
       const normalizedCt = normalizeCastContentType(candidate.contentType, candidate.url);
-      console.log('OpenRadio-IN: launching Cast media', { url: candidate.url, normalizedCt, hlsSegmentFormat: candidate.hlsSegmentFormat, station: station.name, sessionId: session.getSessionId ? session.getSessionId() : 'n/a' });
       const media = new chrome.cast.media.MediaInfo(candidate.url, normalizedCt);
       media.streamType = chrome.cast.media.StreamType.LIVE;
       if (candidate.hlsSegmentFormat) media.hlsSegmentFormat = candidate.hlsSegmentFormat;
@@ -897,7 +874,6 @@
         return;
       } catch (error) {
         lastError = error.message || String(error);
-        console.warn('Cast loadMedia failed:', candidate.url, 'hlsSegmentFormat:', candidate.hlsSegmentFormat, error);
       }
     }
 
@@ -1026,7 +1002,6 @@
       hls.on(window.Hls.Events.ERROR, (event, data) => {
         if (!data.fatal) return;
         if (state.playGeneration !== generation) return;
-        console.warn('HLS fatal error:', data.type, data.details);
         try { hls.destroy(); } catch {}
         if (state.hls === hls) state.hls = null;
         if (loadReject) {
@@ -1063,7 +1038,6 @@
           state.playing = false;
           state.pauseIntent = false;
           setStatus(t('status.loadFailed'));
-          console.error(error);
           updatePlayer();
           renderStationLists();
         }
@@ -1090,7 +1064,6 @@
           state.playing = false;
           state.pauseIntent = false;
           setStatus(t('status.playFailed'));
-          console.error(error);
           updatePlayer();
           renderStationLists();
         }
@@ -1132,7 +1105,6 @@
         state.playing = false;
         state.pauseIntent = false;
         setStatus(t('status.streamFailed'));
-        console.error(error);
       }
     }
     updatePlayer();
@@ -1203,8 +1175,7 @@
       state.paused = false;
       try {
         await elements.audio.play();
-      } catch (error) {
-        console.error(error);
+      } catch {
         await playStation(state.currentStation, state.streamIndex || 0);
       }
       updatePlayer();
@@ -1356,13 +1327,10 @@
 
   function updateSleepTimerDisplay() {
     if (!state.sleepTimerEnd) {
-      elements.sleepTimerStatus.hidden = true;
       elements.sleepTimerBtn.textContent = '\u23F0 ' + t('np.timer');
       return;
     }
     const time = formatSleepTimerRemaining(state.sleepTimerEnd - Date.now());
-    elements.sleepTimerStatus.hidden = false;
-    elements.sleepTimerStatus.textContent = t('np.sleeptimer', { time });
     elements.sleepTimerBtn.textContent = `\u23F0 ${time}`;
   }
 
@@ -1378,7 +1346,6 @@
     state.sleepTimerEnd = null;
     if (minutes <= 0) {
       elements.sleepTimerPicker.hidden = true;
-      elements.sleepTimerStatus.hidden = true;
       elements.sleepTimerBtn.textContent = '\u23F0 ' + t('np.timer');
       return;
     }
@@ -1391,7 +1358,6 @@
         clearInterval(state.sleepTimerIntervalId);
         state.sleepTimerIntervalId = null;
       }
-      elements.sleepTimerStatus.hidden = true;
       elements.sleepTimerBtn.textContent = '\u23F0 ' + t('np.timer');
       setStatus(t('status.sleeptimerStopped'));
       updatePlayer();
@@ -1433,9 +1399,7 @@
         title = statusData.streamTitle || '';
       }
       applyTrackMetadata(title, station);
-    } catch (error) {
-      console.warn('Metadata fetch failed:', error.message || error);
-    }
+    } catch {}
   }
 
   function applyTrackMetadata(title, station) {
@@ -1497,8 +1461,7 @@
       } else {
         applyArtwork('');
       }
-    } catch (error) {
-      console.warn('Artwork lookup failed:', error.message || error);
+    } catch {
       applyArtwork('');
     }
   }
@@ -1667,9 +1630,7 @@
           } catch {}
         }
       }
-    } catch (error) {
-      console.warn('EPG fetch failed:', error.message || error);
-    }
+    } catch {}
     state.epgPrograms = programs;
     state.epgDate = today;
     startEpgTimer();
@@ -1709,8 +1670,7 @@
       applyFilters();
       updatePlayer();
       setStatus(t('status.loaded', { n: state.stations.length }));
-    } catch (error) {
-      console.error(error);
+    } catch {
       setStatus(t('status.error'));
       elements.resultsCount.textContent = t('status.dataUnavailable');
       elements.stations.replaceChildren(makeElement('div', 'empty-state', t('status.emptyData')));
@@ -1992,7 +1952,7 @@
             }
           });
         });
-      }).catch(console.error);
+      }).catch(() => {});
     });
     elements.updateBtn.addEventListener('click', () => {
       elements.updateBanner.hidden = true;
