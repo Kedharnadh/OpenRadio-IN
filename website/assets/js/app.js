@@ -1548,27 +1548,28 @@
 
   async function fetchStreamMetadata(streamUrl, station) {
     try {
-      const metaUrl = `${HLS_PROXY_URL}?meta=1&url=${encodeURIComponent(streamUrl)}`;
-      const response = await fetch(metaUrl, { signal: AbortSignal.timeout(5000) });
-      const data = await response.json();
-      let title = data.streamTitle || '';
-      if (!title && station?.metadata_url) {
-        const statusUrl = `${HLS_PROXY_URL}?meta=1&metaUrl=${encodeURIComponent(station.metadata_url)}`;
-        const statusResponse = await fetch(statusUrl, { signal: AbortSignal.timeout(5000) });
-        const statusData = await statusResponse.json();
-        title = statusData.streamTitle || '';
+      let params = `?meta=1&url=${encodeURIComponent(streamUrl)}`;
+      if (station?.metadata_url) {
+        params += `&metaUrl=${encodeURIComponent(station.metadata_url)}`;
       }
-      applyTrackMetadata(title, station);
+      const response = await fetch(`${HLS_PROXY_URL}${params}`, { signal: AbortSignal.timeout(5000) });
+      const data = await response.json();
+      applyTrackMetadata(data.streamTitle || '', station, data.art || '');
     } catch {}
   }
 
-  function applyTrackMetadata(title, station) {
+  function applyTrackMetadata(title, station, metaArt) {
     if (!title || title === state.nowPlayingTrack) return;
     state.nowPlayingTrack = title;
     elements.nowPlayingTrack.textContent = title;
     elements.nowPlayingTrack.hidden = false;
     updateMediaSession();
-    lookupArtwork(title, station);
+    if (metaArt) {
+      setCachedArtwork(title.toLowerCase().trim(), metaArt);
+      applyArtworkIfCurrent(title, metaArt);
+    } else {
+      lookupArtwork(title, station);
+    }
   }
 
   function splitArtistTrack(title) {

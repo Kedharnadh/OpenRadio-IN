@@ -73,30 +73,31 @@ async function handleRequest(request) {
 }
 
 async function handleMetadataRequest(streamUrl, metaUrl) {
+  let icy = {};
   try {
-    const icy = await fetchIcyMetadata(streamUrl);
-    if (icy.streamTitle) {
-      return new Response(JSON.stringify(icy), {
-        headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
-      });
-    }
+    icy = await fetchIcyMetadata(streamUrl);
   } catch (err) {
-    // fall through to the station's Icecast status endpoint, if provided
+    // fall through to the station's status endpoint, if provided
   }
 
+  let status = {};
   if (metaUrl) {
     try {
-      const status = await fetchIcecastStatus(metaUrl);
-      if (status.streamTitle) {
-        return new Response(JSON.stringify(status), {
-          headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
-        });
-      }
+      status = await fetchStatusMetadata(metaUrl);
     } catch (err) {
       // fall through
     }
   }
 
+  const result = {
+    streamTitle: icy.streamTitle || status.streamTitle || '',
+    art: status.art || '',
+  };
+  if (result.streamTitle || result.art) {
+    return new Response(JSON.stringify(result), {
+      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+    });
+  }
   return new Response(JSON.stringify({ streamTitle: '' }), {
     headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
   });
@@ -164,15 +165,25 @@ async function fetchIcyMetadata(streamUrl) {
   return { streamTitle: '', error: 'incomplete' };
 }
 
-async function fetchIcecastStatus(metaUrl) {
+async function fetchStatusMetadata(metaUrl) {
   const resp = await fetch(metaUrl, { headers: { 'Cache-Control': 'no-cache' } });
   if (!resp.ok) throw new Error(`Status fetch failed: ${resp.status}`);
   const json = await resp.json();
+
+  // AzuraCast "now playing" API: { now_playing: { song: { text, title, art } } }
+  if (json && json.now_playing && json.now_playing.song) {
+    const song = json.now_playing.song;
+    const streamTitle = String(song.text || song.title || '').trim();
+    const art = /^https?:\/\//.test(String(song.art || '')) ? song.art : '';
+    return { streamTitle, art };
+  }
+
+  // Icecast status-json.xsl
   const source = json && json.icestats ? json.icestats.source : null;
   const sources = Array.isArray(source) ? source : source ? [source] : [];
   const mount = sources.find((entry) => entry && (entry.song || entry.title)) || sources[0] || {};
   const streamTitle = String(mount.song || mount.title || mount.server_name || '').trim();
-  return { streamTitle };
+  return { streamTitle, art: '' };
 }
 
 function segmentLines(manifest) {
