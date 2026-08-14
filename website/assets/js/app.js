@@ -260,6 +260,8 @@
     sleepTimerEnd: null,
     sleepTimerIntervalId: null,
     castInProgress: false,
+    castSessionLost: false,
+    lastCastStationId: null,
     userInitiatedStop: false,
     paused: false,
     pauseIntent: false,
@@ -333,6 +335,9 @@
   let castContext;
   let castPlayer;
   let castPlayerController;
+  let castSyncIntervalId;
+  let castWakeLock;
+  let artFallbackActive = false;
 
   const CAST_RECEIVER_APP_ID = 'CC1AD845'; // Google Default Media Receiver (plays HLS/MP3/AAC/TS natively)
   const HLS_PROXY_URL = 'https://openradio-hls-proxy.kedharnadh1.workers.dev';
@@ -519,6 +524,23 @@
   function renderNowPlayingArt() {
     const station = state.currentStation;
     const art = state.nowPlayingArt || station?.logo || '';
+    elements.nowPlayingLogo.onload = () => { artFallbackActive = false; };
+    elements.nowPlayingLogo.onerror = () => {
+      if (artFallbackActive) {
+        elements.nowPlayingLogo.hidden = true;
+        elements.nowPlayingPlaceholder.hidden = false;
+        return;
+      }
+      artFallbackActive = true;
+      // Album-art URLs can 404 for some tracks; invalidate the cache and fall back.
+      setCachedArtwork((state.nowPlayingTrack || '').toLowerCase().trim(), '');
+      if (station?.logo && station.logo !== art) {
+        elements.nowPlayingLogo.src = station.logo;
+        return;
+      }
+      elements.nowPlayingLogo.hidden = true;
+      elements.nowPlayingPlaceholder.hidden = false;
+    };
     elements.nowPlayingLogo.src = art;
     elements.nowPlayingLogo.alt = station?.name || '';
     elements.nowPlayingLogo.hidden = !art;
@@ -798,6 +820,13 @@
     elements.audio.pause();
     elements.audio.src = '';
 
+    state.nowPlayingTrack = '';
+    state.nowPlayingArt = '';
+    state.paused = false;
+    elements.nowPlayingTrack.hidden = true;
+    clearEpg();
+    fetchEpg(station);
+
     let session = castContext?.getCurrentSession();
     if (!session) {
       try {
@@ -868,6 +897,11 @@
         await loadOnCast(candidate);
         state.playing = true;
         state.paused = false;
+        state.castSessionLost = false;
+        state.lastCastStationId = station.id;
+        try { sessionStorage.setItem('openradio-cast-station', station.id); } catch {}
+        startMetadataPolling(stream.url, station);
+        startCastSync();
         setStatus(t('status.playingCast', { name: station.name }));
         updatePlayer();
         renderStationLists();
@@ -879,21 +913,94 @@
 
     state.playing = false;
     state.paused = false;
+    state.lastCastStationId = null;
+    try { sessionStorage.removeItem('openradio-cast-station'); } catch {}
+    stopMetadataPolling();
+    stopCastSync();
     setStatus(t('status.castError', { error: lastError || t('status.castError') }));
     updatePlayer();
     renderStationLists();
+  }
+
+  function syncFromCastPlayer() {
+    if (!castPlayer) return;
+    const prevPlaying = state.playing;
+    const prevPaused = state.paused;
+    if (castPlayer.isPlaying) {
+      state.playing = true;
+      state.paused = false;
+    } else if (castPlayer.isPaused) {
+      state.playing = false;
+      state.paused = true;
+    }
+    state.castSessionLost = false;
+    if (prevPlaying !== state.playing || prevPaused !== state.paused) {
+      updatePlayer();
+      renderStationLists();
+    }
   }
 
   function setupCastPlayer() {
     if (castPlayerController) return;
     castPlayer = new cast.framework.RemotePlayer();
     castPlayerController = new cast.framework.RemotePlayerController(castPlayer);
-    castPlayerController.addEventListener(cast.framework.RemotePlayerEventType.IS_PAUSED_CHANGED, () => {
-      state.playing = !castPlayer.isPaused;
-      state.paused = castPlayer.isPaused;
-      updatePlayer();
-      renderStationLists();
-    });
+    const events = [
+      cast.framework.RemotePlayerEventType.IS_PAUSED_CHANGED,
+      cast.framework.RemotePlayerEventType.IS_PLAYING_CHANGED,
+      cast.framework.RemotePlayerEventType.PLAYER_STATE_CHANGED,
+      cast.framework.RemotePlayerEventType.MEDIA_INFO_CHANGED
+    ];
+    events.forEach((eventType) => castPlayerController.addEventListener(eventType, syncFromCastPlayer));
+  }
+
+  async function acquireCastWakeLock() {
+    if (castWakeLock || !('wakeLock' in navigator)) return;
+    try {
+      castWakeLock = await navigator.wakeLock.request('screen');
+      castWakeLock.addEventListener('release', () => { castWakeLock = null; });
+    } catch {}
+  }
+
+  function releaseCastWakeLock() {
+    if (castWakeLock) {
+      try { castWakeLock.release(); } catch {}
+      castWakeLock = null;
+    }
+  }
+
+  function syncCastState() {
+    if (!window.cast || !castContext) return;
+    const castState = castContext.getCastState();
+    if (castState !== cast.framework.CastState.CONNECTED) {
+      releaseCastWakeLock();
+      if (castPlayerController) {
+        // The session dropped (e.g. tab backgrounded). Keep the UI reflecting the
+        // last known playing state so it does not reset while the receiver plays on.
+        state.castSessionLost = true;
+      }
+      if (!state.currentStation || state.userInitiatedStop) {
+        stopCastSync();
+      }
+      return;
+    }
+    state.castSessionLost = false;
+    setupCastPlayer();
+    acquireCastWakeLock();
+    syncFromCastPlayer();
+  }
+
+  function startCastSync() {
+    if (castSyncIntervalId) return;
+    syncCastState();
+    castSyncIntervalId = setInterval(syncCastState, 10000);
+  }
+
+  function stopCastSync() {
+    if (castSyncIntervalId) {
+      clearInterval(castSyncIntervalId);
+      castSyncIntervalId = null;
+    }
+    releaseCastWakeLock();
   }
 
   function initializeCast() {
@@ -904,14 +1011,41 @@
       switch (event.castState) {
         case cast.framework.CastState.CONNECTED:
           setupCastPlayer();
-          if (state.currentStation) castStation(state.currentStation);
+          startCastSync();
+          if (state.currentStation) {
+            if (state.playing && !state.castSessionLost) {
+              // Already playing this session; just reconcile UI from the RemotePlayer.
+              syncFromCastPlayer();
+            } else if (state.lastCastStationId === state.currentStation.id) {
+              // Re-attached to the same receiver session that is still playing —
+              // restore the UI without reloading the media on the receiver.
+              state.playing = true;
+              state.paused = false;
+              state.castSessionLost = false;
+              updatePlayer();
+              renderStationLists();
+              syncFromCastPlayer();
+            } else {
+              castStation(state.currentStation);
+            }
+          }
           break;
         case cast.framework.CastState.NOT_CONNECTED:
         case cast.framework.CastState.NO_DEVICES_AVAILABLE:
-          castPlayer = undefined;
-          castPlayerController = undefined;
-          state.playing = false;
-          state.paused = false;
+          if (state.currentStation && !state.userInitiatedStop) {
+            // Do not tear down while the receiver may still be playing; the
+            // periodic sync re-attaches when the sender re-joins the session.
+            state.castSessionLost = true;
+          } else {
+            castPlayer = undefined;
+            castPlayerController = undefined;
+            state.playing = false;
+            state.paused = false;
+            state.castSessionLost = false;
+            state.lastCastStationId = null;
+            try { sessionStorage.removeItem('openradio-cast-station'); } catch {}
+            stopCastSync();
+          }
           break;
       }
       updatePlayer();
@@ -951,7 +1085,7 @@
     state.streamIndex = streamIndex;
     const generation = ++state.playGeneration;
 
-    if (isCasting()) {
+    if (isCasting() || state.castSessionLost) {
       await castStation(station);
       return;
     }
@@ -1135,6 +1269,19 @@
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     elements.audio.pause();
     elements.audio.src = '';
+    if (isCasting() || state.castSessionLost) {
+      if (castPlayerController && typeof castPlayerController.stop === 'function') {
+        try { castPlayerController.stop(); } catch {}
+      }
+      if (castContext && typeof castContext.endCurrentSession === 'function') {
+        try { castContext.endCurrentSession(true); } catch {}
+      }
+      stopCastSync();
+      releaseCastWakeLock();
+      state.castSessionLost = false;
+      state.lastCastStationId = null;
+      try { sessionStorage.removeItem('openradio-cast-station'); } catch {}
+    }
     state.playing = false;
     state.nowPlayingTrack = '';
     state.nowPlayingArt = '';
@@ -1149,6 +1296,12 @@
     if (!state.currentStation) return;
     if (isCasting()) {
       if (castPlayerController) castPlayerController.playOrPause();
+      return;
+    }
+    if (state.castSessionLost) {
+      if (castContext && typeof castContext.endCurrentSession === 'function') {
+        try { castContext.endCurrentSession(true); } catch {}
+      }
       return;
     }
     state.paused = true;
@@ -1439,14 +1592,16 @@
   }
 
   async function lookupArtwork(title, station) {
-    const key = title.toLowerCase().trim();
+    const key = (title || '').toLowerCase().trim();
+    if (!key) return;
     const cached = getCachedArtwork(key);
     if (cached) {
-      applyArtwork(cached);
+      applyArtworkIfCurrent(title, cached);
       return;
     }
     const [artist, track] = splitArtistTrack(title);
     const term = [artist, track].filter(Boolean).join(' ');
+    let art = '';
     try {
       const response = await fetch(
         `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&media=music&entity=song&limit=1`,
@@ -1455,15 +1610,34 @@
       const data = await response.json();
       const result = data.results && data.results[0];
       if (result && result.artworkUrl100) {
-        const art = result.artworkUrl100.replace('100x100', '600x600');
-        setCachedArtwork(key, art);
-        applyArtwork(art);
-      } else {
-        applyArtwork('');
+        art = result.artworkUrl100.replace('100x100', '600x600');
       }
-    } catch {
-      applyArtwork('');
+    } catch {}
+    if (!art) {
+      try {
+        const response = await fetch(
+          `https://api.deezer.com/search?q=${encodeURIComponent(term)}&limit=1`,
+          { signal: AbortSignal.timeout(6000) }
+        );
+        const data = await response.json();
+        const result = data && data.data && data.data[0];
+        if (result && result.album && result.album.cover_big) {
+          art = result.album.cover_big;
+        }
+      } catch {}
     }
+    if (art) {
+      setCachedArtwork(key, art);
+      applyArtworkIfCurrent(title, art);
+    } else {
+      // No result found; fall back to the station logo.
+      applyArtworkIfCurrent(title, '');
+    }
+  }
+
+  function applyArtworkIfCurrent(title, art) {
+    if (title !== state.nowPlayingTrack) return;
+    applyArtwork(art);
   }
 
   function applyArtwork(art) {
@@ -1666,6 +1840,17 @@
       state.stations = (await response.json()).filter(Boolean);
       const lastStationId = localStorage.getItem('openradio-last-station');
       state.currentStation = state.stations.find((station) => station.id === lastStationId) || null;
+      if (window.cast && castContext && castContext.getCastState() === cast.framework.CastState.CONNECTED && state.currentStation) {
+        const castStationId = state.lastCastStationId || sessionStorage.getItem('openradio-cast-station');
+        if (castStationId === state.currentStation.id) {
+          // A cast receiver is still playing this station after a reload —
+          // restore the UI instead of showing reset controls.
+          state.playing = true;
+          state.paused = false;
+          state.castSessionLost = false;
+          startCastSync();
+        }
+      }
       populateAlarmStations();
       applyFilters();
       updatePlayer();
@@ -1764,6 +1949,7 @@
   setupMediaSession();
   restoreCollapsedStates();
   applyUiLanguage();
+  try { state.lastCastStationId = sessionStorage.getItem('openradio-cast-station') || null; } catch {}
 
   elements.search.addEventListener('input', (event) => {
     state.search = event.target.value;
@@ -1851,6 +2037,10 @@
     renderStationLists();
   });
   function resumeInterruptedPlayback() {
+    if (isCasting() || state.castSessionLost) {
+      syncCastState();
+      return;
+    }
     if (state.pendingAutoResume) {
       attemptResume();
       return;
@@ -1916,8 +2106,15 @@
   document.addEventListener('keydown', handleKeydown);
 
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) return;
+    if (document.hidden) {
+      if (isCasting()) acquireCastWakeLock();
+      return;
+    }
     resumeInterruptedPlayback();
+    if (isCasting()) {
+      syncCastState();
+      acquireCastWakeLock();
+    }
   });
   window.addEventListener('focus', resumeInterruptedPlayback);
   document.addEventListener('pageshow', resumeInterruptedPlayback);
