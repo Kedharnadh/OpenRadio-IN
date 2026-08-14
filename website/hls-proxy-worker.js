@@ -168,9 +168,13 @@ async function fetchIcyMetadata(streamUrl) {
 async function fetchStatusMetadata(metaUrl) {
   const resp = await fetch(metaUrl, { headers: { 'Cache-Control': 'no-cache' } });
   if (!resp.ok) throw new Error(`Status fetch failed: ${resp.status}`);
-  const json = await resp.json();
+  let json = await resp.json();
 
-  // AzuraCast "now playing" API: { now_playing: { song: { text, title, art } } }
+  // AzuraCast "now playing" API: [{ now_playing: { song: { text, title, art } } }]
+  // or { now_playing: { song: { text, title, art } } }.
+  if (Array.isArray(json)) {
+    json = json.find((entry) => entry && entry.now_playing && entry.now_playing.song);
+  }
   if (json && json.now_playing && json.now_playing.song) {
     const song = json.now_playing.song;
     const streamTitle = String(song.text || song.title || '').trim();
