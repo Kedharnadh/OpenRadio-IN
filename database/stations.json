@@ -5829,7 +5829,6 @@
     "genre": [],
     "homepage": "",
     "logo": "https://cdn.aptoide.com/imgs/a/d/c/adcbfd764563ee9cde97fb30c2f25038_fgraphic.jpg",
-    "metadata_url": "https://stream.ap9fm.in/api/nowplaying/ap9fm",
     "streams": [
       {
         "url": "https://stream.ap9fm.in/radio/8000/radio.mp3",
