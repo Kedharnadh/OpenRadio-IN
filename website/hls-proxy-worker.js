@@ -102,6 +102,20 @@ async function handleMetadataRequest(streamUrl, metaUrl) {
   });
 }
 
+function concatBytes(a, b) {
+  if (!a || !a.length) return b;
+  if (!b || !b.length) return a;
+  const out = new Uint8Array(a.length + b.length);
+  out.set(a);
+  out.set(b);
+  return out;
+}
+
+// ICY metadata framing: every `metaInt` audio bytes is followed by a 1-byte
+// length (L) and then L*16 bytes of metadata. Network chunks are arbitrary
+// sizes, so the parser must not assume the first metadata block lines up with
+// a chunk boundary (Cloudflare's fetch delivers multi-KB chunks that often
+// swallow the boundary and several blocks at once).
 async function fetchIcyMetadata(streamUrl) {
   const resp = await fetch(streamUrl, {
     headers: { 'Icy-MetaData': '1', 'Cache-Control': 'no-cache' },
@@ -111,41 +125,43 @@ async function fetchIcyMetadata(streamUrl) {
     return { streamTitle: '', error: 'no-icy' };
   }
   const reader = resp.body.getReader();
-  // Read past the first metaInt bytes of audio data
-  let total = 0;
-  while (total < metaInt) {
+  let buffer = new Uint8Array(0);
+  let toSkip = metaInt; // audio bytes remaining before the next metadata block
+  let metaLen = -1; // metadata block length in bytes; -1 = length byte not read yet
+  let metaBytes = new Uint8Array(0);
+
+  const readChunk = async () => {
     const { done, value } = await reader.read();
-    if (done) break;
-    total += value.length;
-  }
-  // Read the metadata block: first byte = metadata length / 16
-  const { value: metaBlock } = await reader.read();
-  if (!metaBlock || metaBlock.length === 0) {
-    return { streamTitle: '', error: 'no-block' };
-  }
-  const metaLen = metaBlock[0] * 16;
-  if (metaLen === 0) {
-    return { streamTitle: '', error: 'empty' };
-  }
-  // Read remaining metadata bytes
-  let metaStr = '';
-  let metaRead = metaBlock.length - 1;
-  if (metaRead >= metaLen) {
-    metaStr = new TextDecoder().decode(metaBlock.slice(1, metaLen + 1));
-  } else {
-    const remaining = new Uint8Array(metaLen - metaRead);
-    let offset = 0;
-    while (offset < remaining.length) {
-      const { done: rDone, value: rVal } = await reader.read();
-      if (rDone) break;
-      remaining.set(rVal, offset);
-      offset += rVal.length;
+    if (done) return false;
+    buffer = concatBytes(buffer, value);
+    return true;
+  };
+
+  while (true) {
+    while (buffer.length > 0) {
+      if (toSkip > 0) {
+        const n = Math.min(toSkip, buffer.length);
+        toSkip -= n;
+        buffer = buffer.slice(n);
+      } else if (metaLen < 0) {
+        metaLen = buffer[0] * 16;
+        buffer = buffer.slice(1);
+      } else {
+        const n = Math.min(metaLen - metaBytes.length, buffer.length);
+        metaBytes = concatBytes(metaBytes, buffer.slice(0, n));
+        buffer = buffer.slice(n);
+        if (metaBytes.length === metaLen) {
+          try { await reader.cancel(); } catch {}
+          const metaStr = new TextDecoder().decode(metaBytes);
+          const match = metaStr.match(/StreamTitle='([^']*)'/i);
+          return { streamTitle: match ? match[1].trim() : '' };
+        }
+      }
     }
-    metaStr = new TextDecoder().decode(new Uint8Array([...metaBlock.slice(1), ...remaining]));
+    if (!(await readChunk())) break;
   }
-  const match = metaStr.match(/StreamTitle='([^']*)'/);
-  const streamTitle = match ? match[1].trim() : '';
-  return { streamTitle };
+  try { await reader.cancel(); } catch {}
+  return { streamTitle: '', error: 'incomplete' };
 }
 
 async function fetchIcecastStatus(metaUrl) {
