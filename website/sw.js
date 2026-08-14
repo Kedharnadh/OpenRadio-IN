@@ -1,4 +1,4 @@
-const CACHE_NAME = 'openradio-in-v20';
+const CACHE_NAME = 'openradio-in-v21';
 const APP_SHELL = [
   './',
   './index.html',

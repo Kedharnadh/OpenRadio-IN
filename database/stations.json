@@ -6597,6 +6597,7 @@
     "genre": [],
     "homepage": "",
     "logo": "https://img1.wsimg.com/isteam/ip/d547af60-4305-4c1a-a90e-b8c81b606aa0/logo_new_.png",
+    "metadata_url": "https://a1.asurahosting.com/api/nowplaying/melody_radio",
     "streams": [
       {
         "url": "https://a1.asurahosting.com/listen/melody_radio/radio.mp3",
