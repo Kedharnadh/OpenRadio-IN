@@ -261,6 +261,7 @@
     sleepTimerIntervalId: null,
     castInProgress: false,
     castSessionLost: false,
+    castWasConnected: false,
     lastCastStationId: null,
     userInitiatedStop: false,
     paused: false,
@@ -973,7 +974,7 @@
     const castState = castContext.getCastState();
     if (castState !== cast.framework.CastState.CONNECTED) {
       releaseCastWakeLock();
-      if (castPlayerController) {
+      if (castPlayerController && state.castWasConnected) {
         // The session dropped (e.g. tab backgrounded). Keep the UI reflecting the
         // last known playing state so it does not reset while the receiver plays on.
         state.castSessionLost = true;
@@ -983,6 +984,7 @@
       }
       return;
     }
+    state.castWasConnected = true;
     state.castSessionLost = false;
     setupCastPlayer();
     acquireCastWakeLock();
@@ -1010,6 +1012,7 @@
     castContext.addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, (event) => {
       switch (event.castState) {
         case cast.framework.CastState.CONNECTED:
+          state.castWasConnected = true;
           setupCastPlayer();
           startCastSync();
           if (state.currentStation) {
@@ -1032,13 +1035,16 @@
           break;
         case cast.framework.CastState.NOT_CONNECTED:
         case cast.framework.CastState.NO_DEVICES_AVAILABLE:
-          if (state.currentStation && !state.userInitiatedStop) {
-            // Do not tear down while the receiver may still be playing; the
-            // periodic sync re-attaches when the sender re-joins the session.
+          if (state.currentStation && !state.userInitiatedStop && state.castWasConnected) {
+            // A live session dropped mid-playback; the receiver may still be
+            // playing, so the periodic sync re-attaches if the sender re-joins.
             state.castSessionLost = true;
           } else {
+            // No live session this page load (e.g. fresh refresh): fall back to
+            // normal local playback instead of treating it as a lost cast.
             castPlayer = undefined;
             castPlayerController = undefined;
+            state.castWasConnected = false;
             state.playing = false;
             state.paused = false;
             state.castSessionLost = false;
@@ -1278,6 +1284,7 @@
       }
       stopCastSync();
       releaseCastWakeLock();
+      state.castWasConnected = false;
       state.castSessionLost = false;
       state.lastCastStationId = null;
       try { sessionStorage.removeItem('openradio-cast-station'); } catch {}
