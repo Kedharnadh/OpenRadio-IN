@@ -25,7 +25,6 @@ PWA: https://kedharnadh.github.io/OpenRadio-IN/
 - Sleep timer
 - Station sharing (Web Share API)
 - Dark/light theme toggle
-- Audio equalizer (bass/treble)
 - Keyboard shortcuts (Space = play/pause, arrows = prev/next)
 - Automatically generated playlists
 - JSON-based station database
@@ -56,34 +55,51 @@ OpenRadio-IN playlists work with:
 ```
 OpenRadio-IN
 │
-├── database/
-│   └── stations.json
+├── database/                 # Station database + metadata
+│   ├── stations.json
+│   ├── categories.json
+│   ├── languages.json
+│   ├── states.json
+│   └── schema.json
 │
-├── build/
+├── build/                    # Python build / validation / health-check scripts
 │   ├── generate_playlists.py
 │   ├── validate_database.py
 │   ├── check_streams.py
-│   └── generate_stats.py
-│
-├── playlists/
-│   ├── all.m3u
-│   ├── telugu.m3u
-│   ├── air.m3u
+│   ├── health_check.py
+│   ├── generate_stats.py
 │   └── ...
 │
-├── website/
+├── scripts/                  # Legacy playlist generation entry points
+│   ├── generate_playlist.py
+│   └── validate_playlist.py
+│
+├── playlists/                # Generated playlists (all.m3u, air.m3u, language files, ...)
+│
+├── stations/                 # Source station files (e.g. stations/telugu)
+│
+├── imports/                  # Imported playlists
+├── output/                   # Generated artifacts
+├── config/                   # Build configuration
+│
+├── hls-proxy-server/         # Local HLS proxy (Express + ffmpeg) for development
+│
+├── website/                  # PWA served on GitHub Pages
 │   ├── index.html
 │   ├── assets/js/app.js
 │   ├── assets/css/style.css
-│   ├── hls-proxy-worker.js
+│   ├── data/stations.json
+│   ├── hls-proxy-worker.js   # Cloudflare Worker (HLS + EPG + metadata proxy)
 │   ├── cast-receiver.html
+│   ├── cast-utils.js
+│   ├── cast-utils.test.js
 │   ├── manifest.webmanifest
 │   ├── sw.js
 │   └── icons/
 │
 ├── docs/
-│
-└── .github/
+├── wrangler.toml             # Cloudflare Workers config for the HLS proxy
+└── .github/                  # GitHub Actions workflows
 ```
 
 ---
@@ -103,7 +119,7 @@ Language playlists (e.g. `hindi.m3u`, `tamil.m3u`, `marathi.m3u`) are generated 
 
 ## Database Format
 
-Every station is stored in `database/stations.json`.
+Every station is stored in `database/stations.json` and published to the site as `website/data/stations.json`.
 
 ```json
 {
@@ -111,7 +127,11 @@ Every station is stored in `database/stations.json`.
   "name": "AIR Tirupati",
   "language": "Telugu",
   "country": "India",
+  "state": "Andhra Pradesh",
+  "city": "Tirupati",
   "categories": ["AIR", "News"],
+  "genre": [],
+  "homepage": "https://prasarbharati.gov.in/",
   "epg_id": 411,
   "logo": "https://example.com/logo.png",
   "streams": [
@@ -120,9 +140,28 @@ Every station is stored in `database/stations.json`.
       "codec": "HLS",
       "priority": 1
     }
-  ]
+  ],
+  "verified": true,
+  "status": "online",
+  "last_checked": "2026-08-11T13:38:29+00:00"
 }
 ```
+
+Station fields:
+
+| Field | Description |
+|-------|-------------|
+| `id` | Unique station identifier |
+| `name` | Display name |
+| `language` | Broadcast language(s) |
+| `country` / `state` / `city` | Location |
+| `categories` | Category tags (e.g. AIR, FM, News, Devotional) |
+| `epg_id` | Prasar Bharati cuesheet ID — enables the AIR program schedule |
+| `logo` | Station logo URL |
+| `streams` | Ordered list of stream URLs with codec and priority |
+| `verified` | Whether the stream was manually verified |
+| `status` | Last health-check result (`online` / `offline` / `unknown`) |
+| `last_checked` | Timestamp of the last stream health check |
 
 ---
 
@@ -162,7 +201,6 @@ The workflow copies `database/stations.json` into the published site, so station
 - Dark and light themes
 - Volume control with mute toggle
 - Sleep timer (15/30/60 min)
-- Audio equalizer (bass/treble shelving filters)
 - Station sharing via Web Share API
 - Keyboard shortcuts: Space = play/pause, Arrow keys = prev/next
 - Recently played stations tracking
@@ -173,12 +211,29 @@ AIR stations with an `epg_id` show the current ("Now Playing") and next ("Up Nex
 
 ### HLS Proxy (for Chromecast)
 
-AIR stations use HLS streams from `radio.wavespb.com`, which blocks Google Cast devices. The proxy worker at `website/hls-proxy-worker.js` routes these streams through Cloudflare Workers so they play correctly on Cast devices. It also exposes an `?epg=<stationId>` route that returns a parsed, cached copy of the Akashvani cuesheet (`{ date, programs: [...] }`) used as a fallback when the browser cannot reach the cuesheet site directly.
+AIR stations use HLS streams from `radio.wavespb.com`, which blocks Google Cast devices. The proxy worker at `website/hls-proxy-worker.js` routes these streams through Cloudflare Workers so they play correctly on Cast devices. The worker also powers the app's now-playing metadata and EPG fallback.
 
-Deploy with:
+Worker endpoints:
+
+| Endpoint | Purpose |
+|----------|---------|
+| `?url=<hls_url>` | Streams a (possibly multi-variant) HLS playlist as audio |
+| `?url=<hls_url>&probe=1` | Resolves the manifest and reports the media URL + content type |
+| `?url=<stream>&meta=1` | Reads ICY/stream metadata for the now-playing track |
+| `?epg=<epgId>` | Parses and caches an Akashvani cuesheet (`{ date, programs: [...] }`) |
+
+**Deploy** — the `wrangler.toml` lives at the repository root, so run from there:
+
 ```bash
-cd website
 npx wrangler deploy
+```
+
+**Local development** — for a local HLS-to-MP3 proxy, use the bundled Express server:
+
+```bash
+cd hls-proxy-server
+npm install
+npm start
 ```
 
 ---
@@ -210,7 +265,6 @@ Please ensure every submitted stream is publicly accessible and legal to redistr
 - Volume control, mute toggle
 - Dark/light theme toggle
 - Sleep timer
-- Audio equalizer (bass/treble)
 - Station sharing via Web Share API
 - Keyboard shortcuts
 - Recently played stations
