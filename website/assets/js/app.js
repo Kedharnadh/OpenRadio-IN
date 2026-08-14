@@ -266,6 +266,7 @@
     userInitiatedStop: false,
     paused: false,
     pauseIntent: false,
+    externallyInterrupted: false,
     pendingAutoResume: false,
     resumeAttempts: 0,
     streamIndex: 0,
@@ -1100,6 +1101,7 @@
     state.retryCount = 0;
     state.userInitiatedStop = false;
     state.paused = false;
+    state.externallyInterrupted = false;
     state.pauseIntent = true;
     state.pendingAutoResume = false;
     state.resumeAttempts = 0;
@@ -1252,7 +1254,7 @@
   }
 
   function retryPlayback() {
-    if (!state.currentStation || state.retryCount >= state.maxRetries) {
+    if (!state.currentStation || state.retryCount >= state.maxRetries || state.externallyInterrupted) {
       state.retryCount = 0;
       return;
     }
@@ -1269,6 +1271,7 @@
     state.userInitiatedStop = true;
     state.paused = false;
     state.pauseIntent = true;
+    state.externallyInterrupted = false;
     state.pendingAutoResume = false;
     state.resumeAttempts = 0;
     state.streamSwitching = false;
@@ -1313,6 +1316,7 @@
     }
     state.paused = true;
     state.pauseIntent = true;
+    state.externallyInterrupted = false;
     state.pendingAutoResume = false;
     state.resumeAttempts = 0;
     elements.audio.pause();
@@ -1329,6 +1333,7 @@
     if (state.playing) return;
     state.userInitiatedStop = false;
     state.pauseIntent = false;
+    state.externallyInterrupted = false;
     state.pendingAutoResume = false;
     state.resumeAttempts = 0;
     if (state.paused) {
@@ -1363,7 +1368,7 @@
 
   function attemptResume() {
     if (!state.pendingAutoResume || !state.currentStation) return;
-    if (state.userInitiatedStop || state.paused || state.pauseIntent) {
+    if (state.userInitiatedStop || state.paused || state.pauseIntent || state.externallyInterrupted) {
       state.pendingAutoResume = false;
       state.resumeAttempts = 0;
       return;
@@ -2038,6 +2043,7 @@
     state.playing = true;
     state.paused = false;
     state.pauseIntent = false;
+    state.externallyInterrupted = false;
     state.pendingAutoResume = false;
     state.resumeAttempts = 0;
     state.retryCount = 0;
@@ -2047,6 +2053,13 @@
   function resumeInterruptedPlayback() {
     if (isCasting() || state.castSessionLost) {
       syncCastState();
+      return;
+    }
+    if (state.externallyInterrupted) {
+      state.externallyInterrupted = false;
+      state.paused = false;
+      state.pauseIntent = false;
+      scheduleAutoResume();
       return;
     }
     if (state.pendingAutoResume) {
@@ -2063,16 +2076,17 @@
     if (state.pauseIntent) {
       state.pauseIntent = false;
     } else if (state.currentStation && !state.userInitiatedStop) {
-      scheduleAutoResume();
+      state.externallyInterrupted = true;
+      state.paused = true;
     }
     updatePlayer();
     renderStationLists();
   });
   elements.audio.addEventListener('stalled', () => {
-    if (state.playing && !state.userInitiatedStop && !state.pauseIntent && !isCasting()) scheduleAutoResume();
+    if (state.playing && !state.userInitiatedStop && !state.pauseIntent && !state.externallyInterrupted && !isCasting()) scheduleAutoResume();
   });
   elements.audio.addEventListener('waiting', () => {
-    if (state.playing && !state.userInitiatedStop && !state.pauseIntent && !isCasting()) scheduleAutoResume();
+    if (state.playing && !state.userInitiatedStop && !state.pauseIntent && !state.externallyInterrupted && !isCasting()) scheduleAutoResume();
   });
   elements.audio.addEventListener('ended', () => {
     if (state.hls) { state.hls.destroy(); state.hls = null; }
