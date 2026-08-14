@@ -1,4 +1,4 @@
-const CACHE_NAME = 'openradio-in-v22';
+const CACHE_NAME = 'openradio-in-v23';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const APP_SHELL = [
   './icons/icon.svg',
   './icons/icon-192x192.png',
   './icons/icon-512x512.png',
+  './icons/apple-touch-icon.png',
   './data/stations.json'
 ];
 
