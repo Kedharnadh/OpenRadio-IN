@@ -1649,7 +1649,7 @@
   function startMetadataPolling(url, station) {
     stopMetadataPolling();
     fetchStreamMetadata(url, station);
-    state.metadataIntervalId = setInterval(() => fetchStreamMetadata(url, station), 30000);
+    state.metadataIntervalId = setInterval(() => fetchStreamMetadata(url, station), 15000);
   }
 
   function stopMetadataPolling() {
