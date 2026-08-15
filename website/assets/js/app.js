@@ -303,6 +303,7 @@
     audio: document.getElementById('audio-player'),
     playerBar: document.getElementById('player-bar'),
     playerInfo: document.getElementById('player-info'),
+    playerLogo: document.getElementById('player-logo'),
     volumeSlider: document.getElementById('volume-slider'),
     volumeBtn: document.getElementById('volume-btn'),
     nowPlaying: document.getElementById('now-playing'),
@@ -314,6 +315,7 @@
     nowPlayingMeta: document.getElementById('now-playing-meta'),
     nowPlayingTrack: document.getElementById('now-playing-track'),
     nowPlayingEpg: document.getElementById('now-playing-epg'),
+    npFavorite: document.getElementById('np-favorite'),
     npPrev: document.getElementById('np-prev'),
     npPlayToggle: document.getElementById('np-play-toggle'),
     npStopBtn: document.getElementById('np-stop'),
@@ -544,11 +546,12 @@
   function renderNowPlayingArt() {
     const station = state.currentStation;
     const art = state.nowPlayingArt || station?.logo || '';
-    elements.nowPlayingLogo.onload = () => { artFallbackActive = false; };
+    elements.nowPlayingLogo.onload = () => { artFallbackActive = false; syncPlayerArt(); };
     elements.nowPlayingLogo.onerror = () => {
       if (artFallbackActive) {
         elements.nowPlayingLogo.hidden = true;
         elements.nowPlayingPlaceholder.hidden = false;
+        syncPlayerArt();
         return;
       }
       artFallbackActive = true;
@@ -560,11 +563,24 @@
       }
       elements.nowPlayingLogo.hidden = true;
       elements.nowPlayingPlaceholder.hidden = false;
+      syncPlayerArt();
     };
     elements.nowPlayingLogo.src = art;
     elements.nowPlayingLogo.alt = station?.name || '';
     elements.nowPlayingLogo.hidden = !art;
     elements.nowPlayingPlaceholder.hidden = Boolean(art);
+    syncPlayerArt();
+  }
+
+  function syncPlayerArt() {
+    if (!elements.playerLogo) return;
+    if (elements.nowPlayingLogo.hidden) {
+      elements.playerLogo.hidden = true;
+      return;
+    }
+    elements.playerLogo.src = elements.nowPlayingLogo.src;
+    elements.playerLogo.alt = state.currentStation?.name || '';
+    elements.playerLogo.hidden = false;
   }
 
   function updatePlayer() {
@@ -592,6 +608,8 @@
       elements.nowPlayingLogo.hidden = true;
       elements.nowPlayingPlaceholder.hidden = false;
       elements.nowPlayingTrack.hidden = true;
+      elements.playerLogo.hidden = true;
+      if (elements.npFavorite) elements.npFavorite.hidden = true;
       updateMediaSession();
       return;
     }
@@ -622,6 +640,7 @@
     elements.npPlayToggle.disabled = false;
     elements.npPlayToggle.textContent = isPlaying ? '\u23f8 ' + t('controls.pause') : (isPaused ? '\u25b6 ' + t('controls.resume') : '\u25b6 ' + t('controls.play'));
     elements.npStopBtn.disabled = false;
+    updateNowPlayingFavorite();
     renderEpg();
     updateMediaSession();
   }
@@ -1491,9 +1510,26 @@
 
   /* ---------- Now Playing Sheet ---------- */
 
+  function updateNowPlayingFavorite() {
+    const btn = elements.npFavorite;
+    if (!btn) return;
+    const station = state.currentStation;
+    if (!station) {
+      btn.hidden = true;
+      return;
+    }
+    btn.hidden = false;
+    const fav = state.favorites.has(station.id);
+    btn.classList.toggle('active', fav);
+    btn.innerHTML = fav ? '\u2665' : '\u2661';
+    btn.setAttribute('aria-label', fav ? `Remove ${station.name} from favorites` : `Add ${station.name} to favorites`);
+    btn.title = fav ? 'Remove from favorites' : 'Add to favorites';
+  }
+
   function openNowPlaying() {
     elements.nowPlaying.hidden = false;
     document.body.style.overflow = 'hidden';
+    updateNowPlayingFavorite();
     renderEpg();
   }
 
@@ -2030,6 +2066,16 @@
   elements.npStopBtn.addEventListener('click', stopPlayback);
   elements.npPrev.addEventListener('click', () => playAdjacentStation(-1));
   elements.npNext.addEventListener('click', () => playAdjacentStation(1));
+
+  elements.npFavorite.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const station = state.currentStation;
+    if (!station) return;
+    state.favorites.has(station.id) ? state.favorites.delete(station.id) : state.favorites.add(station.id);
+    saveFavorites();
+    renderStationLists();
+    updateNowPlayingFavorite();
+  });
 
   document.querySelector('.app-shell').addEventListener('click', (e) => {
     const sectionHead = e.target.closest('.section-head');
