@@ -28,6 +28,8 @@
       'np.now': 'Now',
       'np.next': 'Next',
       'np.noSchedule': 'No schedule available',
+      'np.favorite': 'Favorite',
+      'np.favorited': 'Favorited',
       'theme.light': 'Light',
       'theme.dark': 'Dark',
       'theme.auto': 'Auto',
@@ -102,6 +104,8 @@
       'np.now': '\u0C07\u0C2A\u0C4D\u0C2A\u0C41\u0C21\u0C41',
       'np.next': '\u0C24\u0C30\u0C4D\u0C35\u0C3E\u0C24',
       'np.noSchedule': '\u0C36\u0C47\u0C26\u0C4D\u0C2F\u0C42\u0C32\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41',
+      'np.favorite': '\u0C2B\u0C47\u0C35\u0C30\u0C46\u0C1F\u0C4D',
+      'np.favorited': '\u0C2B\u0C47\u0C35\u0C30\u0C46\u0C1F\u0C4D \u0C1A\u0C47\u0C38\u0C3E\u0C30\u0C41',
       'theme.light': '\u0C32\u0C48\u0C1F\u0C4D',
       'theme.dark': '\u0C21\u0C3E\u0C30\u0C4D\u0C15\u0C4D',
       'theme.auto': '\u0C06\u0C1F\u0C4B',
@@ -175,6 +179,8 @@
       'np.now': '\u0905\u092D\u0940',
       'np.next': '\u0905\u0917\u0932\u093E',
       'np.noSchedule': '\u0936\u0947\u0921\u094D\u092F\u0942\u0932 \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948',
+      'np.favorite': '\u092A\u0938\u0902\u0926\u0940\u0926\u093E',
+      'np.favorited': '\u092A\u0938\u0902\u0926\u0940\u0926\u093E \u0939\u0948',
       'theme.light': '\u0932\u093E\u0907\u091F',
       'theme.dark': '\u0921\u093E\u0930\u094D\u0915',
       'theme.auto': '\u0911\u091F\u094B',
@@ -255,7 +261,7 @@
     volume: parseFloat(localStorage.getItem('openradio-volume') || '1'),
     muted: false,
     previousVolume: 1,
-    theme: localStorage.getItem('openradio-theme') || 'system',
+    theme: localStorage.getItem('openradio-theme') || 'dark',
     alarm: JSON.parse(localStorage.getItem('openradio-alarm') || 'null'),
     retryCount: 0,
     maxRetries: 3,
@@ -315,7 +321,7 @@
     nowPlayingMeta: document.getElementById('now-playing-meta'),
     nowPlayingTrack: document.getElementById('now-playing-track'),
     nowPlayingEpg: document.getElementById('now-playing-epg'),
-    npFavorite: document.getElementById('np-favorite'),
+    npFavoriteBtn: document.getElementById('np-favorite-btn'),
     npPrev: document.getElementById('np-prev'),
     npPlayToggle: document.getElementById('np-play-toggle'),
     npStopBtn: document.getElementById('np-stop'),
@@ -325,7 +331,6 @@
     shareBtn: document.getElementById('share-btn'),
     sleepTimerBtn: document.getElementById('sleep-timer-btn'),
     sleepTimerPicker: document.getElementById('sleep-timer-picker'),
-    themeToggle: document.getElementById('theme-toggle'),
     updateBanner: document.getElementById('update-banner'),
     updateBtn: document.getElementById('update-btn'),
     languageSelect: document.getElementById('language-select'),
@@ -404,15 +409,6 @@
     localStorage.setItem('openradio-theme', theme);
     const metaTheme = document.getElementById('theme-color');
     if (metaTheme) metaTheme.content = resolveTheme(theme) === 'light' ? '#f1f5f9' : '#0f172a';
-    renderThemeToggle();
-  }
-
-  function renderThemeToggle() {
-    elements.themeToggle.textContent = state.theme === 'light'
-      ? '\u{1F319} ' + t('theme.dark')
-      : state.theme === 'dark'
-        ? '\u2600\uFE0F ' + t('theme.light')
-        : '\u{1F319}/\u2600 ' + t('theme.auto');
   }
 
   function toggleTheme() {
@@ -609,7 +605,7 @@
       elements.nowPlayingPlaceholder.hidden = false;
       elements.nowPlayingTrack.hidden = true;
       elements.playerLogo.hidden = true;
-      if (elements.npFavorite) elements.npFavorite.hidden = true;
+      if (elements.npFavoriteBtn) elements.npFavoriteBtn.hidden = true;
       updateMediaSession();
       return;
     }
@@ -643,6 +639,33 @@
     updateNowPlayingFavorite();
     renderEpg();
     updateMediaSession();
+    refreshTitleMarquee();
+  }
+
+  function refreshTitleMarquee() {
+    const el = elements.playerTitle;
+    if (!el) return;
+    const inner = el.querySelector('.marquee-inner');
+    const plain = inner ? el.dataset.plain : el.textContent;
+    inner?.remove();
+    delete el.dataset.plain;
+    el.classList.remove('marquee');
+    el.textContent = plain;
+    if (el.scrollWidth > el.clientWidth + 1) {
+      el.dataset.plain = plain;
+      el.classList.add('marquee');
+      const inner = document.createElement('span');
+      inner.className = 'marquee-inner';
+      inner.setAttribute('aria-hidden', 'true');
+      inner.style.animationDuration = Math.max(8, Math.ceil(plain.length / 8)) + 's';
+      for (let i = 0; i < 2; i++) {
+        const seg = document.createElement('span');
+        seg.className = 'mq-seg';
+        seg.textContent = plain;
+        inner.appendChild(seg);
+      }
+      el.appendChild(inner);
+    }
   }
 
   /* ---------- Recent Stations ---------- */
@@ -1511,7 +1534,7 @@
   /* ---------- Now Playing Sheet ---------- */
 
   function updateNowPlayingFavorite() {
-    const btn = elements.npFavorite;
+    const btn = elements.npFavoriteBtn;
     if (!btn) return;
     const station = state.currentStation;
     if (!station) {
@@ -1521,7 +1544,7 @@
     btn.hidden = false;
     const fav = state.favorites.has(station.id);
     btn.classList.toggle('active', fav);
-    btn.innerHTML = fav ? '\u2665' : '\u2661';
+    btn.innerHTML = (fav ? '\u2665 ' : '\u2661 ') + (fav ? t('np.favorited') : t('np.favorite'));
     btn.setAttribute('aria-label', fav ? `Remove ${station.name} from favorites` : `Add ${station.name} to favorites`);
     btn.title = fav ? 'Remove from favorites' : 'Add to favorites';
   }
@@ -2082,7 +2105,7 @@
   elements.npPrev.addEventListener('click', () => playAdjacentStation(-1));
   elements.npNext.addEventListener('click', () => playAdjacentStation(1));
 
-  elements.npFavorite.addEventListener('click', (e) => {
+  elements.npFavoriteBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     const station = state.currentStation;
     if (!station) return;
@@ -2162,8 +2185,6 @@
     if (!btn) return;
     setSleepTimer(parseInt(btn.dataset.minutes, 10));
   });
-
-  elements.themeToggle.addEventListener('click', toggleTheme);
 
   elements.alarmBtn.addEventListener('click', () => {
     elements.alarmPicker.hidden = !elements.alarmPicker.hidden;
@@ -2282,6 +2303,12 @@
   });
   window.addEventListener('focus', resumeInterruptedPlayback);
   document.addEventListener('pageshow', resumeInterruptedPlayback);
+
+  let titleMarqueeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(titleMarqueeTimer);
+    titleMarqueeTimer = setTimeout(refreshTitleMarquee, 150);
+  });
 
   window.addEventListener('beforeinstallprompt', (event) => {
     event.preventDefault();
