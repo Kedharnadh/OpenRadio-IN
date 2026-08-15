@@ -93,6 +93,9 @@ async function handleMetadataRequest(streamUrl, metaUrl) {
     streamTitle: icy.streamTitle || status.streamTitle || '',
     art: status.art || '',
   };
+  if (status.title) result.title = status.title;
+  if (status.artist) result.artist = status.artist;
+  if (status.album) result.album = status.album;
   if (result.streamTitle || result.art) {
     return new Response(JSON.stringify(result), {
       headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
@@ -179,7 +182,13 @@ async function fetchStatusMetadata(metaUrl) {
     const song = json.now_playing.song;
     const streamTitle = String(song.text || song.title || '').trim();
     const art = /^https?:\/\//.test(String(song.art || '')) ? song.art : '';
-    return { streamTitle, art };
+    return {
+      streamTitle,
+      title: String(song.title || '').trim(),
+      artist: String(song.artist || '').trim(),
+      album: String(song.album || '').trim(),
+      art,
+    };
   }
 
   // Icecast status-json.xsl

@@ -247,6 +247,9 @@
     currentStation: null,
     playing: false,
     nowPlayingTrack: '',
+    nowPlayingTitle: '',
+    nowPlayingArtist: '',
+    nowPlayingAlbum: '',
     nowPlayingArt: '',
     currentSource: 'all',
     volume: parseFloat(localStorage.getItem('openradio-volume') || '1'),
@@ -477,12 +480,27 @@
       return;
     }
     const track = state.nowPlayingTrack;
+    const songTitle = state.nowPlayingTitle;
+    const songArtist = state.nowPlayingArtist;
+    const songAlbum = state.nowPlayingAlbum;
     const artSrc = state.nowPlayingArt || station.logo || '';
     const hit = getCurrentEpgProgram();
     const nowEpg = hit && hit.program ? hit.program.title : '';
+    let title, artist;
+    if (nowEpg) {
+      title = nowEpg;
+      artist = station.name;
+    } else if (songTitle || track) {
+      title = songTitle || track;
+      artist = songArtist || station.name;
+    } else {
+      title = station.name;
+      artist = station.language || 'OpenRadio-IN';
+    }
     navigator.mediaSession.metadata = new MediaMetadata({
-      title: nowEpg || track || station.name,
-      artist: nowEpg || track ? station.name : (station.language || 'OpenRadio-IN'),
+      title,
+      artist,
+      album: songAlbum || '',
       artwork: artSrc ? [{ src: artSrc, sizes: '512x512' }] : []
     });
     navigator.mediaSession.playbackState = state.playing ? 'playing' : (state.paused ? 'paused' : 'none');
@@ -1106,6 +1124,9 @@
     state.pendingAutoResume = false;
     state.resumeAttempts = 0;
     state.nowPlayingTrack = '';
+    state.nowPlayingTitle = '';
+    state.nowPlayingArtist = '';
+    state.nowPlayingAlbum = '';
     state.nowPlayingArt = '';
     elements.nowPlayingTrack.hidden = true;
     clearEpg();
@@ -1294,6 +1315,9 @@
     }
     state.playing = false;
     state.nowPlayingTrack = '';
+    state.nowPlayingTitle = '';
+    state.nowPlayingArtist = '';
+    state.nowPlayingAlbum = '';
     state.nowPlayingArt = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
@@ -1559,21 +1583,32 @@
       }
       const response = await fetch(`${HLS_PROXY_URL}${params}`, { signal: AbortSignal.timeout(5000) });
       const data = await response.json();
-      applyTrackMetadata(data.streamTitle || '', station, data.art || '');
+      applyTrackMetadata(data.streamTitle || '', station, data.art || '', {
+        title: data.title || '',
+        artist: data.artist || '',
+        album: data.album || '',
+      });
     } catch {}
   }
 
-  function applyTrackMetadata(title, station, metaArt) {
-    if (!title || title === state.nowPlayingTrack) return;
-    state.nowPlayingTrack = title;
-    elements.nowPlayingTrack.textContent = title;
+  function applyTrackMetadata(streamTitle, station, metaArt, structured) {
+    const songTitle = (structured && structured.title) || streamTitle;
+    const songArtist = (structured && structured.artist) || '';
+    const songAlbum = (structured && structured.album) || '';
+    const display = [songTitle, songArtist, songAlbum].filter(Boolean).join(' - ');
+    if (!display || display === state.nowPlayingTrack) return;
+    state.nowPlayingTrack = display;
+    state.nowPlayingTitle = songTitle;
+    state.nowPlayingArtist = songArtist;
+    state.nowPlayingAlbum = songAlbum;
+    elements.nowPlayingTrack.textContent = display;
     elements.nowPlayingTrack.hidden = false;
     updateMediaSession();
     if (metaArt) {
-      setCachedArtwork(title.toLowerCase().trim(), metaArt);
-      applyArtworkIfCurrent(title, metaArt);
+      setCachedArtwork(display.toLowerCase().trim(), metaArt);
+      applyArtworkIfCurrent(display, metaArt);
     } else {
-      lookupArtwork(title, station);
+      lookupArtwork(display, station, songTitle, songArtist);
     }
   }
 
@@ -1604,7 +1639,7 @@
     } catch {}
   }
 
-  async function lookupArtwork(title, station) {
+  async function lookupArtwork(title, station, songTitle, songArtist) {
     const key = (title || '').toLowerCase().trim();
     if (!key) return;
     const cached = getCachedArtwork(key);
@@ -1612,7 +1647,7 @@
       applyArtworkIfCurrent(title, cached);
       return;
     }
-    const [artist, track] = splitArtistTrack(title);
+    const [artist, track] = songTitle ? [songArtist || '', songTitle] : splitArtistTrack(title);
     const term = [artist, track].filter(Boolean).join(' ');
     let art = '';
     try {
@@ -2093,6 +2128,9 @@
     state.playing = false;
     state.paused = false;
     state.nowPlayingTrack = '';
+    state.nowPlayingTitle = '';
+    state.nowPlayingArtist = '';
+    state.nowPlayingAlbum = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
     setStatus(t('status.ended'));
@@ -2110,6 +2148,9 @@
     state.paused = false;
     state.pendingAutoResume = false;
     state.nowPlayingTrack = '';
+    state.nowPlayingTitle = '';
+    state.nowPlayingArtist = '';
+    state.nowPlayingAlbum = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
     if (state.currentStation && !state.userInitiatedStop && !advanceStream()) {
