@@ -93,8 +93,27 @@ select:focus {
   border-color: var(--accent);
 }
 
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
 .ui-lang {
-  display: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ui-lang select {
+  padding: 6px 10px;
+  font-size: 0.86rem;
+  height: 30px;
+  line-height: 1.2;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  cursor: pointer;
 }
 
 .lang-filter {
@@ -547,12 +566,13 @@ input[type="range"]::-moz-range-thumb {
   max-width: 480px;
   width: 100%;
   padding: 24px;
+  height: 600px;
+  max-height: 85vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   animation: slideUp 250ms ease;
-  max-height: 85vh;
   overflow-y: auto;
 }
 
