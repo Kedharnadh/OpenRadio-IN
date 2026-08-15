@@ -242,6 +242,13 @@
     return text;
   }
 
+  function localizedName(station) {
+    if (!station) return '';
+    if (uiLang === 'te' && station.name_te) return station.name_te;
+    if (uiLang === 'hi' && station.name_hi) return station.name_hi;
+    return station.name;
+  }
+
   const state = {
     stations: [],
     filteredStations: [],
@@ -487,12 +494,12 @@
     let title, artist;
     if (nowEpg) {
       title = nowEpg;
-      artist = station.name;
+      artist = localizedName(station);
     } else if (songTitle || track) {
       title = songTitle || track;
-      artist = songArtist || station.name;
+      artist = songArtist || localizedName(station);
     } else {
-      title = station.name;
+      title = localizedName(station);
       artist = station.language || 'OpenRadio-IN';
     }
     navigator.mediaSession.metadata = new MediaMetadata({
@@ -612,13 +619,13 @@
 
     const destination = isCasting() ? t('status.casting') : (station.streams?.[0]?.codec || t('player.stream'));
     const languageLabel = station.language || t('player.unknownLanguage');
-    elements.playerTitle.textContent = station.name;
+    elements.playerTitle.textContent = localizedName(station);
     elements.playerMeta.textContent = `${languageLabel} \u2022 ${destination}`;
     elements.prevBtn.disabled = !hasMultiple;
     elements.nextBtn.disabled = !hasMultiple;
     elements.npPrev.disabled = !hasMultiple;
     elements.npNext.disabled = !hasMultiple;
-    elements.nowPlayingTitle.textContent = station.name;
+    elements.nowPlayingTitle.textContent = localizedName(station);
     elements.nowPlayingMeta.textContent = `${languageLabel} \u2022 ${destination}`;
     renderNowPlayingArt();
     if (state.nowPlayingTrack) {
@@ -699,7 +706,7 @@
     const initials = (station.name.match(/\b\w/g) || []).slice(0, 2).join('').toUpperCase() || station.name[0] || '?';
     const thumb = makeElement('img', 'station-thumb');
     thumb.loading = 'lazy';
-    thumb.alt = station.name;
+    thumb.alt = localizedName(station);
     thumb.dataset.fallback = initials;
     const thumbFallback = makeElement('span', 'station-thumb-fallback', initials);
     if (station.logo) {
@@ -712,7 +719,7 @@
 
     const titleBlock = document.createElement('div');
     titleBlock.className = 'station-card__title';
-    titleBlock.append(makeElement('h3', '', station.name), makeElement('p', '', stationTags(station)));
+    titleBlock.append(makeElement('h3', '', localizedName(station)), makeElement('p', '', stationTags(station)));
 
     const status = station.status || 'unknown';
     const dot = makeElement('span', `status-dot status-dot--${status}`, '');
@@ -723,7 +730,7 @@
     favorite.type = 'button';
     favorite.dataset.action = 'favorite';
     favorite.dataset.id = station.id;
-    favorite.setAttribute('aria-label', `Favorite ${station.name}`);
+    favorite.setAttribute('aria-label', `Favorite ${localizedName(station)}`);
     top.append(thumb, thumbFallback, titleBlock, dot, favorite);
 
     const badges = makeElement('div', 'station-badges');
@@ -947,7 +954,7 @@
       media.streamType = chrome.cast.media.StreamType.LIVE;
       if (candidate.hlsSegmentFormat) media.hlsSegmentFormat = candidate.hlsSegmentFormat;
       media.metadata = new chrome.cast.media.MusicTrackMediaMetadata();
-      media.metadata.title = station.name;
+      media.metadata.title = localizedName(station);
       media.metadata.artist = station.language || 'OpenRadio-IN';
       if (station.logo) media.metadata.images = [new chrome.cast.Image(station.logo)];
       await session.loadMedia(new chrome.cast.media.LoadRequest(media));
@@ -964,7 +971,7 @@
         try { sessionStorage.setItem('openradio-cast-station', station.id); } catch {}
         startMetadataPolling(stream.url, station);
         startCastSync();
-        setStatus(t('status.playingCast', { name: station.name }));
+        setStatus(t('status.playingCast', { name: localizedName(station) }));
         updatePlayer();
         renderStationLists();
         return;
@@ -1278,7 +1285,7 @@
       state.streamSwitching = false;
       started = true;
       state.playing = true;
-      setStatus(t('status.playing', { name: station.name }));
+      setStatus(t('status.playing', { name: localizedName(station) }));
       localStorage.setItem('openradio-last-station', station.id);
       addRecentStation(station);
       startMetadataPolling(stream.url, station);
@@ -1294,7 +1301,7 @@
       if (state.playGeneration !== generation || state.userInitiatedStop) return;
       state.streamSwitching = false;
       state.playing = true;
-      setStatus(t('status.playing', { name: station.name }));
+      setStatus(t('status.playing', { name: localizedName(station) }));
       localStorage.setItem('openradio-last-station', station.id);
       addRecentStation(station);
       startMetadataPolling(stream.url, station);
@@ -1545,7 +1552,7 @@
     const fav = state.favorites.has(station.id);
     btn.classList.toggle('active', fav);
     btn.innerHTML = (fav ? '\u2665 ' : '\u2661 ') + (fav ? t('np.favorited') : t('np.favorite'));
-    btn.setAttribute('aria-label', fav ? `Remove ${station.name} from favorites` : `Add ${station.name} to favorites`);
+    btn.setAttribute('aria-label', fav ? `Remove ${localizedName(station)} from favorites` : `Add ${localizedName(station)} to favorites`);
     btn.title = fav ? 'Remove from favorites' : 'Add to favorites';
   }
 
@@ -1627,8 +1634,8 @@
     const station = state.currentStation;
     if (!station) return;
     const shareData = {
-      title: station.name,
-      text: t('share.text', { name: station.name }),
+      title: localizedName(station),
+      text: t('share.text', { name: localizedName(station) }),
       url: `${window.location.origin}${window.location.pathname}?station=${station.id}`
     };
     if (navigator.share) {
@@ -1988,7 +1995,7 @@
 
   function populateAlarmStations() {
     const options = state.stations.map((station) => {
-      const option = makeElement('option', '', station.name);
+      const option = makeElement('option', '', localizedName(station));
       option.value = station.id;
       return option;
     });
@@ -2044,7 +2051,7 @@
     localStorage.removeItem('openradio-alarm');
     renderAlarmStatus();
     if (station) {
-      playStation(station).then(() => setStatus(t('alarm.fired', { name: station.name })));
+      playStation(station).then(() => setStatus(t('alarm.fired', { name: localizedName(station) })));
     }
   }
 
@@ -2056,7 +2063,6 @@
     elements.uiLang.value = uiLang;
     document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
     document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => { el.placeholder = t(el.dataset.i18nPlaceholder); });
-    renderThemeToggle();
     applyFilters();
     updatePlayer();
     renderAlarmStatus();
