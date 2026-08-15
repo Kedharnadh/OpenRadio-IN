@@ -754,7 +754,7 @@
   function renderFilters() {
     const categories = ['all', ...new Set(state.stations.flatMap((station) => station.categories || []))]
       .filter(Boolean)
-      .filter((category) => String(category).toLowerCase() !== 'all')
+      .filter((category) => category === 'all' || String(category).toLowerCase() !== 'all')
       .sort((first, second) => String(first).localeCompare(String(second)));
     const availableCategories = new Set(categories.map((category) => String(category).toLowerCase()));
     availableCategories.add('all');
