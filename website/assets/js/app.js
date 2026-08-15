@@ -1529,6 +1529,12 @@
   function openNowPlaying() {
     elements.nowPlaying.hidden = false;
     document.body.style.overflow = 'hidden';
+    const sheet = elements.nowPlaying.querySelector('.now-playing-sheet');
+    if (sheet) {
+      sheet.style.transform = '';
+      sheet.style.transition = '';
+    }
+    elements.nowPlayingBackdrop.style.opacity = '';
     updateNowPlayingFavorite();
     renderEpg();
   }
@@ -1779,6 +1785,15 @@
     return null;
   }
 
+  const EPG_NOW_TITLE_MAX = 60;
+  const EPG_NEXT_TITLE_MAX = 60;
+
+  function truncateEpgTitle(title, maxLength) {
+    const text = String(title || '').trim();
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength - 1).trimEnd() + '\u2026';
+  }
+
   function renderEpg() {
     if (!elements.nowPlayingEpg) return;
     const hit = getCurrentEpgProgram();
@@ -1793,14 +1808,14 @@
     const rows = [];
 
     const nowRow = makeElement('div', 'epg-row epg-now');
-    nowRow.append(makeElement('span', 'epg-label', t('np.now')), document.createTextNode(`  ${current.title}`));
+    nowRow.append(makeElement('span', 'epg-label', t('np.now')), document.createTextNode(`  ${truncateEpgTitle(current.title, EPG_NOW_TITLE_MAX)}`));
     rows.push(nowRow);
 
     if (next && parseEpgTime(next.start) !== null) {
       const nextRow = makeElement('div', 'epg-row epg-next');
       nextRow.append(makeElement('span', 'epg-label', t('np.next')), document.createTextNode(' '));
       nextRow.append(makeElement('span', 'epg-time', next.start));
-      nextRow.append(document.createTextNode(`  ${next.title}`));
+      nextRow.append(document.createTextNode(`  ${truncateEpgTitle(next.title, EPG_NEXT_TITLE_MAX)}`));
       rows.push(nextRow);
     }
 
@@ -2091,6 +2106,46 @@
   });
   elements.nowPlayingBackdrop.addEventListener('click', closeNowPlaying);
   elements.nowPlayingClose.addEventListener('click', closeNowPlaying);
+
+  // Swipe down to dismiss the now-playing sheet (touch only, when scrolled to top).
+  {
+    const sheet = elements.nowPlaying.querySelector('.now-playing-sheet');
+    const backdrop = elements.nowPlayingBackdrop;
+    let dragStartY = 0;
+    let dragging = false;
+    sheet.addEventListener('touchstart', (e) => {
+      if (sheet.scrollTop > 0) return;
+      dragStartY = e.touches[0].clientY;
+      dragging = true;
+      sheet.style.transition = 'none';
+    }, { passive: true });
+    sheet.addEventListener('touchmove', (e) => {
+      if (!dragging) return;
+      const dy = e.touches[0].clientY - dragStartY;
+      if (dy <= 0) return;
+      e.preventDefault();
+      sheet.style.transform = `translateY(${dy}px)`;
+      backdrop.style.opacity = String(Math.max(0, 1 - dy / 300));
+    }, { passive: false });
+    sheet.addEventListener('touchend', (e) => {
+      if (!dragging) return;
+      dragging = false;
+      const dy = e.changedTouches[0].clientY - dragStartY;
+      sheet.style.transition = 'transform 220ms ease, opacity 220ms ease';
+      if (dy > 120) {
+        sheet.style.transform = `translateY(${Math.max(dy, sheet.offsetHeight)}px)`;
+        backdrop.style.opacity = '0';
+        setTimeout(() => {
+          sheet.style.transform = '';
+          backdrop.style.opacity = '';
+          closeNowPlaying();
+        }, 220);
+      } else {
+        sheet.style.transform = '';
+        backdrop.style.opacity = '';
+      }
+    });
+  }
 
   elements.volumeSlider.addEventListener('input', (e) => { state.muted = false; applyVolume(parseFloat(e.target.value)); updateVolumeIcon(); });
   elements.npVolumeSlider.addEventListener('input', (e) => { state.muted = false; applyVolume(parseFloat(e.target.value)); updateVolumeIcon(); });

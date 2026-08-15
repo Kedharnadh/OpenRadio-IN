@@ -112,23 +112,26 @@
     <div id="now-playing" class="now-playing-overlay" hidden>
       <div class="now-playing-backdrop" id="now-playing-backdrop"></div>
       <div class="now-playing-sheet">
+        <div class="np-grab-handle" aria-hidden="true"></div>
         <div class="now-playing-header">
           <strong data-i18n="np.title">Now Playing</strong>
           <button id="now-playing-close" class="icon-btn close-btn" aria-label="Close">&#x2715;</button>
         </div>
-        <div class="now-playing-art">
-          <img id="now-playing-logo" src="" alt="" hidden />
-          <span id="now-playing-placeholder" class="now-playing-placeholder">&#x1F4FB;</span>
-        </div>
-        <div class="np-info-row">
-          <div class="np-info-text">
-            <strong id="now-playing-title" class="now-playing-title" data-i18n="player.defaultTitle">Choose a station</strong>
-            <span id="now-playing-meta" class="now-playing-meta"></span>
-            <span id="now-playing-track" class="now-playing-track" hidden></span>
+        <div class="np-main">
+          <div class="now-playing-art">
+            <img id="now-playing-logo" src="" alt="" hidden />
+            <span id="now-playing-placeholder" class="now-playing-placeholder">&#x1F4FB;</span>
           </div>
-          <button id="np-favorite" class="icon-btn np-fav-btn" title="Add to favorites" aria-label="Add to favorites" hidden>&#x2661;</button>
+          <div class="np-info-row">
+            <div class="np-info-text">
+              <strong id="now-playing-title" class="now-playing-title" data-i18n="player.defaultTitle">Choose a station</strong>
+              <span id="now-playing-meta" class="now-playing-meta"></span>
+              <span id="now-playing-track" class="now-playing-track" hidden></span>
+            </div>
+            <button id="np-favorite" class="icon-btn np-fav-btn" title="Add to favorites" aria-label="Add to favorites" hidden>&#x2661;</button>
+          </div>
+          <div id="now-playing-epg" class="now-playing-epg" hidden></div>
         </div>
-        <div id="now-playing-epg" class="now-playing-epg" hidden></div>
         <div class="now-playing-controls">
           <button id="np-prev" class="icon-btn" title="Previous">&nbsp;&#x23EE;&nbsp;</button>
           <button id="np-play-toggle" class="primary-btn">&#x25B6; Play</button>
