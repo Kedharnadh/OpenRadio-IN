@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">OpenRadio-IN</string>
+    <string name="search_hint">Search stations, cities, languages…</string>
+    <string name="language">Language</string>
+    <string name="all_languages">All languages</string>
+    <string name="favorites">Favorites</string>
+    <string name="favorite">Favorite</string>
+    <string name="no_favorites_hint">No favorites yet — tap the heart on a station to add it.</string>
+    <string name="recently_played">Recently played</string>
+    <string name="no_station">No station selected</string>
+    <string name="select_station">Select a station to listen</string>
+    <string name="live_radio">Live radio</string>
+    <string name="buffering">Buffering…</string>
+    <string name="paused">Paused</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="mute">Mute</string>
+    <string name="cast">Cast</string>
+    <string name="sleep_timer">Sleep timer</string>
+    <string name="sleep_minutes">%1$d minutes</string>
+    <string name="cancel_sleep_timer">Cancel sleep timer</string>
+    <string name="alarm">Alarm</string>
+    <string name="alarm_set">Alarm set — the station will start playing at the chosen time.</string>
+    <string name="share">Share</string>
+    <string name="epg_schedule">Today\'s schedule</string>
+</resources>

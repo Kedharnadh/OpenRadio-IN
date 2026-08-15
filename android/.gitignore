@@ -1,0 +1,23 @@
+# Gradle
+.gradle/
+build/
+
+# Kotlin
+.kotlin/
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Local config (machine-specific paths)
+local.properties
+
+# Build logs
+*.log
+
+# Signing (never commit keystores or credentials)
+keystore.properties
+keystore/
