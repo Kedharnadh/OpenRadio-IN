@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Radio glyph: antenna mast with broadcast arcs, kept inside the adaptive-icon safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Antenna mast -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,78 L54,30" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,28 L58,28 L56,22 L52,22 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M44,82 L64,82 L62,78 L46,78 Z" />
+    <!-- Broadcast arcs -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M36,46 a6,6 0 0 0 0,12"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="4" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M30,40 a12,12 0 0 0 0,24"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="4" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M24,34 a18,18 0 0 0 0,36"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="4" />
+</vector>
