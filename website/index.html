@@ -38,19 +38,21 @@
           <p class="eyebrow" data-i18n="app.eyebrow">Community radio &bull; PWA</p>
           <h1>OpenRadio-IN <google-cast-launcher id="cast-button" aria-label="Cast radio to a Google Cast device"></google-cast-launcher></h1>
           <p class="hero-copy" data-i18n="app.tagline">Discover and play Indian online radio stations with instant search, filters, and a polished app-style experience.</p>
-          <span id="status-pill" class="status-pill" data-i18n="status.loading">Preparing</span>
+          <div class="hero-meta">
+            <span id="status-pill" class="status-pill" data-i18n="status.loading">Preparing</span>
+            <label class="ui-lang" for="ui-lang">
+              <select id="ui-lang">
+                <option value="en">English</option>
+                <option value="te">&#x0C24;&#x0C46;&#x0C32;&#x0C41;&#x0C17;&#x0C41;</option>
+                <option value="hi">&#x0939;&#x093F;&#x0928;&#x094D;&#x0926;&#x0940;</option>
+              </select>
+            </label>
+          </div>
         </div>
         <div class="hero-side">
           <label class="search-box" for="search">
             <span aria-hidden="true">&#x1F50E;</span>
             <input id="search" type="search" placeholder="Search stations, language, or category" data-i18n-placeholder="search.placeholder" />
-          </label>
-          <label class="ui-lang" for="ui-lang">
-            <select id="ui-lang">
-              <option value="en">English</option>
-              <option value="te">&#x0C24;&#x0C46;&#x0C32;&#x0C41;&#x0C17;&#x0C41;</option>
-              <option value="hi">&#x0939;&#x093F;&#x0928;&#x094D;&#x0926;&#x0940;</option>
-            </select>
           </label>
           <button id="install-app" class="secondary-btn" type="button" hidden data-i18n="install">Install app</button>
         </div>
