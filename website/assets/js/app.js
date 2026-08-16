@@ -85,6 +85,8 @@
       'np.favorite.title': 'Add to favorites',
       'np.alarm.title': 'Alarm',
       'player.open': 'Open now playing view',
+      'hint.tapFooter': 'Tap the player bar below to open Now Playing',
+      'hint.dismiss': 'Dismiss',
       'cast.launch': 'Cast radio to a Google Cast device',
       'filters.categories': 'Station categories',
       'filter.byLanguage': 'Filter by language',
@@ -175,6 +177,8 @@
       'np.favorite.title': '\u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
       'np.alarm.title': '\u0C05\u0C32\u0C3E\u0C30\u0C02',
       'player.open': '\u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24\u0C02 \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C41\u0C28\u0C4D\u0C28 \u0C35\u0C40\u0C15\u0C4D\u0C37\u0C23 \u0C24\u0C46\u0C30\u0C35\u0C02\u0C21\u0C3F',
+      'hint.tapFooter': '\u004E\u006F\u0077\u0020\u0050\u006C\u0061\u0079\u0069\u006E\u0067\u0020\u0C24\u0C46\u0C30\u0C35\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F\u0020\u0C15\u0C4D\u0C30\u0C3F\u0C02\u0C26\u0C3F\u0020\u0C2A\u0C4D\u0C32\u0C47\u0C2F\u0C30\u0C4D\u0020\u0C2C\u0C3E\u0C30\u0C4D\u0020\u0C28\u0C41\u0020\u0C28\u0C4A\u0C15\u0C4D\u0C15\u0C02\u0C21\u0C3F',
+      'hint.dismiss': '\u0C38\u0C42\u0C1A\u0C28\u0C28\u0C41\u0020\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F',
       'cast.launch': 'Google Cast \u0C2A\u0C30\u0C3F\u0C15\u0C30\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
       'filters.categories': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C35\u0C30\u0C4D\u0C17\u0C3E\u0C32\u0C41',
       'filter.byLanguage': '\u0C2D\u0C3E\u0C37 \u0C26\u0C4D\u0C35\u0C3E\u0C30\u0C3E \u0C2B\u0C3F\u0C32\u0C4D\u0C1F\u0C30\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
@@ -305,6 +309,8 @@
       'np.favorite.title': '\u092A\u0938\u0902\u0926\u0940\u0926\u093E \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u0947\u0902',
       'np.alarm.title': '\u0905\u0932\u093E\u0930\u094D\u092E',
       'player.open': '\u0905\u092D\u0940 \u091A\u0932 \u0930\u0939\u093E \u0926\u0943\u0936\u094D\u092F \u0916\u094B\u0932\u0947\u0902',
+      'hint.tapFooter': '\u004E\u006F\u0077\u0020\u0050\u006C\u0061\u0079\u0069\u006E\u0067\u0020\u0916\u094B\u0932\u0928\u0947\u0020\u0915\u0947\u0020\u0932\u093F\u090F\u0020\u0928\u0940\u091A\u0947\u0020\u092A\u094D\u0932\u0947\u092F\u0930\u0020\u092C\u093E\u0930\u0020\u092A\u0930\u0020\u091F\u0948\u092A\u0020\u0915\u0930\u0947\u0902',
+      'hint.dismiss': '\u0938\u0902\u0915\u0947\u0924\u0020\u092C\u0902\u0926\u0020\u0915\u0930\u0947\u0902',
       'cast.launch': 'Google Cast \u0921\u093F\u0935\u093E\u0907\u0938 \u092A\u0930 \u0930\u0947\u0921\u093F\u092F\u094B \u0915\u093E\u0938\u094D\u091F \u0915\u0930\u0947\u0902',
       'filters.categories': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0936\u094D\u0930\u0947\u0923\u093F\u092F\u093E\u0901',
       'filter.byLanguage': '\u092D\u093E\u0937\u093E \u0915\u0947 \u0905\u0928\u0941\u0938\u093E\u0930 \u092B\u093C\u093F\u0932\u094D\u091F\u0930 \u0915\u0930\u0947\u0902',
@@ -483,7 +489,9 @@
     alarmStationSelect: document.getElementById('alarm-station-select'),
     alarmSet: document.getElementById('alarm-set'),
     alarmOff: document.getElementById('alarm-off'),
-    alarmStatus: document.getElementById('alarm-status')
+    alarmStatus: document.getElementById('alarm-status'),
+    firstHint: document.getElementById('first-hint'),
+    firstHintDismiss: document.getElementById('first-hint-dismiss')
   };
   let installPrompt;
   let castContext;
@@ -1729,6 +1737,33 @@
     document.body.style.overflow = '';
   }
 
+  /* ---------- First-Time Hint ---------- */
+
+  function positionFirstHint() {
+    const hint = elements.firstHint;
+    const bar = elements.playerBar;
+    if (!hint || hint.hidden || !bar) return;
+    const rect = bar.getBoundingClientRect();
+    hint.style.bottom = `${Math.max(8, window.innerHeight - rect.top + 10)}px`;
+  }
+
+  function dismissFirstHint() {
+    if (!elements.firstHint || elements.firstHint.hidden) return;
+    elements.firstHint.hidden = true;
+    try { localStorage.setItem('openradio-hint-dismissed', '1'); } catch {}
+  }
+
+  function maybeShowFirstHint() {
+    if (!elements.firstHint) return;
+    try {
+      if (localStorage.getItem('openradio-hint-dismissed')) return;
+    } catch {}
+    elements.firstHint.hidden = false;
+    positionFirstHint();
+    setTimeout(positionFirstHint, 100);
+    setTimeout(positionFirstHint, 600);
+  }
+
   /* ---------- Sleep Timer ---------- */
 
   function formatSleepTimerRemaining(ms) {
@@ -2296,7 +2331,13 @@
 
   elements.playerBar.addEventListener('click', (e) => {
     if (e.target.closest('button') || e.target.closest('input')) return;
+    dismissFirstHint();
     openNowPlaying();
+  });
+  elements.firstHintDismiss.addEventListener('click', dismissFirstHint);
+  elements.firstHint.addEventListener('click', (e) => {
+    if (e.target === elements.firstHintDismiss) return;
+    dismissFirstHint();
   });
   elements.nowPlayingBackdrop.addEventListener('click', closeNowPlaying);
   elements.nowPlayingClose.addEventListener('click', closeNowPlaying);
@@ -2479,6 +2520,7 @@
   window.addEventListener('resize', () => {
     clearTimeout(titleMarqueeTimer);
     titleMarqueeTimer = setTimeout(refreshTitleMarquee, 150);
+    positionFirstHint();
   });
 
   window.addEventListener('beforeinstallprompt', (event) => {
@@ -2519,5 +2561,6 @@
     });
   }
 
+  setTimeout(maybeShowFirstHint, 800);
   loadStations();
 })();

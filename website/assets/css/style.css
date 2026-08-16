@@ -539,6 +539,71 @@ input[type="range"]::-moz-range-thumb {
   text-align: center;
 }
 
+/* first-time player bar hint */
+
+.first-hint {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100px;
+  z-index: 90;
+  background: var(--panel-2);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  font-size: 0.9rem;
+  max-width: min(440px, calc(100vw - 32px));
+  animation: hint-pop 400ms ease;
+}
+
+.first-hint::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--accent);
+}
+
+.first-hint__text {
+  min-width: 0;
+}
+
+.first-hint__close {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 4px;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
+.first-hint__close:hover {
+  color: var(--text);
+  background: rgba(148, 163, 184, 0.15);
+}
+
+@keyframes hint-pop {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
 /* now-playing overlay */
 
 .now-playing-overlay {
@@ -563,15 +628,26 @@ input[type="range"]::-moz-range-thumb {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 24px 24px 0 0;
-  max-width: 480px;
+  max-width: 780px;
   width: 100%;
   padding: 24px;
-  height: 600px;
+  height: auto;
+  min-height: min(520px, 85vh);
   max-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-rows: auto auto auto auto auto auto auto;
+  grid-template-areas:
+    "header   header"
+    "main     controls"
+    "main     volume"
+    "main     actions"
+    "main     timers"
+    "main     alarm"
+    "main     astatus";
+  column-gap: 32px;
+  row-gap: 14px;
+  align-content: safe center;
   animation: slideUp 250ms ease;
   overflow-y: auto;
 }
@@ -586,6 +662,7 @@ input[type="range"]::-moz-range-thumb {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  grid-area: header;
 }
 
 .close-btn {
@@ -594,8 +671,8 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .now-playing-art {
-  width: 220px;
-  height: 220px;
+  width: 250px;
+  height: 250px;
   border-radius: 24px;
   overflow: hidden;
   background: var(--panel-2);
@@ -675,6 +752,7 @@ input[type="range"]::-moz-range-thumb {
   gap: 14px;
   min-height: 0;
   width: 100%;
+  grid-area: main;
 }
 
 .now-playing-epg {
@@ -736,6 +814,7 @@ input[type="range"]::-moz-range-thumb {
   justify-content: center;
   gap: 20px;
   width: 100%;
+  grid-area: controls;
 }
 
 .now-playing-controls .icon-btn {
@@ -756,6 +835,7 @@ input[type="range"]::-moz-range-thumb {
   gap: 12px;
   width: 100%;
   max-width: 100%;
+  grid-area: volume;
 }
 
 .now-playing-volume .icon-btn {
@@ -776,6 +856,7 @@ input[type="range"]::-moz-range-thumb {
   gap: 8px;
   justify-content: center;
   width: 100%;
+  grid-area: actions;
 }
 
 .now-playing-actions .secondary-btn {
@@ -795,6 +876,7 @@ input[type="range"]::-moz-range-thumb {
   gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
+  grid-area: timers;
 }
 
 .sleep-timer-picker .secondary-btn {
@@ -805,6 +887,7 @@ input[type="range"]::-moz-range-thumb {
   color: var(--accent);
   font-size: 0.85rem;
   text-align: center;
+  grid-area: astatus;
 }
 
 .alarm-picker {
@@ -817,6 +900,8 @@ input[type="range"]::-moz-range-thumb {
   border-top: 1px solid var(--border);
   width: 100%;
   max-width: 360px;
+  grid-area: alarm;
+  justify-self: center;
 }
 
 .alarm-picker label {
@@ -975,6 +1060,10 @@ input[type="range"]::-moz-range-thumb {
     border: 0;
     padding-top: calc(10px + env(safe-area-inset-top, 0px));
     padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-template-areas: none;
   }
 
   .now-playing-overlay {
@@ -1019,6 +1108,62 @@ input[type="range"]::-moz-range-thumb {
   .sleep-timer-picker .secondary-btn {
     font-size: 0.78rem;
     padding: 6px 8px;
+  }
+}
+
+@media (max-height: 520px) and (min-width: 481px) {
+  .now-playing-overlay {
+    align-items: center;
+  }
+
+  .now-playing-sheet {
+    border-radius: 20px;
+    max-width: min(780px, calc(100vw - 24px));
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: calc(100dvh - 16px);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-rows: auto auto auto auto auto auto auto;
+    grid-template-areas:
+      "header   header"
+      "main     controls"
+      "main     volume"
+      "main     actions"
+      "main     timers"
+      "main     alarm"
+      "main     astatus";
+    column-gap: 20px;
+    row-gap: 10px;
+    align-content: safe center;
+  }
+
+  .np-grab-handle {
+    display: none;
+  }
+
+  .now-playing-art {
+    width: min(32vh, 170px);
+    height: min(32vh, 170px);
+    border-radius: 18px;
+  }
+
+  .now-playing-controls .icon-btn {
+    width: 46px;
+    height: 46px;
+    font-size: 1.15rem;
+  }
+
+  .now-playing-controls .primary-btn {
+    padding: 10px 22px;
+  }
+
+  .now-playing-actions .secondary-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
   }
 }
 
