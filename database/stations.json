@@ -7573,6 +7573,7 @@
     "genre": [],
     "homepage": "https://www.virijallu.com/",
     "logo": "https://static2.mytuner.mobi/media/tvos_radios/fcrx3rsxrgxd.png",
+    "song_first": true,
     "streams": [
       {
             "url": "https://samcloud.spacial.com/api/listen?sid=84033&m=sc&rid=156932&t=ssl",
