@@ -1126,28 +1126,34 @@ input[type="range"]::-moz-range-thumb {
     border: 1px solid var(--border);
     padding: 16px 20px;
     display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows: auto auto auto auto auto auto auto;
     grid-template-areas:
       "header   header"
       "main     controls"
-      "main     volume"
-      "main     actions"
-      "main     timers"
-      "main     alarm"
-      "main     astatus";
+      "volume   volume"
+      "actions  actions"
+      "timers   timers"
+      "alarm    alarm"
+      "astatus  astatus";
     column-gap: 20px;
-    row-gap: 10px;
+    row-gap: 8px;
     align-content: safe center;
+    align-items: center;
   }
 
   .np-grab-handle {
     display: none;
   }
 
+  .np-main {
+    justify-content: center;
+    gap: 10px;
+  }
+
   .now-playing-art {
-    width: min(32vh, 170px);
-    height: min(32vh, 170px);
+    width: min(30vh, 160px);
+    height: min(30vh, 160px);
     border-radius: 18px;
   }
 
@@ -1164,6 +1170,26 @@ input[type="range"]::-moz-range-thumb {
   .now-playing-actions .secondary-btn {
     padding: 8px 12px;
     font-size: 0.85rem;
+  }
+
+  .now-playing-volume {
+    justify-self: center;
+    max-width: 420px;
+  }
+
+  .now-playing-actions {
+    justify-self: center;
+    max-width: 600px;
+  }
+
+  .now-playing-actions .secondary-btn {
+    flex: 0 1 auto;
+  }
+
+  .sleep-timer-picker,
+  .alarm-picker,
+  .sleep-timer-status {
+    justify-self: center;
   }
 }
 

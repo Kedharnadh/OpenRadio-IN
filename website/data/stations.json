@@ -7842,5 +7842,167 @@
     ],
     "verified": false,
     "last_checked": null
+  },
+  {
+    "id": "radio_kokila",
+    "name": "Radio Kokila",
+    "name_te": "రేడియో కోకిల",
+    "name_hi": "रेडियो कोकिला",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "https://teluguradios.com/",
+    "logo": "https://admin.teluguradios.com/uploads/radios/radio_16688_1781028160.webp",
+    "streams": [
+      {
+        "url": "https://radio.sodhini.com:8000/radio.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": "2026-08-16T00:00:00+00:00",
+    "status": "online"
+  },
+  {
+    "id": "austin_telugu_radio",
+    "name": "Austin Telugu Radio",
+    "name_te": "ఆస్టిన్ తెలుగు రేడియో",
+    "name_hi": "ऑस्टिन तेलुगु रेडियो",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "https://teluguradios.com/",
+    "logo": "https://admin.teluguradios.com/uploads/radios/radio_93339_1785003639.webp",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/gjwvfftymtftv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": "2026-08-16T00:00:00+00:00",
+    "status": "online"
+  },
+  {
+    "id": "kushi_fm",
+    "name": "Kushi FM",
+    "name_te": "కుషి ఎఫ్ఎమ్",
+    "name_hi": "कुशी एफएम",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "https://teluguradios.com/",
+    "logo": "https://admin.teluguradios.com/uploads/radios/radio_33925_1781374770.webp",
+    "streams": [
+      {
+        "url": "https://fm.thamizhinifm.com/listen/kushifm/radio.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": "2026-08-16T00:00:00+00:00",
+    "status": "online"
+  },
+  {
+    "id": "spb_hits",
+    "name": "SPB Hits",
+    "name_te": "ఎస్పీబీ హిట్స్",
+    "name_hi": "एसपीबी हिट्स",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "https://teluguradios.com/",
+    "logo": "https://admin.teluguradios.com/uploads/radios/radio_30498_spb.webp",
+    "streams": [
+      {
+        "url": "http://cast6.my-control-panel.com:9295/live",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": "2026-08-16T00:00:00+00:00",
+    "status": "online"
+  },
+  {
+    "id": "ghantasala_hits",
+    "name": "Ghantasala Hits",
+    "name_te": "ఘంటసాల హిట్స్",
+    "name_hi": "घंटसाला हिट्स",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "https://teluguradios.com/",
+    "logo": "https://admin.teluguradios.com/uploads/radios/radio_75332_ghantasala.webp",
+    "streams": [
+      {
+        "url": "http://cast6.my-control-panel.com:7426/live",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": "2026-08-16T00:00:00+00:00",
+    "status": "online"
+  },
+  {
+    "id": "ilayaraja_hits",
+    "name": "Ilayaraja Hits",
+    "name_te": "ఇళయరాజా హిట్స్",
+    "name_hi": "इलयराजा हिट्स",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "https://teluguradios.com/",
+    "logo": "https://admin.teluguradios.com/uploads/radios/radio_61983_ilayaraja.webp",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/5bc5hwbsqg8uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": "2026-08-16T00:00:00+00:00",
+    "status": "online"
   }
 ]
