@@ -9,8 +9,6 @@ https://radio.wavespb.com/live/b82c91a395fc4a7d/b82c91a395fc4a7d.m3u8
 https://radio.wavespb.com/live/ffb3825f86c4b9e3/ffb3825f86c4b9e3.m3u8
 #EXTINF:-1 tvg-id="akashvani_kerala" tvg-name="Akashvani Kerala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/malayalam.jpg" group-title="AIR, ALL",Akashvani Kerala
 https://radio.wavespb.com/live/6ff13de7ea9b53d7/6ff13de7ea9b53d7.m3u8
-#EXTINF:-1 tvg-id="akashvani_kerala" tvg-name="Akashvani Kerala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/malayalam.jpg" group-title="AIR, ALL",Akashvani Kerala
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio230/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_kochi" tvg-name="Akashvani Kochi" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkochi.jpg" group-title="AIR, ALL",Akashvani Kochi
 https://radio.wavespb.com/live/70400e7510e87cdf/70400e7510e87cdf.m3u8
 #EXTINF:-1 tvg-id="akashvani_kozhikode_real_fm" tvg-name="Akashvani Kozhikode Real FM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkozhikoderealfm.jpg" group-title="FM, AIR, ALL",Akashvani Kozhikode Real FM
@@ -25,5 +23,3 @@ https://radio.wavespb.com/live/7df6f2a8c3c4d33b/7df6f2a8c3c4d33b.m3u8
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudioragam/hlspbaudioragam_Auto.m3u8
 #EXTINF:-1 tvg-id="vb_malayalam" tvg-name="VB MALAYALAM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/fmananthapuri.jpg" group-title="FM, AIR, ALL",VB MALAYALAM
 https://radio.wavespb.com/live/ad3a8436a329e2d6/ad3a8436a329e2d6.m3u8
-#EXTINF:-1 tvg-id="vb_malayalam" tvg-name="VB MALAYALAM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/fmananthapuri.jpg" group-title="FM, AIR, ALL",VB MALAYALAM
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio229/chunklist.m3u8

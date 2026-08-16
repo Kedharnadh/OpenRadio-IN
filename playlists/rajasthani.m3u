@@ -1,8 +1,6 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="akashvani_alwar" tvg-name="Akashvani Alwar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_199064.jpg" group-title="AIR, ALL",Akashvani Alwar
 https://radio.wavespb.com/live/67a9516c2ccd3fd5/67a9516c2ccd3fd5.m3u8
-#EXTINF:-1 tvg-id="akashvani_alwar" tvg-name="Akashvani Alwar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_199064.jpg" group-title="AIR, ALL",Akashvani Alwar
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio153/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_banswara" tvg-name="Akashvani Banswara" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airbanswara.jpg" group-title="AIR, ALL",Akashvani Banswara
 https://radio.wavespb.com/live/775687c68323aecb/775687c68323aecb.m3u8
 #EXTINF:-1 tvg-id="akashvani_barmer" tvg-name="Akashvani Barmer" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_742300.jpg" group-title="AIR, ALL",Akashvani Barmer

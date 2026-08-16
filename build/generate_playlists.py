@@ -90,7 +90,13 @@ for station in stations:
     # -----------------------------
     # Streams
     # -----------------------------
-    for stream in station.get("streams", []):
+    streams = station.get("streams", [])
+
+    if streams:
+        best_priority = min(stream.get("priority", 1) for stream in streams)
+        streams = [stream for stream in streams if stream.get("priority", 1) == best_priority]
+
+    for stream in streams:
 
         url = stream.get("url", "").strip()
 
