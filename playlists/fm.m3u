@@ -109,8 +109,6 @@ https://stream.teluguoneradio.com:8164/;stream/1
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio026/hlspbaudio026_Auto.m3u8
 #EXTINF:-1 tvg-id="vb_malayalam" tvg-name="VB MALAYALAM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/fmananthapuri.jpg" group-title="FM, AIR, ALL",VB MALAYALAM
 https://radio.wavespb.com/live/ad3a8436a329e2d6/ad3a8436a329e2d6.m3u8
-#EXTINF:-1 tvg-id="vb_malayalam" tvg-name="VB MALAYALAM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/fmananthapuri.jpg" group-title="FM, AIR, ALL",VB MALAYALAM
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio229/chunklist.m3u8
 #EXTINF:-1 tvg-id="vb_tamil_chennai" tvg-name="VB Tamil Chennai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_361667.jpg" group-title="FM, AIR, ALL",VB Tamil Chennai
 https://radio.wavespb.com/live/f893db91dedcb4ab/f893db91dedcb4ab.m3u8
 #EXTINF:-1 tvg-id="vbs_ahmedabad" tvg-name="VBS Ahmedabad" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_519561.jpg" group-title="FM, AIR, ALL",VBS Ahmedabad

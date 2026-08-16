@@ -1,8 +1,6 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="air_adilabad" tvg-name="AIR Adilabad" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/All-India-Radio-Adilabad.webp" group-title="AIR, ALL",AIR Adilabad
 https://radio.wavespb.com/live/e47c5f0cec4af335/e47c5f0cec4af335.m3u8
-#EXTINF:-1 tvg-id="air_adilabad" tvg-name="AIR Adilabad" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/All-India-Radio-Adilabad.webp" group-title="AIR, ALL",AIR Adilabad
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio218/chunklist.m3u8
 #EXTINF:-1 tvg-id="air_anantapur" tvg-name="AIR Anantapur" tvg-logo="https://radiobarfi.com/wp-content/uploads/2023/06/All-India-Radio-Anantapur.webp" group-title="AIR, ALL",AIR Anantapur
 https://radio.wavespb.com/live/3bcd83926d6c3cca/3bcd83926d6c3cca.m3u8
 #EXTINF:-1 tvg-id="air_kadapa" tvg-name="AIR Kadapa" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2024/10/air-kadappa-1200x1200.jpg" group-title="AIR, ALL",AIR Kadapa
@@ -13,8 +11,6 @@ https://radio.wavespb.com/live/57d77b93b7580e24/57d77b93b7580e24.m3u8
 https://radio.wavespb.com/live/b11784e3b37b7620/b11784e3b37b7620.m3u8
 #EXTINF:-1 tvg-id="air_nizamabad" tvg-name="AIR Nizamabad" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/All-India-Radio-Nizamabad.webp" group-title="AIR, ALL",AIR Nizamabad
 https://radio.wavespb.com/live/5d9989b5189a8f4a/5d9989b5189a8f4a.m3u8
-#EXTINF:-1 tvg-id="air_nizamabad" tvg-name="AIR Nizamabad" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/All-India-Radio-Nizamabad.webp" group-title="AIR, ALL",AIR Nizamabad
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio222/chunklist.m3u8
 #EXTINF:-1 tvg-id="air_rainbow_hyderabad" tvg-name="Air Rainbow Hyderabad" tvg-logo="https://d371i8ihhgym7w.cloudfront.net/47770554.jpg" group-title="AIR, ALL",Air Rainbow Hyderabad
 https://radio.wavespb.com/live/3a02c5c035815bb9/3a02c5c035815bb9.m3u8
 #EXTINF:-1 tvg-id="air_rainbow_vijayawada" tvg-name="Air Rainbow Vijayawada" tvg-logo="https://d371i8ihhgym7w.cloudfront.net/37623161.jpg" group-title="AIR, ALL",Air Rainbow Vijayawada
@@ -23,14 +19,10 @@ https://radio.wavespb.com/live/bad174fd7eac38d0/bad174fd7eac38d0.m3u8
 https://radio.wavespb.com/live/147314c8aedf4389/147314c8aedf4389.m3u8
 #EXTINF:-1 tvg-id="air_simhapuri_fm" tvg-name="Air Simhapuri Nellore FM" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/AllIndia-Radio-Nellore.webp" group-title="AIR, ALL",Air Simhapuri Nellore FM
 https://radio.wavespb.com/live/8bc9175bb717c13b/8bc9175bb717c13b.m3u8
-#EXTINF:-1 tvg-id="air_simhapuri_fm" tvg-name="Air Simhapuri Nellore FM" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/AllIndia-Radio-Nellore.webp" group-title="AIR, ALL",Air Simhapuri Nellore FM
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio168/chunklist.m3u8
 #EXTINF:-1 tvg-id="air_telugu" tvg-name="Air Telugu" tvg-logo="https://static.mytuner.mobi/media/tvos_radios/034/air-telugu.da89c6c1.jpg" group-title="AIR, ALL",Air Telugu
 https://radio.wavespb.com/live/2d38e3dcb8d4e0a4/2d38e3dcb8d4e0a4.m3u8
 #EXTINF:-1 tvg-id="air_tirupati" tvg-name="AIR Tirupati" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/all-india-radio-tirupati.webp" group-title="AIR, ALL",AIR Tirupati
 https://radio.wavespb.com/live/1119aa26b4e9f653/1119aa26b4e9f653.m3u8
-#EXTINF:-1 tvg-id="air_tirupati" tvg-name="AIR Tirupati" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/all-india-radio-tirupati.webp" group-title="AIR, ALL",AIR Tirupati
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio144/chunklist.m3u8
 #EXTINF:-1 tvg-id="air_warangal" tvg-name="AIR Warangal" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/AIR-Warangal-All-India-Radio.webp" group-title="AIR, ALL",AIR Warangal
 https://radio.wavespb.com/live/deae7120a205bfff/deae7120a205bfff.m3u8
 #EXTINF:-1 tvg-id="akashvani_aaradhana" tvg-name="Akashvani Aaradhana" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/Aaradhana.jpg" group-title="AIR, ALL",Akashvani Aaradhana
@@ -51,14 +43,10 @@ https://radio.wavespb.com/live/5dd27f81c839f0f5/5dd27f81c839f0f5.m3u8
 https://radio.wavespb.com/live/38719309b3b91cdc/38719309b3b91cdc.m3u8
 #EXTINF:-1 tvg-id="akashvani_alwar" tvg-name="Akashvani Alwar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_199064.jpg" group-title="AIR, ALL",Akashvani Alwar
 https://radio.wavespb.com/live/67a9516c2ccd3fd5/67a9516c2ccd3fd5.m3u8
-#EXTINF:-1 tvg-id="akashvani_alwar" tvg-name="Akashvani Alwar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_199064.jpg" group-title="AIR, ALL",Akashvani Alwar
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio153/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_ambikapur" tvg-name="Akashvani Ambikapur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_920396.jpg" group-title="AIR, ALL",Akashvani Ambikapur
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio086/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_amravati" tvg-name="Akashvani Amravati" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_917014.jpg" group-title="AIR, ALL",Akashvani Amravati
 https://radio.wavespb.com/live/662185c15bea296f/662185c15bea296f.m3u8
-#EXTINF:-1 tvg-id="akashvani_amravati" tvg-name="Akashvani Amravati" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_917014.jpg" group-title="AIR, ALL",Akashvani Amravati
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio151/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_ayodhya" tvg-name="Akashvani Ayodhya" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_921956.jpg" group-title="AIR, ALL",Akashvani Ayodhya
 https://radio.wavespb.com/live/750c49044bde8cfe/750c49044bde8cfe.m3u8
 #EXTINF:-1 tvg-id="akashvani_balaghat" tvg-name="Akashvani Balaghat" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_104096.jpg" group-title="AIR, ALL",Akashvani Balaghat
@@ -71,12 +59,8 @@ https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio137/hlspbaudio137_Au
 https://radio.wavespb.com/live/775687c68323aecb/775687c68323aecb.m3u8
 #EXTINF:-1 tvg-id="akashvani_bareilly" tvg-name="Akashvani Bareilly" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_195570.jpg" group-title="AIR, ALL",Akashvani Bareilly
 https://radio.wavespb.com/live/e323812d96d7881d/e323812d96d7881d.m3u8
-#EXTINF:-1 tvg-id="akashvani_bareilly" tvg-name="Akashvani Bareilly" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_195570.jpg" group-title="AIR, ALL",Akashvani Bareilly
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio124/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_baripada" tvg-name="Akashvani Baripada" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_705237.jpg" group-title="AIR, ALL",Akashvani Baripada
 https://radio.wavespb.com/live/9a5be453a1319cad/9a5be453a1319cad.m3u8
-#EXTINF:-1 tvg-id="akashvani_baripada" tvg-name="Akashvani Baripada" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_705237.jpg" group-title="AIR, ALL",Akashvani Baripada
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio158/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_barmer" tvg-name="Akashvani Barmer" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_742300.jpg" group-title="AIR, ALL",Akashvani Barmer
 https://radio.wavespb.com/live/a19c91113515497c/a19c91113515497c.m3u8
 #EXTINF:-1 tvg-id="akashvani_beed" tvg-name="Akashvani Beed" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_341177.jpg" group-title="AIR, ALL",Akashvani Beed
@@ -97,36 +81,24 @@ https://radio.wavespb.com/live/ad5b1f0e1fd2e000/ad5b1f0e1fd2e000.m3u8
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio292/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_bhatinda" tvg-name="Akashvani Bhatinda" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_283995.jpg" group-title="AIR, ALL",Akashvani Bhatinda
 https://radio.wavespb.com/live/8651d3d0c2021750/8651d3d0c2021750.m3u8
-#EXTINF:-1 tvg-id="akashvani_bhatinda" tvg-name="Akashvani Bhatinda" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_283995.jpg" group-title="AIR, ALL",Akashvani Bhatinda
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio117/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_bhawanipatna" tvg-name="Akashvani Bhawanipatna" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_111466.jpg" group-title="AIR, ALL",Akashvani Bhawanipatna
 https://radio.wavespb.com/live/01249e3a4e4625bf/01249e3a4e4625bf.m3u8
-#EXTINF:-1 tvg-id="akashvani_bhawanipatna" tvg-name="Akashvani Bhawanipatna" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_111466.jpg" group-title="AIR, ALL",Akashvani Bhawanipatna
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio120/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_bhopal" tvg-name="Akashvani Bhopal" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/bhopal.jpg" group-title="AIR, ALL",Akashvani Bhopal
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio146/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_bhuj" tvg-name="Akashvani Bhuj" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/bhuj.jpg" group-title="AIR, ALL",Akashvani Bhuj
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio195/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_bijapur" tvg-name="Akashvani Bijapur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_581147.jpg" group-title="AIR, ALL",Akashvani Bijapur
 https://radio.wavespb.com/live/8a8894314ac7be31/8a8894314ac7be31.m3u8
-#EXTINF:-1 tvg-id="akashvani_bijapur" tvg-name="Akashvani Bijapur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_581147.jpg" group-title="AIR, ALL",Akashvani Bijapur
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio145/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_bikaner" tvg-name="Akashvani Bikaner" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airbikaner.jpg" group-title="AIR, ALL",Akashvani Bikaner
 https://radio.wavespb.com/live/e2588cb0ff825cd9/e2588cb0ff825cd9.m3u8
 #EXTINF:-1 tvg-id="akashvani_bilaspur" tvg-name="Akashvani Bilaspur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_160779.jpg" group-title="AIR, ALL",Akashvani Bilaspur
 https://radio.wavespb.com/live/10dd6162d75fb6a4/10dd6162d75fb6a4.m3u8
-#EXTINF:-1 tvg-id="akashvani_bilaspur" tvg-name="Akashvani Bilaspur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_160779.jpg" group-title="AIR, ALL",Akashvani Bilaspur
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio110/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_calicut" tvg-name="Akashvani Calicut" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/aircalicut.jpg" group-title="AIR, ALL",Akashvani Calicut
 https://radio.wavespb.com/live/8321393de70015fc/8321393de70015fc.m3u8
 #EXTINF:-1 tvg-id="akashvani_chaibasa" tvg-name="Akashvani Chaibasa" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_910297.jpg" group-title="AIR, ALL",Akashvani Chaibasa
 https://radio.wavespb.com/live/4b077b809c20f314/4b077b809c20f314.m3u8
-#EXTINF:-1 tvg-id="akashvani_chaibasa" tvg-name="Akashvani Chaibasa" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_910297.jpg" group-title="AIR, ALL",Akashvani Chaibasa
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio224/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_chandigarh" tvg-name="Akashvani Chandigarh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airchandigarh.jpg" group-title="AIR, ALL",Akashvani Chandigarh
 https://radio.wavespb.com/live/db4a912ff7882d9d/db4a912ff7882d9d.m3u8
-#EXTINF:-1 tvg-id="akashvani_chandigarh" tvg-name="Akashvani Chandigarh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airchandigarh.jpg" group-title="AIR, ALL",Akashvani Chandigarh
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio111/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_chandrapur" tvg-name="Akashvani Chandrapur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_119620.jpg" group-title="AIR, ALL",Akashvani Chandrapur
 https://radio.wavespb.com/live/8469b942291df38f/8469b942291df38f.m3u8
 #EXTINF:-1 tvg-id="akashvani_chhatarpur" tvg-name="Akashvani Chhatarpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airchhatarpur.jpg" group-title="AIR, ALL",Akashvani Chhatarpur
@@ -151,16 +123,12 @@ https://radio.wavespb.com/live/a6eec8ec7d6ee49d/a6eec8ec7d6ee49d.m3u8
 https://radio.wavespb.com/live/fbcc67ea837b6ea7/fbcc67ea837b6ea7.m3u8
 #EXTINF:-1 tvg-id="akashvani_daltonganj" tvg-name="Akashvani Daltonganj" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_871753.jpg" group-title="AIR, ALL",Akashvani Daltonganj
 https://radio.wavespb.com/live/d94a676236c31713/d94a676236c31713.m3u8
-#EXTINF:-1 tvg-id="akashvani_daltonganj" tvg-name="Akashvani Daltonganj" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_871753.jpg" group-title="AIR, ALL",Akashvani Daltonganj
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio202/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_daman" tvg-name="Akashvani Daman" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_294651.jpg" group-title="AIR, ALL",Akashvani Daman
 https://radio.wavespb.com/live/c124a58382e75a46/c124a58382e75a46.m3u8
 #EXTINF:-1 tvg-id="akashvani_darbhanga" tvg-name="Akashvani Darbhanga" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_645992.jpg" group-title="AIR, ALL",Akashvani Darbhanga
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio160/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_dehradun" tvg-name="Akashvani Dehradun" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airdehradun.jpg" group-title="AIR, ALL",Akashvani Dehradun
 https://radio.wavespb.com/live/355939733d28e2e7/355939733d28e2e7.m3u8
-#EXTINF:-1 tvg-id="akashvani_dehradun" tvg-name="Akashvani Dehradun" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airdehradun.jpg" group-title="AIR, ALL",Akashvani Dehradun
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio191/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_devikulam" tvg-name="Akashvani Devikulam" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_996461.jpg" group-title="AIR, ALL",Akashvani Devikulam
 https://radio.wavespb.com/live/e97acc829da9bf2a/e97acc829da9bf2a.m3u8
 #EXTINF:-1 tvg-id="akashvani_dharamshala" tvg-name="Akashvani Dharamshala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_181135.jpg" group-title="AIR, ALL",Akashvani Dharamshala
@@ -175,12 +143,8 @@ https://radio.wavespb.com/live/449dcf0b33491e65/449dcf0b33491e65.m3u8
 https://radio.wavespb.com/live/c0040b54233d76a1/c0040b54233d76a1.m3u8
 #EXTINF:-1 tvg-id="akashvani_dibrugarh" tvg-name="Akashvani Dibrugarh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_499538.jpg" group-title="AIR, ALL",Akashvani Dibrugarh
 https://radio.wavespb.com/live/6db6683f71f6df13/6db6683f71f6df13.m3u8
-#EXTINF:-1 tvg-id="akashvani_dibrugarh" tvg-name="Akashvani Dibrugarh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_499538.jpg" group-title="AIR, ALL",Akashvani Dibrugarh
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio255/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_diphu" tvg-name="Akashvani Diphu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_399279.jpg" group-title="AIR, ALL",Akashvani Diphu
 https://radio.wavespb.com/live/24092163948ab5d8/24092163948ab5d8.m3u8
-#EXTINF:-1 tvg-id="akashvani_diphu" tvg-name="Akashvani Diphu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_399279.jpg" group-title="AIR, ALL",Akashvani Diphu
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio271/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_fm_raipur" tvg-name="Akashvani FM Raipur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_130541.jpg" group-title="FM, AIR, ALL",Akashvani FM Raipur
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio279/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_gangtok" tvg-name="Akashvani Gangtok" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_770774.jpg" group-title="AIR, ALL",Akashvani Gangtok
@@ -193,28 +157,18 @@ https://radio.wavespb.com/live/90f2250fec262bde/90f2250fec262bde.m3u8
 https://radio.wavespb.com/live/e1d62b96207fe4b7/e1d62b96207fe4b7.m3u8
 #EXTINF:-1 tvg-id="akashvani_guwahati_mahabahu" tvg-name="Akashvani Guwahati Mahabahu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/air-assamese.jpg" group-title="AIR, ALL",Akashvani Guwahati Mahabahu
 https://radio.wavespb.com/live/d1712a1355f27abb/d1712a1355f27abb.m3u8
-#EXTINF:-1 tvg-id="akashvani_guwahati_mahabahu" tvg-name="Akashvani Guwahati Mahabahu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/air-assamese.jpg" group-title="AIR, ALL",Akashvani Guwahati Mahabahu
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio133/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_guwahati_pragjyotishpur" tvg-name="Akashvani Guwahati Pragjyotishpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_646762.jpg" group-title="AIR, ALL",Akashvani Guwahati Pragjyotishpur
 https://radio.wavespb.com/live/c8a130239e27ded0/c8a130239e27ded0.m3u8
-#EXTINF:-1 tvg-id="akashvani_guwahati_pragjyotishpur" tvg-name="Akashvani Guwahati Pragjyotishpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_646762.jpg" group-title="AIR, ALL",Akashvani Guwahati Pragjyotishpur
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio237/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_gwalior" tvg-name="Akashvani Gwalior" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airgwalior.jpg" group-title="AIR, ALL",Akashvani Gwalior
 https://radio.wavespb.com/live/4934ba16034cf481/4934ba16034cf481.m3u8
-#EXTINF:-1 tvg-id="akashvani_gwalior" tvg-name="Akashvani Gwalior" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airgwalior.jpg" group-title="AIR, ALL",Akashvani Gwalior
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio205/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_haflong" tvg-name="Akashvani Haflong" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_226622.jpg" group-title="AIR, ALL",Akashvani Haflong
 https://radio.wavespb.com/live/0625378643a5d9ba/0625378643a5d9ba.m3u8
-#EXTINF:-1 tvg-id="akashvani_haflong" tvg-name="Akashvani Haflong" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_226622.jpg" group-title="AIR, ALL",Akashvani Haflong
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio258/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_hamirpur_fm" tvg-name="Akashvani Hamirpur FM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_247066.jpg" group-title="FM, AIR, ALL",Akashvani Hamirpur FM
 https://radio.wavespb.com/live/51244bb8a94ec8ec/51244bb8a94ec8ec.m3u8
 #EXTINF:-1 tvg-id="akashvani_hassan" tvg-name="Akashvani Hassan" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airhassan.jpg" group-title="AIR, ALL",Akashvani Hassan
 https://radio.wavespb.com/live/9b1044084099f01c/9b1044084099f01c.m3u8
 #EXTINF:-1 tvg-id="akashvani_hazaribagh" tvg-name="Akashvani Hazaribagh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_972766.jpg" group-title="AIR, ALL",Akashvani Hazaribagh
 https://radio.wavespb.com/live/db054b48293b8eb4/db054b48293b8eb4.m3u8
-#EXTINF:-1 tvg-id="akashvani_hazaribagh" tvg-name="Akashvani Hazaribagh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_972766.jpg" group-title="AIR, ALL",Akashvani Hazaribagh
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio197/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_himmatnagar" tvg-name="Akashvani Himmatnagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_512587.jpg" group-title="AIR, ALL",Akashvani Himmatnagar
 https://radio.wavespb.com/live/76ca5a0d02d6ba94/76ca5a0d02d6ba94.m3u8
 #EXTINF:-1 tvg-id="akashvani_hisar" tvg-name="Akashvani Hisar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_618853.jpg" group-title="AIR, ALL",Akashvani Hisar
@@ -223,12 +177,8 @@ https://radio.wavespb.com/live/d3f37eacc0dc6495/d3f37eacc0dc6495.m3u8
 https://radio.wavespb.com/live/113d144f4ecf1dd5/113d144f4ecf1dd5.m3u8
 #EXTINF:-1 tvg-id="akashvani_imphal_kangla" tvg-name="Akashvani Imphal Kangla" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_999074.jpg" group-title="AIR, ALL",Akashvani Imphal Kangla
 https://radio.wavespb.com/live/8fcf63e1a8d9016b/8fcf63e1a8d9016b.m3u8
-#EXTINF:-1 tvg-id="akashvani_imphal_kangla" tvg-name="Akashvani Imphal Kangla" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_999074.jpg" group-title="AIR, ALL",Akashvani Imphal Kangla
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio209/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_imphal_sangai" tvg-name="Akashvani Imphal Sangai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_999075.jpg" group-title="AIR, ALL",Akashvani Imphal Sangai
 https://radio.wavespb.com/live/405d96a245accd64/405d96a245accd64.m3u8
-#EXTINF:-1 tvg-id="akashvani_imphal_sangai" tvg-name="Akashvani Imphal Sangai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_999075.jpg" group-title="AIR, ALL",Akashvani Imphal Sangai
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio210/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_indore" tvg-name="Akashvani Indore" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/indore.jpg" group-title="AIR, ALL",Akashvani Indore
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio212/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_itanagar" tvg-name="Akashvani Itanagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_458761.jpg" group-title="AIR, ALL",Akashvani Itanagar
@@ -247,8 +197,6 @@ https://radio.wavespb.com/live/54f9c9d68de4282b/54f9c9d68de4282b.m3u8
 https://radio.wavespb.com/live/bd41e24a31710397/bd41e24a31710397.m3u8
 #EXTINF:-1 tvg-id="akashvani_jammu" tvg-name="Akashvani Jammu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airjammu.jpg" group-title="AIR, ALL",Akashvani Jammu
 https://radio.wavespb.com/live/42c7dca503e95fec/42c7dca503e95fec.m3u8
-#EXTINF:-1 tvg-id="akashvani_jammu" tvg-name="Akashvani Jammu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airjammu.jpg" group-title="AIR, ALL",Akashvani Jammu
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio128/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_jamshedpur" tvg-name="Akashvani Jamshedpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_881940.jpg" group-title="AIR, ALL",Akashvani Jamshedpur
 https://radio.wavespb.com/live/c27e3dffec59b473/c27e3dffec59b473.m3u8
 #EXTINF:-1 tvg-id="akashvani_jeypore" tvg-name="Akashvani Jeypore" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_413790.jpg" group-title="AIR, ALL",Akashvani Jeypore
@@ -269,8 +217,6 @@ https://radio.wavespb.com/live/202fb3b9e2e3f6f1/202fb3b9e2e3f6f1.m3u8
 https://radio.wavespb.com/live/56465e7d42632ff1/56465e7d42632ff1.m3u8
 #EXTINF:-1 tvg-id="akashvani_kailashahar" tvg-name="Akashvani Kailashahar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_237652.jpg" group-title="AIR, ALL",Akashvani Kailashahar
 https://radio.wavespb.com/live/c84f390b94a07703/c84f390b94a07703.m3u8
-#EXTINF:-1 tvg-id="akashvani_kailashahar" tvg-name="Akashvani Kailashahar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_237652.jpg" group-title="AIR, ALL",Akashvani Kailashahar
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio276/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_kalaburgi_gulbarga" tvg-name="Akashvani Kalaburgi (Gulbarga)" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_797239.jpg" group-title="AIR, ALL",Akashvani Kalaburgi (Gulbarga)
 https://radio.wavespb.com/live/9b085f63b2c25275/9b085f63b2c25275.m3u8
 #EXTINF:-1 tvg-id="akashvani_kannur" tvg-name="Akashvani Kannur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkannur.jpg" group-title="AIR, ALL",Akashvani Kannur
@@ -285,8 +231,6 @@ https://radio.wavespb.com/live/283b994f330d1e21/283b994f330d1e21.m3u8
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio030/hlspbaudio030_Auto.m3u8
 #EXTINF:-1 tvg-id="akashvani_karwar" tvg-name="Akashvani Karwar" tvg-logo="https://https://airdco.pc.cdn.bitgravity.com/images/RADIO_857926.jpg" group-title="AIR, ALL",Akashvani Karwar
 https://radio.wavespb.com/live/723ab703b250900f/723ab703b250900f.m3u8
-#EXTINF:-1 tvg-id="akashvani_karwar" tvg-name="Akashvani Karwar" tvg-logo="https://https://airdco.pc.cdn.bitgravity.com/images/RADIO_857926.jpg" group-title="AIR, ALL",Akashvani Karwar
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio123/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_kathua" tvg-name="Akashvani Kathua" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_433421.jpg" group-title="AIR, ALL",Akashvani Kathua
 https://radio.wavespb.com/live/b4173082e8f5e716/b4173082e8f5e716.m3u8
 #EXTINF:-1 tvg-id="akashvani_kavaratti" tvg-name="Akashvani Kavaratti" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_387716.jpg" group-title="AIR, ALL",Akashvani Kavaratti
@@ -295,8 +239,6 @@ https://radio.wavespb.com/live/ffb3825f86c4b9e3/ffb3825f86c4b9e3.m3u8
 https://radio.wavespb.com/live/e1afe27f9ccb5046/e1afe27f9ccb5046.m3u8
 #EXTINF:-1 tvg-id="akashvani_kerala" tvg-name="Akashvani Kerala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/malayalam.jpg" group-title="AIR, ALL",Akashvani Kerala
 https://radio.wavespb.com/live/6ff13de7ea9b53d7/6ff13de7ea9b53d7.m3u8
-#EXTINF:-1 tvg-id="akashvani_kerala" tvg-name="Akashvani Kerala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/malayalam.jpg" group-title="AIR, ALL",Akashvani Kerala
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio230/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_khandwa" tvg-name="Akashvani Khandwa" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_818549.jpg" group-title="AIR, ALL",Akashvani Khandwa
 https://radio.wavespb.com/live/76260628792d0528/76260628792d0528.m3u8
 #EXTINF:-1 tvg-id="akashvani_kochi" tvg-name="Akashvani Kochi" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkochi.jpg" group-title="AIR, ALL",Akashvani Kochi
@@ -305,8 +247,6 @@ https://radio.wavespb.com/live/70400e7510e87cdf/70400e7510e87cdf.m3u8
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio051/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_kohima" tvg-name="Akashvani Kohima" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_125467.jpg" group-title="AIR, ALL",Akashvani Kohima
 https://radio.wavespb.com/live/f5861f9687811aae/f5861f9687811aae.m3u8
-#EXTINF:-1 tvg-id="akashvani_kohima" tvg-name="Akashvani Kohima" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_125467.jpg" group-title="AIR, ALL",Akashvani Kohima
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio274/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_kokrajhar" tvg-name="Akashvani Kokrajhar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/KOKRAJHAR.jpeg" group-title="AIR, ALL",Akashvani Kokrajhar
 https://radio.wavespb.com/live/f6fa349221f25803/f6fa349221f25803.m3u8
 #EXTINF:-1 tvg-id="akashvani_kolhapur" tvg-name="Akashvani Kolhapur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkolhapur.jpg" group-title="AIR, ALL",Akashvani Kolhapur
@@ -319,14 +259,10 @@ https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio056/hlspbaudio056_Au
 https://radio.wavespb.com/live/b5004d73a5aa6787/b5004d73a5aa6787.m3u8
 #EXTINF:-1 tvg-id="akashvani_kothagudem" tvg-name="Akashvani Kothagudem" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_509111.jpg" group-title="AIR, ALL",Akashvani Kothagudem
 https://radio.wavespb.com/live/8416764ec0889597/8416764ec0889597.m3u8
-#EXTINF:-1 tvg-id="akashvani_kothagudem" tvg-name="Akashvani Kothagudem" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_509111.jpg" group-title="AIR, ALL",Akashvani Kothagudem
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio116/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_kozhikode_real_fm" tvg-name="Akashvani Kozhikode Real FM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airkozhikoderealfm.jpg" group-title="FM, AIR, ALL",Akashvani Kozhikode Real FM
 https://radio.wavespb.com/live/b69c296065db7627/b69c296065db7627.m3u8
 #EXTINF:-1 tvg-id="akashvani_kurseong" tvg-name="Akashvani Kurseong" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_319202.jpg" group-title="AIR, ALL",Akashvani Kurseong
 https://radio.wavespb.com/live/1f781b48497e67d3/1f781b48497e67d3.m3u8
-#EXTINF:-1 tvg-id="akashvani_kurseong" tvg-name="Akashvani Kurseong" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_319202.jpg" group-title="AIR, ALL",Akashvani Kurseong
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio183/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_kurukshetra" tvg-name="Akashvani Kurukshetra" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_689198.jpg" group-title="AIR, ALL",Akashvani Kurukshetra
 https://radio.wavespb.com/live/f71ea3f12ae3111c/f71ea3f12ae3111c.m3u8
 #EXTINF:-1 tvg-id="akashvani_leh" tvg-name="Akashvani Leh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_410707.jpg" group-title="AIR, ALL",Akashvani Leh
@@ -341,8 +277,6 @@ https://radio.wavespb.com/live/3ab311dc7cdb60a1/3ab311dc7cdb60a1.m3u8
 https://radio.wavespb.com/live/5f58506ab7d090ec/5f58506ab7d090ec.m3u8
 #EXTINF:-1 tvg-id="akashvani_madurai" tvg-name="Akashvani Madurai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_503678.jpg" group-title="AIR, ALL",Akashvani Madurai
 https://radio.wavespb.com/live/5c28fdbb318c1f13/5c28fdbb318c1f13.m3u8
-#EXTINF:-1 tvg-id="akashvani_madurai" tvg-name="Akashvani Madurai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_503678.jpg" group-title="AIR, ALL",Akashvani Madurai
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio127/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_madurai_fm" tvg-name="Akashvani Madurai FM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_503678.jpg" group-title="FM, AIR, ALL",Akashvani Madurai FM
 https://radio.wavespb.com/live/f910c4cf0415b953/f910c4cf0415b953.m3u8
 #EXTINF:-1 tvg-id="akashvani_mahanadi_sambalpur" tvg-name="Akashvani Mahanadi Sambalpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_945118.jpg" group-title="AIR, ALL",Akashvani Mahanadi Sambalpur
@@ -367,8 +301,6 @@ https://radio.wavespb.com/live/550cfb9bbee7b16d/550cfb9bbee7b16d.m3u8
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio169/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_mysuru" tvg-name="Akashvani Mysuru" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/mysuru.jpg" group-title="AIR, ALL",Akashvani Mysuru
 https://radio.wavespb.com/live/9d18e57ddfb1d4b4/9d18e57ddfb1d4b4.m3u8
-#EXTINF:-1 tvg-id="akashvani_mysuru" tvg-name="Akashvani Mysuru" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/mysuru.jpg" group-title="AIR, ALL",Akashvani Mysuru
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio177/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_nagaon" tvg-name="Akashvani Nagaon" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_706896.jpg" group-title="AIR, ALL",Akashvani Nagaon
 https://radio.wavespb.com/live/f2619d605f469c55/f2619d605f469c55.m3u8
 #EXTINF:-1 tvg-id="akashvani_nagaur" tvg-name="Akashvani Nagaur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_178497.jpg" group-title="AIR, ALL",Akashvani Nagaur
@@ -377,8 +309,6 @@ https://radio.wavespb.com/live/09cb9a0f39768901/09cb9a0f39768901.m3u8
 https://radio.wavespb.com/live/84ad8273437552d7/84ad8273437552d7.m3u8
 #EXTINF:-1 tvg-id="akashvani_najibabad" tvg-name="Akashvani Najibabad" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_517789.jpg" group-title="AIR, ALL",Akashvani Najibabad
 https://radio.wavespb.com/live/4aaa85cab056e9c1/4aaa85cab056e9c1.m3u8
-#EXTINF:-1 tvg-id="akashvani_najibabad" tvg-name="Akashvani Najibabad" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_517789.jpg" group-title="AIR, ALL",Akashvani Najibabad
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio162/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_nanded" tvg-name="Akashvani Nanded" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airnanded.jpg" group-title="AIR, ALL",Akashvani Nanded
 https://radio.wavespb.com/live/111df0bc650820de/111df0bc650820de.m3u8
 #EXTINF:-1 tvg-id="akashvani_nasik" tvg-name="Akashvani Nasik" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_414066.jpg" group-title="AIR, ALL",Akashvani Nasik
@@ -389,14 +319,10 @@ https://radio.wavespb.com/live/0ce240322bab1873/0ce240322bab1873.m3u8
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio235/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_ooty" tvg-name="Akashvani Ooty" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airooty.jpg" group-title="AIR, ALL",Akashvani Ooty
 https://radio.wavespb.com/live/e2ac3971fdada7d1/e2ac3971fdada7d1.m3u8
-#EXTINF:-1 tvg-id="akashvani_ooty" tvg-name="Akashvani Ooty" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airooty.jpg" group-title="AIR, ALL",Akashvani Ooty
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio207/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_parbhani" tvg-name="Akashvani Parbhani" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airparbhani.jpg" group-title="AIR, ALL",Akashvani Parbhani
 https://radio.wavespb.com/live/825fdd17744384f5/825fdd17744384f5.m3u8
 #EXTINF:-1 tvg-id="akashvani_pasighat" tvg-name="Akashvani Pasighat" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_941772.jpg" group-title="AIR, ALL",Akashvani Pasighat
 https://radio.wavespb.com/live/464360d5ed44082b/464360d5ed44082b.m3u8
-#EXTINF:-1 tvg-id="akashvani_pasighat" tvg-name="Akashvani Pasighat" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_941772.jpg" group-title="AIR, ALL",Akashvani Pasighat
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio268/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_patiala" tvg-name="Akashvani Patiala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airpatiala.jpg" group-title="AIR, ALL",Akashvani Patiala
 https://radio.wavespb.com/live/8d1636496b33c77e/8d1636496b33c77e.m3u8
 #EXTINF:-1 tvg-id="akashvani_patna" tvg-name="Akashvani Patna" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airpatna.jpg" group-title="AIR, ALL",Akashvani Patna
@@ -407,8 +333,6 @@ https://radio.wavespb.com/live/101ea47cdd9c59df/101ea47cdd9c59df.m3u8
 https://radio.wavespb.com/live/a52d55fcbee4f4db/a52d55fcbee4f4db.m3u8
 #EXTINF:-1 tvg-id="akashvani_prayagraj" tvg-name="Akashvani Prayagraj" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airallahabad.jpg 	" group-title="AIR, ALL",Akashvani Prayagraj
 https://radio.wavespb.com/live/7427fdb9d3f69c5d/7427fdb9d3f69c5d.m3u8
-#EXTINF:-1 tvg-id="akashvani_prayagraj" tvg-name="Akashvani Prayagraj" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airallahabad.jpg 	" group-title="AIR, ALL",Akashvani Prayagraj
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio125/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_puducherry" tvg-name="Akashvani Puducherry" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_330207.jpg" group-title="AIR, ALL",Akashvani Puducherry
 https://radio.wavespb.com/live/6b93ba50696fddcd/6b93ba50696fddcd.m3u8
 #EXTINF:-1 tvg-id="akashvani_pune" tvg-name="Akashvani Pune" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airpune.jpg" group-title="AIR, ALL",Akashvani Pune
@@ -423,8 +347,6 @@ https://radio.wavespb.com/live/82893b35c7d1fa49/82893b35c7d1fa49.m3u8
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio147/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_raichur" tvg-name="Akashvani Raichur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_919759.jpg" group-title="AIR, ALL",Akashvani Raichur
 https://radio.wavespb.com/live/e39bab8a1a843e9e/e39bab8a1a843e9e.m3u8
-#EXTINF:-1 tvg-id="akashvani_raichur" tvg-name="Akashvani Raichur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_919759.jpg" group-title="AIR, ALL",Akashvani Raichur
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio198/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_raigarh" tvg-name="Akashvani Raigarh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_477509.jpg" group-title="AIR, ALL",Akashvani Raigarh
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio196/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_rajkot" tvg-name="Akashvani Rajkot" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airrajkot.jpg" group-title="AIR, ALL",Akashvani Rajkot
@@ -443,8 +365,6 @@ https://radio.wavespb.com/live/d617676f1e7ac0a1/d617676f1e7ac0a1.m3u8
 https://radio.wavespb.com/live/6f4b24b6ac501e88/6f4b24b6ac501e88.m3u8
 #EXTINF:-1 tvg-id="akashvani_sagar" tvg-name="Akashvani Sagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_918593.jpg" group-title="AIR, ALL",Akashvani Sagar
 https://radio.wavespb.com/live/b60eae3df5a29197/b60eae3df5a29197.m3u8
-#EXTINF:-1 tvg-id="akashvani_sagar" tvg-name="Akashvani Sagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_918593.jpg" group-title="AIR, ALL",Akashvani Sagar
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio204/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_sangli" tvg-name="Akashvani Sangli" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airsangli.jpg" group-title="AIR, ALL",Akashvani Sangli
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio106/playlist.m3u8
 #EXTINF:-1 tvg-id="akashvani_sasaram" tvg-name="Akashvani Sasaram" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_330465.jpg" group-title="AIR, ALL",Akashvani Sasaram
@@ -455,8 +375,6 @@ https://radio.wavespb.com/live/6878cc031c86befd/6878cc031c86befd.m3u8
 https://radio.wavespb.com/live/9f2c9cb132d3ae49/9f2c9cb132d3ae49.m3u8
 #EXTINF:-1 tvg-id="akashvani_shahdol" tvg-name="Akashvani Shahdol" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_567879.jpg" group-title="AIR, ALL",Akashvani Shahdol
 https://radio.wavespb.com/live/0f046e291da2017b/0f046e291da2017b.m3u8
-#EXTINF:-1 tvg-id="akashvani_shahdol" tvg-name="Akashvani Shahdol" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_567879.jpg" group-title="AIR, ALL",Akashvani Shahdol
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio228/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_shantiniketan" tvg-name="Akashvani Shantiniketan" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_121090.jpg" group-title="AIR, ALL",Akashvani Shantiniketan
 https://radio.wavespb.com/live/66249dfecaf80241/66249dfecaf80241.m3u8
 #EXTINF:-1 tvg-id="akashvani_shillong" tvg-name="Akashvani Shillong" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_505076.jpg" group-title="AIR, ALL",Akashvani Shillong
@@ -471,8 +389,6 @@ https://radio.wavespb.com/live/db8c03f2dcb2e896/db8c03f2dcb2e896.m3u8
 https://radio.wavespb.com/live/389a55127e012f97/389a55127e012f97.m3u8
 #EXTINF:-1 tvg-id="akashvani_siliguri" tvg-name="Akashvani Siliguri" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_229808.jpg" group-title="AIR, ALL",Akashvani Siliguri
 https://radio.wavespb.com/live/165856ba98ca031a/165856ba98ca031a.m3u8
-#EXTINF:-1 tvg-id="akashvani_siliguri" tvg-name="Akashvani Siliguri" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_229808.jpg" group-title="AIR, ALL",Akashvani Siliguri
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio164/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_sindhudurg" tvg-name="Akashvani Sindhudurg" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_934689.jpg" group-title="AIR, ALL",Akashvani Sindhudurg
 https://radio.wavespb.com/live/77aa8f10f47897a3/77aa8f10f47897a3.m3u8
 #EXTINF:-1 tvg-id="akashvani_solapur" tvg-name="Akashvani Solapur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airsolapur.jpg" group-title="AIR, ALL",Akashvani Solapur
@@ -493,12 +409,8 @@ https://radio.wavespb.com/live/0ab7e5a9701ec9e2/0ab7e5a9701ec9e2.m3u8
 https://radio.wavespb.com/live/1c701f7b70df2568/1c701f7b70df2568.m3u8
 #EXTINF:-1 tvg-id="akashvani_tezpur" tvg-name="Akashvani Tezpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_797923.jpg" group-title="AIR, ALL",Akashvani Tezpur
 https://radio.wavespb.com/live/9260e7a38d76ffda/9260e7a38d76ffda.m3u8
-#EXTINF:-1 tvg-id="akashvani_tezpur" tvg-name="Akashvani Tezpur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_797923.jpg" group-title="AIR, ALL",Akashvani Tezpur
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio270/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_tezu" tvg-name="Akashvani Tezu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_237299.jpg" group-title="AIR, ALL",Akashvani Tezu
 https://radio.wavespb.com/live/7579db5ef9660a6e/7579db5ef9660a6e.m3u8
-#EXTINF:-1 tvg-id="akashvani_tezu" tvg-name="Akashvani Tezu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_237299.jpg" group-title="AIR, ALL",Akashvani Tezu
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio267/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_thrissur" tvg-name="Akashvani Thrissur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airthrissur.jpg" group-title="AIR, ALL",Akashvani Thrissur
 https://radio.wavespb.com/live/f70fdeca437dc326/f70fdeca437dc326.m3u8
 #EXTINF:-1 tvg-id="akashvani_tiruchirappalli" tvg-name="Akashvani Tiruchirappalli" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airtiruchirappallifm.jpg" group-title="AIR, ALL",Akashvani Tiruchirappalli
@@ -509,12 +421,8 @@ https://radio.wavespb.com/live/340834aaac8e1081/340834aaac8e1081.m3u8
 https://radio.wavespb.com/live/ee7f2a29ab3b6bf9/ee7f2a29ab3b6bf9.m3u8
 #EXTINF:-1 tvg-id="akashvani_tura" tvg-name="Akashvani Tura" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_500280.jpg" group-title="AIR, ALL",Akashvani Tura
 https://radio.wavespb.com/live/a4c3a057df68d422/a4c3a057df68d422.m3u8
-#EXTINF:-1 tvg-id="akashvani_tura" tvg-name="Akashvani Tura" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_500280.jpg" group-title="AIR, ALL",Akashvani Tura
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio259/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_tuticorin" tvg-name="Akashvani Tuticorin" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_750850.jpg" group-title="AIR, ALL",Akashvani Tuticorin
 https://radio.wavespb.com/live/2e8cfad789dc692d/2e8cfad789dc692d.m3u8
-#EXTINF:-1 tvg-id="akashvani_tuticorin" tvg-name="Akashvani Tuticorin" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_750850.jpg" group-title="AIR, ALL",Akashvani Tuticorin
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio121/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_udaipur" tvg-name="Akashvani Udaipur" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airudaipur.jpg" group-title="AIR, ALL",Akashvani Udaipur
 https://radio.wavespb.com/live/85190aca16096832/85190aca16096832.m3u8
 #EXTINF:-1 tvg-id="akashvani_udaipur_fm_lake_city" tvg-name="Akashvani Udaipur FM Lake City" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airudaipurfmlakecity.jpg" group-title="FM, AIR, ALL",Akashvani Udaipur FM Lake City
@@ -635,8 +543,6 @@ https://stream.teluguoneradio.com:8164/;stream/1
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio026/hlspbaudio026_Auto.m3u8
 #EXTINF:-1 tvg-id="vb_malayalam" tvg-name="VB MALAYALAM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/fmananthapuri.jpg" group-title="FM, AIR, ALL",VB MALAYALAM
 https://radio.wavespb.com/live/ad3a8436a329e2d6/ad3a8436a329e2d6.m3u8
-#EXTINF:-1 tvg-id="vb_malayalam" tvg-name="VB MALAYALAM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/fmananthapuri.jpg" group-title="FM, AIR, ALL",VB MALAYALAM
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio229/chunklist.m3u8
 #EXTINF:-1 tvg-id="vb_tamil_chennai" tvg-name="VB Tamil Chennai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_361667.jpg" group-title="FM, AIR, ALL",VB Tamil Chennai
 https://radio.wavespb.com/live/f893db91dedcb4ab/f893db91dedcb4ab.m3u8
 #EXTINF:-1 tvg-id="vbs_ahmedabad" tvg-name="VBS Ahmedabad" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_519561.jpg" group-title="FM, AIR, ALL",VBS Ahmedabad

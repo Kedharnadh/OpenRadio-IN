@@ -1,12 +1,8 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="akashvani_bhatinda" tvg-name="Akashvani Bhatinda" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_283995.jpg" group-title="AIR, ALL",Akashvani Bhatinda
 https://radio.wavespb.com/live/8651d3d0c2021750/8651d3d0c2021750.m3u8
-#EXTINF:-1 tvg-id="akashvani_bhatinda" tvg-name="Akashvani Bhatinda" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_283995.jpg" group-title="AIR, ALL",Akashvani Bhatinda
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio117/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_chandigarh" tvg-name="Akashvani Chandigarh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airchandigarh.jpg" group-title="AIR, ALL",Akashvani Chandigarh
 https://radio.wavespb.com/live/db4a912ff7882d9d/db4a912ff7882d9d.m3u8
-#EXTINF:-1 tvg-id="akashvani_chandigarh" tvg-name="Akashvani Chandigarh" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airchandigarh.jpg" group-title="AIR, ALL",Akashvani Chandigarh
-https://air.pc.cdn.bitgravity.com/air/live/pbaudio111/chunklist.m3u8
 #EXTINF:-1 tvg-id="akashvani_ludhiana" tvg-name="Akashvani Ludhiana" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/Ludhiana.jpg" group-title="AIR, ALL",Akashvani Ludhiana
 https://radio.wavespb.com/live/1a7150879f9e362c/1a7150879f9e362c.m3u8
 #EXTINF:-1 tvg-id="akashvani_patiala" tvg-name="Akashvani Patiala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/airpatiala.jpg" group-title="AIR, ALL",Akashvani Patiala
