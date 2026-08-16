@@ -6786,7 +6786,7 @@
     "streams": [
       {
         "url": "http://server.geetradio.com:8010/radio.mp3",
-        "codec": "HLS",
+        "codec": "MP3",
         "priority": 1
       }
     ],

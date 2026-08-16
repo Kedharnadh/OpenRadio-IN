@@ -39,6 +39,13 @@ async function handleRequest(request) {
   const forcedContentType = url.searchParams.get('contentType');
   const probeOnly = url.searchParams.has('probe');
 
+  // Raw passthrough relay for direct (non-HLS) streams served over plain HTTP.
+  // Browsers block such streams on HTTPS pages (mixed content), so the player
+  // asks the worker to relay them over HTTPS instead.
+  if (url.searchParams.has('relay')) {
+    return relayStream(hlsUrl, forcedContentType, probeOnly);
+  }
+
   // Resolve the (possibly multi-variant) playlist down to a media playlist
   let resolution;
   try {
@@ -103,6 +110,31 @@ async function handleMetadataRequest(streamUrl, metaUrl) {
   }
   return new Response(JSON.stringify({ streamTitle: '' }), {
     headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+  });
+}
+
+async function relayStream(streamUrl, contentType, probeOnly) {
+  const resp = await fetch(streamUrl, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+      'Cache-Control': 'no-cache',
+    },
+  });
+  if (!resp.ok) {
+    return new Response(`Upstream error: ${resp.status}`, { status: resp.status, headers: CORS_HEADERS });
+  }
+  const ct = contentType || resp.headers.get('content-type') || 'audio/mpeg';
+  if (probeOnly) {
+    return new Response(JSON.stringify({ url: streamUrl, contentType: ct, type: 'relay' }), {
+      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+    });
+  }
+  return new Response(resp.body, {
+    headers: {
+      ...CORS_HEADERS,
+      'Content-Type': ct,
+      'Cache-Control': 'no-cache',
+    },
   });
 }
 

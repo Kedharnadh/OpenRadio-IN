@@ -1023,6 +1023,15 @@
     return String(stream.codec || '').toLowerCase() === 'hls' || String(stream.url || '').includes('.m3u8');
   }
 
+  function secureStreamUrl(stream) {
+    // Browsers block plain-HTTP media on HTTPS pages (mixed content). Relay
+    // such streams through the HTTPS proxy so they play on the deployed PWA.
+    if (HLS_PROXY_URL && /^http:\/\//i.test(stream.url) && location.protocol === 'https:') {
+      return `${HLS_PROXY_URL}?relay=1&url=${encodeURIComponent(stream.url)}`;
+    }
+    return stream.url;
+  }
+
   function sortStreamsForPlayback(streams) {
     return [...(streams || [])]
       .filter((s) => s.url)
@@ -1086,6 +1095,11 @@
     const directContentType = streamContentType(stream);
     const isHls = directContentType === 'application/vnd.apple.mpegurl';
     const candidates = [{ url: stream.url, contentType: directContentType }];
+    if (!isHls && HLS_PROXY_URL && /^http:\/\//i.test(stream.url) && location.protocol === 'https:') {
+      // Mixed-content rule blocks plain-HTTP streams from HTTPS pages; relay
+      // them through the HTTPS proxy instead of playing the receiver directly.
+      candidates.unshift({ url: secureStreamUrl(stream), contentType: directContentType });
+    }
     if (isHls) {
       const hlsSegmentFormats = ['ts_aac', 'ts_he_aac', 'ts', 'aac', 'mp3'];
       let resolvedUrl = stream.url;
@@ -1103,10 +1117,11 @@
     }
     if (HLS_PROXY_URL && !isHls) {
       try {
-        const probeResponse = await fetch(`${HLS_PROXY_URL}?probe=1&url=${encodeURIComponent(stream.url)}`, { signal: AbortSignal.timeout(10000) });
+        const relay = /^http:\/\//i.test(stream.url) ? '&relay=1' : '';
+        const probeResponse = await fetch(`${HLS_PROXY_URL}?probe=1${relay}&url=${encodeURIComponent(stream.url)}`, { signal: AbortSignal.timeout(10000) });
         if (probeResponse.ok) {
           const probe = await probeResponse.json();
-          if (probe && probe.contentType && probe.url) {
+          if (probe && probe.contentType && probe.url && probe.type !== 'relay') {
             candidates.push({
               url: `${HLS_PROXY_URL}?url=${encodeURIComponent(probe.url)}&contentType=${encodeURIComponent(probe.contentType)}`,
               contentType: normalizeCastContentType(probe.contentType, probe.url)
@@ -1462,7 +1477,7 @@
       return;
     }
 
-    elements.audio.src = stream.url;
+    elements.audio.src = secureStreamUrl(stream);
     elements.audio.load();
     try {
       await elements.audio.play();
