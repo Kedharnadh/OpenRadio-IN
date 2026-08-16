@@ -76,7 +76,22 @@
       'alarm.set': 'Set alarm',
       'alarm.off': 'Turn off',
       'alarm.status': 'Alarm at {time}',
-      'alarm.fired': 'Wake up \u2014 playing {name}'
+      'alarm.fired': 'Wake up \u2014 playing {name}',
+      'np.close': 'Close',
+      'volume.label': 'Volume',
+      'controls.collapse': 'Collapse section',
+      'np.share.title': 'Share station',
+      'np.timer.title': 'Sleep timer',
+      'np.favorite.title': 'Add to favorites',
+      'np.alarm.title': 'Alarm',
+      'player.open': 'Open now playing view',
+      'cast.launch': 'Cast radio to a Google Cast device',
+      'filters.categories': 'Station categories',
+      'filter.byLanguage': 'Filter by language',
+      'timer.min15': '15 min',
+      'timer.min30': '30 min',
+      'timer.min60': '60 min',
+      'timer.off': 'Off'
     },
     te: {
       'app.eyebrow': '\u0C15\u0C2E\u0C4D\u0C2F\u0C42\u0C28\u0C3F\u0C1F\u0C40 \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u2022 PWA',
@@ -151,7 +166,62 @@
       'alarm.set': '\u0C05\u0C32\u0C3E\u0C30\u0C02 \u0C38\u0C46\u0C1F\u0C4D',
       'alarm.off': '\u0C06\u0C2B\u0C4D \u0C1A\u0C47\u0C2F\u0C3F',
       'alarm.status': '{time} \u0C15\u0C3F \u0C05\u0C32\u0C3E\u0C30\u0C02',
-      'alarm.fired': '\u0C32\u0C46\u0C02\u0C1A\u0C02\u0C21\u0C3F \u2014 {name} \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F'
+      'alarm.fired': '\u0C32\u0C46\u0C02\u0C1A\u0C02\u0C21\u0C3F \u2014 {name} \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
+      'np.close': '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C3F',
+      'volume.label': '\u0C35\u0C3E\u0C32\u0C4D\u0C2F\u0C42\u0C2E\u0C4D',
+      'controls.collapse': '\u0C35\u0C3F\u0C2D\u0C3E\u0C17\u0C3E\u0C28\u0C4D\u0C28\u0C3F \u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C3F',
+      'np.share.title': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u200C\u0C28\u0C41 \u0C37\u0C47\u0C30\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      'np.timer.title': '\u0C38\u0C4D\u0C32\u0C40\u0C2A\u0C4D \u0C1F\u0C48\u0C2F\u0C4D\u0C2E\u0C30\u0C4D',
+      'np.favorite.title': '\u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      'np.alarm.title': '\u0C05\u0C32\u0C3E\u0C30\u0C02',
+      'player.open': '\u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24\u0C02 \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C41\u0C28\u0C4D\u0C28 \u0C35\u0C40\u0C15\u0C4D\u0C37\u0C23 \u0C24\u0C46\u0C30\u0C35\u0C02\u0C21\u0C3F',
+      'cast.launch': 'Google Cast \u0C2A\u0C30\u0C3F\u0C15\u0C30\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      'filters.categories': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C35\u0C30\u0C4D\u0C17\u0C3E\u0C32\u0C41',
+      'filter.byLanguage': '\u0C2D\u0C3E\u0C37 \u0C26\u0C4D\u0C35\u0C3E\u0C30\u0C3E \u0C2B\u0C3F\u0C32\u0C4D\u0C1F\u0C30\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      'timer.min15': '15 \u0C28\u0C3F\u0C2E\u0C3F\u0C37\u0C3E\u0C32\u0C41',
+      'timer.min30': '30 \u0C28\u0C3F\u0C2E\u0C3F\u0C37\u0C3E\u0C32\u0C41',
+      'timer.min60': '60 \u0C28\u0C3F\u0C2E\u0C3F\u0C37\u0C3E\u0C32\u0C41',
+      'timer.off': '\u0C06\u0C2B\u0C4D',
+      'cat.AIR': '\u0C06\u0C15\u0C3E\u0C36\u0C35\u0C3E\u0C23\u0C3F',
+      'cat.ALL': '\u0C05\u0C28\u0C4D\u0C28\u0C40',
+      'cat.FM': '\u0C0E\u0C2B\u0C4D\u0C0E\u0C2E\u0C4D',
+      'cat.Devotional': '\u0C2D\u0C15\u0C4D\u0C24\u0C3F',
+      'cat.News': '\u0C35\u0C3E\u0C30\u0C4D\u0C24\u0C32\u0C41',
+      'cat.Community': '\u0C15\u0C2E\u0C4D\u0C2F\u0C42\u0C28\u0C3F\u0C1F\u0C40',
+      'lang.Assamese': '\u0C05\u0C38\u0C4D\u0C38\u0C3E\u0C2E\u0C40',
+      'lang.Bengali': '\u0C2C\u0C46\u0C02\u0C17\u0C3E\u0C32\u0C40',
+      'lang.Bhojpuri': '\u0C2D\u0C4B\u0C1C\u0C4D\u200C\u0C2A\u0C41\u0C30\u0C3F',
+      'lang.Braj Bhasha': '\u0C2C\u0C4D\u0C30\u0C1C\u0C4D \u0C2D\u0C3E\u0C37',
+      'lang.Chhattisgarhi': '\u0C1B\u0C24\u0C4D\u0C24\u0C40\u0C38\u0C4D\u0C17\u0C22\u0C40',
+      'lang.Dogri': '\u0C21\u0C4B\u0C17\u0C4D\u0C30\u0C40',
+      'lang.English': '\u0C07\u0C02\u0C17\u0C4D\u0C32\u0C40\u0C37\u0C4D',
+      'lang.Garhwali': '\u0C17\u0C30\u0C4D\u0C39\u0C4D\u0C35\u0C3E\u0C32\u0C40',
+      'lang.Gujarati': '\u0C17\u0C41\u0C1C\u0C30\u0C3E\u0C24\u0C40',
+      'lang.Haryanvi': '\u0C39\u0C30\u0C4D\u0C2F\u0C3E\u0C28\u0C4D\u0C35\u0C40',
+      'lang.Hindi': '\u0C39\u0C3F\u0C02\u0C26\u0C40',
+      'lang.Kannada': '\u0C15\u0C28\u0C4D\u0C28\u0C21',
+      'lang.Khasi': '\u0C16\u0C3E\u0C38\u0C40',
+      'lang.Kokborok': '\u0C15\u0C4A\u0C15\u0C4D\u0C2C\u0C4A\u0C30\u0C15\u0C4D',
+      'lang.Konkani': '\u0C15\u0C4A\u0C02\u0C15\u0C23\u0C3F',
+      'lang.Ladakhi': '\u0C32\u0C26\u0C4D\u0C26\u0C3E\u0C16\u0C40',
+      'lang.Maithili': '\u0C2E\u0C48\u0C25\u0C3F\u0C32\u0C40',
+      'lang.Malayalam': '\u0C2E\u0C32\u0C2F\u0C3E\u0C33\u0C02',
+      'lang.Manipuri': '\u0C2E\u0C23\u0C3F\u0C2A\u0C41\u0C30\u0C3F',
+      'lang.Marathi': '\u0C2E\u0C30\u0C3E\u0C20\u0C40',
+      'lang.Mizo': '\u0C2E\u0C3F\u0C1C\u0C4B',
+      'lang.Monpa': '\u0C2E\u0C4A\u0C28\u0C4D\u200C\u0C2A\u0C3E',
+      'lang.Nagamese': '\u0C28\u0C3E\u0C17\u0C3E\u0C2E\u0C40\u0C38\u0C4D',
+      'lang.Nagpuri': '\u0C28\u0C3E\u0C17\u0C4D\u200C\u0C2A\u0C41\u0C30\u0C3F',
+      'lang.Nepali': '\u0C28\u0C47\u0C2A\u0C3E\u0C32\u0C40',
+      'lang.Nicobarese': '\u0C28\u0C3F\u0C15\u0C4B\u0C2C\u0C3E\u0C30\u0C40',
+      'lang.Odia': '\u0C12\u0C21\u0C3F\u0C2F\u0C3E',
+      'lang.Pahari': '\u0C2A\u0C39\u0C3E\u0C30\u0C40',
+      'lang.Punjabi': '\u0C2A\u0C02\u0C1C\u0C3E\u0C2C\u0C40',
+      'lang.Rajasthani': '\u0C30\u0C3E\u0C1C\u0C38\u0C4D\u0C25\u0C3E\u0C28\u0C40',
+      'lang.Tamil': '\u0C24\u0C2E\u0C3F\u0C33\u0C02',
+      'lang.Telugu': '\u0C24\u0C46\u0C32\u0C41\u0C17\u0C41',
+      'lang.Tulu': '\u0C24\u0C41\u0C33\u0C41',
+      'lang.Urdu': '\u0C09\u0C30\u0C4D\u0C26\u0C42'
     },
     hi: {
       'app.eyebrow': '\u0915\u092E\u094D\u092F\u0942\u0928\u093F\u091F\u0940 \u0930\u0947\u0921\u093F\u092F\u094B \u2022 PWA',
@@ -226,7 +296,62 @@
       'alarm.set': '\u0905\u0932\u093E\u0930\u094D\u092E \u0938\u0947\u091F \u0915\u0930\u0947\u0902',
       'alarm.off': '\u092C\u0902\u0926 \u0915\u0930\u0947\u0902',
       'alarm.status': '{time} \u092A\u0930 \u0905\u0932\u093E\u0930\u094D\u092E',
-      'alarm.fired': '\u091C\u093E\u0917\u094B \u2014 {name} \u091A\u0932 \u0930\u0939\u093E \u0939\u0948'
+      'alarm.fired': '\u091C\u093E\u0917\u094B \u2014 {name} \u091A\u0932 \u0930\u0939\u093E \u0939\u0948',
+      'np.close': '\u092C\u0902\u0926 \u0915\u0930\u0947\u0902',
+      'volume.label': '\u0935\u0949\u0932\u094D\u092F\u0942\u092E',
+      'controls.collapse': '\u0905\u0928\u0941\u092D\u093E\u0917 \u0938\u0902\u0915\u094D\u0937\u093F\u092A\u094D\u0924 \u0915\u0930\u0947\u0902',
+      'np.share.title': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0938\u093E\u091D\u093E \u0915\u0930\u0947\u0902',
+      'np.timer.title': '\u0938\u094D\u0932\u0940\u092A \u091F\u093E\u0907\u092E\u0930',
+      'np.favorite.title': '\u092A\u0938\u0902\u0926\u0940\u0926\u093E \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u0947\u0902',
+      'np.alarm.title': '\u0905\u0932\u093E\u0930\u094D\u092E',
+      'player.open': '\u0905\u092D\u0940 \u091A\u0932 \u0930\u0939\u093E \u0926\u0943\u0936\u094D\u092F \u0916\u094B\u0932\u0947\u0902',
+      'cast.launch': 'Google Cast \u0921\u093F\u0935\u093E\u0907\u0938 \u092A\u0930 \u0930\u0947\u0921\u093F\u092F\u094B \u0915\u093E\u0938\u094D\u091F \u0915\u0930\u0947\u0902',
+      'filters.categories': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0936\u094D\u0930\u0947\u0923\u093F\u092F\u093E\u0901',
+      'filter.byLanguage': '\u092D\u093E\u0937\u093E \u0915\u0947 \u0905\u0928\u0941\u0938\u093E\u0930 \u092B\u093C\u093F\u0932\u094D\u091F\u0930 \u0915\u0930\u0947\u0902',
+      'timer.min15': '15 \u092E\u093F\u0928\u091F',
+      'timer.min30': '30 \u092E\u093F\u0928\u091F',
+      'timer.min60': '60 \u092E\u093F\u0928\u091F',
+      'timer.off': '\u092C\u0902\u0926',
+      'cat.AIR': '\u0906\u0915\u093E\u0936\u0935\u093E\u0923\u0940',
+      'cat.ALL': '\u0938\u092D\u0940',
+      'cat.FM': '\u090F\u092B\u090F\u092E',
+      'cat.Devotional': '\u092D\u0915\u094D\u0924\u093F',
+      'cat.News': '\u0938\u092E\u093E\u091A\u093E\u0930',
+      'cat.Community': '\u0915\u092E\u094D\u092F\u0942\u0928\u093F\u091F\u0940',
+      'lang.Assamese': '\u0905\u0938\u092E\u093F\u092F\u093E',
+      'lang.Bengali': '\u092C\u0902\u0917\u093E\u0932\u0940',
+      'lang.Bhojpuri': '\u092D\u094B\u091C\u092A\u0941\u0930\u0940',
+      'lang.Braj Bhasha': '\u092C\u094D\u0930\u091C \u092D\u093E\u0937\u093E',
+      'lang.Chhattisgarhi': '\u091B\u0924\u094D\u0924\u0940\u0938\u0917\u0922\u093C\u0940',
+      'lang.Dogri': '\u0921\u094B\u0917\u0930\u0940',
+      'lang.English': '\u0905\u0902\u0917\u094D\u0930\u0947\u091C\u093C\u0940',
+      'lang.Garhwali': '\u0917\u0922\u093C\u0935\u093E\u0932\u0940',
+      'lang.Gujarati': '\u0917\u0941\u091C\u0930\u093E\u0924\u0940',
+      'lang.Haryanvi': '\u0939\u0930\u093F\u092F\u093E\u0923\u0935\u0940',
+      'lang.Hindi': '\u0939\u093F\u0902\u0926\u0940',
+      'lang.Kannada': '\u0915\u0928\u094D\u0928\u0921\u093C',
+      'lang.Khasi': '\u0916\u093E\u0938\u0940',
+      'lang.Kokborok': '\u0915\u0915\u092C\u0930\u0915',
+      'lang.Konkani': '\u0915\u094B\u0902\u0915\u0923\u0940',
+      'lang.Ladakhi': '\u0932\u0926\u094D\u0926\u093E\u0916\u093C\u0940',
+      'lang.Maithili': '\u092E\u0948\u0925\u093F\u0932\u0940',
+      'lang.Malayalam': '\u092E\u0932\u092F\u093E\u0932\u092E',
+      'lang.Manipuri': '\u092E\u0923\u093F\u092A\u0941\u0930\u0940',
+      'lang.Marathi': '\u092E\u0930\u093E\u0920\u0940',
+      'lang.Mizo': '\u092E\u093F\u091C\u093C\u094B',
+      'lang.Monpa': '\u092E\u094B\u0928\u092A\u093E',
+      'lang.Nagamese': '\u0928\u093E\u0917\u093E\u092E\u0940\u091C\u093C',
+      'lang.Nagpuri': '\u0928\u093E\u0917\u092A\u0941\u0930\u0940',
+      'lang.Nepali': '\u0928\u0947\u092A\u093E\u0932\u0940',
+      'lang.Nicobarese': '\u0928\u093F\u0915\u094B\u092C\u093E\u0930\u0940',
+      'lang.Odia': '\u0913\u0921\u093C\u093F\u092F\u093E',
+      'lang.Pahari': '\u092A\u0939\u093E\u0921\u093C\u0940',
+      'lang.Punjabi': '\u092A\u0902\u091C\u093E\u092C\u0940',
+      'lang.Rajasthani': '\u0930\u093E\u091C\u0938\u094D\u0925\u093E\u0928\u0940',
+      'lang.Tamil': '\u0924\u092E\u093F\u0932',
+      'lang.Telugu': '\u0924\u0947\u0932\u0941\u0917\u0941',
+      'lang.Tulu': '\u0924\u0941\u0932\u0941',
+      'lang.Urdu': '\u0909\u0930\u094D\u0926\u0942'
     }
   };
   let uiLang = localStorage.getItem('openradio-ui-lang') || 'en';
@@ -247,6 +372,16 @@
     if (uiLang === 'te' && station.name_te) return station.name_te;
     if (uiLang === 'hi' && station.name_hi) return station.name_hi;
     return station.name;
+  }
+
+  function translateCategory(category) {
+    const dict = I18N[uiLang] || I18N.en;
+    return dict[`cat.${category}`] ?? category;
+  }
+
+  function translateLanguage(language) {
+    const dict = I18N[uiLang] || I18N.en;
+    return dict[`lang.${language}`] ?? language;
   }
 
   const state = {
@@ -378,8 +513,19 @@
     return element;
   }
 
+  function translateLanguages(languageField) {
+    return String(languageField || '')
+      .split(',')
+      .map((language) => language.trim())
+      .filter(Boolean)
+      .map(translateLanguage)
+      .join(', ');
+  }
+
   function stationTags(station) {
-    return [...new Set([station.language, ...(station.categories || [])].filter(Boolean))].slice(0, 3).join(' \u2022 ');
+    return [...new Set([translateLanguages(station.language), ...(station.categories || []).map(translateCategory)].filter(Boolean))]
+      .slice(0, 3)
+      .join(' \u2022 ');
   }
 
   function hasCategory(station, category) {
@@ -390,7 +536,16 @@
 
   function stationMatches(station) {
     const query = state.search.trim().toLowerCase();
-    const searchable = [station.name, station.language, station.country, station.state, station.city, ...(station.categories || [])]
+    const searchable = [
+      station.name,
+      station.language,
+      translateLanguages(station.language),
+      station.country,
+      station.state,
+      station.city,
+      ...(station.categories || []),
+      ...(station.categories || []).map(translateCategory)
+    ]
       .filter(Boolean)
       .join(' ')
       .toLowerCase();
@@ -734,7 +889,7 @@
     top.append(thumb, thumbFallback, titleBlock, dot, favorite);
 
     const badges = makeElement('div', 'station-badges');
-    (station.categories || []).filter(Boolean).slice(0, featured ? 3 : 4).forEach((category) => badges.append(makeElement('span', '', category)));
+    (station.categories || []).filter(Boolean).slice(0, featured ? 3 : 4).forEach((category) => badges.append(makeElement('span', '', translateCategory(category))));
 
     const footer = makeElement('div', 'station-card__footer');
     footer.append(makeElement('span', '', featured ? (station.verified ? t('verified') : t('community')) : (station.country || t('player.stream'))));
@@ -760,7 +915,7 @@
     availableCategories.add('all');
     if (state.stations.length && !availableCategories.has(String(state.activeCategory).toLowerCase())) state.activeCategory = 'all';
     elements.filters.replaceChildren(...categories.map((category) => {
-      const button = makeElement('button', `pill${state.activeCategory.toLowerCase() === String(category).toLowerCase() ? ' active' : ''}`, category === 'all' ? t('filter.all') : category);
+      const button = makeElement('button', `pill${state.activeCategory.toLowerCase() === String(category).toLowerCase() ? ' active' : ''}`, category === 'all' ? t('filter.all') : translateCategory(category));
       button.type = 'button';
       button.dataset.category = category;
       return button;
@@ -782,7 +937,7 @@
     elements.languageSelect.replaceChildren(
       allOption,
       ...languages.map((language) => {
-        const option = makeElement('option', '', language);
+        const option = makeElement('option', '', translateLanguage(language));
         option.value = language;
         return option;
       })
@@ -2063,6 +2218,8 @@
     elements.uiLang.value = uiLang;
     document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
     document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => { el.placeholder = t(el.dataset.i18nPlaceholder); });
+    document.querySelectorAll('[data-i18n-title]').forEach((el) => { el.title = t(el.dataset.i18nTitle); });
+    document.querySelectorAll('[data-i18n-aria]').forEach((el) => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
     applyFilters();
     updatePlayer();
     renderAlarmStatus();
