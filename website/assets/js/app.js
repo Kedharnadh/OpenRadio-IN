@@ -1819,10 +1819,18 @@
   }
 
   function applyTrackMetadata(streamTitle, station, metaArt, structured) {
-    const songTitle = (structured && structured.title) || streamTitle;
+    const hasStructured = structured && (structured.title || structured.artist);
+    let songTitle = (structured && structured.title) || streamTitle;
     const songArtist = (structured && structured.artist) || '';
     const songAlbum = (structured && structured.album) || '';
-    const display = [songTitle, songArtist, songAlbum].filter(Boolean).join(' - ');
+    let display = [songTitle, songArtist, songAlbum].filter(Boolean).join(' - ');
+    if (!hasStructured && station && station.song_first === true) {
+      const [artist, track] = splitArtistTrack(streamTitle);
+      if (artist) {
+        songTitle = track;
+        display = [track, artist].filter(Boolean).join(' - ');
+      }
+    }
     if (!display || display === state.nowPlayingTrack) return;
     state.nowPlayingTrack = display;
     state.nowPlayingTitle = songTitle;
