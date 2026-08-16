@@ -510,8 +510,13 @@
   const ART_CACHE_KEY = 'openradio-art-cache';
   const ART_CACHE_TTL = 24 * 60 * 60 * 1000;
 
-  function setStatus(message) {
-    elements.status.textContent = message;
+  let statusKey = 'status.loading';
+  let statusVars = null;
+
+  function setStatus(key, vars) {
+    statusKey = key;
+    statusVars = vars || null;
+    elements.status.textContent = t(key, vars);
   }
 
   function makeElement(tag, className, text) {
@@ -1068,13 +1073,13 @@
         }
       } catch (error) {
         const message = error && error.message ? error.message : 'session_error';
-        setStatus(t('status.castError', { error: message }));
+        setStatus('status.castError', { error: message });
         return;
       }
     }
 
     if (!session) {
-      setStatus(t('status.noCastSession'));
+      setStatus('status.noCastSession');
       return;
     }
 
@@ -1134,7 +1139,7 @@
         try { sessionStorage.setItem('openradio-cast-station', station.id); } catch {}
         startMetadataPolling(stream.url, station);
         startCastSync();
-        setStatus(t('status.playingCast', { name: localizedName(station) }));
+        setStatus('status.playingCast', { name: localizedName(station) });
         updatePlayer();
         renderStationLists();
         return;
@@ -1149,7 +1154,7 @@
     try { sessionStorage.removeItem('openradio-cast-station'); } catch {}
     stopMetadataPolling();
     stopCastSync();
-    setStatus(t('status.castError', { error: lastError || t('status.castError') }));
+    setStatus('status.castError', { error: lastError || t('status.castError') });
     updatePlayer();
     renderStationLists();
   }
@@ -1298,7 +1303,7 @@
     const next = (state.streamIndex || 0) + 1;
     if (next >= streams.length || !streams[next]) return false;
     state.streamSwitching = true;
-    setStatus(t('status.tryingBackup'));
+    setStatus('status.tryingBackup');
     playStation(station, next);
     return true;
   }
@@ -1306,7 +1311,7 @@
   async function playStation(station, streamIndex = 0) {
     const streams = sortStreamsForPlayback(station.streams);
     if (!streams.length) {
-      setStatus(t('status.noStream'));
+      setStatus('status.noStream');
       return;
     }
     const stream = streams[streamIndex];
@@ -1314,7 +1319,7 @@
       state.streamSwitching = false;
       state.playing = false;
       state.pauseIntent = false;
-      setStatus(t('status.streamFailed'));
+      setStatus('status.streamFailed');
       updatePlayer();
       renderStationLists();
       return;
@@ -1353,13 +1358,13 @@
 
     if (isHls) {
       if (!window.Hls || !window.Hls.isSupported()) {
-        setStatus(t('status.hlsUnsupported'));
+        setStatus('status.hlsUnsupported');
         updatePlayer();
         renderStationLists();
         return;
       }
       elements.audio.src = '';
-      setStatus(t('status.loadingHls'));
+      setStatus('status.loadingHls');
       let started = false;
       let loadReject = null;
       state.hls = new window.Hls({
@@ -1388,7 +1393,7 @@
           state.streamSwitching = false;
           state.playing = false;
           state.pauseIntent = false;
-          setStatus(t('status.streamFailed'));
+          setStatus('status.streamFailed');
           updatePlayer();
           renderStationLists();
         }
@@ -1412,7 +1417,7 @@
           state.streamSwitching = false;
           state.playing = false;
           state.pauseIntent = false;
-          setStatus(t('status.loadFailed'));
+          setStatus('status.loadFailed');
           updatePlayer();
           renderStationLists();
         }
@@ -1438,7 +1443,7 @@
           state.streamSwitching = false;
           state.playing = false;
           state.pauseIntent = false;
-          setStatus(t('status.playFailed'));
+          setStatus('status.playFailed');
           updatePlayer();
           renderStationLists();
         }
@@ -1448,7 +1453,7 @@
       state.streamSwitching = false;
       started = true;
       state.playing = true;
-      setStatus(t('status.playing', { name: localizedName(station) }));
+      setStatus('status.playing', { name: localizedName(station) });
       localStorage.setItem('openradio-last-station', station.id);
       addRecentStation(station);
       startMetadataPolling(stream.url, station);
@@ -1464,7 +1469,7 @@
       if (state.playGeneration !== generation || state.userInitiatedStop) return;
       state.streamSwitching = false;
       state.playing = true;
-      setStatus(t('status.playing', { name: localizedName(station) }));
+      setStatus('status.playing', { name: localizedName(station) });
       localStorage.setItem('openradio-last-station', station.id);
       addRecentStation(station);
       startMetadataPolling(stream.url, station);
@@ -1479,7 +1484,7 @@
         state.streamSwitching = false;
         state.playing = false;
         state.pauseIntent = false;
-        setStatus(t('status.streamFailed'));
+        setStatus('status.streamFailed');
       }
     }
     updatePlayer();
@@ -1493,7 +1498,7 @@
     }
     state.retryCount++;
     const delay = Math.min(1000 * Math.pow(2, state.retryCount), 15000);
-    setStatus(t('status.retrying', { sec: Math.round(delay / 1000), attempt: state.retryCount, max: state.maxRetries }));
+    setStatus('status.retrying', { sec: Math.round(delay / 1000), attempt: state.retryCount, max: state.maxRetries });
     setTimeout(() => {
       if (state.userInitiatedStop) return;
       playStation(state.currentStation, state.streamIndex || 0);
@@ -1643,7 +1648,7 @@
       if (resumed) {
         state.pendingAutoResume = false;
         state.resumeAttempts = 0;
-        setStatus(t('status.resumed'));
+        setStatus('status.resumed');
         return;
       }
       state.resumeAttempts += 1;
@@ -1810,7 +1815,7 @@
         state.sleepTimerIntervalId = null;
       }
       elements.sleepTimerBtn.textContent = '\u23F0 ' + t('np.timer');
-      setStatus(t('status.sleeptimerStopped'));
+      setStatus('status.sleeptimerStopped');
       updatePlayer();
     }, minutes * 60 * 1000);
     state.sleepTimerIntervalId = setInterval(updateSleepTimerDisplay, 1000);
@@ -1831,7 +1836,7 @@
     if (navigator.share) {
       try { await navigator.share(shareData); } catch {}
     } else {
-      try { await navigator.clipboard.writeText(shareData.url); setStatus(t('status.copied')); } catch {}
+      try { await navigator.clipboard.writeText(shareData.url); setStatus('status.copied'); } catch {}
     }
   }
 
@@ -2181,9 +2186,9 @@
       populateAlarmStations();
       applyFilters();
       updatePlayer();
-      setStatus(t('status.loaded', { n: state.stations.length }));
+      setStatus('status.loaded', { n: state.stations.length });
     } catch {
-      setStatus(t('status.error'));
+      setStatus('status.error');
       elements.resultsCount.textContent = t('status.dataUnavailable');
       elements.stations.replaceChildren(makeElement('div', 'empty-state', t('status.emptyData')));
     }
@@ -2249,7 +2254,7 @@
     localStorage.removeItem('openradio-alarm');
     renderAlarmStatus();
     if (station) {
-      playStation(station).then(() => setStatus(t('alarm.fired', { name: localizedName(station) })));
+      playStation(station).then(() => setStatus('alarm.fired', { name: localizedName(station) }));
     }
   }
 
@@ -2263,6 +2268,7 @@
     document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => { el.placeholder = t(el.dataset.i18nPlaceholder); });
     document.querySelectorAll('[data-i18n-title]').forEach((el) => { el.title = t(el.dataset.i18nTitle); });
     document.querySelectorAll('[data-i18n-aria]').forEach((el) => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+    setStatus(statusKey, statusVars);
     applyFilters();
     updatePlayer();
     renderAlarmStatus();
@@ -2467,7 +2473,7 @@
     state.nowPlayingAlbum = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
-    setStatus(t('status.ended'));
+    setStatus('status.ended');
     updatePlayer();
     renderStationLists();
   });
@@ -2535,7 +2541,7 @@
     installPrompt = null;
     elements.install.hidden = true;
   });
-  window.addEventListener('appinstalled', () => { elements.install.hidden = true; setStatus(t('status.appInstalled')); });
+  window.addEventListener('appinstalled', () => { elements.install.hidden = true; setStatus('status.appInstalled'); });
 
   window.addEventListener('openradio-cast-api', (event) => {
     if (event.detail) initializeCast();
