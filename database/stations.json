@@ -2,6 +2,8 @@
   {
     "id": "air_adilabad",
     "name": "AIR Adilabad",
+    "name_te": "ఆకాశవాణి ఆదిలాబాద్",
+    "name_hi": "आकाशवाणी आदिलाबाद",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -32,6 +34,8 @@
   {
     "id": "air_anantapur",
     "name": "AIR Anantapur",
+    "name_te": "ఆకాశవాణి అనంతపూర్",
+    "name_hi": "आकाशवाणी अनंतपुर",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -57,6 +61,8 @@
   {
     "id": "air_kadapa",
     "name": "AIR Kadapa",
+    "name_te": "ఆకాశవాణి కడప",
+    "name_hi": "आकाशवाणी कडप्पा",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -82,6 +88,8 @@
   {
     "id": "air_kurnool",
     "name": "AIR Kurnool",
+    "name_te": "ఆకాశవాణి కర్నూల్",
+    "name_hi": "आकाशवाणी कुरनूल",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -107,6 +115,8 @@
   {
     "id": "air_markapur",
     "name": "AIR Markapur",
+    "name_te": "ఆకాశవాణి మార్కాపూర్",
+    "name_hi": "आकाशवाणी मार्कापुर",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -132,6 +142,8 @@
   {
     "id": "air_nizamabad",
     "name": "AIR Nizamabad",
+    "name_te": "ఆకాశవాణి నిజామాబాద్",
+    "name_hi": "आकाशवाणी निज़ामाबाद",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -162,6 +174,8 @@
   {
     "id": "air_rainbow_hyderabad",
     "name": "Air Rainbow Hyderabad",
+    "name_te": "ఎయిర్ రెయిన్బో హైదరాబాద్",
+    "name_hi": "एयर रेनबो हैदराबाद",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -187,6 +201,8 @@
   {
     "id": "air_rainbow_vijayawada",
     "name": "Air Rainbow Vijayawada",
+    "name_te": "ఎయిర్ రెయిన్బో విజయవాడ",
+    "name_hi": "एयर रेनबो विजयवाड़ा",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -212,6 +228,8 @@
   {
     "id": "air_rainbow_visakhapatnam",
     "name": "Air Rainbow Visakhapatnam",
+    "name_te": "ఎయిర్ రెయిన్బో విశాఖపట్నం",
+    "name_hi": "एयर रेनबो विशाखापट्टनम",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -237,6 +255,8 @@
   {
     "id": "air_simhapuri_fm",
     "name": "Air Simhapuri Nellore FM",
+    "name_te": "ఎయిర్ సింహపురి నెల్లూరు ఎఫ్ఎం",
+    "name_hi": "एयर सिंहपुरी नेल्लोर एफएम",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -267,6 +287,8 @@
   {
     "id": "air_telugu",
     "name": "Air Telugu",
+    "name_te": "ఎయిర్ తెలుగు",
+    "name_hi": "एयर तेलुगु",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -291,6 +313,8 @@
   {
     "id": "air_tirupati",
     "name": "AIR Tirupati",
+    "name_te": "ఆకాశవాణి తిరుపతి",
+    "name_hi": "आकाशवाणी तिरुपति",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -321,6 +345,8 @@
   {
     "id": "air_warangal",
     "name": "AIR Warangal",
+    "name_te": "ఆకాశవాణి వరంగల్",
+    "name_hi": "आकाशवाणी वरंगल",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -346,6 +372,8 @@
   {
     "id": "akashvani_aaradhana",
     "name": "Akashvani Aaradhana",
+    "name_te": "ఆకాశవాణి ఆరాధన",
+    "name_hi": "आकाशवाणी आराधना",
     "language": "Hindi",
     "country": "India",
     "state": "Delhi",
@@ -395,6 +423,8 @@
   {
     "id": "akashvani_agra",
     "name": "Akashvani Agra",
+    "name_te": "ఆకాశవాణి ఆగ్రా",
+    "name_hi": "आकाशवाणी आगरा",
     "language": "Hindi, Braj Bhasha",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -630,6 +660,8 @@
   {
     "id": "akashvani_ayodhya",
     "name": "Akashvani Ayodhya",
+    "name_te": "ఆకాశవాణి అయోధ్య",
+    "name_hi": "आकाशवाणी अयोध्या",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -655,6 +687,8 @@
   {
     "id": "akashvani_balaghat",
     "name": "Akashvani Balaghat",
+    "name_te": "ఆకాశవాణి బాలాఘాట్",
+    "name_hi": "आकाशवाणी बालाघाट",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -752,6 +786,8 @@
   {
     "id": "akashvani_bareilly",
     "name": "Akashvani Bareilly",
+    "name_te": "ఆకాశవాణి బరేలీ",
+    "name_hi": "आकाशवाणी बरेली",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -937,6 +973,8 @@
   {
     "id": "akashvani_betul",
     "name": "Akashvani Betul",
+    "name_te": "ఆకాశవాణి బేతుల్",
+    "name_hi": "आकाशवाणी बैतूल",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -1096,6 +1134,8 @@
   {
     "id": "akashvani_bhopal",
     "name": "Akashvani Bhopal",
+    "name_te": "ఆకాశవాణి భోపాల్",
+    "name_hi": "आकाशवाणी भोपाल",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -1339,6 +1379,8 @@
   {
     "id": "akashvani_chhatarpur",
     "name": "Akashvani Chhatarpur",
+    "name_te": "ఆకాశవాణి ఛతర్పూర్",
+    "name_hi": "आकाशवाणी छतरपुर",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -1414,6 +1456,8 @@
   {
     "id": "akashvani_chhindwara",
     "name": "Akashvani Chhindwara",
+    "name_te": "ఆకాశవాణి ఛింద్వారా",
+    "name_hi": "आकाशवाणी छिंदवाड़ा",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -1985,6 +2029,8 @@
   {
     "id": "akashvani_gorakhpur",
     "name": "Akashvani Gorakhpur",
+    "name_te": "ఆకాశవాణి గోరఖ్పూర్",
+    "name_hi": "आकाशवाणी गोरखपुर",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -2010,6 +2056,8 @@
   {
     "id": "akashvani_guna",
     "name": "Akashvani Guna",
+    "name_te": "ఆకాశవాణి గుణ",
+    "name_hi": "आकाशवाणी गुना",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -2095,6 +2143,8 @@
   {
     "id": "akashvani_gwalior",
     "name": "Akashvani Gwalior",
+    "name_te": "ఆకాశవాణి గ్వాలియర్",
+    "name_hi": "आकाशवाणी ग्वालियर",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -2370,6 +2420,8 @@
   {
     "id": "akashvani_indore",
     "name": "Akashvani Indore",
+    "name_te": "ఆకాశవాణి ఇండోర్",
+    "name_hi": "आकाशवाणी इंदौर",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -2395,6 +2447,8 @@
   {
     "id": "akashvani_itanagar",
     "name": "Akashvani Itanagar",
+    "name_te": "ఆకాశవాణి ఇటానగర్",
+    "name_hi": "आकाशवाणी ईटानगर",
     "language": "Hindi, English",
     "country": "India",
     "state": "Arunachal Pradesh",
@@ -2420,6 +2474,8 @@
   {
     "id": "akashvani_jabalpur",
     "name": "Akashvani Jabalpur",
+    "name_te": "ఆకాశవాణి జబల్పూర్",
+    "name_hi": "आकाशवाणी जबलपुर",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -2445,6 +2501,8 @@
   {
     "id": "akashvani_jabalpur_fm",
     "name": "Akashvani Jabalpur FM",
+    "name_te": "ఆకాశవాణి జబల్పూర్ ఎఫ్ఎం",
+    "name_hi": "आकाशवाणी जबलपुर एफएम",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -2676,6 +2734,8 @@
   {
     "id": "akashvani_jhansi",
     "name": "Akashvani Jhansi",
+    "name_te": "ఆకాశవాణి ఝాన్సీ",
+    "name_hi": "आकाशवाणी झाँसी",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -2906,6 +2966,8 @@
   {
     "id": "akashvani_kanpur",
     "name": "Akashvani Kanpur",
+    "name_te": "ఆకాశవాణి కాన్పూర్",
+    "name_hi": "आकाशवाणी कानपुर",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -3140,6 +3202,8 @@
   {
     "id": "akashvani_khandwa",
     "name": "Akashvani Khandwa",
+    "name_te": "ఆకాశవాణి ఖాండ్వా",
+    "name_hi": "आकाशवाणी खंडवा",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -3368,6 +3432,8 @@
   {
     "id": "akashvani_kothagudem",
     "name": "Akashvani Kothagudem",
+    "name_te": "ఆకాశవాణి కొత్తగూడెం",
+    "name_hi": "आकाशवाणी कोठागुडेम",
     "language": "Telugu, Hindi",
     "country": "India",
     "state": "Telangana",
@@ -3504,6 +3570,8 @@
   {
     "id": "akashvani_lucknow",
     "name": "Akashvani Lucknow",
+    "name_te": "ఆకాశవాణి లక్నో",
+    "name_hi": "आकाशवाणी लखनऊ",
     "language": "Hindi, Urdu",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -3782,6 +3850,8 @@
   {
     "id": "akashvani_mathura",
     "name": "Akashvani Mathura",
+    "name_te": "ఆకాశవాణి మథుర",
+    "name_hi": "आकाशवाणी मथुरा",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -4011,6 +4081,8 @@
   {
     "id": "akashvani_najibabad",
     "name": "Akashvani Najibabad",
+    "name_te": "ఆకాశవాణి నజీబాబాద్",
+    "name_hi": "आकाशवाणी नजीबाबाद",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -4116,6 +4188,8 @@
   {
     "id": "akashvani_obra",
     "name": "Akashvani Obra",
+    "name_te": "ఆకాశవాణి ఓబ్రా",
+    "name_hi": "आकाशवाणी ओबरा",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -4196,6 +4270,8 @@
   {
     "id": "akashvani_pasighat",
     "name": "Akashvani Pasighat",
+    "name_te": "ఆకాశవాణి పాసిఘాట్",
+    "name_hi": "आकाशवाणी पासीघाट",
     "language": "Hindi, English",
     "country": "India",
     "state": "Arunachal Pradesh",
@@ -4325,6 +4401,8 @@
   {
     "id": "akashvani_prayagraj",
     "name": "Akashvani Prayagraj",
+    "name_te": "ఆకాశవాణి ప్రయాగ్రాజ్",
+    "name_hi": "आकाशवाणी प्रयागराज",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -4585,6 +4663,8 @@
   {
     "id": "akashvani_rampur",
     "name": "Akashvani Rampur",
+    "name_te": "ఆకాశవాణి రాంపూర్",
+    "name_hi": "आकाशवाणी रामपुर",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -4660,6 +4740,8 @@
   {
     "id": "akashvani_rewa",
     "name": "Akashvani Rewa",
+    "name_te": "ఆకాశవాణి రేవా",
+    "name_hi": "आकाशवाणी रीवा",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -4735,6 +4817,8 @@
   {
     "id": "akashvani_sagar",
     "name": "Akashvani Sagar",
+    "name_te": "ఆకాశవాణి సాగర్",
+    "name_hi": "आकाशवाणी सागर",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -4914,6 +4998,8 @@
   {
     "id": "akashvani_shahdol",
     "name": "Akashvani Shahdol",
+    "name_te": "ఆకాశవాణి షాహ్డోల్",
+    "name_hi": "आकाशवाणी शहडोल",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -5044,6 +5130,8 @@
   {
     "id": "akashvani_shivpuri",
     "name": "Akashvani Shivpuri",
+    "name_te": "ఆకాశవాణి శివపురి",
+    "name_hi": "आकाशवाणी शिवपुरी",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -5174,6 +5262,8 @@
   {
     "id": "akashvani_sri_vijaya_puram_port_blair",
     "name": "Akashvani Sri Vijaya Puram (Port Blair)",
+    "name_te": "ఆకాశవాణి శ్రీ విజయపురం (పోర్ట్ బ్లెయిర్)",
+    "name_hi": "आकाशवाणी श्री विजयपुरम (पोर्ट ब्लेयर)",
     "language": "Hindi, English, Nicobarese",
     "country": "India",
     "state": "Andaman and Nicobar Islands",
@@ -5324,6 +5414,8 @@
   {
     "id": "akashvani_telangana",
     "name": "Akashvani Telangana",
+    "name_te": "ఆకాశవాణి తెలంగాణ",
+    "name_hi": "आकाशवाणी तेलंगाना",
     "language": "Telugu, Hindi",
     "country": "India",
     "state": "Telangana",
@@ -5379,6 +5471,8 @@
   {
     "id": "akashvani_tezu",
     "name": "Akashvani Tezu",
+    "name_te": "ఆకాశవాణి తేజు",
+    "name_hi": "आकाशवाणी तेजू",
     "language": "Hindi, English",
     "country": "India",
     "state": "Arunachal Pradesh",
@@ -5620,6 +5714,8 @@
   {
     "id": "akashvani_ujjain",
     "name": "Akashvani Ujjain",
+    "name_te": "ఆకాశవాణి ఉజ్జయిని",
+    "name_hi": "आकाशवाणी उज्जैन",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -5669,6 +5765,8 @@
   {
     "id": "akashvani_varanasi",
     "name": "Akashvani Varanasi",
+    "name_te": "ఆకాశవాణి వారణాసి",
+    "name_hi": "आकाशवाणी वाराणसी",
     "language": "Hindi, Bhojpuri",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -5694,6 +5792,8 @@
   {
     "id": "akashvani_visakhapatnam",
     "name": "Akashvani Visakhapatnam",
+    "name_te": "ఆకాశవాణి విశాఖపట్నం",
+    "name_hi": "आकाशवाणी विशाखापट्टनम",
     "language": "Telugu",
     "country": "India",
     "state": "Andhra Pradesh",
@@ -5744,6 +5844,8 @@
   {
     "id": "akashvani_ziro",
     "name": "Akashvani Ziro",
+    "name_te": "ఆకాశవాణి జిరో",
+    "name_hi": "आकाशवाणी ज़ीरो",
     "language": "Hindi, English",
     "country": "India",
     "state": "Arunachal Pradesh",
@@ -5818,6 +5920,8 @@
   {
     "id": "ap_9_fm",
     "name": "AP 9 FM",
+    "name_te": "ఏపీ 9 ఎఫ్ఎం",
+    "name_hi": "एपी 9 एफएम",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -5842,6 +5946,8 @@
   {
     "id": "fm_arun_itanagar",
     "name": "FM Arun Itanagar",
+    "name_te": "ఎఫ్ఎం అరుణ్ ఇటానగర్",
+    "name_hi": "एफएम अरुण ईटानगर",
     "language": "Hindi, English",
     "country": "India",
     "state": "Arunachal Pradesh",
@@ -5892,6 +5998,8 @@
   {
     "id": "fm_gold_delhi",
     "name": "FM Gold Delhi",
+    "name_te": "ఎఫ్ఎం గోల్డ్ ఢిల్లీ",
+    "name_hi": "एफएम गोल्ड दिल्ली",
     "language": "Hindi",
     "country": "India",
     "state": "Delhi",
@@ -6091,6 +6199,8 @@
   {
     "id": "fm_rainbow_delhi",
     "name": "FM Rainbow Delhi",
+    "name_te": "ఎఫ్ఎం రెయిన్బో ఢిల్లీ",
+    "name_hi": "एफएम रेनबो दिल्ली",
     "language": "Hindi",
     "country": "India",
     "state": "Delhi",
@@ -6165,6 +6275,8 @@
   {
     "id": "fm_rainbow_kanpur",
     "name": "FM Rainbow Kanpur",
+    "name_te": "ఎఫ్ఎం రెయిన్బో కాన్పూర్",
+    "name_hi": "एफएम रेनबो कानपुर",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -6239,6 +6351,8 @@
   {
     "id": "fm_rainbow_lucknow",
     "name": "FM Rainbow Lucknow",
+    "name_te": "ఎఫ్ఎం రెయిన్బో లక్నో",
+    "name_hi": "एफएम रेनबो लखनऊ",
     "language": "Hindi, Urdu",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -6463,6 +6577,8 @@
   {
     "id": "geet_Radio_telugu",
     "name": "Geet Radio - Telugu ",
+    "name_te": "గీత్ రేడియో - తెలుగు",
+    "name_hi": "गीत रेडियो - तेलुगु",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -6487,6 +6603,8 @@
   {
     "id": "indraprastha",
     "name": "Indraprastha",
+    "name_te": "ఇంద్రప్రస్థ",
+    "name_hi": "इंद्रप्रस्थ",
     "language": "Hindi",
     "country": "India",
     "state": "Delhi",
@@ -6512,6 +6630,8 @@
   {
     "id": "kumbhvani",
     "name": "KumbhVani",
+    "name_te": "కుంభవాణి",
+    "name_hi": "कुंभवाणी",
     "language": "Hindi",
     "country": "India",
     "state": "Uttar Pradesh",
@@ -6537,6 +6657,8 @@
   {
     "id": "live_news_24x7",
     "name": "Live News 24x7",
+    "name_te": "లైవ్ న్యూస్ 24x7",
+    "name_hi": "लाइव न्यूज़ 24x7",
     "language": "Hindi, English",
     "country": "India",
     "state": "",
@@ -6562,6 +6684,8 @@
   {
     "id": "london_telugu_radio",
     "name": "London Telugu Radio",
+    "name_te": "లండన్ తెలుగు రేడియో",
+    "name_hi": "लंदन तेलुगु रेडियो",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -6586,6 +6710,8 @@
   {
     "id": "melody_radio",
     "name": "Melody Radio",
+    "name_te": "మెలోడీ రేడియో",
+    "name_hi": "मेलोडी रेडियो",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -6611,6 +6737,8 @@
   {
     "id": "raagam",
     "name": "Raagam",
+    "name_te": "రాగం",
+    "name_hi": "रागम",
     "language": "Hindi, Tamil, Telugu, Malayalam",
     "country": "India",
     "state": "",
@@ -6636,6 +6764,8 @@
   {
     "id": "radio_hungama_telugu",
     "name": "Radio Hungama Telugu",
+    "name_te": "రేడియో హంగామా తెలుగు",
+    "name_hi": "रेडियो हंगामा तेलुगु",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -6660,6 +6790,8 @@
   {
     "id": "radio_ranjan_90_4_fm",
     "name": "Radio Ranjan 90.4 FM",
+    "name_te": "రేడియో రంజన్ 90.4 ఎఫ్ఎం",
+    "name_hi": "रेडियो रंजन 90.4 एफएम",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -6684,6 +6816,8 @@
   {
     "id": "radio_surabhi",
     "name": "Radio Surabhi",
+    "name_te": "రేడియో సురభి",
+    "name_hi": "रेडियो सुरभि",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -6708,6 +6842,8 @@
   {
     "id": "radio_vishnu_90_4",
     "name": "Radio Vishnu 90.4",
+    "name_te": "రేడియో విష్ణు 90.4",
+    "name_hi": "रेडियो विष्णु 90.4",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -6782,6 +6918,8 @@
   {
     "id": "telugu_hits",
     "name": "Telugu Hits",
+    "name_te": "తెలుగు హిట్స్",
+    "name_hi": "तेलुगु हिट्स",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -6806,6 +6944,8 @@
   {
     "id": "telugu_nri_radio",
     "name": "Telugu NRI Radio",
+    "name_te": "తెలుగు ఎన్ఆర్ఐ రేడియో",
+    "name_hi": "तेलुगु एनआरआई रेडियो",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -6830,6 +6970,8 @@
   {
     "id": "tori",
     "name": "Tori",
+    "name_te": "తోరి",
+    "name_hi": "तोरी",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -6962,6 +7104,8 @@
   {
     "id": "vbs_bhopal",
     "name": "VBS Bhopal",
+    "name_te": "వీబీఎస్ భోపాల్",
+    "name_hi": "वीबीएस भोपाल",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -7014,6 +7158,8 @@
   {
     "id": "vbs_delhi",
     "name": "VBS Delhi",
+    "name_te": "వీబీఎస్ ఢిల్లీ",
+    "name_hi": "वीबीएस दिल्ली",
     "language": "Hindi",
     "country": "India",
     "state": "Delhi",
@@ -7040,6 +7186,8 @@
   {
     "id": "vbs_indore",
     "name": "VBS Indore",
+    "name_te": "వీబీఎస్ ఇండోర్",
+    "name_hi": "वीबीएस इंदौर",
     "language": "Hindi",
     "country": "India",
     "state": "Madhya Pradesh",
@@ -7300,6 +7448,8 @@
   {
     "id": "vividh_bharati",
     "name": "Vividh Bharati",
+    "name_te": "వివిధ భారతి",
+    "name_hi": "विविध भारती",
     "language": "Hindi",
     "country": "India",
     "state": "",
@@ -7326,6 +7476,8 @@
   {
     "id": "vividh_bharati_hyderabad",
     "name": "Vividh Bharati Hyderabad",
+    "name_te": "వివిధ భారతి హైదరాబాద్",
+    "name_hi": "विविध भारती हैदराबाद",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -7352,6 +7504,8 @@
   {
     "id": "vividh_bharati_vijayapuram",
     "name": "Vividh Bharati Vijayapuram",
+    "name_te": "వివిధ భారతి విజయపురం",
+    "name_hi": "विविध भारती विजयपुरम",
     "language": "Hindi, English, Nicobarese",
     "country": "India",
     "state": "Andaman and Nicobar Islands",
@@ -7377,6 +7531,8 @@
   {
     "id": "vividh_bharati_vijayawada",
     "name": "Vividh Bharati Vijayawada",
+    "name_te": "వివిధ భారతి విజయవాడ",
+    "name_hi": "विविध भारती विजयवाड़ा",
     "language": "Telugu",
     "country": "India",
     "state": "",
@@ -7395,6 +7551,33 @@
         "url": "https://radio.wavespb.com/live/0beac8e921bbfdbb/0beac8e921bbfdbb.m3u8",
         "codec": "HLS",
         "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+
+  {
+    "id": "virijallu_fm",
+    "name": "Virijallu 24x7 Telugu FM",
+    "name_te": "విరిజల్లు 24x7 తెలుగు FM",
+    "name_hi": "विरिजल्लु 24x7 तेलुगु FM",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+        "FM",
+        "ALL"
+    ],
+    "genre": [],
+    "homepage": "https://www.virijallu.com/",
+    "logo": "https://static2.mytuner.mobi/media/tvos_radios/fcrx3rsxrgxd.png",
+    "streams": [
+      {
+            "url": "https://samcloud.spacial.com/api/listen?sid=84033&m=sc&rid=156932&t=ssl",
+            "codec": "MP3",
+            "priority": 1
       }
     ],
     "verified": false,
