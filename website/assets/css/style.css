@@ -545,7 +545,7 @@ input[type="range"]::-moz-range-thumb {
   position: fixed;
   left: 16px;
   bottom: 100px;
-  z-index: 90;
+  z-index: 11;
   background: var(--panel-2);
   border: 1px solid var(--accent);
   color: var(--text);
