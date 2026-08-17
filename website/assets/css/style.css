@@ -543,8 +543,6 @@ input[type="range"]::-moz-range-thumb {
 
 .first-hint {
   position: fixed;
-  left: 16px;
-  bottom: 100px;
   z-index: 11;
   background: var(--panel-2);
   border: 1px solid var(--accent);

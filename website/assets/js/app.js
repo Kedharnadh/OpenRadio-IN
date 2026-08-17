@@ -1774,11 +1774,15 @@
 
   function positionFirstHint() {
     const hint = elements.firstHint;
+    const logo = elements.playerLogo;
+    if (!hint || hint.hidden || !logo) return;
     const bar = elements.playerBar;
-    if (!hint || hint.hidden || !bar) return;
-    const rect = bar.getBoundingClientRect();
-    hint.style.left = `${rect.left}px`;
-    hint.style.bottom = `${Math.max(8, window.innerHeight - rect.top + 10)}px`;
+    if (!bar) return;
+    const barRect = bar.getBoundingClientRect();
+    const logoRect = logo.hidden ? null : logo.getBoundingClientRect();
+    const left = logoRect ? logoRect.left : barRect.left + 16;
+    hint.style.left = `${left}px`;
+    hint.style.bottom = `${Math.max(8, window.innerHeight - barRect.top + 10)}px`;
   }
 
   function dismissFirstHint() {
