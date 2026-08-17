@@ -1068,8 +1068,14 @@
 
     state.nowPlayingTrack = '';
     state.nowPlayingArt = '';
+    artFallbackActive = false;
     state.paused = false;
     elements.nowPlayingTrack.hidden = true;
+    elements.nowPlayingLogo.hidden = true;
+    elements.nowPlayingLogo.src = '';
+    elements.nowPlayingPlaceholder.hidden = false;
+    elements.playerLogo.hidden = true;
+    elements.playerLogo.src = '';
     clearEpg();
     fetchEpg(station);
 
@@ -1360,7 +1366,13 @@
     state.nowPlayingArtist = '';
     state.nowPlayingAlbum = '';
     state.nowPlayingArt = '';
+    artFallbackActive = false;
     elements.nowPlayingTrack.hidden = true;
+    elements.nowPlayingLogo.hidden = true;
+    elements.nowPlayingLogo.src = '';
+    elements.nowPlayingPlaceholder.hidden = false;
+    elements.playerLogo.hidden = true;
+    elements.playerLogo.src = '';
     clearEpg();
     fetchEpg(station);
 
@@ -1551,6 +1563,7 @@
     state.nowPlayingArtist = '';
     state.nowPlayingAlbum = '';
     state.nowPlayingArt = '';
+    artFallbackActive = false;
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
     clearEpg();
@@ -1863,7 +1876,7 @@
       if (station?.metadata_url) {
         params += `&metaUrl=${encodeURIComponent(station.metadata_url)}`;
       }
-      const response = await fetch(`${HLS_PROXY_URL}${params}`, { signal: AbortSignal.timeout(5000) });
+      const response = await fetch(`${HLS_PROXY_URL}${params}`, { signal: AbortSignal.timeout(8000) });
       const data = await response.json();
       applyTrackMetadata(data.streamTitle || '', station, data.art || '', {
         title: data.title || '',
@@ -1939,28 +1952,35 @@
     }
     const [artist, track] = songTitle ? [songArtist || '', songTitle] : splitArtistTrack(title);
     const term = [artist, track].filter(Boolean).join(' ');
+    const trackOnly = track || '';
     let art = '';
-    try {
-      const response = await fetch(
-        `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&media=music&entity=song&limit=1`,
-        { signal: AbortSignal.timeout(6000) }
-      );
-      const data = await response.json();
-      const result = data.results && data.results[0];
-      if (result && result.artworkUrl100) {
-        art = result.artworkUrl100.replace('100x100', '600x600');
-      }
-    } catch {}
-    if (!art) {
+    const searchTerms = [term];
+    if (trackOnly && trackOnly !== term) searchTerms.push(trackOnly);
+    if (station?.name) searchTerms.push(station.name);
+    for (const q of searchTerms) {
+      if (!q) continue;
       try {
         const response = await fetch(
-          `https://api.deezer.com/search?q=${encodeURIComponent(term)}&limit=1`,
+          `https://itunes.apple.com/search?term=${encodeURIComponent(q)}&media=music&entity=song&limit=1`,
+          { signal: AbortSignal.timeout(6000) }
+        );
+        const data = await response.json();
+        const result = data.results && data.results[0];
+        if (result && result.artworkUrl100) {
+          art = result.artworkUrl100.replace('100x100', '600x600');
+          break;
+        }
+      } catch {}
+      try {
+        const response = await fetch(
+          `https://api.deezer.com/search?q=${encodeURIComponent(q)}&limit=1`,
           { signal: AbortSignal.timeout(6000) }
         );
         const data = await response.json();
         const result = data && data.data && data.data[0];
         if (result && result.album && result.album.cover_big) {
           art = result.album.cover_big;
+          break;
         }
       } catch {}
     }

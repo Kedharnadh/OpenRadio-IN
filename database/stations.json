@@ -7157,6 +7157,11 @@
         "url": "https://cast5.asurahosting.com:2199/proxy/telugunr?mp=/stream",
         "codec": "MP3",
         "priority": 1
+      },
+      {
+        "url": "http://stream.zeno.fm/fd411yenzxquv",
+        "codec": "MP3",
+        "priority": 2
       }
     ],
     "verified": false,
