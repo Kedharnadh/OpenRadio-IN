@@ -21,11 +21,15 @@
         "url": "https://radio.wavespb.com/live/e47c5f0cec4af335/e47c5f0cec4af335.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio218/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_anantapur",
@@ -52,8 +56,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_kadapa",
@@ -80,8 +83,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_kurnool",
@@ -108,8 +110,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_markapur",
@@ -136,8 +137,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_nizamabad",
@@ -161,11 +161,15 @@
         "url": "https://radio.wavespb.com/live/5d9989b5189a8f4a/5d9989b5189a8f4a.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio222/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_rainbow_hyderabad",
@@ -192,8 +196,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_rainbow_vijayawada",
@@ -220,8 +223,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_rainbow_visakhapatnam",
@@ -248,8 +250,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_simhapuri_fm",
@@ -273,11 +274,15 @@
         "url": "https://radio.wavespb.com/live/8bc9175bb717c13b/8bc9175bb717c13b.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio168/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_telugu",
@@ -303,8 +308,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_tirupati",
@@ -328,11 +332,15 @@
         "url": "https://radio.wavespb.com/live/1119aa26b4e9f653/1119aa26b4e9f653.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio144/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "air_warangal",
@@ -359,8 +367,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_aaradhana",
@@ -386,8 +393,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_agartala",
@@ -412,8 +418,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी अगरतला"
   },
   {
@@ -441,8 +446,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_ahilyanagar_ahmednagar",
@@ -467,8 +471,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी अहिल्यानगर (अहमदनगर)"
   },
   {
@@ -494,8 +497,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी अहवा"
   },
   {
@@ -521,8 +523,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी आइज़ोल"
   },
   {
@@ -548,8 +549,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी अकोला"
   },
   {
@@ -575,8 +575,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी अल्मोड़ा"
   },
   {
@@ -599,11 +598,15 @@
         "url": "https://radio.wavespb.com/live/67a9516c2ccd3fd5/67a9516c2ccd3fd5.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio153/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी अलवर"
   },
   {
@@ -629,8 +632,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी अंबिकापुर"
   },
   {
@@ -653,11 +655,15 @@
         "url": "https://radio.wavespb.com/live/662185c15bea296f/662185c15bea296f.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio151/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी अमरावती"
   },
   {
@@ -685,8 +691,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_balaghat",
@@ -713,8 +718,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_balangir",
@@ -738,8 +742,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बलांगीर"
   },
   {
@@ -764,8 +767,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बांग्ला"
   },
   {
@@ -790,8 +792,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बांसवाड़ा"
   },
   {
@@ -816,11 +817,15 @@
         "url": "https://radio.wavespb.com/live/e323812d96d7881d/e323812d96d7881d.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio124/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_baripada",
@@ -842,11 +847,15 @@
         "url": "https://radio.wavespb.com/live/9a5be453a1319cad/9a5be453a1319cad.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio158/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बारीपदा"
   },
   {
@@ -872,8 +881,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बाड़मेर"
   },
   {
@@ -899,8 +907,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बीड"
   },
   {
@@ -926,8 +933,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बेल्लारी"
   },
   {
@@ -953,8 +959,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बेलोनिया"
   },
   {
@@ -980,8 +985,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बेरहामपुर"
   },
   {
@@ -1009,8 +1013,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline"
+    "last_checked": null
   },
   {
     "id": "akashvani_bhaderwah",
@@ -1035,8 +1038,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी भद्रवाह"
   },
   {
@@ -1062,8 +1064,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी भद्रावती"
   },
   {
@@ -1089,8 +1090,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी भागलपुर"
   },
   {
@@ -1113,11 +1113,15 @@
         "url": "https://radio.wavespb.com/live/8651d3d0c2021750/8651d3d0c2021750.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio117/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बठिंडा"
   },
   {
@@ -1139,11 +1143,15 @@
         "url": "https://radio.wavespb.com/live/01249e3a4e4625bf/01249e3a4e4625bf.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio120/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी भवानीपटना"
   },
   {
@@ -1171,8 +1179,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline"
+    "last_checked": null
   },
   {
     "id": "akashvani_bhuj",
@@ -1197,8 +1204,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी भुज"
   },
   {
@@ -1220,11 +1226,15 @@
         "url": "https://radio.wavespb.com/live/8a8894314ac7be31/8a8894314ac7be31.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio145/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी विजयपुर"
   },
   {
@@ -1250,8 +1260,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बीकानेर"
   },
   {
@@ -1274,11 +1283,15 @@
         "url": "https://radio.wavespb.com/live/10dd6162d75fb6a4/10dd6162d75fb6a4.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio110/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी बिलासपुर"
   },
   {
@@ -1303,8 +1316,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कालीकट"
   },
   {
@@ -1327,11 +1339,15 @@
         "url": "https://radio.wavespb.com/live/4b077b809c20f314/4b077b809c20f314.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio224/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी चाईबासा"
   },
   {
@@ -1354,11 +1370,15 @@
         "url": "https://radio.wavespb.com/live/db4a912ff7882d9d/db4a912ff7882d9d.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio111/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी चंडीगढ़"
   },
   {
@@ -1384,8 +1404,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी चंद्रपुर"
   },
   {
@@ -1413,8 +1432,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline"
+    "last_checked": null
   },
   {
     "id": "akashvani_chhatrapati_sambhaji_nagar",
@@ -1439,8 +1457,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी छत्रपति संभाजी नगर"
   },
   {
@@ -1466,8 +1483,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी छत्तीसगढ़"
   },
   {
@@ -1495,8 +1511,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_chitradurga",
@@ -1521,8 +1536,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी चित्रदुर्ग"
   },
   {
@@ -1548,8 +1562,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी चित्तौड़गढ़"
   },
   {
@@ -1575,8 +1588,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी चुराचांदपुर"
   },
   {
@@ -1602,8 +1614,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी चूरू"
   },
   {
@@ -1629,8 +1640,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कोयंबटूर"
   },
   {
@@ -1656,8 +1666,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कटक"
   },
   {
@@ -1680,11 +1689,15 @@
         "url": "https://radio.wavespb.com/live/d94a676236c31713/d94a676236c31713.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio202/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी डाल्टनगंज"
   },
   {
@@ -1710,8 +1723,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी दमन"
   },
   {
@@ -1737,8 +1749,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी दरभंगा"
   },
   {
@@ -1761,11 +1772,15 @@
         "url": "https://radio.wavespb.com/live/355939733d28e2e7/355939733d28e2e7.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio191/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी देहरादून"
   },
   {
@@ -1791,8 +1806,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी देवीकुलम"
   },
   {
@@ -1818,8 +1832,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी धर्मशाला"
   },
   {
@@ -1845,8 +1858,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी धाराशिव"
   },
   {
@@ -1872,8 +1884,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी धर्मपुरी"
   },
   {
@@ -1899,8 +1910,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी धारवाड़"
   },
   {
@@ -1926,8 +1936,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी धुले"
   },
   {
@@ -1950,11 +1959,15 @@
         "url": "https://radio.wavespb.com/live/6db6683f71f6df13/6db6683f71f6df13.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio255/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी डिब्रूगढ़"
   },
   {
@@ -1977,11 +1990,15 @@
         "url": "https://radio.wavespb.com/live/24092163948ab5d8/24092163948ab5d8.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio271/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी दिफू"
   },
   {
@@ -2008,8 +2025,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी एफएम रायपुर"
   },
   {
@@ -2035,8 +2051,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी गंगटोक"
   },
   {
@@ -2062,8 +2077,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी गोधरा"
   },
   {
@@ -2091,8 +2105,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_guna",
@@ -2119,8 +2132,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_guwahati_mahabahu",
@@ -2142,11 +2154,15 @@
         "url": "https://radio.wavespb.com/live/d1712a1355f27abb/d1712a1355f27abb.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio133/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी गुवाहाटी महाबाहु"
   },
   {
@@ -2169,11 +2185,15 @@
         "url": "https://radio.wavespb.com/live/c8a130239e27ded0/c8a130239e27ded0.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio237/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी गुवाहाटी प्रागज्योतिषपुर"
   },
   {
@@ -2198,11 +2218,15 @@
         "url": "https://radio.wavespb.com/live/4934ba16034cf481/4934ba16034cf481.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio205/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_haflong",
@@ -2224,11 +2248,15 @@
         "url": "https://radio.wavespb.com/live/0625378643a5d9ba/0625378643a5d9ba.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio258/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी हाफलोंग"
   },
   {
@@ -2255,8 +2283,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी हमीरपुर एफएम"
   },
   {
@@ -2282,8 +2309,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी हासन"
   },
   {
@@ -2306,11 +2332,15 @@
         "url": "https://radio.wavespb.com/live/db054b48293b8eb4/db054b48293b8eb4.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio197/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी हजारीबाग"
   },
   {
@@ -2335,8 +2365,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी हिम्मतनगर"
   },
   {
@@ -2362,8 +2391,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी हिसार"
   },
   {
@@ -2389,8 +2417,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी होसपेट"
   },
   {
@@ -2413,11 +2440,15 @@
         "url": "https://radio.wavespb.com/live/8fcf63e1a8d9016b/8fcf63e1a8d9016b.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio209/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी इंफाल कांगला"
   },
   {
@@ -2440,11 +2471,15 @@
         "url": "https://radio.wavespb.com/live/405d96a245accd64/405d96a245accd64.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio210/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी इंफाल संगाई"
   },
   {
@@ -2472,8 +2507,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_itanagar",
@@ -2500,8 +2534,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_jabalpur",
@@ -2528,8 +2561,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline"
+    "last_checked": null
   },
   {
     "id": "akashvani_jabalpur_fm",
@@ -2557,8 +2589,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline"
+    "last_checked": null
   },
   {
     "id": "akashvani_jagdalpur",
@@ -2583,8 +2614,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जगदलपुर"
   },
   {
@@ -2610,8 +2640,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जयपुर"
   },
   {
@@ -2637,8 +2666,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जैसलमेर"
   },
   {
@@ -2664,8 +2692,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जलगांव"
   },
   {
@@ -2688,11 +2715,15 @@
         "url": "https://radio.wavespb.com/live/42c7dca503e95fec/42c7dca503e95fec.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio128/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जम्मू"
   },
   {
@@ -2718,8 +2749,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जमशेदपुर"
   },
   {
@@ -2745,8 +2775,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जयपोर"
   },
   {
@@ -2772,8 +2801,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी झालावाड़"
   },
   {
@@ -2801,8 +2829,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_jodhpur",
@@ -2827,8 +2854,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जोधपुर"
   },
   {
@@ -2855,8 +2881,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जोधपुर सन सिटी एफएम"
   },
   {
@@ -2882,8 +2907,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जोरांडा"
   },
   {
@@ -2909,8 +2933,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जोरहट"
   },
   {
@@ -2936,8 +2959,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी जोवाई"
   },
   {
@@ -2960,11 +2982,15 @@
         "url": "https://radio.wavespb.com/live/c84f390b94a07703/c84f390b94a07703.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio276/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कैलाशहर"
   },
   {
@@ -2989,8 +3015,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कलबुर्गी (गुलबर्गा)"
   },
   {
@@ -3016,8 +3041,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कन्नूर"
   },
   {
@@ -3045,8 +3069,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_karaikal",
@@ -3071,8 +3094,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कराईकल"
   },
   {
@@ -3098,8 +3120,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कारगिल"
   },
   {
@@ -3125,8 +3146,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कर्नाटक"
   },
   {
@@ -3148,11 +3168,15 @@
         "url": "https://radio.wavespb.com/live/723ab703b250900f/723ab703b250900f.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio123/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कारवार"
   },
   {
@@ -3178,8 +3202,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कठुआ"
   },
   {
@@ -3205,8 +3228,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कवरत्ती"
   },
   {
@@ -3232,8 +3254,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी केंदुझार"
   },
   {
@@ -3256,11 +3277,15 @@
         "url": "https://radio.wavespb.com/live/6ff13de7ea9b53d7/6ff13de7ea9b53d7.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio230/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी केरल"
   },
   {
@@ -3288,8 +3313,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_kochi",
@@ -3314,8 +3338,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कोच्चि"
   },
   {
@@ -3341,8 +3364,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कोडईकनाल"
   },
   {
@@ -3365,11 +3387,15 @@
         "url": "https://radio.wavespb.com/live/f5861f9687811aae/f5861f9687811aae.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio274/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कोहिमा"
   },
   {
@@ -3395,8 +3421,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कोकराझार"
   },
   {
@@ -3422,8 +3447,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कोल्हापुर"
   },
   {
@@ -3448,8 +3472,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कोलकाता गीतांजलि"
   },
   {
@@ -3474,8 +3497,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कोलकाता संचयिता"
   },
   {
@@ -3501,8 +3523,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कोटा"
   },
   {
@@ -3527,11 +3548,15 @@
         "url": "https://radio.wavespb.com/live/8416764ec0889597/8416764ec0889597.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio116/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_kozhikode_real_fm",
@@ -3557,8 +3582,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कोझिकोड रियल एफएम"
   },
   {
@@ -3581,11 +3605,15 @@
         "url": "https://radio.wavespb.com/live/1f781b48497e67d3/1f781b48497e67d3.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio183/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कुर्सियोंग"
   },
   {
@@ -3611,8 +3639,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी कुरुक्षेत्र"
   },
   {
@@ -3638,8 +3665,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी लेह"
   },
   {
@@ -3667,8 +3693,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_ludhiana",
@@ -3693,8 +3718,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी लुधियाना"
   },
   {
@@ -3720,8 +3744,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी लुंगलेई"
   },
   {
@@ -3746,8 +3769,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी मडिकेरी"
   },
   {
@@ -3770,11 +3792,15 @@
         "url": "https://radio.wavespb.com/live/5c28fdbb318c1f13/5c28fdbb318c1f13.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio127/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी मदुरै"
   },
   {
@@ -3800,8 +3826,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी मदुरै एफएम"
   },
   {
@@ -3827,8 +3852,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी महानदी संबलपुर"
   },
   {
@@ -3853,8 +3877,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी मैत्री"
   },
   {
@@ -3880,8 +3903,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी मंगलुरु"
   },
   {
@@ -3907,8 +3929,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी मंजेरी"
   },
   {
@@ -3934,8 +3955,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी मराठी मुंबई अस्मिता"
   },
   {
@@ -3963,8 +3983,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_mhadei_panaji",
@@ -3989,8 +4008,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी म्हादेई पणजी"
   },
   {
@@ -4016,8 +4034,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी मोकोकचुंग"
   },
   {
@@ -4043,8 +4060,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी माउंट आबू"
   },
   {
@@ -4069,8 +4085,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी मुर्शिदाबाद"
   },
   {
@@ -4093,11 +4108,15 @@
         "url": "https://radio.wavespb.com/live/9d18e57ddfb1d4b4/9d18e57ddfb1d4b4.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio177/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी मैसूरु"
   },
   {
@@ -4123,8 +4142,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी नगांव"
   },
   {
@@ -4150,8 +4168,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी नागौर"
   },
   {
@@ -4177,8 +4194,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी नागपुर"
   },
   {
@@ -4203,11 +4219,15 @@
         "url": "https://radio.wavespb.com/live/4aaa85cab056e9c1/4aaa85cab056e9c1.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio162/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_nanded",
@@ -4232,8 +4252,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी नांदेड़"
   },
   {
@@ -4259,8 +4278,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी नासिक"
   },
   {
@@ -4286,8 +4304,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी पूर्वोत्तर लाइवस्ट्रीम"
   },
   {
@@ -4315,8 +4332,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_ooty",
@@ -4338,11 +4354,15 @@
         "url": "https://radio.wavespb.com/live/e2ac3971fdada7d1/e2ac3971fdada7d1.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio207/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी ऊटी"
   },
   {
@@ -4368,8 +4388,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी परभणी"
   },
   {
@@ -4394,11 +4413,15 @@
         "url": "https://radio.wavespb.com/live/464360d5ed44082b/464360d5ed44082b.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio268/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_patiala",
@@ -4423,8 +4446,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी पटियाला"
   },
   {
@@ -4450,8 +4472,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी पटना"
   },
   {
@@ -4477,8 +4498,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी पौड़ी"
   },
   {
@@ -4503,8 +4523,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी पुंछ"
   },
   {
@@ -4529,11 +4548,15 @@
         "url": "https://radio.wavespb.com/live/7427fdb9d3f69c5d/7427fdb9d3f69c5d.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio125/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_puducherry",
@@ -4558,8 +4581,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी पुदुच्चेरी"
   },
   {
@@ -4585,8 +4607,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी पुणे"
   },
   {
@@ -4613,8 +4634,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी पुणे एफएम"
   },
   {
@@ -4639,8 +4659,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी पंजाबी"
   },
   {
@@ -4667,8 +4686,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी पुरी एफएम"
   },
   {
@@ -4694,8 +4712,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी पूर्णिया बिहार"
   },
   {
@@ -4717,11 +4734,15 @@
         "url": "https://radio.wavespb.com/live/e39bab8a1a843e9e/e39bab8a1a843e9e.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio198/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी रायचूर"
   },
   {
@@ -4747,8 +4768,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी रायगढ़"
   },
   {
@@ -4774,8 +4794,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी राजकोट"
   },
   {
@@ -4803,8 +4822,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_ranchi",
@@ -4829,8 +4847,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी रांची"
   },
   {
@@ -4856,8 +4873,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी रत्नागिरी"
   },
   {
@@ -4885,8 +4901,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline"
+    "last_checked": null
   },
   {
     "id": "akashvani_rohtak",
@@ -4911,8 +4926,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी रोहतक"
   },
   {
@@ -4938,8 +4952,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी राउरकेला"
   },
   {
@@ -4964,11 +4977,15 @@
         "url": "https://radio.wavespb.com/live/b60eae3df5a29197/b60eae3df5a29197.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio204/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_sambalpur",
@@ -4993,8 +5010,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी संबलपुर"
   },
   {
@@ -5020,8 +5036,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी सांगली"
   },
   {
@@ -5046,8 +5061,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी सरायपाली"
   },
   {
@@ -5073,8 +5087,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी सासाराम"
   },
   {
@@ -5100,8 +5113,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी सातारा"
   },
   {
@@ -5127,8 +5139,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी सवाई माधोपुर"
   },
   {
@@ -5153,11 +5164,15 @@
         "url": "https://radio.wavespb.com/live/0f046e291da2017b/0f046e291da2017b.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio228/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_shantiniketan",
@@ -5181,8 +5196,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी शांतिनिकेतन"
   },
   {
@@ -5208,8 +5222,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी शिलांग"
   },
   {
@@ -5235,8 +5248,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी शिमला"
   },
   {
@@ -5263,8 +5275,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी शिमला एफएम"
   },
   {
@@ -5292,8 +5303,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_silchar",
@@ -5318,8 +5328,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी सिलचर"
   },
   {
@@ -5342,11 +5351,15 @@
         "url": "https://radio.wavespb.com/live/165856ba98ca031a/165856ba98ca031a.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio164/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी सिलीगुड़ी"
   },
   {
@@ -5372,8 +5385,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी सिंधुदुर्ग"
   },
   {
@@ -5399,8 +5411,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी सोलापुर"
   },
   {
@@ -5428,8 +5439,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_srinagar",
@@ -5454,8 +5464,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी श्रीनगर"
   },
   {
@@ -5481,8 +5490,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी सूरत"
   },
   {
@@ -5508,8 +5516,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी सूरतगढ़"
   },
   {
@@ -5535,8 +5542,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी तमिलनाडु"
   },
   {
@@ -5562,8 +5568,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी तवांग"
   },
   {
@@ -5591,8 +5596,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_tezpur",
@@ -5614,11 +5618,15 @@
         "url": "https://radio.wavespb.com/live/9260e7a38d76ffda/9260e7a38d76ffda.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio270/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी तेजपुर"
   },
   {
@@ -5643,11 +5651,15 @@
         "url": "https://radio.wavespb.com/live/7579db5ef9660a6e/7579db5ef9660a6e.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio267/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_thrissur",
@@ -5672,8 +5684,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी त्रिशूर"
   },
   {
@@ -5699,8 +5710,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी तिरुचिरापल्ली"
   },
   {
@@ -5727,8 +5737,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी तिरुचिरापल्ली एफएम"
   },
   {
@@ -5754,8 +5763,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "आकाशवाणी तिरुनेलवेली"
   },
   {
@@ -5778,11 +5786,15 @@
         "url": "https://radio.wavespb.com/live/a4c3a057df68d422/a4c3a057df68d422.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio259/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी तुरा"
   },
   {
@@ -5805,11 +5817,15 @@
         "url": "https://radio.wavespb.com/live/2e8cfad789dc692d/2e8cfad789dc692d.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio121/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी तूतीकोरिन"
   },
   {
@@ -5835,8 +5851,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी उदयपुर"
   },
   {
@@ -5862,8 +5877,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी उदयपुर एफएम लेक सिटी"
   },
   {
@@ -5890,8 +5904,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_vadodara",
@@ -5916,8 +5929,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी वडोदरा"
   },
   {
@@ -5945,8 +5957,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_visakhapatnam",
@@ -5973,8 +5984,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashvani_yavatmal",
@@ -5999,8 +6009,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी यवतमाल"
   },
   {
@@ -6028,8 +6037,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "akashwani_gujarati",
@@ -6054,8 +6062,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "आकाशवाणी गुजराती"
   },
   {
@@ -6080,8 +6087,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "अमृतवर्षिणी"
   },
   {
@@ -6108,8 +6114,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "fm_arun_itanagar",
@@ -6136,8 +6141,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "fm_gold_chennai",
@@ -6162,8 +6166,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम गोल्ड चेन्नई"
   },
   {
@@ -6191,8 +6194,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "fm_gold_kolkata",
@@ -6216,8 +6218,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम गोल्ड कोलकाता"
   },
   {
@@ -6243,8 +6244,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम गोल्ड मुंबई"
   },
   {
@@ -6270,8 +6270,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम जोंगफी शिलांग"
   },
   {
@@ -6297,8 +6296,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम नागरकोविल कुमारी"
   },
   {
@@ -6324,8 +6322,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो चेन्नई"
   },
   {
@@ -6351,8 +6348,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो कोयंबटूर"
   },
   {
@@ -6378,8 +6374,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो कटक"
   },
   {
@@ -6407,8 +6402,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "fm_rainbow_goa",
@@ -6432,8 +6426,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो गोवा"
   },
   {
@@ -6459,8 +6452,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो जालंधर"
   },
   {
@@ -6488,8 +6480,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "fm_rainbow_kochi",
@@ -6514,8 +6505,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो कोच्चि"
   },
   {
@@ -6540,8 +6530,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो कोलकाता"
   },
   {
@@ -6569,8 +6558,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "fm_rainbow_mumbai",
@@ -6595,8 +6583,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो मुंबई"
   },
   {
@@ -6622,8 +6609,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो पटना"
   },
   {
@@ -6649,8 +6635,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो पुदुच्चेरी"
   },
   {
@@ -6676,8 +6661,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो रांची"
   },
   {
@@ -6703,8 +6687,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम रेनबो तिरुनेलवेली"
   },
   {
@@ -6730,8 +6713,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम ट्रैगोपान कोहिमा"
   },
   {
@@ -6756,8 +6738,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम उज्जयंता अगरतला"
   },
   {
@@ -6783,8 +6764,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "एफएम ज़ोवी आइज़ोल"
   },
   {
@@ -6806,13 +6786,12 @@
     "streams": [
       {
         "url": "http://server.geetradio.com:8010/radio.mp3",
-        "codec": "HLS",
+        "codec": "MP3",
         "priority": 1
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "indraprastha",
@@ -6839,8 +6818,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "kumbhvani",
@@ -6867,8 +6845,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline"
+    "last_checked": null
   },
   {
     "id": "live_news_24x7",
@@ -6895,8 +6872,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "london_telugu_radio",
@@ -6922,8 +6898,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "melody_radio",
@@ -6941,6 +6916,7 @@
     "genre": [],
     "homepage": "",
     "logo": "https://img1.wsimg.com/isteam/ip/d547af60-4305-4c1a-a90e-b8c81b606aa0/logo_new_.png",
+    "metadata_url": "https://a1.asurahosting.com/api/nowplaying/melody_radio",
     "streams": [
       {
         "url": "https://a1.asurahosting.com/listen/melody_radio/radio.mp3",
@@ -6949,8 +6925,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "raagam",
@@ -6977,8 +6952,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "radio_hungama_telugu",
@@ -7004,8 +6978,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "unknown"
+    "last_checked": null
   },
   {
     "id": "radio_ranjan_90_4_fm",
@@ -7031,8 +7004,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "radio_surabhi",
@@ -7058,8 +7030,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "radio_vishnu_90_4",
@@ -7085,8 +7056,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "rainbow_kannada_kaamanbilu",
@@ -7111,8 +7081,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "रेनबो कन्नड़ कामनबिलु"
   },
   {
@@ -7138,8 +7107,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "संवादिता मुंबई"
   },
   {
@@ -7166,8 +7134,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "telugu_nri_radio",
@@ -7190,11 +7157,15 @@
         "url": "https://cast5.asurahosting.com:2199/proxy/telugunr?mp=/stream",
         "codec": "MP3",
         "priority": 1
+      },
+      {
+        "url": "http://stream.zeno.fm/fd411yenzxquv",
+        "codec": "MP3",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "tori",
@@ -7220,8 +7191,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline"
+    "last_checked": null
   },
   {
     "id": "vb_kannada",
@@ -7247,8 +7217,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "वीबी कन्नड़"
   },
   {
@@ -7271,11 +7240,15 @@
         "url": "https://radio.wavespb.com/live/ad3a8436a329e2d6/ad3a8436a329e2d6.m3u8",
         "codec": "HLS",
         "priority": 1
+      },
+      {
+        "url": "https://air.pc.cdn.bitgravity.com/air/live/pbaudio229/chunklist.m3u8",
+        "codec": "HLS",
+        "priority": 2
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "वीबी मलयालम"
   },
   {
@@ -7302,8 +7275,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "वीबी तमिल चेन्नई"
   },
   {
@@ -7330,8 +7302,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "वीबीएस अहमदाबाद"
   },
   {
@@ -7360,8 +7331,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline"
+    "last_checked": null
   },
   {
     "id": "vbs_cuttack",
@@ -7387,8 +7357,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "वीबीएस कटक"
   },
   {
@@ -7417,8 +7386,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "vbs_indore",
@@ -7446,8 +7414,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "vbs_jaipur",
@@ -7473,8 +7440,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "वीबीएस जयपुर"
   },
   {
@@ -7501,8 +7467,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "वीबीएस जमशेदपुर"
   },
   {
@@ -7529,8 +7494,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "वीबीएस कोलकाता"
   },
   {
@@ -7557,8 +7521,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "वीबीएस मुंबई"
   },
   {
@@ -7585,8 +7548,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "वीबीएस नागपुर"
   },
   {
@@ -7613,8 +7575,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "वीबीएस पणजी"
   },
   {
@@ -7641,8 +7602,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "वीबीएस पटना"
   },
   {
@@ -7669,8 +7629,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "offline",
+    "last_checked": null,
     "name_hi": "वीबीएस राजकोट"
   },
   {
@@ -7697,8 +7656,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online",
+    "last_checked": null,
     "name_hi": "वीबीएस रांची"
   },
   {
@@ -7727,8 +7685,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "vividh_bharati_hyderabad",
@@ -7756,8 +7713,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "vividh_bharati_vijayapuram",
@@ -7784,8 +7740,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "vividh_bharati_vijayawada",
@@ -7813,8 +7768,7 @@
       }
     ],
     "verified": false,
-    "last_checked": "2026-08-11T13:38:29+00:00",
-    "status": "online"
+    "last_checked": null
   },
   {
     "id": "virijallu_fm",

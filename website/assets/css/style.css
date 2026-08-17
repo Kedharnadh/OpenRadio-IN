@@ -543,8 +543,7 @@ input[type="range"]::-moz-range-thumb {
 
 .first-hint {
   position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 16px;
   bottom: 100px;
   z-index: 90;
   background: var(--panel-2);
@@ -564,9 +563,8 @@ input[type="range"]::-moz-range-thumb {
 .first-hint::after {
   content: '';
   position: absolute;
-  left: 50%;
+  left: 24px;
   bottom: -8px;
-  transform: translateX(-50%);
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   border-top: 8px solid var(--accent);
@@ -596,11 +594,11 @@ input[type="range"]::-moz-range-thumb {
 @keyframes hint-pop {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(8px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 }
 
