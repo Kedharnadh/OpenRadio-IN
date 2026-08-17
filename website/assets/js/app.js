@@ -1777,6 +1777,7 @@
     const bar = elements.playerBar;
     if (!hint || hint.hidden || !bar) return;
     const rect = bar.getBoundingClientRect();
+    hint.style.left = `${rect.left}px`;
     hint.style.bottom = `${Math.max(8, window.innerHeight - rect.top + 10)}px`;
   }
 
