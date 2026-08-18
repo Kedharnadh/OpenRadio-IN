@@ -1785,16 +1785,22 @@
     hint.style.bottom = `${Math.max(8, window.innerHeight - barRect.top + 10)}px`;
   }
 
+  const HINT_RESHOW_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+
   function dismissFirstHint() {
     if (!elements.firstHint || elements.firstHint.hidden) return;
     elements.firstHint.hidden = true;
-    try { localStorage.setItem('openradio-hint-dismissed', '1'); } catch {}
+    try { localStorage.setItem('openradio-hint-dismissed', String(Date.now())); } catch {}
   }
 
   function maybeShowFirstHint() {
     if (!elements.firstHint) return;
     try {
-      if (localStorage.getItem('openradio-hint-dismissed')) return;
+      const dismissed = localStorage.getItem('openradio-hint-dismissed');
+      if (dismissed) {
+        const ts = Number(dismissed);
+        if (ts && (Date.now() - ts) < HINT_RESHOW_MS) return;
+      }
     } catch {}
     elements.firstHint.hidden = false;
     positionFirstHint();
@@ -2384,6 +2390,7 @@
   elements.firstHint.addEventListener('click', (e) => {
     if (e.target === elements.firstHintDismiss) return;
     dismissFirstHint();
+    openNowPlaying();
   });
   elements.nowPlayingBackdrop.addEventListener('click', closeNowPlaying);
   elements.nowPlayingClose.addEventListener('click', closeNowPlaying);
