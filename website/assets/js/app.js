@@ -548,6 +548,7 @@
   }
 
   function stationMatches(station) {
+    if (!station.streams || !station.streams.length || !station.streams.some((s) => s.url)) return false;
     const query = state.search.trim().toLowerCase();
     const searchable = [
       station.name,
@@ -757,7 +758,7 @@
   function updatePlayer() {
     const station = state.currentStation;
     const list = state.currentSource === 'favorites'
-      ? state.stations.filter((s) => state.favorites.has(s.id))
+      ? state.stations.filter((s) => state.favorites.has(s.id) && s.streams && s.streams.length && s.streams.some((st) => st.url))
       : state.filteredStations;
     const hasMultiple = list.length > 1;
 
@@ -861,7 +862,7 @@
     elements.recentSection.hidden = false;
     const recentList = state.recentStations
       .map((r) => state.stations.find((s) => s.id === r.id))
-      .filter(Boolean);
+      .filter((s) => s && s.streams && s.streams.length && s.streams.some((st) => st.url));
     elements.recentStations.replaceChildren(...recentList.map((s) => createStationCard(s, true)));
   }
 
@@ -959,7 +960,7 @@
   }
 
   function renderStationLists() {
-    const favoriteStations = state.stations.filter((s) => state.favorites.has(s.id));
+    const favoriteStations = state.stations.filter((s) => state.favorites.has(s.id) && s.streams && s.streams.length && s.streams.some((st) => st.url));
     if (favoriteStations.length) {
       elements.favoritesSection.hidden = false;
       elements.featured.replaceChildren(...favoriteStations.map((station) => createStationCard(station, true)));
@@ -1703,7 +1704,7 @@
   function playAdjacentStation(direction) {
     if (!state.currentStation) return;
     const list = state.currentSource === 'favorites'
-      ? state.stations.filter((s) => state.favorites.has(s.id))
+      ? state.stations.filter((s) => state.favorites.has(s.id) && s.streams && s.streams.length && s.streams.some((st) => st.url))
       : state.filteredStations;
     if (list.length < 2) return;
     const currentIndex = list.findIndex((s) => s.id === state.currentStation.id);
@@ -2596,6 +2597,11 @@
   if (window.__castApiAvailable) initializeCast();
 
   if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'open-now-playing' && state.currentStation) {
+        openNowPlaying();
+      }
+    });
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js').then((reg) => {
         reg.addEventListener('updatefound', () => {

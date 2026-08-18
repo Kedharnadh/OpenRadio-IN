@@ -11,3 +11,5 @@ https://radio.wavespb.com/live/8d1636496b33c77e/8d1636496b33c77e.m3u8
 https://radio.wavespb.com/live/5adc4acbbdd1f6cf/5adc4acbbdd1f6cf.m3u8
 #EXTINF:-1 tvg-id="fm_rainbow_jalandhar" tvg-name="FM Rainbow Jalandhar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_667521.jpg" group-title="FM, ALL",FM Rainbow Jalandhar
 https://radio.wavespb.com/live/027744169f5fad66/027744169f5fad66.m3u8
+#EXTINF:-1 tvg-id="radio_mirchi_98_3_bangalore" tvg-name="Radio Mirchi 98.3 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/bengaluru.png" group-title="FM, ALL",Radio Mirchi 98.3 FM Bangalore
+https://stream.zeno.fm/wgaznsmt92quv

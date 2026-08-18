@@ -7958,5 +7958,290 @@
     "verified": false,
     "last_checked": "2026-08-16T00:00:00+00:00",
     "status": "online"
+  },
+  {
+    "id": "big_fm_92_7_bangalore",
+    "name": "BIG 92.7 FM Bangalore",
+    "name_hi": "बिग 92.7 एफएम बेंगलुरु",
+    "language": "Hindi, English",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["Bollywood", "Pop"],
+    "homepage": "https://www.bigfmindia.com/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/big-fm.webp",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/dbstwo3dvhhtv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_mirchi_98_3_bangalore",
+    "name": "Radio Mirchi 98.3 FM Bangalore",
+    "name_hi": "रेडियो मिर्ची 98.3 एफएम बेंगलुरु",
+    "language": "Hindi, Kannada, Telugu, Tamil, Malayalam, Punjabi, Bengali, Multilingual",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["Bollywood", "Indian Music"],
+    "homepage": "https://www.radiomirchi.com/bengaluru",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/bengaluru.png",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/wgaznsmt92quv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_city_kannada_91_1_bangalore",
+    "name": "Radio City Kannada 91.1 FM Bangalore",
+    "name_hi": "रेडियो सिटी कन्नड़ 91.1 एफएम बेंगलुरु",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["Pop", "Bollywood"],
+    "homepage": "https://www.radiocity.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/City-Kannada.webp",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_indigo_91_9_bangalore",
+    "name": "Radio Indigo 91.9 FM Bangalore",
+    "name_hi": "रेडियो इंडिगो 91.9 एफएम बेंगलुरु",
+    "language": "English, International",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["Pop", "Rock", "Rap Hip Hop"],
+    "homepage": "https://www.indigomusic.com/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/Indigo_91.9_FM_Official_LOGO.jpg",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "amruthavarshini_radio_100_1_bangalore",
+    "name": "Amruthavarshini Radio 100.1 FM Bangalore",
+    "name_hi": "अमृतवर्षिणी रेडियो 100.1 एफएम बेंगलुरु",
+    "language": "English, Hindi, Punjabi, Tamil, Urdu",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "AIR",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["Indian Music", "News", "Talk"],
+    "homepage": "https://akashvani.gov.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/amrutvarshini-radio.jpg",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_city_91_1_bangalore",
+    "name": "Radio City 91.1 FM Bangalore",
+    "name_hi": "रेडियो सिटी 91.1 एफएम बेंगलुरु",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["News", "Talk", "Pop"],
+    "homepage": "https://www.radiocity.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/radiocity9911.webp",
+    "streams": [
+      {
+        "url": "https://radios.crabdance.com:8002/5",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "red_fm_93_5_bangalore",
+    "name": "Red FM 93.5 Bangalore",
+    "name_hi": "रेड एफएम 93.5 बेंगलुरु",
+    "language": "Hindi, Kannada, Malayalam, Telugu",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["Bollywood", "Rock", "Talk", "Dance"],
+    "homepage": "https://www.redfmindia.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/red-fm15.webp",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/9phrkb1e3v8uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_one_94_3_bangalore",
+    "name": "Radio One 94.3 FM Bangalore",
+    "name_hi": "रेडियो वन 94.3 एफएम बेंगलुरु",
+    "language": "English, International",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["Pop", "Rock"],
+    "homepage": "http://www.radioone.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/nuzeLuTV.jpg",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "fever_104_fm_bangalore",
+    "name": "Fever 104 FM Bangalore",
+    "name_hi": "फीवर 104 एफएम बेंगलुरु",
+    "language": "English",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["Bollywood"],
+    "homepage": "https://www.htmedia.in/radio",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/Fever.jpg",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "air_fm_gold_bangalore",
+    "name": "AIR FM Gold 621 MW Bangalore",
+    "name_hi": "आकाशवाणी एफएम गोल्ड 621 एमडब्ल्यू बेंगलुरु",
+    "language": "Hindi, English, Sanskrit",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "AIR",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["News", "Classic"],
+    "homepage": "https://akashvani.gov.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/fmgold.webp",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_gyan_vani_105_6_bangalore",
+    "name": "Radio Gyan Vani 105.6 FM Bangalore",
+    "name_hi": "रेडियो ज्ञान वाणी 105.6 एफएम बेंगलुरु",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["Community", "News"],
+    "homepage": "https://ciet.ncert.gov.in/gyanvani",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/gayanvani.png",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_girmit_97_0_bangalore",
+    "name": "Radio Girmit 97.0 FM Bangalore",
+    "name_hi": "रेडियो गिरमिट 97.0 एफएम बेंगलुरु",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["Indian Music", "Classic"],
+    "homepage": "https://radiogirmit.com/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/girmitradio.webp",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "raagam_radio_100_1_bangalore",
+    "name": "Raagam Radio 100.1 FM Bangalore",
+    "name_hi": "रागम रेडियो 100.1 एफएम बेंगलुरु",
+    "language": "Kannada, Multilingual",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": ["Indian Music", "Classic"],
+    "homepage": "https://akashvani.gov.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/ragam.webp",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
   }
 ]
