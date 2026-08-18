@@ -165,6 +165,8 @@ https://radio.wavespb.com/live/b8a30c8945577840/b8a30c8945577840.m3u8
 https://radio.wavespb.com/live/1f4ec5a1ea8e9015/1f4ec5a1ea8e9015.m3u8
 #EXTINF:-1 tvg-id="amrutvarshini" tvg-name="Amrutvarshini" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/amrutvarshini.jpg" group-title="AIR, ALL",Amrutvarshini
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio028/hlspbaudio028_Auto.m3u8
+#EXTINF:-1 tvg-id="big_fm_92_7_bangalore" tvg-name="BIG 92.7 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/big-fm.webp" group-title="FM, ALL",BIG 92.7 FM Bangalore
+https://stream.zeno.fm/dbstwo3dvhhtv
 #EXTINF:-1 tvg-id="fm_arun_itanagar" tvg-name="FM Arun Itanagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_131123.jpg" group-title="FM, ALL",FM Arun Itanagar
 https://radio.wavespb.com/live/174624e09dbdcdde/174624e09dbdcdde.m3u8
 #EXTINF:-1 tvg-id="fm_gold_chennai" tvg-name="FM Gold Chennai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_121071.jpg" group-title="FM, ALL",FM Gold Chennai

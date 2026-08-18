@@ -447,6 +447,8 @@ https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio028/hlspbaudio028_Au
 https://stream.ap9fm.in/radio/8000/radio.mp3
 #EXTINF:-1 tvg-id="austin_telugu_radio" tvg-name="Austin Telugu Radio" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_93339_1785003639.webp" group-title="FM, ALL",Austin Telugu Radio
 https://stream.zeno.fm/gjwvfftymtftv
+#EXTINF:-1 tvg-id="big_fm_92_7_bangalore" tvg-name="BIG 92.7 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/big-fm.webp" group-title="FM, ALL",BIG 92.7 FM Bangalore
+https://stream.zeno.fm/dbstwo3dvhhtv
 #EXTINF:-1 tvg-id="fm_arun_itanagar" tvg-name="FM Arun Itanagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_131123.jpg" group-title="FM, ALL",FM Arun Itanagar
 https://radio.wavespb.com/live/174624e09dbdcdde/174624e09dbdcdde.m3u8
 #EXTINF:-1 tvg-id="fm_gold_chennai" tvg-name="FM Gold Chennai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_121071.jpg" group-title="FM, ALL",FM Gold Chennai
@@ -517,8 +519,12 @@ https://c8.radioboss.fm/stream/33
 https://a1.asurahosting.com/listen/melody_radio/radio.mp3
 #EXTINF:-1 tvg-id="raagam" tvg-name="Raagam" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/raagam.jpg" group-title="AIR, ALL",Raagam
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudioragam/hlspbaudioragam_Auto.m3u8
+#EXTINF:-1 tvg-id="radio_city_91_1_bangalore" tvg-name="Radio City 91.1 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/radiocity9911.webp" group-title="FM, ALL",Radio City 91.1 FM Bangalore
+https://radios.crabdance.com:8002/5
 #EXTINF:-1 tvg-id="radio_hungama_telugu" tvg-name="Radio Hungama Telugu" tvg-logo="" group-title="FM, ALL",Radio Hungama Telugu
 http://103.16.47.70:9444/;stream.nsv
+#EXTINF:-1 tvg-id="radio_mirchi_98_3_bangalore" tvg-name="Radio Mirchi 98.3 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/bengaluru.png" group-title="FM, ALL",Radio Mirchi 98.3 FM Bangalore
+https://stream.zeno.fm/wgaznsmt92quv
 #EXTINF:-1 tvg-id="radio_ranjan_90_4_fm" tvg-name="Radio Ranjan 90.4 FM" tvg-logo="" group-title="FM, ALL",Radio Ranjan 90.4 FM
 https://stream.zeno.fm/rfqqoi2w5u0tv
 #EXTINF:-1 tvg-id="radio_surabhi" tvg-name="Radio Surabhi" tvg-logo="https://www.radiosurabhi.com/assets/images/logo_full_new.png" group-title="FM, ALL",Radio Surabhi
@@ -527,6 +533,8 @@ https://radiosurabhi.streamguys1.com/live1-web
 https://streamasiahlscdn.atc-labs.com/radiovishnu.m3u8
 #EXTINF:-1 tvg-id="rainbow_kannada_kaamanbilu" tvg-name="Rainbow Kannada Kaamanbilu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/rainbowkan.jpg" group-title="AIR, ALL",Rainbow Kannada Kaamanbilu
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio027/hlspbaudio027_Auto.m3u8
+#EXTINF:-1 tvg-id="red_fm_93_5_bangalore" tvg-name="Red FM 93.5 Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/red-fm15.webp" group-title="FM, ALL",Red FM 93.5 Bangalore
+https://stream.zeno.fm/9phrkb1e3v8uv
 #EXTINF:-1 tvg-id="samvadita_mumbai" tvg-name="Samvadita Mumbai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/sammumbai.jpg" group-title="AIR, ALL",Samvadita Mumbai
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio009/hlspbaudio009_Auto.m3u8
 #EXTINF:-1 tvg-id="spb_hits" tvg-name="SPB Hits" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_30498_spb.webp" group-title="FM, ALL",SPB Hits

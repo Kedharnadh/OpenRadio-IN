@@ -29,5 +29,7 @@ https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio057/hlspbaudio057_Au
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio058/hlspbaudio058_Auto.m3u8
 #EXTINF:-1 tvg-id="fm_ujjayanta_agartala" tvg-name="FM Ujjayanta Agartala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_332705.jpg" group-title="FM, ALL",FM Ujjayanta Agartala
 https://radio.wavespb.com/live/d65912ef9829b8c9/d65912ef9829b8c9.m3u8
+#EXTINF:-1 tvg-id="radio_mirchi_98_3_bangalore" tvg-name="Radio Mirchi 98.3 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/bengaluru.png" group-title="FM, ALL",Radio Mirchi 98.3 FM Bangalore
+https://stream.zeno.fm/wgaznsmt92quv
 #EXTINF:-1 tvg-id="vbs_kolkata" tvg-name="VBS Kolkata" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_258910.jpg" group-title="FM, AIR, ALL",VBS Kolkata
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio275/hlspbaudio275_Auto.m3u8

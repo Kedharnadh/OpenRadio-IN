@@ -29,7 +29,11 @@ https://radio.wavespb.com/live/9d18e57ddfb1d4b4/9d18e57ddfb1d4b4.m3u8
 https://radio.wavespb.com/live/e39bab8a1a843e9e/e39bab8a1a843e9e.m3u8
 #EXTINF:-1 tvg-id="amrutvarshini" tvg-name="Amrutvarshini" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/amrutvarshini.jpg" group-title="AIR, ALL",Amrutvarshini
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio028/hlspbaudio028_Auto.m3u8
+#EXTINF:-1 tvg-id="radio_mirchi_98_3_bangalore" tvg-name="Radio Mirchi 98.3 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/bengaluru.png" group-title="FM, ALL",Radio Mirchi 98.3 FM Bangalore
+https://stream.zeno.fm/wgaznsmt92quv
 #EXTINF:-1 tvg-id="rainbow_kannada_kaamanbilu" tvg-name="Rainbow Kannada Kaamanbilu" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/rainbowkan.jpg" group-title="AIR, ALL",Rainbow Kannada Kaamanbilu
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio027/hlspbaudio027_Auto.m3u8
+#EXTINF:-1 tvg-id="red_fm_93_5_bangalore" tvg-name="Red FM 93.5 Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/red-fm15.webp" group-title="FM, ALL",Red FM 93.5 Bangalore
+https://stream.zeno.fm/9phrkb1e3v8uv
 #EXTINF:-1 tvg-id="vb_kannada" tvg-name="VB KANNADA" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/vbbang.jpg" group-title="FM, AIR, ALL",VB KANNADA
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio026/hlspbaudio026_Auto.m3u8

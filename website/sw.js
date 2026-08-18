@@ -1,4 +1,4 @@
-const CACHE_NAME = 'openradio-in-v30';
+const CACHE_NAME = 'openradio-in-v31';
 const APP_SHELL = [
   './',
   './index.html',
@@ -20,6 +20,26 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))));
   self.clients.claim();
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
+      for (const client of windowClients) {
+        if (client.url.includes('./') && 'focus' in client) {
+          client.focus();
+          client.postMessage({ type: 'open-now-playing' });
+          return;
+        }
+      }
+      if (clients.openWindow) {
+        clients.openWindow('./').then((newClient) => {
+          if (newClient) newClient.postMessage({ type: 'open-now-playing' });
+        });
+      }
+    })
+  );
 });
 
 self.addEventListener('fetch', (event) => {
