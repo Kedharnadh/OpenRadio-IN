@@ -36,7 +36,7 @@ https://stream.ap9fm.in/radio/8000/radio.mp3
 #EXTINF:-1 tvg-id="austin_telugu_radio" tvg-name="Austin Telugu Radio" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_93339_1785003639.webp" group-title="FM, ALL",Austin Telugu Radio
 https://stream.zeno.fm/gjwvfftymtftv
 #EXTINF:-1 tvg-id="geet_Radio_telugu" tvg-name="Geet Radio - Telugu " tvg-logo="https://geetradio.com/wp-content/uploads/2024/08/Geetradio_512_nobg.png" group-title="FM, ALL",Geet Radio - Telugu 
-http://server.geetradio.com:8010/radio.mp3
+https://server.geetradio.com/hls/telugu/live.m3u8
 #EXTINF:-1 tvg-id="ghantasala_hits" tvg-name="Ghantasala Hits" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_75332_ghantasala.webp" group-title="FM, ALL",Ghantasala Hits
 http://cast6.my-control-panel.com:7426/live
 #EXTINF:-1 tvg-id="ilayaraja_hits" tvg-name="Ilayaraja Hits" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_61983_ilayaraja.webp" group-title="FM, ALL",Ilayaraja Hits

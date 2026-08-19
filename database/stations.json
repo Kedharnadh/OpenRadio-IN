@@ -6785,9 +6785,19 @@
     "logo": "https://geetradio.com/wp-content/uploads/2024/08/Geetradio_512_nobg.png",
     "streams": [
       {
+        "url": "https://server.geetradio.com/hls/telugu/live.m3u8",
+        "codec": "HLS",
+        "priority": 1
+      },
+      {
+        "url": "https://server.geetradio.com/listen/telugu/radio.mp3",
+        "codec": "MP3",
+        "priority": 2
+      },
+      {
         "url": "http://server.geetradio.com:8010/radio.mp3",
         "codec": "MP3",
-        "priority": 1
+        "priority": 3
       }
     ],
     "verified": false,
