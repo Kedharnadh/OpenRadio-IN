@@ -18,6 +18,7 @@ labels working stations as dead.
 
 import concurrent.futures
 import json
+import ssl
 import sys
 import urllib.error
 import urllib.request
@@ -27,13 +28,28 @@ PROBE_TIMEOUT = 8
 MAX_WORKERS = 6
 
 
+def _is_hls(url, codec):
+    """Return True if the stream is an HLS playlist (not a raw audio stream)."""
+    if codec and codec.upper() == "HLS":
+        return True
+    return url.rstrip("/").lower().endswith(".m3u8")
+
+
+def _is_ssl_error(err):
+    """Return True if the URLError wraps an SSL certificate failure."""
+    reason = getattr(err, "reason", None)
+    return isinstance(reason, ssl.SSLError)
+
+
 def probe_stream(url, codec):
     """Return True/False/None for online/offline/unknown of a single stream."""
     try:
-        req = urllib.request.Request(url, method="GET", headers={
-            "User-Agent": "Mozilla/5.0 (OpenRadio-IN health check)",
-            "Range": "bytes=0-0",
-        })
+        headers = {"User-Agent": "Mozilla/5.0 (OpenRadio-IN health check)"}
+        # Only send Range for raw audio streams; HLS playlists (.m3u8) are
+        # text manifests and many CDNs return 416 when asked for a byte range.
+        if not _is_hls(url, codec):
+            headers["Range"] = "bytes=0-0"
+        req = urllib.request.Request(url, method="GET", headers=headers)
         with urllib.request.urlopen(req, timeout=PROBE_TIMEOUT) as resp:
             return 200 <= resp.status < 400
     except urllib.error.HTTPError as err:
@@ -41,6 +57,10 @@ def probe_stream(url, codec):
         return False
     except (urllib.error.URLError, ConnectionError, OSError) as err:
         if isinstance(err, urllib.error.URLError) and isinstance(err.reason, (TimeoutError,)):
+            return None
+        # SSL certificate errors are environment-specific (depend on the
+        # local cert store) and do not mean the stream is actually down.
+        if isinstance(err, urllib.error.URLError) and _is_ssl_error(err):
             return None
         # DNS failure / connection refused are definitive.
         return False
