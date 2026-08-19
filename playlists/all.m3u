@@ -500,7 +500,7 @@ https://radio.wavespb.com/live/d65912ef9829b8c9/d65912ef9829b8c9.m3u8
 #EXTINF:-1 tvg-id="fm_zoawi_aizawl" tvg-name="FM Zoawi Aizawl" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_461023.jpg" group-title="FM, ALL",FM Zoawi Aizawl
 https://radio.wavespb.com/live/443b0a952fbbe057/443b0a952fbbe057.m3u8
 #EXTINF:-1 tvg-id="geet_Radio_telugu" tvg-name="Geet Radio - Telugu " tvg-logo="https://geetradio.com/wp-content/uploads/2024/08/Geetradio_512_nobg.png" group-title="FM, ALL",Geet Radio - Telugu 
-http://server.geetradio.com:8010/radio.mp3
+https://server.geetradio.com/hls/telugu/live.m3u8
 #EXTINF:-1 tvg-id="ghantasala_hits" tvg-name="Ghantasala Hits" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_75332_ghantasala.webp" group-title="FM, ALL",Ghantasala Hits
 http://cast6.my-control-panel.com:7426/live
 #EXTINF:-1 tvg-id="ilayaraja_hits" tvg-name="Ilayaraja Hits" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_61983_ilayaraja.webp" group-title="FM, ALL",Ilayaraja Hits
