@@ -6982,8 +6982,8 @@
     "logo": "",
     "streams": [
       {
-        "url": "http://103.16.47.70:9444/;stream.nsv",
-        "codec": "MP3",
+        "url": "https://radioindia.net/radio/humgama-telugu/icecast.audio",
+        "codec": "AAC",
         "priority": 1
       }
     ],

@@ -92,7 +92,7 @@ https://a1.asurahosting.com/listen/melody_radio/radio.mp3
 #EXTINF:-1 tvg-id="radio_city_91_1_bangalore" tvg-name="Radio City 91.1 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/radiocity9911.webp" group-title="FM, ALL",Radio City 91.1 FM Bangalore
 https://radios.crabdance.com:8002/5
 #EXTINF:-1 tvg-id="radio_hungama_telugu" tvg-name="Radio Hungama Telugu" tvg-logo="" group-title="FM, ALL",Radio Hungama Telugu
-http://103.16.47.70:9444/;stream.nsv
+https://radioindia.net/radio/humgama-telugu/icecast.audio
 #EXTINF:-1 tvg-id="radio_mirchi_98_3_bangalore" tvg-name="Radio Mirchi 98.3 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/bengaluru.png" group-title="FM, ALL",Radio Mirchi 98.3 FM Bangalore
 https://stream.zeno.fm/wgaznsmt92quv
 #EXTINF:-1 tvg-id="radio_ranjan_90_4_fm" tvg-name="Radio Ranjan 90.4 FM" tvg-logo="" group-title="FM, ALL",Radio Ranjan 90.4 FM
