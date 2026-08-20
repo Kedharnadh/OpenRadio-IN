@@ -1421,6 +1421,10 @@
           state.streamSwitching = false;
           state.playing = false;
           state.pauseIntent = false;
+          if (!state.userInitiatedStop && state.currentStation) {
+            state.externallyInterrupted = true;
+            state.paused = true;
+          }
           setStatus('status.streamFailed');
           updatePlayer();
           renderStationLists();
@@ -1638,7 +1642,7 @@
 
   function attemptResume() {
     if (!state.pendingAutoResume || !state.currentStation) return;
-    if (state.userInitiatedStop || state.paused || state.pauseIntent || state.externallyInterrupted) {
+    if (state.userInitiatedStop || state.pauseIntent) {
       state.pendingAutoResume = false;
       state.resumeAttempts = 0;
       return;
@@ -1653,12 +1657,16 @@
       // play/stop buttons reflect reality instead of staying stuck on the reset state.
       state.playing = true;
       state.paused = false;
+      state.externallyInterrupted = false;
       state.pendingAutoResume = false;
       state.resumeAttempts = 0;
       updatePlayer();
       renderStationLists();
       return;
     }
+
+    state.externallyInterrupted = false;
+    state.paused = false;
 
     const canReplay = Boolean(elements.audio.src) || Boolean(state.hls);
     if (!canReplay) {
@@ -1667,6 +1675,7 @@
       } else {
         state.pendingAutoResume = false;
         state.resumeAttempts = 0;
+        state.pauseIntent = false;
         playStation(state.currentStation, state.streamIndex || 0);
       }
       return;
@@ -2490,6 +2499,7 @@
       return;
     }
     if (state.currentStation && !state.userInitiatedStop && !state.paused && !state.pauseIntent && elements.audio.paused) {
+      state.externallyInterrupted = false;
       scheduleAutoResume();
     }
   }
@@ -2515,6 +2525,10 @@
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     state.playing = false;
     state.paused = false;
+    if (!state.userInitiatedStop && !state.pauseIntent && state.currentStation) {
+      state.externallyInterrupted = true;
+      state.paused = true;
+    }
     state.nowPlayingTrack = '';
     state.nowPlayingTitle = '';
     state.nowPlayingArtist = '';
@@ -2558,8 +2572,14 @@
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
+      if (state.hls && !isCasting()) {
+        try { state.hls.stopLoad(); } catch {}
+      }
       if (isCasting()) acquireCastWakeLock();
       return;
+    }
+    if (state.hls && !isCasting()) {
+      try { state.hls.startLoad(); } catch {}
     }
     resumeInterruptedPlayback();
     if (isCasting()) {
