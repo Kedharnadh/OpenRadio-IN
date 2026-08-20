@@ -93,7 +93,9 @@
       'timer.min15': '15 min',
       'timer.min30': '30 min',
       'timer.min60': '60 min',
-      'timer.off': 'Off'
+      'timer.off': 'Off',
+      'toast.addedFavorite': '%{name} added to favorites',
+      'toast.removedFavorite': '%{name} removed from favorites'
     },
     te: {
       'app.eyebrow': '\u0C15\u0C2E\u0C4D\u0C2F\u0C42\u0C28\u0C3F\u0C1F\u0C40 \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u2022 PWA',
@@ -225,7 +227,9 @@
       'lang.Tamil': '\u0C24\u0C2E\u0C3F\u0C33\u0C02',
       'lang.Telugu': '\u0C24\u0C46\u0C32\u0C41\u0C17\u0C41',
       'lang.Tulu': '\u0C24\u0C41\u0C33\u0C41',
-      'lang.Urdu': '\u0C09\u0C30\u0C4D\u0C26\u0C42'
+      'lang.Urdu': '\u0C09\u0C30\u0C4D\u0C26\u0C42',
+      'toast.addedFavorite': '%{name} \u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C3E\u0C30\u0C41',
+      'toast.removedFavorite': '%{name} \u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C24\u0C40\u0C38\u0C3F\u0C28\u0C3E\u0C30\u0C41'
     },
     hi: {
       'app.eyebrow': '\u0915\u092E\u094D\u092F\u0942\u0928\u093F\u091F\u0940 \u0930\u0947\u0921\u093F\u092F\u094B \u2022 PWA',
@@ -357,7 +361,9 @@
       'lang.Tamil': '\u0924\u092E\u093F\u0932',
       'lang.Telugu': '\u0924\u0947\u0932\u0941\u0917\u0941',
       'lang.Tulu': '\u0924\u0941\u0932\u0941',
-      'lang.Urdu': '\u0909\u0930\u094D\u0926\u0942'
+      'lang.Urdu': '\u0909\u0930\u094D\u0926\u0942',
+      'toast.addedFavorite': '%{name} \u092B\u0947\u0935\u0930\u0947\u091F \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u093E',
+      'toast.removedFavorite': '%{name} \u092B\u0947\u0935\u0930\u0947\u091F \u0938\u0947 \u0939\u091F\u093E\u092F\u093E'
     }
   };
   let uiLang = localStorage.getItem('openradio-ui-lang') || 'en';
@@ -509,6 +515,7 @@
   const RESUME_MAX_ATTEMPTS = 10;
   const ART_CACHE_KEY = 'openradio-art-cache';
   const ART_CACHE_TTL = 24 * 60 * 60 * 1000;
+  const ART_CACHE_MAX = 100;
 
   let statusKey = 'status.loading';
   let statusVars = null;
@@ -524,6 +531,19 @@
     if (className) element.className = className;
     if (text !== undefined) element.textContent = text;
     return element;
+  }
+
+  function debounce(fn, ms) {
+    let id;
+    return function (...args) { clearTimeout(id); id = setTimeout(() => fn.apply(this, args), ms); };
+  }
+
+  function showToast(message) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    const toast = makeElement('div', 'toast', message);
+    container.appendChild(toast);
+    setTimeout(() => { toast.remove(); }, 2500);
   }
 
   function translateLanguages(languageField) {
@@ -718,6 +738,7 @@
   function renderNowPlayingArt() {
     const station = state.currentStation;
     const art = state.nowPlayingArt || station?.logo || '';
+    if (elements.nowPlayingLogo.src === art && art !== '') return;
     elements.nowPlayingLogo.onload = () => { artFallbackActive = false; syncPlayerArt(); };
     elements.nowPlayingLogo.onerror = () => {
       if (artFallbackActive) {
@@ -971,6 +992,26 @@
     renderRecent();
   }
 
+  function patchStationCardStates() {
+    document.querySelectorAll('.station-card').forEach((card) => {
+      const id = card.querySelector('[data-action="favorite"]')?.dataset.id;
+      if (!id) return;
+      const isFav = state.favorites.has(id);
+      const favBtn = card.querySelector('[data-action="favorite"]');
+      if (favBtn) {
+        favBtn.classList.toggle('active', isFav);
+        favBtn.textContent = isFav ? '\u2665' : '\u2661';
+      }
+      const playBtn = card.querySelector('[data-action="play"]');
+      if (playBtn) {
+        const isCurrentStation = state.currentStation?.id === id;
+        playBtn.textContent = isCurrentStation
+          ? (state.playing ? t('controls.pause') : (state.paused ? t('controls.resume') : t('controls.play')))
+          : t('controls.play');
+      }
+    });
+  }
+
   function applyFilters() {
     state.filteredStations = state.stations.filter(stationMatches).sort((first, second) => String(first.name).localeCompare(String(second.name)));
     renderFilters();
@@ -1163,7 +1204,7 @@
         startCastSync();
         setStatus('status.playingCast', { name: localizedName(station) });
         updatePlayer();
-        renderStationLists();
+        patchStationCardStates();
         return;
       } catch (error) {
         lastError = error.message || String(error);
@@ -1178,7 +1219,7 @@
     stopCastSync();
     setStatus('status.castError', { error: lastError || t('status.castError') });
     updatePlayer();
-    renderStationLists();
+    patchStationCardStates();
   }
 
   function syncFromCastPlayer() {
@@ -1195,7 +1236,7 @@
     state.castSessionLost = false;
     if (prevPlaying !== state.playing || prevPaused !== state.paused) {
       updatePlayer();
-      renderStationLists();
+      patchStationCardStates();
     }
   }
 
@@ -1284,7 +1325,7 @@
               state.paused = false;
               state.castSessionLost = false;
               updatePlayer();
-              renderStationLists();
+              patchStationCardStates();
               syncFromCastPlayer();
             } else {
               castStation(state.currentStation);
@@ -1343,7 +1384,7 @@
       state.pauseIntent = false;
       setStatus('status.streamFailed');
       updatePlayer();
-      renderStationLists();
+      patchStationCardStates();
       return;
     }
     state.streamIndex = streamIndex;
@@ -1385,10 +1426,17 @@
     const isHls = isHlsStream(stream);
 
     if (isHls) {
+      if (!window.Hls) {
+        try {
+          const script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/hls.js@1';
+          await new Promise((resolve, reject) => { script.onload = resolve; script.onerror = reject; document.head.appendChild(script); });
+        } catch { /* ignore */ }
+      }
       if (!window.Hls || !window.Hls.isSupported()) {
         setStatus('status.hlsUnsupported');
         updatePlayer();
-        renderStationLists();
+        patchStationCardStates();
         return;
       }
       elements.audio.src = '';
@@ -1427,7 +1475,7 @@
           }
           setStatus('status.streamFailed');
           updatePlayer();
-          renderStationLists();
+          patchStationCardStates();
         }
       });
       hls.loadSource(stream.url);
@@ -1442,7 +1490,7 @@
         if (state.playGeneration !== generation) return;
         if (state.userInitiatedStop) {
           updatePlayer();
-          renderStationLists();
+          patchStationCardStates();
           return;
         }
         if (!advanceStream()) {
@@ -1451,7 +1499,7 @@
           state.pauseIntent = false;
           setStatus('status.loadFailed');
           updatePlayer();
-          renderStationLists();
+          patchStationCardStates();
         }
         return;
       }
@@ -1459,7 +1507,7 @@
         try { hls.destroy(); } catch {}
         if (state.hls === hls) state.hls = null;
         updatePlayer();
-        renderStationLists();
+        patchStationCardStates();
         return;
       }
       try {
@@ -1468,7 +1516,7 @@
         if (state.playGeneration !== generation) return;
         if (state.userInitiatedStop || state.paused) {
           updatePlayer();
-          renderStationLists();
+          patchStationCardStates();
           return;
         }
         if (!advanceStream()) {
@@ -1477,7 +1525,7 @@
           state.pauseIntent = false;
           setStatus('status.playFailed');
           updatePlayer();
-          renderStationLists();
+          patchStationCardStates();
         }
         return;
       }
@@ -1490,7 +1538,7 @@
       addRecentStation(station);
       startMetadataPolling(stream.url, station);
       updatePlayer();
-      renderStationLists();
+      patchStationCardStates();
       return;
     }
 
@@ -1509,7 +1557,7 @@
       if (state.playGeneration !== generation) return;
       if (state.userInitiatedStop || state.paused) {
         updatePlayer();
-        renderStationLists();
+        patchStationCardStates();
         return;
       }
       if (!advanceStream()) {
@@ -1520,7 +1568,7 @@
       }
     }
     updatePlayer();
-    renderStationLists();
+    patchStationCardStates();
   }
 
   function retryPlayback() {
@@ -1573,7 +1621,7 @@
     stopMetadataPolling();
     clearEpg();
     updatePlayer();
-    renderStationLists();
+    patchStationCardStates();
   }
 
   function pausePlayback() {
@@ -1595,7 +1643,7 @@
     state.resumeAttempts = 0;
     elements.audio.pause();
     updatePlayer();
-    renderStationLists();
+    patchStationCardStates();
   }
 
   async function playPlayback() {
@@ -1618,7 +1666,7 @@
         await playStation(state.currentStation, state.streamIndex || 0);
       }
       updatePlayer();
-      renderStationLists();
+      patchStationCardStates();
       return;
     }
     await playStation(state.currentStation, state.streamIndex || 0);
@@ -1661,7 +1709,7 @@
       state.pendingAutoResume = false;
       state.resumeAttempts = 0;
       updatePlayer();
-      renderStationLists();
+      patchStationCardStates();
       return;
     }
 
@@ -1728,9 +1776,11 @@
     const station = state.stations.find((entry) => entry.id === button.dataset.id);
     if (!station) return;
     if (button.dataset.action === 'favorite') {
-      state.favorites.has(station.id) ? state.favorites.delete(station.id) : state.favorites.add(station.id);
+      const wasFav = state.favorites.has(station.id);
+      wasFav ? state.favorites.delete(station.id) : state.favorites.add(station.id);
       saveFavorites();
       renderStationLists();
+      showToast(wasFav ? t('toast.removedFavorite', { name: localizedName(station) }) : t('toast.addedFavorite', { name: localizedName(station) }));
       return;
     }
     state.currentSource = event.currentTarget === elements.featured || event.currentTarget === elements.recentStations ? 'favorites' : 'all';
@@ -1762,7 +1812,10 @@
     btn.title = fav ? 'Remove from favorites' : 'Add to favorites';
   }
 
+  let previousFocus = null;
+
   function openNowPlaying() {
+    previousFocus = document.activeElement;
     elements.nowPlaying.hidden = false;
     document.body.style.overflow = 'hidden';
     const sheet = elements.nowPlaying.querySelector('.now-playing-sheet');
@@ -1773,11 +1826,13 @@
     elements.nowPlayingBackdrop.style.opacity = '';
     updateNowPlayingFavorite();
     renderEpg();
+    elements.nowPlayingClose.focus();
   }
 
   function closeNowPlaying() {
     elements.nowPlaying.hidden = true;
     document.body.style.overflow = '';
+    if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
   }
 
   /* ---------- First-Time Hint ---------- */
@@ -1959,7 +2014,14 @@
     try {
       const store = JSON.parse(localStorage.getItem(ART_CACHE_KEY) || '{}');
       store[key] = { url, t: Date.now() };
-      localStorage.setItem(ART_CACHE_KEY, JSON.stringify(store));
+      const entries = Object.entries(store);
+      if (entries.length > ART_CACHE_MAX) {
+        entries.sort((a, b) => a[1].t - b[1].t);
+        const trimmed = Object.fromEntries(entries.slice(-ART_CACHE_MAX));
+        localStorage.setItem(ART_CACHE_KEY, JSON.stringify(trimmed));
+      } else {
+        localStorage.setItem(ART_CACHE_KEY, JSON.stringify(store));
+      }
     } catch {}
   }
 
@@ -1988,7 +2050,7 @@
         const data = await response.json();
         const result = data.results && data.results[0];
         if (result && result.artworkUrl100) {
-          art = result.artworkUrl100.replace('100x100', '600x600');
+          art = result.artworkUrl100;
           break;
         }
       } catch {}
@@ -2204,6 +2266,15 @@
   function handleKeydown(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
     if (!elements.nowPlaying.hidden && e.key === 'Escape') { closeNowPlaying(); return; }
+    if (!elements.nowPlaying.hidden && e.key === 'Tab') {
+      const focusable = elements.nowPlaying.querySelectorAll('button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      return;
+    }
     switch (e.key) {
       case ' ':
         e.preventDefault();
@@ -2222,8 +2293,18 @@
 
   async function loadStations() {
     try {
-      let response = await fetch(DATA_URL, { cache: 'no-store' });
-      if (!response.ok) response = await fetch('../database/stations.json', { cache: 'no-store' });
+      const skeleton = Array.from({ length: 6 }, () => {
+        const card = makeElement('div', 'skeleton-card');
+        const top = makeElement('div', 'skeleton-card__top');
+        top.append(makeElement('div', 'skeleton-thumb'), makeElement('div', 'skeleton-text skeleton-text--long'));
+        const badges = makeElement('div', 'skeleton-badges');
+        badges.append(makeElement('div', 'skeleton-badge'), makeElement('div', 'skeleton-badge'));
+        card.append(top, badges);
+        return card;
+      });
+      elements.stations.replaceChildren(...skeleton);
+      let response = await fetch(DATA_URL);
+      if (!response.ok) response = await fetch('../database/stations.json');
       if (!response.ok) throw new Error(`Station data request failed: ${response.status}`);
       state.stations = (await response.json()).filter(Boolean);
       const lastStationId = localStorage.getItem('openradio-last-station');
@@ -2341,10 +2422,10 @@
   applyUiLanguage();
   try { state.lastCastStationId = sessionStorage.getItem('openradio-cast-station') || null; } catch {}
 
-  elements.search.addEventListener('input', (event) => {
+  elements.search.addEventListener('input', debounce((event) => {
     state.search = event.target.value;
     applyFilters();
-  });
+  }, 200));
   elements.filters.addEventListener('click', (event) => {
     const button = event.target.closest('button[data-category]');
     if (!button) return;
@@ -2377,10 +2458,12 @@
     e.stopPropagation();
     const station = state.currentStation;
     if (!station) return;
-    state.favorites.has(station.id) ? state.favorites.delete(station.id) : state.favorites.add(station.id);
+    const wasFav = state.favorites.has(station.id);
+    wasFav ? state.favorites.delete(station.id) : state.favorites.add(station.id);
     saveFavorites();
     renderStationLists();
     updateNowPlayingFavorite();
+    showToast(wasFav ? t('toast.removedFavorite', { name: localizedName(station) }) : t('toast.addedFavorite', { name: localizedName(station) }));
   });
 
   document.querySelector('.app-shell').addEventListener('click', (e) => {
@@ -2395,6 +2478,13 @@
     if (e.target.closest('button') || e.target.closest('input')) return;
     dismissFirstHint();
     openNowPlaying();
+  });
+  elements.playerInfo.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      dismissFirstHint();
+      openNowPlaying();
+    }
   });
   elements.firstHintDismiss.addEventListener('click', dismissFirstHint);
   elements.firstHint.addEventListener('click', (e) => {
@@ -2480,7 +2570,7 @@
     state.resumeAttempts = 0;
     state.retryCount = 0;
     updatePlayer();
-    renderStationLists();
+    patchStationCardStates();
   });
   function resumeInterruptedPlayback() {
     if (isCasting() || state.castSessionLost) {
@@ -2513,7 +2603,7 @@
       state.paused = true;
     }
     updatePlayer();
-    renderStationLists();
+    patchStationCardStates();
   });
   elements.audio.addEventListener('stalled', () => {
     if (state.playing && !state.userInitiatedStop && !state.pauseIntent && !state.externallyInterrupted && !isCasting()) scheduleAutoResume();
@@ -2537,12 +2627,12 @@
     stopMetadataPolling();
     setStatus('status.ended');
     updatePlayer();
-    renderStationLists();
+    patchStationCardStates();
   });
   elements.audio.addEventListener('error', () => {
     if (state.streamSwitching) {
       updatePlayer();
-      renderStationLists();
+      patchStationCardStates();
       return;
     }
     if (state.hls) { state.hls.destroy(); state.hls = null; }
@@ -2560,12 +2650,12 @@
       state.userInitiatedStop = false;
       retryPlayback();
       updatePlayer();
-      renderStationLists();
+      patchStationCardStates();
       return;
     }
     state.userInitiatedStop = false;
     updatePlayer();
-    renderStationLists();
+    patchStationCardStates();
   });
 
   document.addEventListener('keydown', handleKeydown);

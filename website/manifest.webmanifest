@@ -1,13 +1,22 @@
 {
   "name": "OpenRadio-IN",
   "short_name": "OpenRadio",
+  "id": "/index.html",
   "description": "Play and discover Indian online radio stations in a polished PWA.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#07111f",
   "theme_color": "#0f172a",
   "categories": ["radio", "music", "news", "entertainment"],
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "OpenRadio-IN radio player"
+    }
+  ],
   "icons": [
     {
       "src": "icons/icon.svg",
