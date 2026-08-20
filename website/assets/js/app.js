@@ -1461,8 +1461,20 @@
         try { hls.destroy(); } catch {}
         if (state.hls === hls) state.hls = null;
         if (loadReject) {
-          // failed during initial load — let the load promise reject and handle fallback
           loadReject(new Error(data.type));
+          return;
+        }
+        if (document.hidden) {
+          state.streamSwitching = false;
+          state.playing = false;
+          state.pauseIntent = false;
+          if (!state.userInitiatedStop && state.currentStation) {
+            state.externallyInterrupted = true;
+            state.paused = true;
+          }
+          setStatus('status.streamFailed');
+          updatePlayer();
+          patchStationCardStates();
           return;
         }
         if (started && !state.streamSwitching && !advanceStream()) {
@@ -2653,13 +2665,21 @@
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     state.playing = false;
     state.paused = false;
-    state.pendingAutoResume = false;
     state.nowPlayingTrack = '';
     state.nowPlayingTitle = '';
     state.nowPlayingArtist = '';
     state.nowPlayingAlbum = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
+    if (state.externallyInterrupted || document.hidden) {
+      state.externallyInterrupted = true;
+      state.paused = true;
+      setStatus('status.streamFailed');
+      updatePlayer();
+      patchStationCardStates();
+      return;
+    }
+    state.pendingAutoResume = false;
     if (state.currentStation && !state.userInitiatedStop && !advanceStream()) {
       state.streamSwitching = false;
       state.userInitiatedStop = false;
@@ -2678,11 +2698,13 @@
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       if (state.hls && !isCasting()) {
-        try { state.hls.destroy(); } catch {}
-        state.hls = null;
+        try { state.hls.stopLoad(); } catch {}
       }
       if (isCasting()) acquireCastWakeLock();
       return;
+    }
+    if (state.hls && !isCasting()) {
+      try { state.hls.startLoad(-1); } catch {}
     }
     resumeInterruptedPlayback();
     if (isCasting()) {
