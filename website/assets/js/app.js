@@ -94,8 +94,8 @@
       'timer.min30': '30 min',
       'timer.min60': '60 min',
       'timer.off': 'Off',
-      'toast.addedFavorite': '%{name} added to favorites',
-      'toast.removedFavorite': '%{name} removed from favorites'
+      'toast.addedFavorite': '{name} added to favorites',
+      'toast.removedFavorite': '{name} removed from favorites'
     },
     te: {
       'app.eyebrow': '\u0C15\u0C2E\u0C4D\u0C2F\u0C42\u0C28\u0C3F\u0C1F\u0C40 \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u2022 PWA',
@@ -228,8 +228,8 @@
       'lang.Telugu': '\u0C24\u0C46\u0C32\u0C41\u0C17\u0C41',
       'lang.Tulu': '\u0C24\u0C41\u0C33\u0C41',
       'lang.Urdu': '\u0C09\u0C30\u0C4D\u0C26\u0C42',
-      'toast.addedFavorite': '%{name} \u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C3E\u0C30\u0C41',
-      'toast.removedFavorite': '%{name} \u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C24\u0C40\u0C38\u0C3F\u0C28\u0C3E\u0C30\u0C41'
+      'toast.addedFavorite': '{name} \u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C3E\u0C30\u0C41',
+      'toast.removedFavorite': '{name} \u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C24\u0C40\u0C38\u0C3F\u0C28\u0C3E\u0C30\u0C41'
     },
     hi: {
       'app.eyebrow': '\u0915\u092E\u094D\u092F\u0942\u0928\u093F\u091F\u0940 \u0930\u0947\u0921\u093F\u092F\u094B \u2022 PWA',
@@ -362,8 +362,8 @@
       'lang.Telugu': '\u0924\u0947\u0932\u0941\u0917\u0941',
       'lang.Tulu': '\u0924\u0941\u0932\u0941',
       'lang.Urdu': '\u0909\u0930\u094D\u0926\u0942',
-      'toast.addedFavorite': '%{name} \u092B\u0947\u0935\u0930\u0947\u091F \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u093E',
-      'toast.removedFavorite': '%{name} \u092B\u0947\u0935\u0930\u0947\u091F \u0938\u0947 \u0939\u091F\u093E\u092F\u093E'
+      'toast.addedFavorite': '{name} \u092B\u0947\u0935\u0930\u0947\u091F \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u093E',
+      'toast.removedFavorite': '{name} \u092B\u0947\u0935\u0930\u0947\u091F \u0938\u0947 \u0939\u091F\u093E\u092F\u093E'
     }
   };
   let uiLang = localStorage.getItem('openradio-ui-lang') || 'en';
