@@ -2678,13 +2678,11 @@
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       if (state.hls && !isCasting()) {
-        try { state.hls.stopLoad(); } catch {}
+        try { state.hls.destroy(); } catch {}
+        state.hls = null;
       }
       if (isCasting()) acquireCastWakeLock();
       return;
-    }
-    if (state.hls && !isCasting()) {
-      try { state.hls.startLoad(); } catch {}
     }
     resumeInterruptedPlayback();
     if (isCasting()) {
