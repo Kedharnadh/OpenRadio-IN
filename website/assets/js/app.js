@@ -1464,19 +1464,6 @@
           loadReject(new Error(data.type));
           return;
         }
-        if (document.hidden) {
-          state.streamSwitching = false;
-          state.playing = false;
-          state.pauseIntent = false;
-          if (!state.userInitiatedStop && state.currentStation) {
-            state.externallyInterrupted = true;
-            state.paused = true;
-          }
-          setStatus('status.streamFailed');
-          updatePlayer();
-          patchStationCardStates();
-          return;
-        }
         if (started && !state.streamSwitching && !advanceStream()) {
           state.streamSwitching = false;
           state.playing = false;
@@ -2671,8 +2658,7 @@
     state.nowPlayingAlbum = '';
     elements.nowPlayingTrack.hidden = true;
     stopMetadataPolling();
-    if (state.externallyInterrupted || document.hidden) {
-      state.externallyInterrupted = true;
+    if (state.externallyInterrupted) {
       state.paused = true;
       setStatus('status.streamFailed');
       updatePlayer();
