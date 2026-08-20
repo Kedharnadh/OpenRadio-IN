@@ -1126,6 +1126,74 @@
     });
   }
 
+  function canProxyStream(stream) {
+    // Check whether the proxy actually streams media bytes for this source. Some
+    // origins (e.g. wavespb) serve nested playlists back through the proxy, so the
+    // "stream" starts with "#EXT" instead of media data and cannot be played
+    // natively. Detecting this up front avoids tearing down a working hls.js
+    // instance for a doomed background migration.
+    const url = proxyHlsStreamUrl(stream);
+    if (!url) return Promise.resolve(false);
+    return fetch(url, { signal: AbortSignal.timeout(8000) })
+      .then((response) => {
+        if (!response.ok || !response.body) return false;
+        const reader = response.body.getReader();
+        return reader.read().then(({ value }) => {
+          try { reader.cancel(); } catch {}
+          if (!value) return false;
+          const head = new TextDecoder().decode(value.slice(0, 64));
+          return !head.trimStart().startsWith('#EXT');
+        });
+      })
+      .catch(() => false);
+  }
+
+  async function migrateHlsToNativeForBackground() {
+    // When the tab is hidden, the browser throttles hls.js timers and fetches, so
+    // its buffer drains and playback stops. Hand the live stream over to the
+    // proxy's continuous stream played by the native <audio> element instead: the
+    // browser's media stack keeps fetching in the background (exactly like the
+    // direct MP3/AAC streams). Startup stays fast because foreground playback
+    // still uses hls.js.
+    if (isCasting() || state.castSessionLost) return;
+    if (state.userInitiatedStop || state.paused || state.pauseIntent) return;
+    if (state.streamSwitching || state.nativeProbing) return;
+    if (!state.hls || !state.currentStation) return;
+    const streams = sortStreamsForPlayback(state.currentStation.streams);
+    const stream = streams[state.streamIndex || 0];
+    if (!stream || !isHlsStream(stream) || state.hlsOnlyUrl === stream.url) return;
+    const proxyUrl = proxyHlsStreamUrl(stream);
+    if (!proxyUrl) return;
+    const generation = state.playGeneration;
+
+    if (!(await canProxyStream(stream))) {
+      if (state.playGeneration !== generation) return;
+      state.hlsOnlyUrl = stream.url;
+      return;
+    }
+    if (state.playGeneration !== generation || !state.hls || document.visibilityState !== 'hidden') return;
+    if (state.userInitiatedStop || state.paused || state.pauseIntent) return;
+
+    try { state.hls.destroy(); } catch {}
+    state.hls = null;
+    const nativeOk = await playNativeHlsStream(proxyUrl, generation);
+    if (state.playGeneration !== generation || state.userInitiatedStop) return;
+    if (nativeOk) {
+      state.playing = true;
+      state.paused = false;
+      updatePlayer();
+      patchStationCardStates();
+    } else {
+      state.hlsOnlyUrl = stream.url;
+      state.playing = false;
+      state.paused = true;
+      state.externallyInterrupted = true;
+      setStatus('status.streamFailed');
+      updatePlayer();
+      patchStationCardStates();
+    }
+  }
+
   function sortStreamsForPlayback(streams) {
     return [...(streams || [])]
       .filter((s) => s.url)
@@ -1479,35 +1547,6 @@
 
     if (isHls) {
       let started = false;
-
-      // Prefer the proxy's continuous stream when possible. A native <audio>
-      // element keeps fetching while the PWA is minimized (the browser's media
-      // stack is exempt from background-tab throttling), so HLS plays like the
-      // direct MP3/AAC streams. Falls back to hls.js below if the proxy cannot
-      // produce a playable stream or after a native stall.
-      const proxyUrl = state.hlsOnlyUrl === stream.url ? null : proxyHlsStreamUrl(stream);
-      if (proxyUrl) {
-        const switchingBeforeProbe = state.streamSwitching;
-        const nativeOk = await playNativeHlsStream(proxyUrl, generation);
-        if (state.playGeneration !== generation || state.userInitiatedStop) return;
-        if (nativeOk) {
-          state.streamSwitching = false;
-          state.playing = true;
-          setStatus('status.playing', { name: localizedName(station) });
-          localStorage.setItem('openradio-last-station', station.id);
-          addRecentStation(station);
-          startMetadataPolling(stream.url, station);
-          updatePlayer();
-          patchStationCardStates();
-          return;
-        }
-        // Native path could not start — reset the element and use hls.js,
-        // restoring the switch state the call arrived with.
-        state.hlsOnlyUrl = stream.url;
-        state.streamSwitching = switchingBeforeProbe;
-        elements.audio.src = '';
-        elements.audio.load();
-      }
 
       if (!window.Hls) {
         try {
@@ -2787,6 +2826,7 @@
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
+      migrateHlsToNativeForBackground();
       if (isCasting()) acquireCastWakeLock();
       return;
     }
