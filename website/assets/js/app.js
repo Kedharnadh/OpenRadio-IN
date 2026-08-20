@@ -2683,14 +2683,8 @@
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-      if (state.hls && !isCasting()) {
-        try { state.hls.stopLoad(); } catch {}
-      }
       if (isCasting()) acquireCastWakeLock();
       return;
-    }
-    if (state.hls && !isCasting()) {
-      try { state.hls.startLoad(-1); } catch {}
     }
     resumeInterruptedPlayback();
     if (isCasting()) {
