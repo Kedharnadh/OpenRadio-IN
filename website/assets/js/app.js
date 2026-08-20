@@ -1738,6 +1738,21 @@
         return;
       }
       state.resumeAttempts += 1;
+      const isHls = Boolean(state.hls) || isHlsStream(state.currentStation);
+      if (isHls) {
+        if (state.hls) { try { state.hls.destroy(); } catch {} state.hls = null; }
+        if (!document.hidden) {
+          state.pendingAutoResume = false;
+          state.resumeAttempts = 0;
+          state.externallyInterrupted = false;
+          state.paused = false;
+          state.pauseIntent = false;
+          playStation(state.currentStation, state.streamIndex || 0);
+          return;
+        }
+        setTimeout(attemptResume, RESUME_BACKOFF_MS[Math.min(state.resumeAttempts, RESUME_BACKOFF_MS.length - 1)]);
+        return;
+      }
       if (!document.hidden && state.resumeAttempts > RESUME_MAX_ATTEMPTS) {
         state.pendingAutoResume = false;
         state.resumeAttempts = 0;
