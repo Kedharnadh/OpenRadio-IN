@@ -177,7 +177,17 @@
     </div>
 
     <div id="update-banner" class="update-banner" hidden>
-      <span data-i18n="update.available">Update available</span>
+      <div class="update-banner-header">
+        <span class="update-title" data-i18n="update.available">Update available</span>
+        <button id="update-close" class="update-close" data-i18n-aria="update.close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="update-whats-new" data-i18n="update.whatsNew">What's new</div>
+      <ul class="update-changelog">
+        <li>HLS stations now start playing instantly.</li>
+        <li>HLS stations keep playing when the app is minimized.</li>
+        <li>Faster, more reliable station switching and auto-resume.</li>
+        <li>Improved background playback reliability.</li>
+      </ul>
       <button id="update-btn" class="secondary-btn" data-i18n="update.refresh">Refresh</button>
     </div>
 
