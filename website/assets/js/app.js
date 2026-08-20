@@ -435,6 +435,8 @@
     streamIndex: 0,
     playGeneration: 0,
     streamSwitching: false,
+    hlsOnlyUrl: '',
+    nativeProbing: false,
     metadataIntervalId: null,
     epgPrograms: null,
     epgDate: null,
@@ -1074,6 +1076,56 @@
     return stream.url;
   }
 
+  function proxyHlsStreamUrl(stream) {
+    // The worker resolves the (possibly multi-variant) playlist and streams the
+    // segments back as one continuous media stream. Feeding that URL to a native
+    // <audio> element keeps HLS playing while the PWA is minimized: the browser's
+    // media stack keeps fetching in the background, unlike hls.js whose JS timers
+    // and network fetches get throttled in hidden tabs.
+    if (!HLS_PROXY_URL || !stream || !stream.url) return null;
+    return `${HLS_PROXY_URL}?url=${encodeURIComponent(stream.url)}`;
+  }
+
+  function playNativeHlsStream(src, generation) {
+    return new Promise((resolve) => {
+      const el = elements.audio;
+      state.nativeProbing = true;
+      el.src = src;
+      el.load();
+      let settled = false;
+      const finish = (ok) => {
+        if (settled) return;
+        settled = true;
+        state.nativeProbing = false;
+        clearTimeout(timer);
+        el.removeEventListener('playing', onPlaying);
+        el.removeEventListener('error', onError);
+        resolve(ok);
+      };
+      const onPlaying = () => { if (state.playGeneration === generation && !state.userInitiatedStop) finish(true); };
+      const onError = () => finish(false);
+      const timer = setTimeout(() => finish(false), 10000);
+      el.addEventListener('playing', onPlaying);
+      el.addEventListener('error', onError);
+      const playPromise = el.play();
+      if (playPromise) playPromise.catch(() => finish(false));
+    });
+  }
+
+  function probeMediaProgress() {
+    // A MediaSource/HLS element that has underflowed is often "playing" (paused ===
+    // false) yet frozen with no advancing playhead, so checking `.paused` alone is
+    // not enough to know whether playback is actually alive.
+    return new Promise((resolve) => {
+      const el = elements.audio;
+      if (el.paused || el.readyState < 2) { resolve(false); return; }
+      const start = el.currentTime;
+      setTimeout(() => {
+        resolve(!el.paused && el.currentTime > start + 0.05);
+      }, 500);
+    });
+  }
+
   function sortStreamsForPlayback(streams) {
     return [...(streams || [])]
       .filter((s) => s.url)
@@ -1426,6 +1478,37 @@
     const isHls = isHlsStream(stream);
 
     if (isHls) {
+      let started = false;
+
+      // Prefer the proxy's continuous stream when possible. A native <audio>
+      // element keeps fetching while the PWA is minimized (the browser's media
+      // stack is exempt from background-tab throttling), so HLS plays like the
+      // direct MP3/AAC streams. Falls back to hls.js below if the proxy cannot
+      // produce a playable stream or after a native stall.
+      const proxyUrl = state.hlsOnlyUrl === stream.url ? null : proxyHlsStreamUrl(stream);
+      if (proxyUrl) {
+        const switchingBeforeProbe = state.streamSwitching;
+        const nativeOk = await playNativeHlsStream(proxyUrl, generation);
+        if (state.playGeneration !== generation || state.userInitiatedStop) return;
+        if (nativeOk) {
+          state.streamSwitching = false;
+          state.playing = true;
+          setStatus('status.playing', { name: localizedName(station) });
+          localStorage.setItem('openradio-last-station', station.id);
+          addRecentStation(station);
+          startMetadataPolling(stream.url, station);
+          updatePlayer();
+          patchStationCardStates();
+          return;
+        }
+        // Native path could not start — reset the element and use hls.js,
+        // restoring the switch state the call arrived with.
+        state.hlsOnlyUrl = stream.url;
+        state.streamSwitching = switchingBeforeProbe;
+        elements.audio.src = '';
+        elements.audio.load();
+      }
+
       if (!window.Hls) {
         try {
           const script = document.createElement('script');
@@ -1441,16 +1524,15 @@
       }
       elements.audio.src = '';
       setStatus('status.loadingHls');
-      let started = false;
       let loadReject = null;
       state.hls = new window.Hls({
         startLevel: 0,
         enableWorker: true,
-        maxBufferLength: 90,
-        maxMaxBufferLength: 120,
+        maxBufferLength: 120,
+        maxMaxBufferLength: 180,
         backBufferLength: 30,
-        liveSyncDurationCount: 6,
-        liveMaxLatencyDurationCount: 12,
+        liveSyncDurationCount: 8,
+        liveMaxLatencyDurationCount: 16,
         fragLoadingMaxRetry: 8,
         manifestLoadingMaxRetry: 4
       });
@@ -1672,6 +1754,7 @@
   }
 
   function scheduleAutoResume() {
+    if (state.nativeProbing) return;
     state.pendingAutoResume = true;
     state.resumeAttempts = 0;
     setTimeout(attemptResume, RESUME_GRACE_MS);
@@ -1687,7 +1770,7 @@
     });
   }
 
-  function attemptResume() {
+  async function attemptResume() {
     if (!state.pendingAutoResume || !state.currentStation) return;
     if (state.userInitiatedStop || state.pauseIntent) {
       state.pendingAutoResume = false;
@@ -1699,9 +1782,10 @@
       return;
     }
 
-    if (!elements.audio.paused) {
-      // Audio recovered on its own (e.g. HLS.js resumed) — reconcile state so the
-      // play/stop buttons reflect reality instead of staying stuck on the reset state.
+    if (await probeMediaProgress()) {
+      // Playback genuinely advanced on its own (e.g. the native proxy stream
+      // recovered) — reconcile state so the play/stop buttons reflect reality
+      // instead of staying stuck on the reset state.
       state.playing = true;
       state.paused = false;
       state.externallyInterrupted = false;
@@ -1712,13 +1796,16 @@
       return;
     }
 
+    // The element is paused or frozen. For HLS/MSE this is the typical state after
+    // a background freeze: paused === false yet the playhead does not advance and
+    // the buffer is empty, so the stream must be re-initialised, not just resumed.
     state.externallyInterrupted = false;
     state.paused = false;
 
     const canReplay = Boolean(elements.audio.src) || Boolean(state.hls);
     if (!canReplay) {
       if (document.hidden) {
-        setTimeout(attemptResume, RESUME_BACKOFF_MS[RESUME_BACKOFF_MS.length - 1]);
+        setTimeout(() => attemptResume(), RESUME_BACKOFF_MS[RESUME_BACKOFF_MS.length - 1]);
       } else {
         state.pendingAutoResume = false;
         state.resumeAttempts = 0;
@@ -1728,38 +1815,43 @@
       return;
     }
 
-    tryPlayAudio().then((resumed) => {
-      if (!state.pendingAutoResume) return;
-      if (resumed) {
-        state.pendingAutoResume = false;
-        state.resumeAttempts = 0;
-        setStatus('status.resumed');
-        return;
-      }
-      state.resumeAttempts += 1;
-      const isHls = Boolean(state.hls) || isHlsStream(state.currentStation);
-      if (isHls) {
-        if (state.hls) { try { state.hls.destroy(); } catch {} state.hls = null; }
-        if (!document.hidden) {
-          state.pendingAutoResume = false;
-          state.resumeAttempts = 0;
-          state.externallyInterrupted = false;
-          state.paused = false;
-          state.pauseIntent = false;
-          playStation(state.currentStation, state.streamIndex || 0);
-          return;
-        }
+    const isHls = Boolean(state.hls) || isHlsStream(state.currentStation);
+    if (isHls) {
+      if (state.hls) { try { state.hls.destroy(); } catch {} state.hls = null; }
+      if (document.hidden) {
         setTimeout(attemptResume, RESUME_BACKOFF_MS[Math.min(state.resumeAttempts, RESUME_BACKOFF_MS.length - 1)]);
         return;
       }
-      if (!document.hidden && state.resumeAttempts > RESUME_MAX_ATTEMPTS) {
-        state.pendingAutoResume = false;
-        state.resumeAttempts = 0;
-        return;
-      }
-      const delay = RESUME_BACKOFF_MS[Math.min(state.resumeAttempts, RESUME_BACKOFF_MS.length - 1)];
-      setTimeout(attemptResume, delay);
-    });
+      // Rebuild the stream from scratch so the manifest is re-fetched and the
+      // buffer rebuilt. Lock this stream to hls.js: a stalled native proxy stream
+      // is unreliable in the background, so do not re-attempt it.
+      const stream = sortStreamsForPlayback(state.currentStation.streams)[state.streamIndex || 0];
+      if (stream) state.hlsOnlyUrl = stream.url;
+      state.pendingAutoResume = false;
+      state.resumeAttempts = 0;
+      state.externallyInterrupted = false;
+      state.paused = false;
+      state.pauseIntent = false;
+      playStation(state.currentStation, state.streamIndex || 0);
+      return;
+    }
+
+    const resumed = await tryPlayAudio();
+    if (!state.pendingAutoResume) return;
+    if (resumed) {
+      state.pendingAutoResume = false;
+      state.resumeAttempts = 0;
+      setStatus('status.resumed');
+      return;
+    }
+    state.resumeAttempts += 1;
+    if (!document.hidden && state.resumeAttempts > RESUME_MAX_ATTEMPTS) {
+      state.pendingAutoResume = false;
+      state.resumeAttempts = 0;
+      return;
+    }
+    const delay = RESUME_BACKOFF_MS[Math.min(state.resumeAttempts, RESUME_BACKOFF_MS.length - 1)];
+    setTimeout(attemptResume, delay);
   }
 
   async function togglePlayback() {
@@ -2605,6 +2697,18 @@
     if (state.currentStation && !state.userInitiatedStop && !state.paused && !state.pauseIntent && elements.audio.paused) {
       state.externallyInterrupted = false;
       scheduleAutoResume();
+      return;
+    }
+    // HLS/MSE elements can report paused === false yet be frozen with an empty
+    // buffer after a background freeze (the MediaSource underflowed without firing
+    // 'pause'). If the playhead is not advancing, force the resume system.
+    if (state.currentStation && !state.userInitiatedStop && !state.paused && !state.pauseIntent && !elements.audio.paused) {
+      probeMediaProgress().then((advancing) => {
+        if (advancing) return;
+        if (!state.currentStation || state.userInitiatedStop || state.paused || state.pauseIntent) return;
+        state.externallyInterrupted = false;
+        scheduleAutoResume();
+      });
     }
   }
 
@@ -2644,7 +2748,7 @@
     patchStationCardStates();
   });
   elements.audio.addEventListener('error', () => {
-    if (state.streamSwitching) {
+    if (state.streamSwitching || state.nativeProbing) {
       updatePlayer();
       patchStationCardStates();
       return;
