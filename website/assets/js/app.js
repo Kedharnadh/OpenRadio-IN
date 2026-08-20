@@ -36,6 +36,8 @@
       'theme.toggle': 'Toggle theme',
       'update.available': 'Update available',
       'update.refresh': 'Refresh',
+      'update.whatsNew': "What's new",
+      'update.close': 'Close',
       'status.loading': 'Loading stations\u2026',
       'status.loaded': '{n} stations loaded',
       'status.playing': 'Playing {name}',
@@ -131,6 +133,8 @@
       'theme.toggle': '\u0C25\u0C3F\u0C2E\u0C4D \u0C2E\u0C3E\u0C30\u0C4D\u0C1A\u0C02\u0C21\u0C3F',
       'update.available': '\u0C05\u0C2A\u0C4D\u0C21\u0C47\u0C1F\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C09\u0C02\u0C26\u0C3F',
       'update.refresh': '\u0C30\u0C3F\u0C2B\u0C4D\u0C30\u0C47\u0C37\u0C4D',
+      'update.whatsNew': '\u0C15\u0C4B\u0C24\u0C4D\u0C24\u0C17\u0C3E \u0C0F\u0C2E\u0C41\u0C02\u0C26\u0C3F',
+      'update.close': '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C3F',
       'status.loading': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C41\u0C28\u0C4D\u0C28\u0C3E\u0C2F\u0C3F\u2026',
       'status.loaded': '{n} \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C2F\u0C4D\u0C2F\u0C3E\u0C2F\u0C3F',
       'status.playing': '{name} \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
@@ -265,6 +269,8 @@
       'theme.toggle': '\u0925\u0940\u092E \u092C\u0926\u0932\u0947\u0902',
       'update.available': '\u0905\u092A\u0921\u0947\u091F \u0909\u092A\u0932\u092C\u094D\u0927 \u0939\u0948',
       'update.refresh': '\u0930\u093F\u092B\u093C\u094D\u0930\u0947\u0936',
+      'update.whatsNew': '\u0928\u092F\u093E \u0915\u094D\u092F\u093E \u0939\u0948',
+      'update.close': '\u092C\u0902\u0926 \u0915\u0930\u0947\u0902',
       'status.loading': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0932\u094B\u0921 \u0939\u094B \u0930\u0939\u0947 \u0939\u0948\u0902\u2026',
       'status.loaded': '{n} \u0938\u094D\u091F\u0947\u0936\u0928 \u0932\u094B\u0921 \u0939\u0941\u090F',
       'status.playing': '{name} \u091A\u0932 \u0930\u0939\u093E \u0939\u0948',
@@ -489,6 +495,7 @@
     sleepTimerPicker: document.getElementById('sleep-timer-picker'),
     updateBanner: document.getElementById('update-banner'),
     updateBtn: document.getElementById('update-btn'),
+    updateClose: document.getElementById('update-close'),
     languageSelect: document.getElementById('language-select'),
     uiLang: document.getElementById('ui-lang'),
     alarmBtn: document.getElementById('alarm-btn'),
@@ -2886,6 +2893,9 @@
     elements.updateBtn.addEventListener('click', () => {
       elements.updateBanner.hidden = true;
       window.location.reload();
+    });
+    elements.updateClose.addEventListener('click', () => {
+      elements.updateBanner.hidden = true;
     });
   }
 
