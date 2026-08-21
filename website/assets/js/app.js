@@ -441,6 +441,7 @@
     streamIndex: 0,
     playGeneration: 0,
     streamSwitching: false,
+    backgroundMigration: false,
     hlsOnlyUrl: '',
     nativeProbing: false,
     metadataIntervalId: null,
@@ -1181,9 +1182,11 @@
     if (state.playGeneration !== generation || !state.hls || document.visibilityState !== 'hidden') return;
     if (state.userInitiatedStop || state.paused || state.pauseIntent) return;
 
+    state.backgroundMigration = true;
     try { state.hls.destroy(); } catch {}
     state.hls = null;
     const nativeOk = await playNativeHlsStream(proxyUrl, generation);
+    state.backgroundMigration = false;
     if (state.playGeneration !== generation || state.userInitiatedStop) return;
     if (nativeOk) {
       state.playing = true;
@@ -1192,10 +1195,9 @@
       patchStationCardStates();
     } else {
       state.hlsOnlyUrl = stream.url;
-      state.playing = false;
-      state.paused = true;
+      state.playing = true;
+      state.paused = false;
       state.externallyInterrupted = true;
-      setStatus('status.streamFailed');
       updatePlayer();
       patchStationCardStates();
     }
@@ -2759,6 +2761,7 @@
   }
 
   elements.audio.addEventListener('pause', () => {
+    if (state.backgroundMigration) return;
     state.playing = false;
     if (state.pauseIntent) {
       state.pauseIntent = false;
@@ -2776,6 +2779,7 @@
     if (state.playing && !state.userInitiatedStop && !state.pauseIntent && !state.externallyInterrupted && !isCasting()) scheduleAutoResume();
   });
   elements.audio.addEventListener('ended', () => {
+    if (state.backgroundMigration) return;
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     state.playing = false;
     state.paused = false;
@@ -2794,6 +2798,7 @@
     patchStationCardStates();
   });
   elements.audio.addEventListener('error', () => {
+    if (state.backgroundMigration) return;
     if (state.streamSwitching || state.nativeProbing) {
       updatePlayer();
       patchStationCardStates();
