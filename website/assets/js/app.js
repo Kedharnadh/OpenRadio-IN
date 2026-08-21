@@ -444,6 +444,9 @@
     backgroundMigration: false,
     hlsOnlyUrl: '',
     nativeProbing: false,
+    migrationRetryId: null,
+    backgroundWatchdogId: null,
+    migrationFailCounts: {},
     metadataIntervalId: null,
     epgPrograms: null,
     epgDate: null,
@@ -1138,22 +1141,89 @@
     // Check whether the proxy actually streams media bytes for this source. Some
     // origins (e.g. wavespb) serve nested playlists back through the proxy, so the
     // "stream" starts with "#EXT" instead of media data and cannot be played
-    // natively. Detecting this up front avoids tearing down a working hls.js
-    // instance for a doomed background migration.
+    // natively. Distinguish that permanent case from transient network/worker
+    // failures, which must not blacklist the stream for the whole session.
     const url = proxyHlsStreamUrl(stream);
-    if (!url) return Promise.resolve(false);
+    if (!url) return Promise.resolve('error');
     return fetch(url, { signal: AbortSignal.timeout(8000) })
       .then((response) => {
-        if (!response.ok || !response.body) return false;
+        if (!response.ok || !response.body) return 'error';
         const reader = response.body.getReader();
         return reader.read().then(({ value }) => {
           try { reader.cancel(); } catch {}
-          if (!value) return false;
+          if (!value) return 'error';
           const head = new TextDecoder().decode(value.slice(0, 64));
-          return !head.trimStart().startsWith('#EXT');
+          return head.trimStart().startsWith('#EXT') ? 'playlist' : 'ok';
         });
       })
-      .catch(() => false);
+      .catch(() => 'error');
+  }
+
+  function clearBackgroundTimers() {
+    clearTimeout(state.migrationRetryId);
+    clearTimeout(state.backgroundWatchdogId);
+    state.migrationRetryId = null;
+    state.backgroundWatchdogId = null;
+  }
+
+  function scheduleBackgroundMigrationRetry(delayMs = 20000) {
+    // While hidden, periodically re-attempt the hand-off to the native proxy
+    // stream until it succeeds or the user returns/stops. Covers transient
+    // probe/play failures that would otherwise leave hls.js throttling to
+    // death in the background.
+    clearTimeout(state.migrationRetryId);
+    state.migrationRetryId = null;
+    if (!document.hidden) return;
+    state.migrationRetryId = setTimeout(() => {
+      state.migrationRetryId = null;
+      if (!document.hidden || state.userInitiatedStop || state.paused || state.pauseIntent) return;
+      migrateHlsToNativeForBackground();
+    }, delayMs);
+  }
+
+  function startBackgroundWatchdog() {
+    // The migrated native stream can still freeze silently in the background
+    // (paused === false yet no advancing playhead). Watch for that and reload.
+    clearTimeout(state.backgroundWatchdogId);
+    state.backgroundWatchdogId = null;
+    if (!document.hidden) return;
+    state.backgroundWatchdogId = setTimeout(backgroundWatchdogTick, 30000);
+  }
+
+  async function backgroundWatchdogTick() {
+    state.backgroundWatchdogId = null;
+    if (!document.hidden) return;
+    if (!state.currentStation || state.userInitiatedStop || state.paused || state.pauseIntent) return;
+    if (isCasting() || state.castSessionLost) return;
+    if (state.hls || state.streamSwitching || state.nativeProbing || state.backgroundMigration) return;
+    if (await probeMediaProgress()) {
+      startBackgroundWatchdog();
+      return;
+    }
+    // The native stream froze in the background. Reload it; if that does not
+    // bring audio back, fall back to hls.js and let the migration retry loop
+    // hand off again later.
+    const streams = sortStreamsForPlayback(state.currentStation.streams);
+    const stream = streams[state.streamIndex || 0];
+    const proxyUrl = stream ? proxyHlsStreamUrl(stream) : null;
+    let ok = false;
+    if (proxyUrl && state.hlsOnlyUrl !== stream.url) {
+      const generation = state.playGeneration;
+      state.backgroundMigration = true;
+      ok = await playNativeHlsStream(proxyUrl, generation);
+      state.backgroundMigration = false;
+      if (state.playGeneration !== generation || state.userInitiatedStop) return;
+    }
+    if (!ok) {
+      scheduleBackgroundMigrationRetry();
+      playStation(state.currentStation, state.streamIndex || 0);
+      return;
+    }
+    state.playing = true;
+    state.paused = false;
+    updatePlayer();
+    patchStationCardStates();
+    startBackgroundWatchdog();
   }
 
   async function migrateHlsToNativeForBackground() {
@@ -1163,44 +1233,61 @@
     // browser's media stack keeps fetching in the background (exactly like the
     // direct MP3/AAC streams). Startup stays fast because foreground playback
     // still uses hls.js.
-    if (isCasting() || state.castSessionLost) return;
-    if (state.userInitiatedStop || state.paused || state.pauseIntent) return;
-    if (state.streamSwitching || state.nativeProbing) return;
-    if (!state.hls || !state.currentStation) return;
+    if (isCasting() || state.castSessionLost) return false;
+    if (state.userInitiatedStop || state.paused || state.pauseIntent) return false;
+    if (state.streamSwitching || state.nativeProbing || state.backgroundMigration) return false;
+    if (!state.hls || !state.currentStation) return false;
     const streams = sortStreamsForPlayback(state.currentStation.streams);
     const stream = streams[state.streamIndex || 0];
-    if (!stream || !isHlsStream(stream) || state.hlsOnlyUrl === stream.url) return;
+    if (!stream || !isHlsStream(stream) || state.hlsOnlyUrl === stream.url) return false;
     const proxyUrl = proxyHlsStreamUrl(stream);
-    if (!proxyUrl) return;
+    if (!proxyUrl) return false;
     const generation = state.playGeneration;
 
-    if (!(await canProxyStream(stream))) {
-      if (state.playGeneration !== generation) return;
+    const probe = await canProxyStream(stream);
+    if (probe === 'playlist') {
+      // The proxy cannot flatten this source into a continuous media stream —
+      // permanent for this URL, so stop trying to migrate it.
+      if (state.playGeneration !== generation) return false;
       state.hlsOnlyUrl = stream.url;
-      return;
+      return false;
     }
-    if (state.playGeneration !== generation || !state.hls || document.visibilityState !== 'hidden') return;
-    if (state.userInitiatedStop || state.paused || state.pauseIntent) return;
+    if (probe !== 'ok') {
+      // Transient failure (worker cold start / flaky network). Keep hls.js
+      // running and try again shortly instead of giving up for the session.
+      scheduleBackgroundMigrationRetry();
+      return false;
+    }
+    if (state.playGeneration !== generation || !state.hls || document.visibilityState !== 'hidden') return false;
+    if (state.userInitiatedStop || state.paused || state.pauseIntent) return false;
 
     state.backgroundMigration = true;
     try { state.hls.destroy(); } catch {}
     state.hls = null;
     const nativeOk = await playNativeHlsStream(proxyUrl, generation);
     state.backgroundMigration = false;
-    if (state.playGeneration !== generation || state.userInitiatedStop) return;
+    if (state.playGeneration !== generation || state.userInitiatedStop) return false;
     if (nativeOk) {
+      delete state.migrationFailCounts[stream.url];
       state.playing = true;
       state.paused = false;
       updatePlayer();
       patchStationCardStates();
-    } else {
-      state.hlsOnlyUrl = stream.url;
-      state.playing = true;
-      state.paused = false;
-      state.externallyInterrupted = true;
-      updatePlayer();
-      patchStationCardStates();
+      startBackgroundWatchdog();
+      return true;
     }
+    // Native playback did not start (slow proxy or an autoplay rejection in the
+    // hidden tab). Rebuild hls.js right away so audio returns instead of staying
+    // silent until the user presses play; the retry loop migrates again later.
+    const fails = (state.migrationFailCounts[stream.url] || 0) + 1;
+    state.migrationFailCounts[stream.url] = fails;
+    if (fails >= 3) {
+      state.hlsOnlyUrl = stream.url;
+      return false;
+    }
+    scheduleBackgroundMigrationRetry();
+    playStation(state.currentStation, state.streamIndex || 0);
+    return false;
   }
 
   function sortStreamsForPlayback(streams) {
@@ -1722,6 +1809,7 @@
     state.pendingAutoResume = false;
     state.resumeAttempts = 0;
     state.streamSwitching = false;
+    clearBackgroundTimers();
     if (state.hls) { state.hls.destroy(); state.hls = null; }
     elements.audio.pause();
     elements.audio.src = '';
@@ -1770,6 +1858,7 @@
     state.externallyInterrupted = false;
     state.pendingAutoResume = false;
     state.resumeAttempts = 0;
+    clearBackgroundTimers();
     elements.audio.pause();
     updatePlayer();
     patchStationCardStates();
@@ -1781,7 +1870,10 @@
       if (castPlayerController) castPlayerController.playOrPause();
       return;
     }
-    if (state.playing) return;
+    // Trust the audio element over bookkeeping flags: after a background stall
+    // or a failed migration, state.playing can be stale true, which used to
+    // make the notification's play button a silent no-op.
+    if (state.playing && !elements.audio.paused && elements.audio.readyState >= 2) return;
     state.userInitiatedStop = false;
     state.pauseIntent = false;
     state.externallyInterrupted = false;
@@ -1820,6 +1912,7 @@
 
   async function attemptResume() {
     if (!state.pendingAutoResume || !state.currentStation) return;
+    if (state.nativeProbing || state.backgroundMigration || state.streamSwitching) return;
     if (state.userInitiatedStop || state.pauseIntent) {
       state.pendingAutoResume = false;
       state.resumeAttempts = 0;
@@ -1865,11 +1958,39 @@
 
     const isHls = Boolean(state.hls) || isHlsStream(state.currentStation);
     if (isHls) {
-      if (state.hls) { try { state.hls.destroy(); } catch {} state.hls = null; }
       if (document.hidden) {
+        // Rebuilding hls.js in a hidden tab rarely survives timer/fetch
+        // throttling — the buffer would just drain again. Hand the stream
+        // straight to the native proxy player (the same path used on minimize)
+        // instead of spinning timers that never recover.
+        const stream = sortStreamsForPlayback(state.currentStation.streams)[state.streamIndex || 0];
+        const proxyUrl = stream ? proxyHlsStreamUrl(stream) : null;
+        if (proxyUrl && state.hlsOnlyUrl !== stream.url) {
+          const generation = state.playGeneration;
+          if (state.hls) { try { state.hls.destroy(); } catch {} state.hls = null; }
+          state.externallyInterrupted = false;
+          state.paused = false;
+          state.pauseIntent = false;
+          state.backgroundMigration = true;
+          const nativeOk = await playNativeHlsStream(proxyUrl, generation);
+          state.backgroundMigration = false;
+          if (state.playGeneration !== generation || state.userInitiatedStop) return;
+          if (nativeOk) {
+            state.pendingAutoResume = false;
+            state.resumeAttempts = 0;
+            state.playing = true;
+            state.paused = false;
+            setStatus('status.resumed');
+            updatePlayer();
+            patchStationCardStates();
+            startBackgroundWatchdog();
+            return;
+          }
+        }
         setTimeout(attemptResume, RESUME_BACKOFF_MS[Math.min(state.resumeAttempts, RESUME_BACKOFF_MS.length - 1)]);
         return;
       }
+      if (state.hls) { try { state.hls.destroy(); } catch {} state.hls = null; }
       // Rebuild the stream from scratch so the manifest is re-fetched and the
       // buffer rebuilt. Lock this stream to hls.js: a stalled native proxy stream
       // is unreliable in the background, so do not re-attempt it.
@@ -1904,8 +2025,8 @@
 
   async function togglePlayback() {
     if (!state.currentStation) return;
-    const actuallyPlaying = !elements.audio.paused;
-    if (state.playing || actuallyPlaying) {
+    const actuallyPlaying = !elements.audio.paused && elements.audio.readyState >= 2;
+    if (actuallyPlaying) {
       pausePlayback();
     } else {
       await playPlayback();
@@ -2839,9 +2960,11 @@
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       migrateHlsToNativeForBackground();
+      startBackgroundWatchdog();
       if (isCasting()) acquireCastWakeLock();
       return;
     }
+    clearBackgroundTimers();
     resumeInterruptedPlayback();
     if (isCasting()) {
       syncCastState();
