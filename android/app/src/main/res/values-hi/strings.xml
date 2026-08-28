@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- NOTE: Mapped strings are auto-generated from website/assets/js/app.js (I18N)
+         by scripts/sync_android_strings.py. Edit them there, then re-run the script. -->
+
+    <string name="alarm">अलार्म</string>
+    <string name="alarm_off_button">बंद करें</string>
+    <string name="alarm_set">अलार्म सेट — चुने गए समय पर स्टेशन चलना शुरू होगा।</string>
+    <string name="alarm_set_button">अलार्म सेट करें</string>
+    <string name="alarm_station_label">स्टेशन</string>
+    <string name="alarm_time_label">समय</string>
+    <string name="all_categories">सभी</string>
+    <string name="all_languages">सभी भाषाएँ</string>
+    <string name="all_stations">सभी स्टेशन</string>
+    <string name="app_tagline">तुरंत खोज और फ़िल्टर के साथ भारतीय ऑनलाइन रेडियो स्टेशन सुनें।</string>
+    <string name="buffering">बफ़रिंग…</string>
+    <string name="cancel_sleep_timer">स्लीप टाइमर रद्द करें</string>
+    <string name="cast">कास्ट</string>
+    <string name="category">श्रेणी</string>
+    <string name="collapse">अनुभाग संक्षिप्त करें</string>
+    <string name="community">कम्यूनिटी</string>
+    <string name="empty_list">इस खोज से कोई स्टेशन मेल नहीं खाता। दूसरा कीवर्ड आज़माएँ।</string>
+    <string name="epg_schedule">आज का शेड्यूल</string>
+    <string name="expand">सेक्शन खोलें</string>
+    <string name="favorite">पसंदीदा</string>
+    <string name="favorite_stations">पसंदीदा स्टेशन</string>
+    <string name="favorites">पसंदीदा</string>
+    <string name="language">भाषा</string>
+    <string name="live_radio">लाइव रेडियो</string>
+    <string name="mute">म्यूट/अनम्यूट</string>
+    <string name="next">अगला</string>
+    <string name="no_favorites_hint">स्टेशन पर हृदय आइकन दबाकर उसे पसंदीदा में जोड़ें।</string>
+    <string name="no_station">कोई स्टेशन चयनित नहीं</string>
+    <string name="now_playing">अभी चल रहा है</string>
+    <string name="offline">ऑफ़लाइन</string>
+    <string name="online">ऑनलाइन</string>
+    <string name="pause">पॉज़</string>
+    <string name="paused">विरामित</string>
+    <string name="play">प्ले</string>
+    <string name="previous">पिछला</string>
+    <string name="recently_played">हाल में सुने गए</string>
+    <string name="results_shown">%1$d स्टेशन</string>
+    <string name="resume">फ़िर शुरू करें</string>
+    <string name="search_hint">स्टेशन, भाषा या श्रेणी खोजें</string>
+    <string name="select_station">रेडियो स्टेशन चुनें</string>
+    <string name="share">शेयर</string>
+    <string name="sleep_minutes">%1$d मिनट</string>
+    <string name="sleep_timer">स्लीप टाइमर</string>
+    <string name="status_no_stream">कोई स्ट्रीम उपलब्ध नहीं</string>
+    <string name="status_trying_backup">मुख्य स्ट्रीम विफल हुई — बैकअप की कोशिश की जा रही है…</string>
+    <string name="status_unknown">स्थिति अज्ञात</string>
+    <string name="status_unreachable">यह स्टेशन अभी उपलब्ध नहीं है।</string>
+    <string name="stop">रोकें</string>
+    <string name="stream">स्ट्रीम</string>
+    <string name="verified">सत्यापित</string>
+</resources>

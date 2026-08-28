@@ -11,6 +11,7 @@ object Prefs {
     private const val KEY_FAVORITES = "favorites"
     private const val KEY_RECENTS = "recents"
     private const val KEY_VOLUME = "volume"
+    private const val KEY_UI_LANG = "ui_lang"
 
     private lateinit var prefs: SharedPreferences
 
@@ -45,5 +46,11 @@ object Prefs {
 
     fun setVolume(volume: Float) {
         prefs.edit().putFloat(KEY_VOLUME, volume).apply()
+    }
+
+    fun uiLanguage(): String = prefs.getString(KEY_UI_LANG, "en") ?: "en"
+
+    fun setUiLanguage(lang: String) {
+        prefs.edit().putString(KEY_UI_LANG, lang).apply()
     }
 }

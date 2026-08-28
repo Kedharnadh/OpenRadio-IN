@@ -49,8 +49,20 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
 
     val stations: StateFlow<List<Station>> = StationsStore.stations
 
+    val stationsLoading: StateFlow<Boolean> = StationsStore.loading
+
     val allLanguages: StateFlow<List<String>> = stations
         .map { list -> list.flatMap { it.languageTags }.distinct().sorted() }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    val allCategories: StateFlow<List<String>> = stations
+        .map { list ->
+            list.flatMap { it.categories }
+                .map { it.trim() }
+                .filter { it.isNotEmpty() && !it.equals("all", ignoreCase = true) }
+                .distinct()
+                .sorted()
+        }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     val filteredStations: StateFlow<List<Station>> = combine(stations, _filter, _favorites) { list, f, favs ->
