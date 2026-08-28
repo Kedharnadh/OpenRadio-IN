@@ -61,10 +61,14 @@ import androidx.compose.ui.unit.dp
 import android.app.TimePickerDialog
 import android.widget.Toast
 import coil.compose.AsyncImage
+import dev.openradio.android.LocaleManager
 import dev.openradio.android.R
 import dev.openradio.android.alarm.AlarmReceiver
 import dev.openradio.android.data.Station
+import dev.openradio.android.ui.MarqueeText
 import dev.openradio.android.ui.PlayerViewModel
+import dev.openradio.android.ui.theme.Sky
+import dev.openradio.android.ui.theme.Violet
 import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -76,6 +80,7 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
     val stations by viewModel.stations.collectAsState()
     val station = stations.firstOrNull { it.id == playback.currentStationId }
     val context = LocalContext.current
+    val uiLang = remember { LocaleManager.currentLanguage() }
 
     LaunchedEffect(playback.currentStationId) {
         playback.currentStationId?.let { viewModel.loadEpg(it) }
@@ -94,13 +99,17 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                 modifier = Modifier
                     .size(220.dp)
                     .clip(RoundedCornerShape(24.dp))
-                    .background(MaterialTheme.colorScheme.surfaceVariant),
+                    .background(
+                        androidx.compose.ui.graphics.Brush.linearGradient(
+                            listOf(Sky, Violet)
+                        )
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 if (!artwork.isNullOrBlank()) {
                     AsyncImage(
                         model = artwork,
-                        contentDescription = playback.currentStationName,
+                        contentDescription = station?.localizedName(uiLang) ?: playback.currentStationName,
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop
                     )
@@ -114,12 +123,10 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                 }
             }
             Spacer(Modifier.height(16.dp))
-            Text(
-                playback.currentStationName ?: stringResource(R.string.no_station),
+            MarqueeText(
+                text = station?.localizedName(uiLang) ?: playback.currentStationName ?: stringResource(R.string.no_station),
                 style = MaterialTheme.typography.headlineSmall,
-                textAlign = TextAlign.Center,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp)
             )
             val subtitle = when {
                 playback.loading -> stringResource(R.string.buffering)
@@ -140,6 +147,18 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                     color = MaterialTheme.colorScheme.error,
                     textAlign = TextAlign.Center
                 )
+            }
+            playback.retryStatus?.let {
+                if (playback.error.isNullOrBlank()) {
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        it,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(horizontal = 24.dp)
+                    )
+                }
             }
 
             Spacer(Modifier.height(16.dp))
@@ -313,7 +332,8 @@ private fun AlarmAction(viewModel: PlayerViewModel) {
 
 private fun shareStation(context: Context, station: Station?) {
     if (station == null) return
-    val text = "Listen to ${station.name} on OpenRadio-IN: ${station.homepage.ifBlank { "https://kedharnadh.github.io/OpenRadio-IN/" }}"
+    val name = station.name
+    val text = "Listen to $name on OpenRadio-IN: ${station.homepage.ifBlank { "https://kedharnadh.github.io/OpenRadio-IN/" }}"
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
         putExtra(Intent.EXTRA_TEXT, text)

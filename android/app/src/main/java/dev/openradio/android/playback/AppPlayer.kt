@@ -34,6 +34,7 @@ data class PlaybackUiState(
     val paused: Boolean = false,
     val loading: Boolean = false,
     val error: String? = null,
+    val retryStatus: String? = null,
     val currentStationId: String? = null,
     val currentStationName: String? = null,
     val nowPlayingTrack: String? = null,
@@ -244,16 +245,28 @@ object AppPlayer {
     private fun retryWithFallbackStream() {
         val stationId = _state.value.currentStationId ?: return
         val station = StationsStore.stations.value.firstOrNull { it.id == stationId } ?: return
+        val ctx = appContext
         val currentUrl = _player?.currentMediaItem?.localConfiguration?.uri?.toString()
         val fallback = station.streams
             .sortedWith(compareByDescending<Station.Stream> { it.isHls }.thenBy { it.priority })
             .firstOrNull { it.url != currentUrl }
         if (fallback == null) {
-            _state.update { it.copy(error = "This station is not reachable right now.") }
+            val reason = ctx?.getString(R.string.status_unreachable)
+                ?: "This station is not reachable right now."
+            val noStream = ctx?.getString(R.string.status_no_stream)
+                ?: "No stream available"
+            _state.update {
+                it.copy(
+                    error = reason,
+                    retryStatus = if (station.streams.isEmpty()) noStream else null
+                )
+            }
             return
         }
         val p = _player ?: return
-        _state.update { it.copy(loading = true, error = null) }
+        val trying = ctx?.getString(R.string.status_trying_backup)
+            ?: "Main stream failed — trying backup…"
+        _state.update { it.copy(loading = true, error = null, retryStatus = trying) }
         p.setMediaItem(stationToMediaItem(station, fallback.url))
         p.prepare()
         p.play()
@@ -268,7 +281,8 @@ object AppPlayer {
                     playing = isPlaying,
                     paused = paused,
                     loading = if (isPlaying) false else it.loading,
-                    error = if (isPlaying) null else it.error
+                    error = if (isPlaying) null else it.error,
+                    retryStatus = if (isPlaying) null else it.retryStatus
                 )
             }
         }
@@ -308,7 +322,7 @@ object AppPlayer {
         }
 
         override fun onPlayerError(error: PlaybackException) {
-            _state.update { it.copy(error = error.message, playing = false, loading = false) }
+            _state.update { it.copy(error = error.message, playing = false, loading = false, retryStatus = null) }
             retryWithFallbackStream()
         }
     }

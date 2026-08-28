@@ -73,6 +73,9 @@ object StationsStore {
     private val _stations = MutableStateFlow<List<Station>>(emptyList())
     val stations: StateFlow<List<Station>> = _stations.asStateFlow()
 
+    private val _loading = MutableStateFlow(true)
+    val loading: StateFlow<Boolean> = _loading.asStateFlow()
+
     private var loadJobStarted = false
 
     fun ensureLoaded(context: Context, force: Boolean = false) {
@@ -80,10 +83,12 @@ object StationsStore {
         loadJobStarted = true
         kotlinx.coroutines.MainScope().launch {
             val repo = StationsRepository(context)
+            _loading.value = true
             if (_stations.value.isEmpty()) {
                 _stations.value = repo.cached()
             }
             _stations.value = repo.refresh()
+            _loading.value = false
         }
     }
 

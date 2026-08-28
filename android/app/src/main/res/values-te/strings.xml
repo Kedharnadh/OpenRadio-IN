@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- NOTE: Mapped strings are auto-generated from website/assets/js/app.js (I18N)
+         by scripts/sync_android_strings.py. Edit them there, then re-run the script. -->
+
+    <string name="alarm">అలారం</string>
+    <string name="alarm_off_button">ఆఫ్ చేయి</string>
+    <string name="alarm_set">అలారం సెట్ అయింది — ఎంచుకున్న సమయంలో స్టేషన్ ప్లే అవుతుంది.</string>
+    <string name="alarm_set_button">అలారం సెట్</string>
+    <string name="alarm_station_label">స్టేషన్</string>
+    <string name="alarm_time_label">సమయం</string>
+    <string name="all_categories">అన్నీ</string>
+    <string name="all_languages">అన్ని భాషలు</string>
+    <string name="all_stations">అన్ని స్టేషన్లు</string>
+    <string name="app_tagline">భారతీయ ఆన్లైన్ రేడియో స్టేషన్లను తక్షణ శోధన, ఫిల్టర్లతో వినండి.</string>
+    <string name="buffering">బఫరింగ్…</string>
+    <string name="cancel_sleep_timer">స్లీప్ టైమర్ రద్దు</string>
+    <string name="cast">కాస్ట్</string>
+    <string name="category">వర్గం</string>
+    <string name="collapse">విభాగాన్ని మూసివేయి</string>
+    <string name="community">కమ్యూనిటీ</string>
+    <string name="empty_list">ఈ శోధనకు సరిపోలే స్టేషన్లు లేవు. వేరే కీవర్డ్ ప్రయత్నించండి.</string>
+    <string name="epg_schedule">ఈరోజు షెడ్యూల్</string>
+    <string name="expand">విభాగాన్ని విస్తరించండి</string>
+    <string name="favorite">ఇష్టమైనది</string>
+    <string name="favorite_stations">ఇష్టమైన స్టేషన్లు</string>
+    <string name="favorites">ఇష్టమైనవి</string>
+    <string name="language">భాష</string>
+    <string name="live_radio">లైవ్ రేడియో</string>
+    <string name="mute">మ్యూట్/అన్మ్యూట్</string>
+    <string name="next">తరువాత</string>
+    <string name="no_favorites_hint">స్టేషన్పై హృదయాన్ని నొక్కి ఇష్టమైనవిగా జోడించండి.</string>
+    <string name="no_station">స్టేషన్ ఎంచుకోబడలేదు</string>
+    <string name="now_playing">ప్రస్తుతం ప్లే అవుతోంది</string>
+    <string name="offline">ఆఫ్లైన్</string>
+    <string name="online">ఆన్లైన్</string>
+    <string name="pause">పాజ్</string>
+    <string name="paused">విరామం</string>
+    <string name="play">ప్లే</string>
+    <string name="previous">మునుపటి</string>
+    <string name="recently_played">ఇతీవల విన్నవి</string>
+    <string name="results_shown">%1$d స్టేషన్లు</string>
+    <string name="resume">కొనసాగించు</string>
+    <string name="search_hint">స్టేషన్లు, భాష లేదా వర్గం కోసం వెతకండి</string>
+    <string name="select_station">రేడియో స్టేషన్ను ఎంచుకోండి</string>
+    <string name="share">షేర్</string>
+    <string name="sleep_minutes">%1$d నిమిషాలు</string>
+    <string name="sleep_timer">స్లీప్ టైయ్మర్</string>
+    <string name="status_no_stream">స్ట్రీం అందుబాటులో లేదు</string>
+    <string name="status_trying_backup">మూల స్ట్రీం బిల్లయైంਦి — బైక్ప్ ప్రయత్నిస్తున్నాము…</string>
+    <string name="status_unknown">స్థితి తెలియదు</string>
+    <string name="status_unreachable">ఈ స్టేషన్ ప్రస్తుతం అందుబాటులో లేదు.</string>
+    <string name="stop">ఆపు</string>
+    <string name="stream">స్ట్రీం</string>
+    <string name="verified">ధృవీకరించబడింది</string>
+</resources>

@@ -6,6 +6,8 @@ import org.json.JSONObject
 data class Station(
     val id: String,
     val name: String,
+    val nameTe: String,
+    val nameHi: String,
     val language: String,
     val country: String,
     val state: String,
@@ -33,6 +35,12 @@ data class Station(
 
     val languageTags: List<String>
         get() = language.split(',').map { it.trim() }.filter { it.isNotEmpty() }
+
+    fun localizedName(uiLang: String): String = when (uiLang) {
+        "te" -> nameTe.ifBlank { name }
+        "hi" -> nameHi.ifBlank { name }
+        else -> name
+    }
 }
 
 object StationParser {
@@ -68,6 +76,8 @@ object StationParser {
         return Station(
             id = obj.optString("id", ""),
             name = obj.optString("name", "Unknown station"),
+            nameTe = obj.optString("name_te", ""),
+            nameHi = obj.optString("name_hi", ""),
             language = obj.optString("language", ""),
             country = obj.optString("country", ""),
             state = obj.optString("state", ""),
