@@ -16,6 +16,7 @@ import androidx.media3.session.MediaSession
 import androidx.media3.cast.CastPlayer
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.mediarouter.media.MediaRouter
+import com.google.android.gms.cast.framework.CastContext
 import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
@@ -110,6 +111,7 @@ object AppPlayer {
         if (items.isEmpty()) return
         val index = items.indexOfFirst { it.mediaId == station.id }
         if (index < 0) return
+        ensureForegroundService()
         _state.update {
             it.copy(
                 currentStationId = station.id,
@@ -122,6 +124,18 @@ object AppPlayer {
         p.setMediaItems(items, index, 0)
         p.prepare()
         p.play()
+    }
+
+    /**
+     * Starts [PlaybackService] as a foreground service so media3 posts a
+     * now-playing notification with transport controls (and keeps playback alive
+     * while the app is minimized / screen is locked).
+     */
+    private fun ensureForegroundService() {
+        val ctx = appContext ?: return
+        runCatching {
+            ctx.startForegroundService(Intent(ctx, PlaybackService::class.java))
+        }
     }
 
     fun pause() {
@@ -200,15 +214,25 @@ object AppPlayer {
 
     fun toggleCast() {
         val ctx = appContext ?: return
+        ensureCastContext(ctx)
         val router = MediaRouter.getInstance(ctx)
         val default = router.defaultRoute
+        // Already casting: tear the session down.
         if (router.selectedRoute != default) {
             router.unselect(MediaRouter.UNSELECT_REASON_DISCONNECTED)
             return
         }
-        val castRoute = router.routes.firstOrNull { it != default }
+        // Otherwise pick the first real cast target and connect to it.
+        val castRoute = router.routes.firstOrNull { it != default && it.isEnabled }
         if (castRoute != null) {
             router.selectRoute(castRoute)
+        }
+    }
+
+    /** Makes sure the Cast framework is up so cast routes get discovered/dispatched. */
+    private fun ensureCastContext(context: Context) {
+        runCatching {
+            CastContext.getSharedInstance(context)
         }
     }
 
