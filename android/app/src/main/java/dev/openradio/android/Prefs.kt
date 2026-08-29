@@ -16,7 +16,7 @@ object Prefs {
     private lateinit var prefs: SharedPreferences
 
     fun init(context: Context) {
-        prefs = context.applicationContext.getSharedPreferences(FILE, Context.MODE_PRIVATE)
+        prefs = context.getSharedPreferences(FILE, Context.MODE_PRIVATE)
     }
 
     fun favorites(): Set<String> =

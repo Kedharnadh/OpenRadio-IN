@@ -63,6 +63,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -76,6 +77,7 @@ import dev.openradio.android.R
 import dev.openradio.android.data.Station
 import dev.openradio.android.playback.PlaybackUiState
 import dev.openradio.android.ui.FilterState
+import dev.openradio.android.ui.MarqueeText
 import dev.openradio.android.ui.PlayerViewModel
 import dev.openradio.android.ui.theme.Offline
 import dev.openradio.android.ui.theme.Online
@@ -761,24 +763,29 @@ private fun FeaturedCard(
 
 @Composable
 private fun NowPlayingBar(playback: PlaybackUiState, onClick: () -> Unit) {
-    Surface(tonalElevation = 6.dp) {
+    Surface(
+        tonalElevation = 10.dp,
+        shadowElevation = 8.dp,
+        shape = RoundedCornerShape(topStart = 22.dp, topEnd = 22.dp),
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.96f)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .clip(RoundedCornerShape(topStart = 22.dp, topEnd = 22.dp))
                 .clickable(onClick = onClick)
-                .padding(horizontal = 16.dp, vertical = 10.dp),
+                .padding(start = 16.dp, end = 12.dp, top = 10.dp, bottom = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            StationAvatarBox(nowPlayingArt = playback.nowPlayingArt)
+            StationAvatarBox(nowPlayingArt = playback.nowPlayingArt, playing = playback.playing)
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {
-                Text(
-                    playback.currentStationName ?: stringResource(R.string.select_station),
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.SemiBold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                MarqueeText(
+                    text = playback.currentStationName ?: stringResource(R.string.select_station),
+                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
+                    color = MaterialTheme.colorScheme.onSurface
                 )
+                Spacer(Modifier.height(2.dp))
                 val subtitle = when {
                     playback.retryStatus != null -> playback.retryStatus
                     playback.loading -> stringResource(R.string.buffering)
@@ -789,15 +796,26 @@ private fun NowPlayingBar(playback: PlaybackUiState, onClick: () -> Unit) {
                 Text(
                     subtitle,
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = if (playback.retryStatus != null) MaterialTheme.colorScheme.error
+                    else MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
             }
-            IconButton(onClick = onClick) {
+            Spacer(Modifier.width(8.dp))
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .clickable(onClick = onClick)
+                    .size(46.dp)
+                    .clip(CircleShape)
+                    .background(Brush.linearGradient(listOf(Sky, Violet)))
+            ) {
                 Icon(
                     imageVector = if (playback.playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-                    contentDescription = stringResource(if (playback.playing) R.string.pause else R.string.play)
+                    contentDescription = stringResource(if (playback.playing) R.string.pause else R.string.play),
+                    tint = androidx.compose.ui.graphics.Color.White,
+                    modifier = Modifier.align(Alignment.Center).padding(12.dp)
                 )
             }
         }
@@ -805,11 +823,11 @@ private fun NowPlayingBar(playback: PlaybackUiState, onClick: () -> Unit) {
 }
 
 @Composable
-private fun StationAvatarBox(nowPlayingArt: String?) {
+private fun StationAvatarBox(nowPlayingArt: String?, playing: Boolean = false) {
     Box(
         modifier = Modifier
-            .size(44.dp)
-            .clip(RoundedCornerShape(10.dp))
+            .size(52.dp)
+            .clip(RoundedCornerShape(14.dp))
             .background(
                 androidx.compose.ui.graphics.Brush.linearGradient(listOf(Sky, Violet))
             ),
@@ -826,7 +844,18 @@ private fun StationAvatarBox(nowPlayingArt: String?) {
             Icon(
                 Icons.Filled.Radio,
                 contentDescription = null,
-                tint = androidx.compose.ui.graphics.Color.White
+                tint = androidx.compose.ui.graphics.Color.White,
+                modifier = Modifier.size(28.dp)
+            )
+        }
+        if (playing) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .size(18.dp)
+                    .padding(4.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary)
             )
         }
     }
