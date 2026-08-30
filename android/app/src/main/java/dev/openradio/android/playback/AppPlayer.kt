@@ -20,13 +20,19 @@ import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import dev.openradio.android.R
+import dev.openradio.android.BuildConfig
 import dev.openradio.android.data.Station
 import dev.openradio.android.data.StationsStore
 import dev.openradio.android.ui.MainActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 /** Snapshot of playback state surfaced to the UI. */
 data class PlaybackUiState(
@@ -64,6 +70,8 @@ object AppPlayer {
      */
     const val HLS_MIME_TYPE = "application/x-mpegURL"
 
+    private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
     private val _state = MutableStateFlow(PlaybackUiState())
     val state: StateFlow<PlaybackUiState> = _state.asStateFlow()
 
@@ -75,6 +83,56 @@ object AppPlayer {
 
     val player: Player? get() = _player
     val librarySession: MediaLibraryService.MediaLibrarySession? get() = _librarySession
+
+    /**
+     * Cache of proxy-resolved details for the current HLS stream, populated
+     * asynchronously (see [probeHlsCastStream]) and consumed by the Cast converter
+     * so it can route HLS through the worker — exactly like the PWA.
+     */
+    object HlsCastProxy {
+        val base: String = BuildConfig.HLS_PROXY_URL
+        @Volatile var probedForUrl: String? = null
+        @Volatile var resolvedUrl: String? = null
+        @Volatile var contentType: String? = null
+
+        /** Continuous proxy stream URL for a given HLS source. */
+        fun streamUrl(original: String): String {
+            // Only reuse the probe result for the exact URL it was fetched for, so a
+            // slow/stale probe from another station never leaks the wrong stream into
+            // this one. Falls back to the original URL + worker-inferred content type.
+            val sameSource = probedForUrl == original
+            val target = if (sameSource) (resolvedUrl ?: original) else original
+            val params = buildString {
+                append(urlParam("url", target))
+                if (sameSource) {
+                    contentType?.takeIf { it.isNotBlank() }?.let {
+                        append("&").append(urlParam("contentType", it))
+                    }
+                }
+            }
+            return "$base?$params"
+        }
+
+        private fun urlParam(key: String, value: String): String =
+            "${Uri.encode(key)}=${Uri.encode(value)}"
+    }
+
+    /** Fires off a background probe of the HLS proxy for the given stream. */
+    fun probeHlsCastStream(stationId: String, hlsUrl: String) {
+        ioScope.launch {
+            runCatching {
+                val probeUrl = "${HlsCastProxy.base}?probe=1&url=${Uri.encode(hlsUrl)}"
+                val conn = java.net.URL(probeUrl).openConnection()
+                conn.connectTimeout = 10_000
+                conn.readTimeout = 10_000
+                val body = conn.getInputStream().bufferedReader().use { it.readText() }
+                val obj = JSONObject(body)
+                HlsCastProxy.probedForUrl = hlsUrl
+                HlsCastProxy.resolvedUrl = obj.optString("url").takeIf { it.isNotBlank() }
+                HlsCastProxy.contentType = obj.optString("contentType").takeIf { it.isNotBlank() }
+            }
+        }
+    }
 
     fun initialize(context: Context) {
         if (_player != null) return
@@ -91,7 +149,9 @@ object AppPlayer {
         val localPlayer = ExoPlayer.Builder(ctx).build()
         val castPlayer: CastPlayer? = runCatching {
             // CastPlayer plays locally via this ExoPlayer and automatically transfers
-            // to a Cast receiver when a Cast session becomes available.
+            // to a Cast receiver when a Cast session becomes available. HLS items are converted for the receiver.
+            // sent with the HLS mime type (application/x-mpegURL) so the default Cast
+            // receiver plays them using its native HLS pipeline — no proxy involved.
             val remotePlayer = RemoteCastPlayer.Builder(ctx)
                 .setMediaItemConverter(OpenRadioMediaItemConverter())
                 .build()
@@ -135,6 +195,12 @@ object AppPlayer {
         p.setMediaItems(items, index, 0)
         p.prepare()
         p.play()
+
+        // Resolve the HLS stream through the proxy worker (like the PWA) so the
+        // Cast converter can hand the receiver a flattened continuous stream.
+        station.primaryStream?.takeIf { it.isHls }?.let { stream ->
+            probeHlsCastStream(station.id, stream.url)
+        }
     }
 
     /**

@@ -1,14 +1,19 @@
 package dev.openradio.android.playback
 
-import android.net.Uri
 import androidx.media3.cast.DefaultMediaItemConverter
 import androidx.media3.cast.MediaItemConverter
-import dev.openradio.android.BuildConfig
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import com.google.android.gms.cast.MediaQueueItem
 
-/** Adapts station items for the Default Media Receiver and tolerates partial queue updates. */
+/**
+ * Converts local station items to Cast receiver-safe queue items.
+ *
+ * ExoPlayer needs [AppPlayer.HLS_MIME_TYPE] to recognize local HLS playback,
+ * while the Default Media Receiver requires the standard IANA HLS content type.
+ * This conversion happens only for the Cast queue item, so both players receive
+ * the MIME type they understand. Non-HLS streams retain their original URL.
+ */
 class OpenRadioMediaItemConverter : MediaItemConverter {
 
     private val defaultConverter = DefaultMediaItemConverter()
@@ -19,31 +24,38 @@ class OpenRadioMediaItemConverter : MediaItemConverter {
             return defaultConverter.toMediaQueueItem(mediaItem)
         }
 
-        val proxiedUrl = Uri.parse(BuildConfig.HLS_PROXY_URL).buildUpon()
-            .appendQueryParameter("url", localConfiguration.uri.toString())
-            .build()
+        // Route HLS through the worker (like the PWA) so the default Cast receiver
+        // gets a flattened continuous stream instead of a raw .m3u8 it may mis-handle.
+        // The worker resolves each HLS source to a concrete media content type (these
+        // AIR/Doordarshan streams are MPEG-TS -> "video/MP2T"); use the async probe's
+        // result only when it belongs to this exact source, defaulting to MPEG-TS.
+        val proxyUrl = AppPlayer.HlsCastProxy.streamUrl(localConfiguration.uri.toString())
+        val contentType =
+            if (AppPlayer.HlsCastProxy.probedForUrl == localConfiguration.uri.toString()) {
+                AppPlayer.HlsCastProxy.contentType ?: "video/mp2t"
+            } else {
+                "video/mp2t"
+            }
         val receiverItem = mediaItem.buildUpon()
-            .setUri(proxiedUrl)
-            .setMimeType("audio/mpeg")
+            .setUri(proxyUrl)
+            .setMimeType(contentType)
             .build()
         return defaultConverter.toMediaQueueItem(receiverItem)
     }
 
-    override fun toMediaItem(queueItem: MediaQueueItem): MediaItem {
-        return try {
-            defaultConverter.toMediaItem(queueItem)
-        } catch (_: NullPointerException) {
-            // Cast can publish a queue item before its MediaInfo is available.
-            MediaItem.Builder()
-                .setMediaId("cast-item-${queueItem.itemId}")
-                .setUri("data:audio/mpeg;base64,")
-                .setMediaMetadata(
-                    MediaMetadata.Builder()
-                        .setTitle("OpenRadio-IN")
-                        .setArtist("Cast item unavailable")
-                        .build()
-                )
-                .build()
-        }
+    override fun toMediaItem(queueItem: MediaQueueItem): MediaItem = try {
+        defaultConverter.toMediaItem(queueItem)
+    } catch (_: NullPointerException) {
+        // The Cast SDK can report a queue item before its MediaInfo is available.
+        MediaItem.Builder()
+            .setMediaId("cast-item-${queueItem.itemId}")
+            .setUri("data:audio/mpeg;base64,")
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setTitle("OpenRadio-IN")
+                    .setArtist("Cast item unavailable")
+                    .build()
+            )
+            .build()
     }
 }

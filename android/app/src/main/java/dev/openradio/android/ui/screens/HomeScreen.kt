@@ -2,11 +2,13 @@ package dev.openradio.android.ui.screens
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
@@ -73,6 +75,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -81,7 +84,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.graphics.graphicsLayer
 import coil.compose.AsyncImage
+import androidx.compose.ui.res.painterResource
 import androidx.media3.cast.MediaRouteButton
 import dev.openradio.android.LocaleManager
 import dev.openradio.android.R
@@ -133,7 +138,14 @@ fun HomeScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(stringResource(R.string.app_name))
+                        Image(
+                            painter = painterResource(R.drawable.brand_logo),
+                            contentDescription = stringResource(R.string.app_name),
+                            modifier = Modifier
+                                .size(40.dp)
+                                .clip(CircleShape)
+                        )
+                        Text(stringResource(R.string.app_name), fontSize = 15.sp)
                         Text(
                             stringResource(R.string.app_tagline),
                             style = MaterialTheme.typography.labelSmall,
@@ -335,6 +347,12 @@ private fun SectionHeader(
     expanded: Boolean = true,
     onToggle: (() -> Unit)? = null
 ) {
+    var focused by remember { mutableStateOf(false) }
+    val scale by animateFloatAsState(
+        targetValue = if (focused) 1.03f else 1f,
+        animationSpec = tween(180),
+        label = "headerScale"
+    )
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -343,12 +361,22 @@ private fun SectionHeader(
                 if (onToggle != null) {
                     Modifier
                         .focusable()
+                        .onFocusChanged { focused = it.isFocused }
                         .clickable(onClick = onToggle)
+                        .border(
+                            width = if (focused) 2.dp else 1.dp,
+                            color = if (focused) Violet else Color.Transparent,
+                            shape = RoundedCornerShape(10.dp)
+                        )
                 } else {
                     Modifier
                 }
             )
-            .padding(horizontal = 8.dp, vertical = 4.dp),
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+            .padding(horizontal = 10.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -365,7 +393,7 @@ private fun SectionHeader(
                 } else {
                     stringResource(R.string.expand)
                 },
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                tint = if (focused) Violet else MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
@@ -929,34 +957,96 @@ private fun NowPlayingBar(playback: PlaybackUiState, viewModel: PlayerViewModel,
             }
             Spacer(Modifier.width(2.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = viewModel::skipPrevious, enabled = hasStation) {
+                FocusableIconButton(onClick = viewModel::skipPrevious, enabled = hasStation) {
                     Icon(Icons.Filled.SkipPrevious, stringResource(R.string.previous))
                 }
-                Box(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .clickable {
-                            if (playback.playing) viewModel.pause() else viewModel.resume()
-                        }
-                        .size(48.dp)
-                        .clip(CircleShape)
-                        .background(Brush.linearGradient(listOf(Sky, Violet)))
-                ) {
-                    Icon(
-                        imageVector = if (playback.playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-                        contentDescription = stringResource(if (playback.playing) R.string.pause else R.string.play),
-                        tint = androidx.compose.ui.graphics.Color.White,
-                        modifier = Modifier.align(Alignment.Center).padding(13.dp)
-                    )
-                }
-                IconButton(onClick = viewModel::stop, enabled = hasStation) {
+                FocusablePlayPause(
+                    playing = playback.playing,
+                    onClick = { if (playback.playing) viewModel.pause() else viewModel.resume() }
+                )
+                FocusableIconButton(onClick = viewModel::stop, enabled = hasStation) {
                     Icon(Icons.Filled.Stop, stringResource(R.string.stop))
                 }
-                IconButton(onClick = viewModel::skipNext, enabled = hasStation) {
+                FocusableIconButton(onClick = viewModel::skipNext, enabled = hasStation) {
                     Icon(Icons.Filled.SkipNext, stringResource(R.string.next))
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun FocusableIconButton(
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    var focused by remember { mutableStateOf(false) }
+    val scale by animateFloatAsState(
+        targetValue = if (focused) 1.15f else 1f,
+        animationSpec = tween(160),
+        label = "iconBtnScale"
+    )
+    IconButton(
+        onClick = onClick,
+        enabled = enabled,
+        modifier = Modifier
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+            .onFocusChanged { focused = it.isFocused }
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(CircleShape)
+                .border(
+                    width = if (focused) 2.dp else 0.dp,
+                    color = Violet,
+                    shape = CircleShape
+                )
+                .padding(6.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            content()
+        }
+    }
+}
+
+@Composable
+private fun FocusablePlayPause(playing: Boolean, onClick: () -> Unit) {
+    var focused by remember { mutableStateOf(false) }
+    val scale by animateFloatAsState(
+        targetValue = if (focused) 1.12f else 1f,
+        animationSpec = tween(160),
+        label = "npPlayScale"
+    )
+    Box(
+        modifier = Modifier
+            .clip(CircleShape)
+            .focusable()
+            .onFocusChanged { focused = it.isFocused }
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+            .border(
+                width = if (focused) 3.dp else 0.dp,
+                color = Color.White,
+                shape = CircleShape
+            )
+            .clickable(onClick = onClick)
+            .size(48.dp)
+            .clip(CircleShape)
+            .background(Brush.linearGradient(listOf(Sky, Violet))),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            imageVector = if (playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+            contentDescription = stringResource(if (playing) R.string.pause else R.string.play),
+            tint = Color.White,
+            modifier = Modifier.padding(13.dp)
+        )
     }
 }
 
