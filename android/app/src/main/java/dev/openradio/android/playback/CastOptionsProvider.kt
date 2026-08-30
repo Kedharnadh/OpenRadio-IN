@@ -14,9 +14,14 @@ import com.google.android.gms.cast.framework.SessionProvider
 class CastOptionsProvider : OptionsProvider {
 
     override fun getCastOptions(context: Context): CastOptions {
+        // Disable session resume / reconnection so CastPlayer never attaches to a
+        // stale or foreign Cast session (e.g. one started by the web PWA). Media3's
+        // RemoteCastPlayer crashes with a NullPointerException when it tries to read
+        // a session media item that does not carry media3 custom data.
         return CastOptions.Builder()
             .setReceiverApplicationId(CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID)
-            .setEnableReconnectionService(true)
+            .setResumeSavedSession(false)
+            .setEnableReconnectionService(false)
             .setStopReceiverApplicationWhenEndingSession(false)
             .build()
     }

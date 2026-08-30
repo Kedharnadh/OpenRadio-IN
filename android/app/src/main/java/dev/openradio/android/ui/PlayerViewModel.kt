@@ -47,6 +47,9 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
     private val _epg = MutableStateFlow<EpgSchedule?>(null)
     val epg: StateFlow<EpgSchedule?> = _epg.asStateFlow()
 
+    private val _sleepEndAt = MutableStateFlow<Long?>(null)
+    val sleepEndAt: StateFlow<Long?> = _sleepEndAt.asStateFlow()
+
     val stations: StateFlow<List<Station>> = StationsStore.stations
 
     val stationsLoading: StateFlow<Boolean> = StationsStore.loading
@@ -116,6 +119,20 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
         AppPlayer.playStation(station, queue)
     }
 
+    /**
+     * Toggles playback for a station card: pauses the station if it is currently
+     * playing, resumes it if it is paused, otherwise starts it.
+     */
+    fun togglePlay(station: Station) {
+        val state = AppPlayer.state.value
+        val isCurrent = state.currentStationId == station.id
+        when {
+            isCurrent && state.playing -> AppPlayer.pause()
+            isCurrent && state.paused -> AppPlayer.resume()
+            else -> play(station)
+        }
+    }
+
     fun pause() = AppPlayer.pause()
     fun resume() = AppPlayer.resume()
     fun stop() = AppPlayer.stop()
@@ -126,7 +143,6 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
         Prefs.setVolume(volume)
     }
     fun toggleMute() = AppPlayer.toggleMute()
-    fun toggleCast() = AppPlayer.toggleCast()
 
     fun loadEpg(stationId: String) {
         val station = StationsStore.stations.value.firstOrNull { it.id == stationId } ?: return
@@ -141,14 +157,19 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
 
     fun startSleepTimer(minutes: Int) {
         sleepJob?.cancel()
+        val endAt = System.currentTimeMillis() + minutes * 60_000L
+        _sleepEndAt.value = endAt
         sleepJob = viewModelScope.launch {
             delay(minutes * 60_000L)
             AppPlayer.pause()
+            _sleepEndAt.value = null
         }
     }
 
     fun cancelSleepTimer() {
         sleepJob?.cancel()
+        sleepJob = null
+        _sleepEndAt.value = null
     }
 
     fun isSleepTimerActive(): Boolean = sleepJob?.isActive == true
@@ -179,7 +200,9 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
                 val station = StationsStore.stations.value.firstOrNull { it.id == stationId }
                 val stream = station?.primaryStream
                 if (stream != null) {
-                    val nowPlaying = metadataRepository.fetchNowPlaying(stream.url, null)
+                    // Pass the station's status endpoint (AzuraCast / Icecast) so the
+                    // metadata proxy can also pull proper song + album art, not just ICY.
+                    val nowPlaying = metadataRepository.fetchNowPlaying(stream.url, station.metadataUrl)
                     if (nowPlaying != null && AppPlayer.state.value.playing) {
                         AppPlayer.updateNowPlaying(nowPlaying.streamTitle, nowPlaying.artUrl)
                     }

@@ -15,8 +15,6 @@ import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
 import androidx.media3.cast.CastPlayer
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.mediarouter.media.MediaRouter
-import com.google.android.gms.cast.framework.CastContext
 import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
@@ -212,29 +210,11 @@ object AppPlayer {
 
     // ---- Chromecast -------------------------------------------------------
 
-    fun toggleCast() {
-        val ctx = appContext ?: return
-        ensureCastContext(ctx)
-        val router = MediaRouter.getInstance(ctx)
-        val default = router.defaultRoute
-        // Already casting: tear the session down.
-        if (router.selectedRoute != default) {
-            router.unselect(MediaRouter.UNSELECT_REASON_DISCONNECTED)
-            return
-        }
-        // Otherwise pick the first real cast target and connect to it.
-        val castRoute = router.routes.firstOrNull { it != default && it.isEnabled }
-        if (castRoute != null) {
-            router.selectRoute(castRoute)
-        }
-    }
-
-    /** Makes sure the Cast framework is up so cast routes get discovered/dispatched. */
-    private fun ensureCastContext(context: Context) {
-        runCatching {
-            CastContext.getSharedInstance(context)
-        }
-    }
+    // Note: Casting is driven by the system UI Output Switcher through
+    // androidx.media3.cast.MediaRouteButton. The CastPlayer registers itself as a
+    // media route provider, so selecting a device in the route chooser dialog
+    // automatically transfers playback from the local ExoPlayer to the receiver.
+    // castActive/castAvailable are surfaced to the UI via the player listener.
 
     // ---- Helpers ----------------------------------------------------------
 
@@ -251,7 +231,7 @@ object AppPlayer {
             .setTitle(station.name)
             .setArtist(subtitle.ifBlank { station.name })
             .setArtworkUri(station.logo.takeIf { it.isNotBlank() }?.let { Uri.parse(it) })
-            .setMediaType(MediaMetadata.MEDIA_TYPE_MUSIC)
+            .setMediaType(MediaMetadata.MEDIA_TYPE_RADIO_STATION)
             .build()
         return MediaItem.Builder()
             .setMediaId(station.id)

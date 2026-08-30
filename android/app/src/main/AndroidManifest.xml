@@ -18,6 +18,11 @@
     <uses-feature
         android:name="android.hardware.faketouch"
         android:required="false" />
+    <!-- Android Automotive OS (standalone head units); required=false so the app also
+         runs on phones where Android Auto projects the media UI. -->
+    <uses-feature
+        android:name="android.hardware.type.automotive"
+        android:required="false" />
 
     <application
         android:name=".App"
