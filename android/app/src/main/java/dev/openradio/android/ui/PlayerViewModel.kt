@@ -35,7 +35,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
 
     val playback: StateFlow<PlaybackUiState> = AppPlayer.state
 
-    private val _filter = MutableStateFlow(FilterState())
+    private val _filter = MutableStateFlow(FilterState(language = Prefs.filterLanguage()))
     val filter: StateFlow<FilterState> = _filter.asStateFlow()
 
     private val _favorites = MutableStateFlow(Prefs.favorites())
@@ -101,7 +101,10 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
 
     fun setQuery(query: String) = _filter.update { it.copy(query = query) }
 
-    fun setLanguage(language: String?) = _filter.update { it.copy(language = language) }
+    fun setLanguage(language: String?) {
+        Prefs.setFilterLanguage(language)
+        _filter.update { it.copy(language = language) }
+    }
 
     fun setCategory(category: String?) = _filter.update { it.copy(category = category) }
 
