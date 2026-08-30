@@ -55,6 +55,9 @@ object AppPlayer {
 
     const val ROOT_MEDIA_ID = "openradio_root"
 
+    /** Default Cast receiver content type for HLS (kept in sync with the PWA). */
+    const val HLS_MIME_TYPE = "application/vnd.apple.mpegurl"
+
     private val _state = MutableStateFlow(PlaybackUiState())
     val state: StateFlow<PlaybackUiState> = _state.asStateFlow()
 
@@ -221,11 +224,11 @@ object AppPlayer {
     fun buildQueue(stations: List<Station>): List<MediaItem> {
         return stations.mapNotNull { station ->
             val stream = station.primaryStream ?: return@mapNotNull null
-            stationToMediaItem(station, stream.url)
+            stationToMediaItem(station, stream.url, stream.isHls)
         }
     }
 
-    private fun stationToMediaItem(station: Station, url: String): MediaItem {
+    private fun stationToMediaItem(station: Station, url: String, isHls: Boolean): MediaItem {
         val subtitle = listOf(station.city, station.language).filter { it.isNotBlank() }.joinToString(" • ")
         val metadata = MediaMetadata.Builder()
             .setTitle(station.name)
@@ -233,12 +236,18 @@ object AppPlayer {
             .setArtworkUri(station.logo.takeIf { it.isNotBlank() }?.let { Uri.parse(it) })
             .setMediaType(MediaMetadata.MEDIA_TYPE_RADIO_STATION)
             .build()
-        return MediaItem.Builder()
+        val builder = MediaItem.Builder()
             .setMediaId(station.id)
             .setUri(url)
             .setMediaMetadata(metadata)
             .setLiveConfiguration(liveConfig())
-            .build()
+        if (isHls) {
+            // Tell the default Cast receiver this is HLS (application/vnd.apple.mpegurl)
+            // so it uses its native HLS pipeline — otherwise it treats it as generic
+            // media and HLS stations fail to cast. Mirrors the PWA's cast content type.
+            builder.setMimeType(HLS_MIME_TYPE)
+        }
+        return builder.build()
     }
 
     private fun liveConfig(): MediaItem.LiveConfiguration =
@@ -271,7 +280,7 @@ object AppPlayer {
         val trying = ctx?.getString(R.string.status_trying_backup)
             ?: "Main stream failed — trying backup…"
         _state.update { it.copy(loading = true, error = null, retryStatus = trying) }
-        p.setMediaItem(stationToMediaItem(station, fallback.url))
+        p.setMediaItem(stationToMediaItem(station, fallback.url, fallback.isHls))
         p.prepare()
         p.play()
     }
@@ -374,7 +383,7 @@ object AppPlayer {
             val station = StationsStore.stations.value.firstOrNull { it.id == mediaId }
             val stream = station?.primaryStream
             return if (station != null && stream != null) {
-                Futures.immediateFuture(LibraryResult.ofItem(AppPlayer.stationToMediaItem(station, stream.url), null))
+                Futures.immediateFuture(LibraryResult.ofItem(AppPlayer.stationToMediaItem(station, stream.url, stream.isHls), null))
             } else {
                 Futures.immediateFuture(LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE))
             }
