@@ -19,7 +19,9 @@ data class Station(
     val streams: List<Stream>,
     val verified: Boolean,
     val status: String,
-    val epgId: Long
+    val epgId: Long,
+    val metadataUrl: String,
+    val songFirst: Boolean
 ) {
     data class Stream(
         val url: String,
@@ -89,7 +91,9 @@ object StationParser {
             streams = streams,
             verified = obj.optBoolean("verified", false),
             status = obj.optString("status", "unknown"),
-            epgId = obj.optLong("epg_id", -1L)
+            epgId = obj.optLong("epg_id", -1L),
+            metadataUrl = obj.optString("metadata_url", ""),
+            songFirst = obj.optBoolean("song_first", false)
         )
     }
 

@@ -22,6 +22,8 @@
     <string name="community">Community</string>
     <string name="empty_list">No stations match this search yet. Try a different keyword.</string>
     <string name="epg_schedule">Today\'s schedule</string>
+    <string name="epg_now">Now</string>
+    <string name="epg_next">Next</string>
     <string name="expand">Expand section</string>
     <string name="favorite">Favorite</string>
     <string name="favorite_stations">Favorite Stations</string>
@@ -50,6 +52,12 @@
     <string name="share">Share</string>
     <string name="sleep_minutes">%1$d minutes</string>
     <string name="sleep_timer">Sleep timer</string>
+    <string name="sleep_timer_remaining">Sleep timer off in %1$s</string>
+    <string name="alarm_scheduled">Alarm set for %1$s</string>
+    <string name="no_alarm">No alarm set</string>
+    <string name="cancel_alarm">Cancel alarm</string>
+    <string name="set_alarm">Set alarm time</string>
+    <string name="no_cast_devices">No Cast devices found on this network</string>
     <string name="status_no_stream">No stream available</string>
     <string name="status_trying_backup">Main stream failed — trying backup…</string>
     <string name="status_unknown">Status unknown</string>
