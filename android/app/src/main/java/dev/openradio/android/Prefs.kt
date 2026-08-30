@@ -12,6 +12,7 @@ object Prefs {
     private const val KEY_RECENTS = "recents"
     private const val KEY_VOLUME = "volume"
     private const val KEY_UI_LANG = "ui_lang"
+    private const val KEY_FILTER_LANG = "filter_lang"
     private const val KEY_ALARM_TIME = "alarm_time_millis"
 
     private lateinit var prefs: SharedPreferences
@@ -53,6 +54,15 @@ object Prefs {
 
     fun setUiLanguage(lang: String) {
         prefs.edit().putString(KEY_UI_LANG, lang).apply()
+    }
+
+    /** Last language selected in the station language filter (null = "All"). */
+    fun filterLanguage(): String? = prefs.getString(KEY_FILTER_LANG, null)
+
+    fun setFilterLanguage(lang: String?) {
+        val edit = prefs.edit()
+        if (lang == null) edit.remove(KEY_FILTER_LANG) else edit.putString(KEY_FILTER_LANG, lang)
+        edit.apply()
     }
 
     /** Scheduled alarm fire time in epoch millis, or null when no alarm is set. */

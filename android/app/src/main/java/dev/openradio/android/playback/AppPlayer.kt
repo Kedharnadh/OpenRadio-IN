@@ -14,6 +14,7 @@ import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
 import androidx.media3.cast.CastPlayer
+import androidx.media3.cast.RemoteCastPlayer
 import androidx.media3.exoplayer.ExoPlayer
 import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
@@ -55,8 +56,13 @@ object AppPlayer {
 
     const val ROOT_MEDIA_ID = "openradio_root"
 
-    /** Default Cast receiver content type for HLS (kept in sync with the PWA). */
-    const val HLS_MIME_TYPE = "application/vnd.apple.mpegurl"
+    /**
+     * MIME type that media3/ExoPlayer recognizes as HLS (MimeTypes.APPLICATION_M3U8).
+     * NOTE: must NOT be "application/vnd.apple.mpegurl" — media3's Util.inferContentType()
+     * only treats "application/x-mpegURL" as HLS, otherwise the .m3u8 is played as a
+     * generic binary stream and local HLS playback breaks.
+     */
+    const val HLS_MIME_TYPE = "application/x-mpegURL"
 
     private val _state = MutableStateFlow(PlaybackUiState())
     val state: StateFlow<PlaybackUiState> = _state.asStateFlow()
@@ -86,8 +92,12 @@ object AppPlayer {
         val castPlayer: CastPlayer? = runCatching {
             // CastPlayer plays locally via this ExoPlayer and automatically transfers
             // to a Cast receiver when a Cast session becomes available.
+            val remotePlayer = RemoteCastPlayer.Builder(ctx)
+                .setMediaItemConverter(OpenRadioMediaItemConverter())
+                .build()
             CastPlayer.Builder(ctx)
                 .setLocalPlayer(localPlayer)
+                .setRemotePlayer(remotePlayer)
                 .build()
         }.getOrNull()
 
@@ -242,9 +252,10 @@ object AppPlayer {
             .setMediaMetadata(metadata)
             .setLiveConfiguration(liveConfig())
         if (isHls) {
-            // Tell the default Cast receiver this is HLS (application/vnd.apple.mpegurl)
-            // so it uses its native HLS pipeline — otherwise it treats it as generic
-            // media and HLS stations fail to cast. Mirrors the PWA's cast content type.
+            // Use the media3 HLS mime type so local ExoPlayer routes this to the HLS
+            // source (the .m3u8 URL alone would work, but an explicit mime is robust).
+            // The cast converter rewrites HLS items to the proxy/audio-mpeg for the
+            // default Cast receiver.
             builder.setMimeType(HLS_MIME_TYPE)
         }
         return builder.build()
