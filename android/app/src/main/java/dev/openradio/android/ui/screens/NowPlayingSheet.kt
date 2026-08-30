@@ -3,7 +3,11 @@ package dev.openradio.android.ui.screens
 import android.content.Context
 import android.content.Intent
 import android.text.format.DateFormat
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -58,8 +62,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -67,6 +73,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import android.app.TimePickerDialog
 import android.widget.Toast
@@ -193,8 +200,8 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(28.dp)
                 ) {
-                    IconButton(onClick = viewModel::skipPrevious, modifier = Modifier.size(52.dp)) {
-                        Icon(Icons.Filled.SkipPrevious, stringResource(R.string.previous), modifier = Modifier.size(36.dp))
+                    SheetIconButton(onClick = viewModel::skipPrevious) {
+                        Icon(Icons.Filled.SkipPrevious, stringResource(R.string.previous), modifier = Modifier.size(32.dp))
                     }
                     Box(
                         modifier = Modifier
@@ -209,20 +216,21 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                             .background(Brush.linearGradient(listOf(Sky, Violet))),
                         contentAlignment = Alignment.Center
                     ) {
-                        IconButton(
+                        SheetIconButton(
                             onClick = { if (playback.playing) viewModel.pause() else viewModel.resume() },
-                            modifier = Modifier.fillMaxSize()
+                            outerSize = 76.dp,
+                            showRing = false
                         ) {
                             Icon(
                                 imageVector = if (playback.playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
                                 contentDescription = stringResource(if (playback.playing) R.string.pause else R.string.play),
-                                tint = androidx.compose.ui.graphics.Color.White,
+                                tint = Color.White,
                                 modifier = Modifier.size(40.dp)
                             )
                         }
                     }
-                    IconButton(onClick = viewModel::skipNext, modifier = Modifier.size(52.dp)) {
-                        Icon(Icons.Filled.SkipNext, stringResource(R.string.next), modifier = Modifier.size(36.dp))
+                    SheetIconButton(onClick = viewModel::skipNext) {
+                        Icon(Icons.Filled.SkipNext, stringResource(R.string.next), modifier = Modifier.size(32.dp))
                     }
                 }
 
@@ -232,7 +240,7 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        IconButton(onClick = viewModel::toggleMute) {
+                        SheetIconButton(onClick = viewModel::toggleMute) {
                             Icon(
                                 imageVector = if (playback.muted) Icons.Filled.VolumeOff else Icons.Filled.VolumeUp,
                                 contentDescription = stringResource(R.string.mute)
@@ -265,11 +273,11 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                     }
                     SleepTimerAction(viewModel)
                     AlarmAction(viewModel, onAlarmSet = { alarmMillis = it })
-                    IconButton(onClick = { shareStation(context, station) }) {
+                    SheetIconButton(onClick = { shareStation(context, station) }) {
                         Icon(Icons.Filled.Share, stringResource(R.string.share))
                     }
                     station?.let {
-                        IconButton(onClick = { viewModel.toggleFavorite(it.id) }) {
+                        SheetIconButton(onClick = { viewModel.toggleFavorite(it.id) }) {
                             Icon(
                                 imageVector = if (it.id in favorites) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                                 contentDescription = stringResource(R.string.favorite),
@@ -403,7 +411,7 @@ private fun SleepTimerAction(viewModel: PlayerViewModel) {
     var showDialog by remember { mutableStateOf(false) }
     val sleepEndAt by viewModel.sleepEndAt.collectAsState()
     val active = sleepEndAt != null
-    IconButton(onClick = { showDialog = true }) {
+    SheetIconButton(onClick = { showDialog = true }) {
         Icon(
             Icons.Filled.Timer,
             stringResource(R.string.sleep_timer),
@@ -462,7 +470,7 @@ private fun AlarmAction(viewModel: PlayerViewModel, onAlarmSet: (Long?) -> Unit)
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
     val scheduled = Prefs.alarmTimeMillis()
-    IconButton(onClick = { showDialog = true }) {
+    SheetIconButton(onClick = { showDialog = true }) {
         Icon(
             Icons.Filled.Alarm,
             stringResource(R.string.alarm),
@@ -715,5 +723,44 @@ private fun EpgRow(program: EpgProgram) {
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
+    }
+}
+
+@Composable
+private fun SheetIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    outerSize: Dp = 52.dp,
+    showRing: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    var focused by remember { mutableStateOf(false) }
+    val scale by animateFloatAsState(
+        targetValue = if (focused) 1.12f else 1f,
+        animationSpec = tween(160),
+        label = "sheetBtnScale"
+    )
+    Box(
+        modifier = modifier.size(outerSize),
+        contentAlignment = Alignment.Center
+    ) {
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    scaleX = scale
+                    scaleY = scale
+                }
+                .focusable()
+                .onFocusChanged { focused = it.isFocused }
+                .border(
+                    width = if (focused && showRing) 2.dp else 0.dp,
+                    color = Violet,
+                    shape = CircleShape
+                )
+        ) {
+            content()
+        }
     }
 }
