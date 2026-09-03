@@ -89,6 +89,7 @@ import dev.openradio.android.ui.MarqueeText
 import dev.openradio.android.ui.PlayerViewModel
 import dev.openradio.android.ui.theme.Sky
 import dev.openradio.android.ui.theme.Violet
+import dev.openradio.android.ui.theme.stationStatusColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import java.util.Calendar
@@ -213,6 +214,11 @@ fun NowPlayingSheet(
                         },
                     textAlign = TextAlign.Center,
                 )
+
+                val stationStatus = station?.status
+                if (!stationStatus.isNullOrBlank()) {
+                    StationStatusPill(status = stationStatus)
+                }
 
                 // Transport controls
                 Spacer(Modifier.height(24.dp))
@@ -510,6 +516,42 @@ private fun SleepTimerAction(viewModel: PlayerViewModel) {
                 }
             },
             confirmButton = {},
+        )
+    }
+}
+
+@Composable
+private fun StationStatusPill(status: String) {
+    val color = stationStatusColor(status)
+    val label =
+        when (status.lowercase()) {
+            "online" -> stringResource(R.string.online)
+            "offline" -> stringResource(R.string.offline)
+            else -> stringResource(R.string.status_unknown)
+        }
+    Row(
+        modifier =
+            Modifier
+                .padding(top = 10.dp)
+                .clip(RoundedCornerShape(999.dp))
+                .background(
+                    MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.7f),
+                )
+                .padding(horizontal = 12.dp, vertical = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        Box(
+            modifier =
+                Modifier
+                    .size(8.dp)
+                    .clip(CircleShape)
+                    .background(color),
+        )
+        Text(
+            label,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
 }

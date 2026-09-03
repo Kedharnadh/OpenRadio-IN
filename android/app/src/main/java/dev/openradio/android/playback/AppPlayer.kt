@@ -3,9 +3,12 @@ package dev.openradio.android.playback
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.AudioFocusRequest
+import android.media.AudioManager
 import android.net.Uri
 import androidx.media3.cast.CastPlayer
 import androidx.media3.cast.RemoteCastPlayer
+import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.DeviceInfo
 import androidx.media3.common.MediaItem
@@ -36,6 +39,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import okhttp3.Request
 import org.json.JSONObject
+import android.media.AudioAttributes as FrameworkAudioAttributes
 
 /** Snapshot of playback state surfaced to the UI. */
 data class PlaybackUiState(
@@ -82,9 +86,81 @@ object AppPlayer {
     private var _librarySession: MediaLibraryService.MediaLibrarySession? = null
     private var isCastPlayer = false
     private var volumeBeforeMute = 1f
+    private var audioManager: AudioManager? = null
+    private var audioFocusRequest: AudioFocusRequest? = null
+    private var duckVolumeBeforePause = 1f
+    private var audioFocusGranted = false
 
     val player: Player? get() = _player
     val librarySession: MediaLibraryService.MediaLibrarySession? get() = _librarySession
+
+    /**
+     * Requests audio focus when playback begins so that another app starting to
+     * play (or a phone call / navigation prompt) pauses or ducks this station.
+     * Focus is released when playback stops. Uses a Media-audio-focus request
+     * alongside media3's own handling so the radio reliably yields to other audio.
+     */
+    private fun requestAudioFocusIfNeeded() {
+        val ctx = appContext ?: return
+        if (audioFocusGranted || isRemotePlayback()) return
+        val am =
+            audioManager
+                ?: (ctx.getSystemService(Context.AUDIO_SERVICE) as? AudioManager)
+                ?: return
+        audioManager = am
+        val request =
+            audioFocusRequest
+                ?: AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
+                    .setAudioAttributes(
+                        FrameworkAudioAttributes.Builder()
+                            .setUsage(FrameworkAudioAttributes.USAGE_MEDIA)
+                            .setContentType(FrameworkAudioAttributes.CONTENT_TYPE_MUSIC)
+                            .build(),
+                    )
+                    .setOnAudioFocusChangeListener(audioFocusListener)
+                    .build()
+                    .also { audioFocusRequest = it }
+        val result = am.requestAudioFocus(request)
+        audioFocusGranted = result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED
+    }
+
+    private fun abandonAudioFocus() {
+        val am = audioManager ?: return
+        val request = audioFocusRequest ?: return
+        am.abandonAudioFocusRequest(request)
+        audioFocusGranted = false
+        if (duckVolumeBeforePause != _player?.volume) {
+            _player?.volume = duckVolumeBeforePause
+        }
+    }
+
+    private val audioFocusListener =
+        AudioManager.OnAudioFocusChangeListener { focusChange ->
+            val player = _player ?: return@OnAudioFocusChangeListener
+            when (focusChange) {
+                AudioManager.AUDIOFOCUS_LOSS -> {
+                    audioFocusGranted = false
+                    player.pause()
+                }
+                AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
+                    player.pause()
+                }
+                AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> {
+                    duckVolumeBeforePause = player.volume
+                    player.volume = (player.volume * 0.25f).coerceAtLeast(0f)
+                }
+                AudioManager.AUDIOFOCUS_GAIN -> {
+                    player.volume = duckVolumeBeforePause
+                    if (player.playWhenReady) player.play()
+                }
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT -> {
+                    player.volume = duckVolumeBeforePause
+                }
+            }
+        }
+
+    /** Whether the current playback path is a Cast receiver (no phone audio focus). */
+    private fun isRemotePlayback(): Boolean = _state.value.castActive
 
     /**
      * Cache of proxy-resolved details for the current HLS stream, populated
@@ -161,6 +237,17 @@ object AppPlayer {
             )
 
         val localPlayer = ExoPlayer.Builder(ctx).build()
+        // Keep a media usage for the audio sink but disable media3's built-in focus
+        // handling: this app owns audio focus explicitly (see audioFocusListener) so
+        // another app starting to play pauses or ducks this station without a fight
+        // between two focus requesters on the same attributes.
+        localPlayer.setAudioAttributes(
+            AudioAttributes.Builder()
+                .setUsage(C.USAGE_MEDIA)
+                .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
+                .build(),
+            false,
+        )
         val castPlayer: CastPlayer? =
             runCatching {
                 // CastPlayer plays locally via this ExoPlayer and automatically transfers
@@ -203,6 +290,7 @@ object AppPlayer {
         val index = items.indexOfFirst { it.mediaId == station.id }
         if (index < 0) return
         ensureForegroundService()
+        requestAudioFocusIfNeeded()
         _state.update {
             it.copy(
                 currentStationId = station.id,
@@ -238,10 +326,12 @@ object AppPlayer {
 
     fun pause() {
         _player?.pause()
+        abandonAudioFocus()
         App.log("Paused station ${_state.value.currentStationId}")
     }
 
     fun resume() {
+        requestAudioFocusIfNeeded()
         _player?.play()
         App.log("Resumed station ${_state.value.currentStationId}")
     }
@@ -251,6 +341,7 @@ object AppPlayer {
             p.stop()
             p.clearMediaItems()
         }
+        abandonAudioFocus()
         _state.update {
             it.copy(
                 playing = false,
