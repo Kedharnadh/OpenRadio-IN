@@ -15,7 +15,6 @@ import com.google.android.gms.cast.MediaQueueItem
  * the MIME type they understand. Non-HLS streams retain their original URL.
  */
 class OpenRadioMediaItemConverter : MediaItemConverter {
-
     private val defaultConverter = DefaultMediaItemConverter()
 
     override fun toMediaQueueItem(mediaItem: MediaItem): MediaQueueItem {
@@ -36,26 +35,28 @@ class OpenRadioMediaItemConverter : MediaItemConverter {
             } else {
                 "video/mp2t"
             }
-        val receiverItem = mediaItem.buildUpon()
-            .setUri(proxyUrl)
-            .setMimeType(contentType)
-            .build()
+        val receiverItem =
+            mediaItem.buildUpon()
+                .setUri(proxyUrl)
+                .setMimeType(contentType)
+                .build()
         return defaultConverter.toMediaQueueItem(receiverItem)
     }
 
-    override fun toMediaItem(queueItem: MediaQueueItem): MediaItem = try {
-        defaultConverter.toMediaItem(queueItem)
-    } catch (_: NullPointerException) {
-        // The Cast SDK can report a queue item before its MediaInfo is available.
-        MediaItem.Builder()
-            .setMediaId("cast-item-${queueItem.itemId}")
-            .setUri("data:audio/mpeg;base64,")
-            .setMediaMetadata(
-                MediaMetadata.Builder()
-                    .setTitle("OpenRadio-IN")
-                    .setArtist("Cast item unavailable")
-                    .build()
-            )
-            .build()
-    }
+    override fun toMediaItem(queueItem: MediaQueueItem): MediaItem =
+        try {
+            defaultConverter.toMediaItem(queueItem)
+        } catch (_: NullPointerException) {
+            // The Cast SDK can report a queue item before its MediaInfo is available.
+            MediaItem.Builder()
+                .setMediaId("cast-item-${queueItem.itemId}")
+                .setUri("data:audio/mpeg;base64,")
+                .setMediaMetadata(
+                    MediaMetadata.Builder()
+                        .setTitle("OpenRadio-IN")
+                        .setArtist("Cast item unavailable")
+                        .build(),
+                )
+                .build()
+        }
 }

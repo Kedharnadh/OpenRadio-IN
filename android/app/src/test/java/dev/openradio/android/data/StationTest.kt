@@ -10,7 +10,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class StationTest {
-
     private fun buildStationJson(
         id: String = "test_station",
         name: String = "Test Station",
@@ -24,7 +23,7 @@ class StationTest {
         epgId: Long = -1L,
         logo: String = "",
         metadataUrl: String = "",
-        songFirst: Boolean = false
+        songFirst: Boolean = false,
     ): JSONObject {
         val streamsArray = JSONArray()
         streams.forEach { streamsArray.put(it) }
@@ -52,7 +51,7 @@ class StationTest {
     private fun buildStreamJson(
         url: String = "https://example.com/stream.mp3",
         codec: String = "MP3",
-        priority: Int = 1
+        priority: Int = 1,
     ): JSONObject {
         return JSONObject().apply {
             put("url", url)
@@ -63,30 +62,32 @@ class StationTest {
 
     @Test
     fun `primaryStream returns HLS stream with lowest priority`() {
-        val station = Station(
-            id = "test",
-            name = "Test",
-            nameTe = "",
-            nameHi = "",
-            language = "Hindi",
-            country = "",
-            state = "",
-            city = "",
-            categories = emptyList(),
-            genre = emptyList(),
-            homepage = "",
-            logo = "",
-            streams = listOf(
-                Station.Stream("https://example.com/stream.mp3", "MP3", 2),
-                Station.Stream("https://example.com/live.m3u8", "HLS", 1),
-                Station.Stream("https://example.com/backup.mp3", "MP3", 1)
-            ),
-            verified = true,
-            status = "online",
-            epgId = -1L,
-            metadataUrl = "",
-            songFirst = false
-        )
+        val station =
+            Station(
+                id = "test",
+                name = "Test",
+                nameTe = "",
+                nameHi = "",
+                language = "Hindi",
+                country = "",
+                state = "",
+                city = "",
+                categories = emptyList(),
+                genre = emptyList(),
+                homepage = "",
+                logo = "",
+                streams =
+                    listOf(
+                        Station.Stream("https://example.com/stream.mp3", "MP3", 2),
+                        Station.Stream("https://example.com/live.m3u8", "HLS", 1),
+                        Station.Stream("https://example.com/backup.mp3", "MP3", 1),
+                    ),
+                verified = true,
+                status = "online",
+                epgId = -1L,
+                metadataUrl = "",
+                songFirst = false,
+            )
         val primary = station.primaryStream
         assertNotNull(primary)
         assertEquals("https://example.com/live.m3u8", primary!!.url)
@@ -96,28 +97,33 @@ class StationTest {
 
     @Test
     fun `primaryStream returns null when no streams`() {
-        val station = Station(
-            id = "test", name = "Test", nameTe = "", nameHi = "",
-            language = "Hindi", country = "", state = "", city = "",
-            categories = emptyList(), genre = emptyList(), homepage = "",
-            logo = "", streams = emptyList(), verified = true, status = "online",
-            epgId = -1L, metadataUrl = "", songFirst = false
-        )
+        val station =
+            Station(
+                id = "test", name = "Test", nameTe = "", nameHi = "",
+                language = "Hindi", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", streams = emptyList(), verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+            )
         assertNull(station.primaryStream)
     }
 
     @Test
     fun `primaryStream prefers HLS over non-HLS even with higher priority`() {
-        val station = Station(
-            id = "test", name = "Test", nameTe = "", nameHi = "",
-            language = "Hindi", country = "", state = "", city = "",
-            categories = emptyList(), genre = emptyList(), homepage = "",
-            logo = "", streams = listOf(
-                Station.Stream("https://example.com/stream.mp3", "MP3", 1),
-                Station.Stream("https://example.com/live.m3u8", "HLS", 3)
-            ), verified = true, status = "online",
-            epgId = -1L, metadataUrl = "", songFirst = false
-        )
+        val station =
+            Station(
+                id = "test", name = "Test", nameTe = "", nameHi = "",
+                language = "Hindi", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "",
+                streams =
+                    listOf(
+                        Station.Stream("https://example.com/stream.mp3", "MP3", 1),
+                        Station.Stream("https://example.com/live.m3u8", "HLS", 3),
+                    ),
+                verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+            )
         val primary = station.primaryStream
         assertNotNull(primary)
         assertEquals("https://example.com/live.m3u8", primary!!.url)
@@ -125,85 +131,92 @@ class StationTest {
 
     @Test
     fun `languageTags splits comma-separated language string`() {
-        val station = Station(
-            id = "test", name = "Test", nameTe = "", nameHi = "",
-            language = "Hindi, English", country = "", state = "", city = "",
-            categories = emptyList(), genre = emptyList(), homepage = "",
-            logo = "", streams = emptyList(), verified = true, status = "online",
-            epgId = -1L, metadataUrl = "", songFirst = false
-        )
+        val station =
+            Station(
+                id = "test", name = "Test", nameTe = "", nameHi = "",
+                language = "Hindi, English", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", streams = emptyList(), verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+            )
         assertEquals(listOf("Hindi", "English"), station.languageTags)
     }
 
     @Test
     fun `languageTags filters blank entries`() {
-        val station = Station(
-            id = "test", name = "Test", nameTe = "", nameHi = "",
-            language = "Hindi, , English,  , Tamil", country = "", state = "", city = "",
-            categories = emptyList(), genre = emptyList(), homepage = "",
-            logo = "", streams = emptyList(), verified = true, status = "online",
-            epgId = -1L, metadataUrl = "", songFirst = false
-        )
+        val station =
+            Station(
+                id = "test", name = "Test", nameTe = "", nameHi = "",
+                language = "Hindi, , English,  , Tamil", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", streams = emptyList(), verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+            )
         assertEquals(listOf("Hindi", "English", "Tamil"), station.languageTags)
     }
 
     @Test
     fun `languageTags returns single language in a list`() {
-        val station = Station(
-            id = "test", name = "Test", nameTe = "", nameHi = "",
-            language = "Telugu", country = "", state = "", city = "",
-            categories = emptyList(), genre = emptyList(), homepage = "",
-            logo = "", streams = emptyList(), verified = true, status = "online",
-            epgId = -1L, metadataUrl = "", songFirst = false
-        )
+        val station =
+            Station(
+                id = "test", name = "Test", nameTe = "", nameHi = "",
+                language = "Telugu", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", streams = emptyList(), verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+            )
         assertEquals(listOf("Telugu"), station.languageTags)
     }
 
     @Test
     fun `localizedName returns Telugu name when uiLang is te`() {
-        val station = Station(
-            id = "test", name = "AIR Hyderabad", nameTe = "ఏఐఆర్ హైదరాబాద్", nameHi = "",
-            language = "Telugu", country = "", state = "", city = "",
-            categories = emptyList(), genre = emptyList(), homepage = "",
-            logo = "", streams = emptyList(), verified = true, status = "online",
-            epgId = -1L, metadataUrl = "", songFirst = false
-        )
+        val station =
+            Station(
+                id = "test", name = "AIR Hyderabad", nameTe = "ఏఐఆర్ హైదరాబాద్", nameHi = "",
+                language = "Telugu", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", streams = emptyList(), verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+            )
         assertEquals("ఏఐఆర్ హైదరాబాద్", station.localizedName("te"))
     }
 
     @Test
     fun `localizedName falls back to default name when localizedName is blank`() {
-        val station = Station(
-            id = "test", name = "AIR Hyderabad", nameTe = "", nameHi = "",
-            language = "Telugu", country = "", state = "", city = "",
-            categories = emptyList(), genre = emptyList(), homepage = "",
-            logo = "", streams = emptyList(), verified = true, status = "online",
-            epgId = -1L, metadataUrl = "", songFirst = false
-        )
+        val station =
+            Station(
+                id = "test", name = "AIR Hyderabad", nameTe = "", nameHi = "",
+                language = "Telugu", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", streams = emptyList(), verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+            )
         assertEquals("AIR Hyderabad", station.localizedName("te"))
     }
 
     @Test
     fun `localizedName returns Hindi name when uiLang is hi`() {
-        val station = Station(
-            id = "test", name = "AIR Delhi", nameTe = "", nameHi = "एआईआर दिल्ली",
-            language = "Hindi", country = "", state = "", city = "",
-            categories = emptyList(), genre = emptyList(), homepage = "",
-            logo = "", streams = emptyList(), verified = true, status = "online",
-            epgId = -1L, metadataUrl = "", songFirst = false
-        )
+        val station =
+            Station(
+                id = "test", name = "AIR Delhi", nameTe = "", nameHi = "एआईआर दिल्ली",
+                language = "Hindi", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", streams = emptyList(), verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+            )
         assertEquals("एआईआर दिल्ली", station.localizedName("hi"))
     }
 
     @Test
     fun `localizedName returns default name for unknown language`() {
-        val station = Station(
-            id = "test", name = "AIR Test", nameTe = "టెస్ట్", nameHi = "टेस्ट",
-            language = "Telugu", country = "", state = "", city = "",
-            categories = emptyList(), genre = emptyList(), homepage = "",
-            logo = "", streams = emptyList(), verified = true, status = "online",
-            epgId = -1L, metadataUrl = "", songFirst = false
-        )
+        val station =
+            Station(
+                id = "test", name = "AIR Test", nameTe = "టెస్ట్", nameHi = "टेस्ट",
+                language = "Telugu", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", streams = emptyList(), verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+            )
         assertEquals("AIR Test", station.localizedName("fr"))
     }
 

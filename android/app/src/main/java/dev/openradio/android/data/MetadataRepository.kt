@@ -12,18 +12,18 @@ import java.util.concurrent.TimeUnit
 
 data class NowPlaying(
     val streamTitle: String,
-    val artUrl: String
+    val artUrl: String,
 )
 
 data class EpgProgram(
     val start: String,
     val end: String,
-    val title: String
+    val title: String,
 )
 
 data class EpgSchedule(
     val date: String,
-    val programs: List<EpgProgram>
+    val programs: List<EpgProgram>,
 )
 
 /**
@@ -31,13 +31,16 @@ data class EpgSchedule(
  * Prasar Bharati EPG cuesheets for AIR stations.
  */
 class MetadataRepository {
+    private val client =
+        OkHttpClient.Builder()
+            .connectTimeout(8, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .build()
 
-    private val client = OkHttpClient.Builder()
-        .connectTimeout(8, TimeUnit.SECONDS)
-        .readTimeout(10, TimeUnit.SECONDS)
-        .build()
-
-    suspend fun fetchNowPlaying(streamUrl: String, metadataUrl: String?): NowPlaying? =
+    suspend fun fetchNowPlaying(
+        streamUrl: String,
+        metadataUrl: String?,
+    ): NowPlaying? =
         withContext(Dispatchers.IO) {
             var params = "?meta=1&url=${encode(streamUrl)}"
             if (!metadataUrl.isNullOrBlank()) params += "&metaUrl=${encode(metadataUrl)}"
@@ -51,27 +54,29 @@ class MetadataRepository {
             }
         }
 
-    suspend fun fetchEpg(epgId: Long): EpgSchedule? = withContext(Dispatchers.IO) {
-        if (epgId <= 0) return@withContext null
-        fetchJson("${BuildConfig.HLS_PROXY_URL}?epg=$epgId")?.let { obj ->
-            val programsArray = obj.optJSONArray("programs")
-            val programs = if (programsArray == null) {
-                emptyList()
-            } else {
-                (0 until programsArray.length()).mapNotNull { index ->
-                    val item = programsArray.optJSONObject(index) ?: return@mapNotNull null
-                    val title = item.optString("title", "")
-                    if (title.isBlank()) return@mapNotNull null
-                    EpgProgram(
-                        start = item.optString("start", ""),
-                        end = item.optString("end", ""),
-                        title = title
-                    )
-                }
+    suspend fun fetchEpg(epgId: Long): EpgSchedule? =
+        withContext(Dispatchers.IO) {
+            if (epgId <= 0) return@withContext null
+            fetchJson("${BuildConfig.HLS_PROXY_URL}?epg=$epgId")?.let { obj ->
+                val programsArray = obj.optJSONArray("programs")
+                val programs =
+                    if (programsArray == null) {
+                        emptyList()
+                    } else {
+                        (0 until programsArray.length()).mapNotNull { index ->
+                            val item = programsArray.optJSONObject(index) ?: return@mapNotNull null
+                            val title = item.optString("title", "")
+                            if (title.isBlank()) return@mapNotNull null
+                            EpgProgram(
+                                start = item.optString("start", ""),
+                                end = item.optString("end", ""),
+                                title = title,
+                            )
+                        }
+                    }
+                EpgSchedule(date = obj.optString("date", ""), programs = programs)
             }
-            EpgSchedule(date = obj.optString("date", ""), programs = programs)
         }
-    }
 
     private suspend fun fetchJson(url: String): JSONObject? =
         withContext(Dispatchers.IO) {

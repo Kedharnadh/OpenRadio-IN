@@ -2,20 +2,17 @@ package dev.openradio.android
 
 import android.app.Application
 import android.content.Context
-import android.content.res.Configuration
 import android.util.Log
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import dev.openradio.android.data.StationsStore
 import dev.openradio.android.playback.AppPlayer
-import java.util.Locale
 
 class App : Application() {
-
     override fun attachBaseContext(base: Context) {
         Prefs.init(base)
         super.attachBaseContext(
-            LocaleManager.apply(base, Prefs.uiLanguage())
+            LocaleManager.apply(base, Prefs.uiLanguage()),
         )
     }
 
@@ -30,7 +27,10 @@ class App : Application() {
         private const val TAG = "OpenRadio"
 
         /** Log a non-fatal error to Crashlytics and logcat. */
-        fun reportError(throwable: Throwable, message: String = "") {
+        fun reportError(
+            throwable: Throwable,
+            message: String = "",
+        ) {
             Log.e(TAG, message, throwable)
             Firebase.crashlytics.apply {
                 if (message.isNotBlank()) {

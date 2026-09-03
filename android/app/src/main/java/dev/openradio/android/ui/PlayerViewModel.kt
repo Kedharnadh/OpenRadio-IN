@@ -26,11 +26,10 @@ data class FilterState(
     val query: String = "",
     val language: String? = null,
     val category: String? = null,
-    val onlyFavorites: Boolean = false
+    val onlyFavorites: Boolean = false,
 )
 
 class PlayerViewModel(application: Application) : AndroidViewModel(application) {
-
     private val metadataRepository = MetadataRepository()
 
     val playback: StateFlow<PlaybackUiState> = AppPlayer.state
@@ -54,33 +53,37 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
 
     val stationsLoading: StateFlow<Boolean> = StationsStore.loading
 
-    val allLanguages: StateFlow<List<String>> = stations
-        .map { list -> list.flatMap { it.languageTags }.distinct().sorted() }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+    val allLanguages: StateFlow<List<String>> =
+        stations
+            .map { list -> list.flatMap { it.languageTags }.distinct().sorted() }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    val allCategories: StateFlow<List<String>> = stations
-        .map { list ->
-            list.flatMap { it.categories }
-                .map { it.trim() }
-                .filter { it.isNotEmpty() && !it.equals("all", ignoreCase = true) }
-                .distinct()
-                .sorted()
-        }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+    val allCategories: StateFlow<List<String>> =
+        stations
+            .map { list ->
+                list.flatMap { it.categories }
+                    .map { it.trim() }
+                    .filter { it.isNotEmpty() && !it.equals("all", ignoreCase = true) }
+                    .distinct()
+                    .sorted()
+            }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    val filteredStations: StateFlow<List<Station>> = combine(stations, _filter, _favorites) { list, f, favs ->
-        list.filter { station ->
-            val matchesQuery = f.query.isBlank() ||
-                station.name.contains(f.query, ignoreCase = true) ||
-                station.language.contains(f.query, ignoreCase = true) ||
-                station.city.contains(f.query, ignoreCase = true) ||
-                station.categories.any { it.contains(f.query, ignoreCase = true) }
-            val matchesLanguage = f.language == null || station.languageTags.contains(f.language)
-            val matchesCategory = f.category == null || station.categories.contains(f.category)
-            val matchesFavorites = !f.onlyFavorites || favs.contains(station.id)
-            matchesQuery && matchesLanguage && matchesCategory && matchesFavorites
-        }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+    val filteredStations: StateFlow<List<Station>> =
+        combine(stations, _filter, _favorites) { list, f, favs ->
+            list.filter { station ->
+                val matchesQuery =
+                    f.query.isBlank() ||
+                        station.name.contains(f.query, ignoreCase = true) ||
+                        station.language.contains(f.query, ignoreCase = true) ||
+                        station.city.contains(f.query, ignoreCase = true) ||
+                        station.categories.any { it.contains(f.query, ignoreCase = true) }
+                val matchesLanguage = f.language == null || station.languageTags.contains(f.language)
+                val matchesCategory = f.category == null || station.categories.contains(f.category)
+                val matchesFavorites = !f.onlyFavorites || favs.contains(station.id)
+                matchesQuery && matchesLanguage && matchesCategory && matchesFavorites
+            }
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     private var metadataJob: Job? = null
     private var metadataStationId: String? = null
@@ -137,14 +140,20 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun pause() = AppPlayer.pause()
+
     fun resume() = AppPlayer.resume()
+
     fun stop() = AppPlayer.stop()
+
     fun skipNext() = AppPlayer.skipNext()
+
     fun skipPrevious() = AppPlayer.skipPrevious()
+
     fun setVolume(volume: Float) {
         AppPlayer.setVolume(volume)
         Prefs.setVolume(volume)
     }
+
     fun toggleMute() = AppPlayer.toggleMute()
 
     fun loadEpg(stationId: String) {
@@ -162,11 +171,12 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
         sleepJob?.cancel()
         val endAt = System.currentTimeMillis() + minutes * 60_000L
         _sleepEndAt.value = endAt
-        sleepJob = viewModelScope.launch {
-            delay(minutes * 60_000L)
-            AppPlayer.pause()
-            _sleepEndAt.value = null
-        }
+        sleepJob =
+            viewModelScope.launch {
+                delay(minutes * 60_000L)
+                AppPlayer.pause()
+                _sleepEndAt.value = null
+            }
     }
 
     fun cancelSleepTimer() {
@@ -197,22 +207,23 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
         if (metadataJob?.isActive == true && metadataStationId == stationId) return
         metadataStationId = stationId
         metadataJob?.cancel()
-        metadataJob = viewModelScope.launch {
-            while (isActive) {
-                if (AppPlayer.state.value.currentStationId != metadataStationId) break
-                val station = StationsStore.stations.value.firstOrNull { it.id == stationId }
-                val stream = station?.primaryStream
-                if (stream != null) {
-                    // Pass the station's status endpoint (AzuraCast / Icecast) so the
-                    // metadata proxy can also pull proper song + album art, not just ICY.
-                    val nowPlaying = metadataRepository.fetchNowPlaying(stream.url, station.metadataUrl)
-                    if (nowPlaying != null && AppPlayer.state.value.playing) {
-                        AppPlayer.updateNowPlaying(nowPlaying.streamTitle, nowPlaying.artUrl)
+        metadataJob =
+            viewModelScope.launch {
+                while (isActive) {
+                    if (AppPlayer.state.value.currentStationId != metadataStationId) break
+                    val station = StationsStore.stations.value.firstOrNull { it.id == stationId }
+                    val stream = station?.primaryStream
+                    if (stream != null) {
+                        // Pass the station's status endpoint (AzuraCast / Icecast) so the
+                        // metadata proxy can also pull proper song + album art, not just ICY.
+                        val nowPlaying = metadataRepository.fetchNowPlaying(stream.url, station.metadataUrl)
+                        if (nowPlaying != null && AppPlayer.state.value.playing) {
+                            AppPlayer.updateNowPlaying(nowPlaying.streamTitle, nowPlaying.artUrl)
+                        }
                     }
+                    delay(15_000)
                 }
-                delay(15_000)
             }
-        }
     }
 
     private fun stopMetadataPolling() {

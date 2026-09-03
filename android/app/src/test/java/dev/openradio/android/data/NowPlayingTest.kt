@@ -4,7 +4,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class NowPlayingTest {
-
     @Test
     fun `NowPlaying data class holds title and art URL`() {
         val nowPlaying = NowPlaying(streamTitle = "Song Name", artUrl = "https://example.com/art.jpg")
@@ -22,10 +21,11 @@ class NowPlayingTest {
 
     @Test
     fun `EpgSchedule holds date and programs list`() {
-        val programs = listOf(
-            EpgProgram(start = "09:00", end = "10:00", title = "News"),
-            EpgProgram(start = "10:00", end = "11:00", title = "Music")
-        )
+        val programs =
+            listOf(
+                EpgProgram(start = "09:00", end = "10:00", title = "News"),
+                EpgProgram(start = "10:00", end = "11:00", title = "Music"),
+            )
         val schedule = EpgSchedule(date = "2026-09-03", programs = programs)
         assertEquals("2026-09-03", schedule.date)
         assertEquals(2, schedule.programs.size)

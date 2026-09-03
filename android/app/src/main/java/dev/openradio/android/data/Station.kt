@@ -21,12 +21,12 @@ data class Station(
     val status: String,
     val epgId: Long,
     val metadataUrl: String,
-    val songFirst: Boolean
+    val songFirst: Boolean,
 ) {
     data class Stream(
         val url: String,
         val codec: String,
-        val priority: Int
+        val priority: Int,
     ) {
         val isHls: Boolean
             get() = codec.equals("hls", ignoreCase = true) || url.contains(".m3u8", ignoreCase = true)
@@ -38,15 +38,15 @@ data class Station(
     val languageTags: List<String>
         get() = language.split(',').map { it.trim() }.filter { it.isNotEmpty() }
 
-    fun localizedName(uiLang: String): String = when (uiLang) {
-        "te" -> nameTe.ifBlank { name }
-        "hi" -> nameHi.ifBlank { name }
-        else -> name
-    }
+    fun localizedName(uiLang: String): String =
+        when (uiLang) {
+            "te" -> nameTe.ifBlank { name }
+            "hi" -> nameHi.ifBlank { name }
+            else -> name
+        }
 }
 
 object StationParser {
-
     fun parse(text: String): List<Station> {
         if (text.isBlank()) return emptyList()
         val array = JSONArray(text)
@@ -70,8 +70,8 @@ object StationParser {
                     Station.Stream(
                         url = url,
                         codec = streamObj.optString("codec", ""),
-                        priority = streamObj.optInt("priority", Int.MAX_VALUE)
-                    )
+                        priority = streamObj.optInt("priority", Int.MAX_VALUE),
+                    ),
                 )
             }
         }
@@ -93,7 +93,7 @@ object StationParser {
             status = obj.optString("status", "unknown"),
             epgId = obj.optLong("epg_id", -1L),
             metadataUrl = obj.optString("metadata_url", ""),
-            songFirst = obj.optBoolean("song_first", false)
+            songFirst = obj.optBoolean("song_first", false),
         )
     }
 

@@ -8,21 +8,20 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class AppPlayerTest {
-
     private fun createStation(
         id: String,
         name: String = "Station $id",
         logo: String = "",
         city: String = "Delhi",
         language: String = "Hindi",
-        streams: List<Station.Stream> = listOf(Station.Stream("https://example.com/$id.mp3", "MP3", 1))
+        streams: List<Station.Stream> = listOf(Station.Stream("https://example.com/$id.mp3", "MP3", 1)),
     ): Station {
         return Station(
             id = id, name = name, nameTe = "", nameHi = "",
             language = language, country = "India", state = "Delhi", city = city,
             categories = listOf("AIR"), genre = emptyList(), homepage = "",
             logo = logo, streams = streams, verified = true, status = "online",
-            epgId = -1L, metadataUrl = "", songFirst = false
+            epgId = -1L, metadataUrl = "", songFirst = false,
         )
     }
 
@@ -34,17 +33,18 @@ class AppPlayerTest {
 
     @Test
     fun `buildQueue filters out stations without streams`() {
-        val stations = listOf(
-            createStation("1"),
-            Station(
-                id = "no_streams", name = "No Streams", nameTe = "", nameHi = "",
-                language = "Hindi", country = "", state = "", city = "",
-                categories = emptyList(), genre = emptyList(), homepage = "",
-                logo = "", streams = emptyList(), verified = false, status = "unknown",
-                epgId = -1L, metadataUrl = "", songFirst = false
-            ),
-            createStation("3")
-        )
+        val stations =
+            listOf(
+                createStation("1"),
+                Station(
+                    id = "no_streams", name = "No Streams", nameTe = "", nameHi = "",
+                    language = "Hindi", country = "", state = "", city = "",
+                    categories = emptyList(), genre = emptyList(), homepage = "",
+                    logo = "", streams = emptyList(), verified = false, status = "unknown",
+                    epgId = -1L, metadataUrl = "", songFirst = false,
+                ),
+                createStation("3"),
+            )
         val items = AppPlayer.buildQueue(stations)
         assertEquals(2, items.size)
         assertEquals("1", items[0].mediaId)
@@ -53,9 +53,10 @@ class AppPlayerTest {
 
     @Test
     fun `buildQueue creates correct media items for stations`() {
-        val stations = listOf(
-            createStation("test_1", name = "AIR Delhi", city = "Delhi", language = "Hindi")
-        )
+        val stations =
+            listOf(
+                createStation("test_1", name = "AIR Delhi", city = "Delhi", language = "Hindi"),
+            )
         val items = AppPlayer.buildQueue(stations)
         assertEquals(1, items.size)
 
@@ -71,12 +72,13 @@ class AppPlayerTest {
 
     @Test
     fun `buildQueue sets HLS mime type for HLS streams`() {
-        val stations = listOf(
-            createStation(
-                "hls_1",
-                streams = listOf(Station.Stream("https://example.com/live.m3u8", "HLS", 1))
+        val stations =
+            listOf(
+                createStation(
+                    "hls_1",
+                    streams = listOf(Station.Stream("https://example.com/live.m3u8", "HLS", 1)),
+                ),
             )
-        )
         val items = AppPlayer.buildQueue(stations)
         assertEquals(1, items.size)
         assertEquals(AppPlayer.HLS_MIME_TYPE, items[0].localConfiguration?.mimeType)
@@ -84,12 +86,13 @@ class AppPlayerTest {
 
     @Test
     fun `buildQueue does not set mime type for non-HLS streams`() {
-        val stations = listOf(
-            createStation(
-                "mp3_1",
-                streams = listOf(Station.Stream("https://example.com/stream.mp3", "MP3", 1))
+        val stations =
+            listOf(
+                createStation(
+                    "mp3_1",
+                    streams = listOf(Station.Stream("https://example.com/stream.mp3", "MP3", 1)),
+                ),
             )
-        )
         val items = AppPlayer.buildQueue(stations)
         assertEquals(1, items.size)
         assertNull(items[0].localConfiguration?.mimeType)
@@ -97,13 +100,14 @@ class AppPlayerTest {
 
     @Test
     fun `buildQueue sets artwork URI from station logo`() {
-        val stations = listOf(
-            createStation("test_1", logo = "https://example.com/logo.png")
-        )
+        val stations =
+            listOf(
+                createStation("test_1", logo = "https://example.com/logo.png"),
+            )
         val items = AppPlayer.buildQueue(stations)
         assertEquals(
             "https://example.com/logo.png",
-            items[0].mediaMetadata.artworkUri?.toString()
+            items[0].mediaMetadata.artworkUri?.toString(),
         )
     }
 
@@ -113,15 +117,16 @@ class AppPlayerTest {
         val items = AppPlayer.buildQueue(stations)
         assertEquals(
             androidx.media3.common.MediaMetadata.MEDIA_TYPE_RADIO_STATION,
-            items[0].mediaMetadata.mediaType
+            items[0].mediaMetadata.mediaType,
         )
     }
 
     @Test
     fun `buildQueue uses station name in subtitle when city and language are blank`() {
-        val stations = listOf(
-            createStation("test_1", name = "AIR Test", city = "", language = "")
-        )
+        val stations =
+            listOf(
+                createStation("test_1", name = "AIR Test", city = "", language = ""),
+            )
         val items = AppPlayer.buildQueue(stations)
         assertEquals("AIR Test", items[0].mediaMetadata.artist?.toString())
     }

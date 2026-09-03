@@ -5,7 +5,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class LocaleManagerTest {
-
     @Test
     fun `supportsLanguage returns true for en`() {
         assertTrue(LocaleManager.supportsLanguage("en"))

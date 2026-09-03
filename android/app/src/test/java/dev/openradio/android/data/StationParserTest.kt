@@ -1,13 +1,10 @@
 package dev.openradio.android.data
 
-import org.json.JSONArray
-import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class StationParserTest {
-
     @Test
     fun `parse returns empty list for blank input`() {
         assertEquals(emptyList<Station>(), StationParser.parse(""))
@@ -22,7 +19,8 @@ class StationParserTest {
 
     @Test
     fun `parse correctly parses a single station`() {
-        val json = """
+        val json =
+            """
             [
                 {
                     "id": "air_hyderabad",
@@ -51,7 +49,7 @@ class StationParserTest {
                     "song_first": false
                 }
             ]
-        """.trimIndent()
+            """.trimIndent()
 
         val stations = StationParser.parse(json)
         assertEquals(1, stations.size)
@@ -82,7 +80,8 @@ class StationParserTest {
 
     @Test
     fun `parse correctly parses multiple stations`() {
-        val json = """
+        val json =
+            """
             [
                 {
                     "id": "station_1",
@@ -100,7 +99,7 @@ class StationParserTest {
                     "name": "Station Three"
                 }
             ]
-        """.trimIndent()
+            """.trimIndent()
 
         val stations = StationParser.parse(json)
         assertEquals(3, stations.size)
@@ -113,14 +112,15 @@ class StationParserTest {
 
     @Test
     fun `parse handles missing optional fields gracefully`() {
-        val json = """
+        val json =
+            """
             [
                 {
                     "id": "minimal_station",
                     "name": "Minimal Station"
                 }
             ]
-        """.trimIndent()
+            """.trimIndent()
 
         val stations = StationParser.parse(json)
         assertEquals(1, stations.size)
@@ -143,7 +143,8 @@ class StationParserTest {
 
     @Test
     fun `parse skips stations with invalid JSON objects`() {
-        val json = """
+        val json =
+            """
             [
                 {
                     "id": "valid_station",
@@ -153,7 +154,7 @@ class StationParserTest {
                 123,
                 "not an object"
             ]
-        """.trimIndent()
+            """.trimIndent()
 
         val stations = StationParser.parse(json)
         assertEquals(1, stations.size)
@@ -162,7 +163,8 @@ class StationParserTest {
 
     @Test
     fun `parse skips streams with blank URLs`() {
-        val json = """
+        val json =
+            """
             [
                 {
                     "id": "test",
@@ -173,7 +175,7 @@ class StationParserTest {
                     ]
                 }
             ]
-        """.trimIndent()
+            """.trimIndent()
 
         val stations = StationParser.parse(json)
         assertEquals(1, stations.size)
@@ -183,7 +185,8 @@ class StationParserTest {
 
     @Test
     fun `parse assigns max priority when priority is missing`() {
-        val json = """
+        val json =
+            """
             [
                 {
                     "id": "test",
@@ -193,7 +196,7 @@ class StationParserTest {
                     ]
                 }
             ]
-        """.trimIndent()
+            """.trimIndent()
 
         val stations = StationParser.parse(json)
         assertEquals(Int.MAX_VALUE, stations[0].streams[0].priority)
@@ -201,7 +204,8 @@ class StationParserTest {
 
     @Test
     fun `parse handles empty streams array`() {
-        val json = """
+        val json =
+            """
             [
                 {
                     "id": "test",
@@ -209,7 +213,7 @@ class StationParserTest {
                     "streams": []
                 }
             ]
-        """.trimIndent()
+            """.trimIndent()
 
         val stations = StationParser.parse(json)
         assertEquals(0, stations[0].streams.size)
@@ -217,14 +221,15 @@ class StationParserTest {
 
     @Test
     fun `parse handles missing streams key`() {
-        val json = """
+        val json =
+            """
             [
                 {
                     "id": "test",
                     "name": "Test"
                 }
             ]
-        """.trimIndent()
+            """.trimIndent()
 
         val stations = StationParser.parse(json)
         assertEquals(0, stations[0].streams.size)
