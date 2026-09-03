@@ -14,6 +14,14 @@ val Online = Color(0xFF22C55E)
 val Offline = Color(0xFFEF4444)
 val Unknown = Color(0xFF94A3B8)
 
+/** Maps a station's online/offline status string to its brand indicator color. */
+fun stationStatusColor(status: String): Color =
+    when (status.lowercase()) {
+        "online" -> Online
+        "offline" -> Offline
+        else -> Unknown
+    }
+
 private val LightColors =
     lightColorScheme(
         primary = Color(0xFF2563EB),

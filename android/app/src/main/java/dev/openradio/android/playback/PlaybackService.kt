@@ -165,7 +165,13 @@ class PlaybackService : MediaLibraryService() {
                     actionIntent(ACTION_SKIP_NEXT, 3),
                 )
 
-        cachedArtwork?.let { builder.setLargeIcon(it) }
+        val largeIcon =
+            cachedArtwork
+                ?: BitmapFactory.decodeResource(
+                    resources,
+                    R.drawable.ic_stat_radio,
+                )
+        largeIcon?.let { builder.setLargeIcon(it) }
 
         if (session != null) {
             builder.setStyle(

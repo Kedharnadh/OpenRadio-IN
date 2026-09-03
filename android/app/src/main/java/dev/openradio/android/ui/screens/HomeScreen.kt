@@ -33,6 +33,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.Favorite
@@ -41,6 +42,7 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Radio
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.SearchOff
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material.icons.filled.Stop
@@ -93,11 +95,9 @@ import dev.openradio.android.playback.PlaybackUiState
 import dev.openradio.android.ui.FilterState
 import dev.openradio.android.ui.MarqueeText
 import dev.openradio.android.ui.PlayerViewModel
-import dev.openradio.android.ui.theme.Offline
-import dev.openradio.android.ui.theme.Online
 import dev.openradio.android.ui.theme.Sky
-import dev.openradio.android.ui.theme.Unknown
 import dev.openradio.android.ui.theme.Violet
+import dev.openradio.android.ui.theme.stationStatusColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -140,6 +140,8 @@ fun HomeScreen(
                         Text(
                             stringResource(R.string.app_name),
                             style = MaterialTheme.typography.titleLarge,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
                         Text(
                             stringResource(R.string.app_tagline),
@@ -196,6 +198,19 @@ fun HomeScreen(
                             .focusRequester(searchFocus),
                     placeholder = { Text(stringResource(R.string.search_hint)) },
                     leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+                    trailingIcon = {
+                        if (filter.query.isNotBlank()) {
+                            IconButton(
+                                onClick = { viewModel.setQuery("") },
+                                modifier = Modifier.size(48.dp),
+                            ) {
+                                Icon(
+                                    Icons.Filled.Close,
+                                    contentDescription = stringResource(R.string.clear_search),
+                                )
+                            }
+                        }
+                    },
                     singleLine = true,
                     shape = RoundedCornerShape(28.dp),
                 )
@@ -210,6 +225,66 @@ fun HomeScreen(
                     horizontalPadding = horizontalPadding,
                     wideLayout = wideLayout,
                 )
+
+                val currentStationHidden =
+                    playback.currentStationId != null &&
+                        stations.none { it.id == playback.currentStationId }
+                if (currentStationHidden) {
+                    Surface(
+                        shape = RoundedCornerShape(16.dp),
+                        color = MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.7f),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = horizontalPadding, vertical = 4.dp),
+                    ) {
+                        Row(
+                            modifier =
+                                Modifier
+                                    .clip(RoundedCornerShape(16.dp))
+                                    .clickable { showNowPlaying = true }
+                                    .padding(horizontal = 14.dp, vertical = 10.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Box(
+                                modifier =
+                                    Modifier
+                                        .size(28.dp)
+                                        .clip(CircleShape)
+                                        .background(Brush.linearGradient(listOf(Sky, Violet))),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Icon(
+                                    imageVector = if (playback.playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+                                    contentDescription = null,
+                                    tint = Color.White,
+                                    modifier = Modifier.size(16.dp),
+                                )
+                            }
+                            Spacer(Modifier.width(10.dp))
+                            Column(Modifier.weight(1f)) {
+                                Text(
+                                    stringResource(R.string.now_playing),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
+                                Text(
+                                    playback.currentStationName
+                                        ?: stringResource(R.string.select_station),
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.SemiBold,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            }
+                            Icon(
+                                Icons.Filled.SkipNext,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                }
 
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(gridColumns),
@@ -310,13 +385,27 @@ fun HomeScreen(
                             }
                         } else if (stations.isEmpty()) {
                             item(span = { GridItemSpan(maxLineSpan) }) {
-                                Text(
-                                    stringResource(R.string.empty_list),
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier.padding(16.dp),
-                                    textAlign = TextAlign.Center,
-                                )
+                                Column(
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .padding(vertical = 32.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                ) {
+                                    Icon(
+                                        Icons.Filled.SearchOff,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.size(40.dp),
+                                    )
+                                    Text(
+                                        stringResource(R.string.empty_list),
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.padding(top = 12.dp, start = 24.dp, end = 24.dp),
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
                             }
                         }
 
@@ -616,12 +705,7 @@ private fun StationAvatar(
 
 @Composable
 private fun StatusDot(status: String) {
-    val color =
-        when (status.lowercase()) {
-            "online" -> Online
-            "offline" -> Offline
-            else -> Unknown
-        }
+    val color = stationStatusColor(status)
     Box(
         modifier =
             Modifier
