@@ -19,7 +19,9 @@
   }
 
   function normalizeCastContentType(contentType, streamUrl) {
-    const ct = String(contentType || '').trim().toLowerCase();
+    const ct = String(contentType || '')
+      .trim()
+      .toLowerCase();
     if (ct.includes('mpegurl')) return 'application/vnd.apple.mpegurl';
     if (ct === 'audio/mpeg' || ct === 'audio/mp3') return 'audio/mpeg';
     if (ct === 'audio/aac' || ct === 'audio/aacp') return 'audio/aac';

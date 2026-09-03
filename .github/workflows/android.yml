@@ -38,6 +38,9 @@ jobs:
           restore-keys: gradle-${{ runner.os }}-
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+        working-directory: android
       - name: Run ktlint
         working-directory: android
         run: ./gradlew ktlintCheck
@@ -65,6 +68,9 @@ jobs:
           restore-keys: gradle-${{ runner.os }}-
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+        working-directory: android
       - name: Build Debug APK
         working-directory: android
         run: ./gradlew assembleDebug
@@ -95,6 +101,9 @@ jobs:
           restore-keys: gradle-${{ runner.os }}-
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+        working-directory: android
       - name: Run Unit Tests
         working-directory: android
         run: ./gradlew test

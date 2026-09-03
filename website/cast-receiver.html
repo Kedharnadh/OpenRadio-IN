@@ -1,12 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>OpenRadio-IN Cast Receiver</title>
     <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
-    <link rel="stylesheet" href="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.css">
+    <link
+      rel="stylesheet"
+      href="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.css"
+    />
     <style>
-      html, body { height: 100%; margin: 0; background: #0f172a; color: #e2e8f0; font-family: system-ui, sans-serif; }
-      cast-media-player { width: 100%; height: 100%; }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: #0f172a;
+        color: #e2e8f0;
+        font-family: system-ui, sans-serif;
+      }
+      cast-media-player {
+        width: 100%;
+        height: 100%;
+      }
     </style>
   </head>
   <body>
@@ -20,34 +33,31 @@
         cast.framework.messages.HlsSegmentFormat.TS,
         cast.framework.messages.HlsSegmentFormat.MP3,
         cast.framework.messages.HlsSegmentFormat.E_AC3,
-        cast.framework.messages.HlsSegmentFormat.FMP4
+        cast.framework.messages.HlsSegmentFormat.FMP4,
       ];
       let lastRetryContentId = null;
       let lastRetryIndex = -1;
 
-      playerManager.setMessageInterceptor(
-        cast.framework.messages.MessageType.LOAD,
-        (request) => {
-          if (request && request.media) {
-            const ct = (request.media.contentType || '').toLowerCase();
-            console.log('OpenRadio-IN receiver LOAD:', {
-              url: request.media.contentId || request.media.url,
-              contentType: request.media.contentType,
-              protocolType: request.media.protocolType,
-              streamType: request.media.streamType,
-              hlsSegmentFormat: request.media.hlsSegmentFormat,
-              receiverFallback: formatFallback
-            });
-            if (ct === 'application/vnd.apple.mpegurl' || ct.includes('mpegurl')) {
-              request.media.hlsSegmentFormat = formats[formatFallback];
-              request.media.protocolType = cast.framework.messages.ProtocolType.HLS;
-            }
-            request.media.contentId = request.media.contentId || request.media.url || '';
-            request.media.streamType = cast.framework.messages.StreamType.LIVE;
+      playerManager.setMessageInterceptor(cast.framework.messages.MessageType.LOAD, (request) => {
+        if (request && request.media) {
+          const ct = (request.media.contentType || '').toLowerCase();
+          console.log('OpenRadio-IN receiver LOAD:', {
+            url: request.media.contentId || request.media.url,
+            contentType: request.media.contentType,
+            protocolType: request.media.protocolType,
+            streamType: request.media.streamType,
+            hlsSegmentFormat: request.media.hlsSegmentFormat,
+            receiverFallback: formatFallback,
+          });
+          if (ct === 'application/vnd.apple.mpegurl' || ct.includes('mpegurl')) {
+            request.media.hlsSegmentFormat = formats[formatFallback];
+            request.media.protocolType = cast.framework.messages.ProtocolType.HLS;
           }
-          return request;
+          request.media.contentId = request.media.contentId || request.media.url || '';
+          request.media.streamType = cast.framework.messages.StreamType.LIVE;
         }
-      );
+        return request;
+      });
 
       playerManager.addEventListener(cast.framework.events.EventType.ERROR, (event) => {
         console.error('OpenRadio-IN receiver ERROR:', event);
@@ -55,7 +65,7 @@
           cast.framework.events.DetailedErrorCode.HLS_NETWORK_INVALID_SEGMENT,
           cast.framework.events.DetailedErrorCode.HLS_NETWORK_MANIFEST_INVALID,
           cast.framework.events.DetailedErrorCode.HLS_SEGMENT_PARSE_ERROR,
-          cast.framework.events.DetailedErrorCode.MEDIA_SOURCE_OP_FAILED
+          cast.framework.events.DetailedErrorCode.MEDIA_SOURCE_OP_FAILED,
         ];
         if (!hlsErrors.includes(event.detailedErrorCode)) return;
         const mediaInfo = playerManager.getMediaInformation();
@@ -65,7 +75,11 @@
         lastRetryContentId = mediaInfo.contentId;
         lastRetryIndex = formatFallback;
         formatFallback++;
-        console.log('OpenRadio-IN receiver retrying HLS with fallback', formatFallback, mediaInfo.contentId);
+        console.log(
+          'OpenRadio-IN receiver retrying HLS with fallback',
+          formatFallback,
+          mediaInfo.contentId
+        );
         mediaInfo.hlsSegmentFormat = formats[formatFallback];
         playerManager.load({ media: mediaInfo });
       });

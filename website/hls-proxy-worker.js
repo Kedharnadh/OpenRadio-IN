@@ -25,7 +25,9 @@ async function handleRequest(request) {
     return new Response('Missing ?url=<HLS_URL>', { status: 400, headers: CORS_HEADERS });
   }
 
-  try { new URL(hlsUrl); } catch {
+  try {
+    new URL(hlsUrl);
+  } catch {
     return new Response('Invalid URL', { status: 400, headers: CORS_HEADERS });
   }
 
@@ -58,13 +60,16 @@ async function handleRequest(request) {
 
   // probe mode: report the resolved URL and content type without streaming
   if (probeOnly) {
-    return new Response(JSON.stringify({
-      url: resolution.url,
-      contentType,
-      type: resolution.fromMaster ? 'hls-master' : 'hls-media',
-    }), {
-      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({
+        url: resolution.url,
+        contentType,
+        type: resolution.fromMaster ? 'hls-master' : 'hls-media',
+      }),
+      {
+        headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+      }
+    );
   }
 
   const { readable, writable } = new TransformStream();
@@ -116,12 +121,16 @@ async function handleMetadataRequest(streamUrl, metaUrl) {
 async function relayStream(streamUrl, contentType, probeOnly) {
   const resp = await fetch(streamUrl, {
     headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+      'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
       'Cache-Control': 'no-cache',
     },
   });
   if (!resp.ok) {
-    return new Response(`Upstream error: ${resp.status}`, { status: resp.status, headers: CORS_HEADERS });
+    return new Response(`Upstream error: ${resp.status}`, {
+      status: resp.status,
+      headers: CORS_HEADERS,
+    });
   }
   const ct = contentType || resp.headers.get('content-type') || 'audio/mpeg';
   if (probeOnly) {
@@ -187,7 +196,9 @@ async function fetchIcyMetadata(streamUrl) {
         metaBytes = concatBytes(metaBytes, buffer.slice(0, n));
         buffer = buffer.slice(n);
         if (metaBytes.length === metaLen) {
-          try { await reader.cancel(); } catch {}
+          try {
+            await reader.cancel();
+          } catch {}
           const metaStr = new TextDecoder().decode(metaBytes);
           const match = metaStr.match(/StreamTitle='([^']*)'/i);
           return { streamTitle: match ? match[1].trim() : '' };
@@ -196,7 +207,9 @@ async function fetchIcyMetadata(streamUrl) {
     }
     if (!(await readChunk())) break;
   }
-  try { await reader.cancel(); } catch {}
+  try {
+    await reader.cancel();
+  } catch {}
   return { streamTitle: '', error: 'incomplete' };
 }
 
@@ -251,7 +264,10 @@ async function fetchText(target) {
 function pickVariant(manifest, baseUrl) {
   let bestUrl = null;
   let bestBw = -1;
-  const lines = manifest.split('\n').map((l) => l.trim()).filter(Boolean);
+  const lines = manifest
+    .split('\n')
+    .map((l) => l.trim())
+    .filter(Boolean);
   for (let i = 0; i < lines.length; i++) {
     if (!lines[i].startsWith('#EXT-X-STREAM-INF:')) continue;
     const variant = lines[i + 1];
@@ -382,7 +398,9 @@ async function streamSegments(resolution, writable) {
   } catch (err) {
     console.error('Stream error:', err);
   } finally {
-    try { writer.close(); } catch {}
+    try {
+      writer.close();
+    } catch {}
   }
 }
 
@@ -460,7 +478,8 @@ function secondsUntilIstMidnight() {
 async function handleEpgRequest(epgId) {
   const upstream = `https://cuesheets.prasarbharati.org/viewsheet/${encodeURIComponent(epgId)}`;
   const headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+    'User-Agent':
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
     'Accept-Language': 'en-IN,en;q=0.9',
     'Cache-Control': 'no-cache',
   };
