@@ -172,7 +172,10 @@ class StationTest {
     fun `localizedName returns Telugu name when uiLang is te`() {
         val station =
             Station(
-                id = "test", name = "AIR Hyderabad", nameTe = "ఏఐఆర్ హైదరాబాద్", nameHi = "",
+                id = "test",
+                name = "AIR Hyderabad",
+                nameTe = "ఏఐఆర్ హైదరాబాద్",
+                nameHi = "",
                 language = "Telugu", country = "", state = "", city = "",
                 categories = emptyList(), genre = emptyList(), homepage = "",
                 logo = "", streams = emptyList(), verified = true, status = "online",
@@ -244,5 +247,76 @@ class StationTest {
     fun `Stream isHls returns false for plain HTTP streams`() {
         val stream = Station.Stream("https://example.com/stream.mp3", "MP3", 1)
         assertFalse(stream.isHls)
+    }
+
+    @Test
+    fun `preferredStreams orders HLS before non-HLS regardless of priority`() {
+        val station =
+            Station(
+                id = "test", name = "Test", nameTe = "", nameHi = "",
+                language = "Hindi", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+                streams =
+                    listOf(
+                        Station.Stream("https://example.com/a.mp3", "MP3", 1),
+                        Station.Stream("https://example.com/b.m3u8", "HLS", 5),
+                    ),
+            )
+        val ordered = station.preferredStreams()
+        assertEquals("https://example.com/b.m3u8", ordered[0].url)
+        assertEquals("https://example.com/a.mp3", ordered[1].url)
+    }
+
+    @Test
+    fun `preferredStreams orders by priority ascending within same codec`() {
+        val station =
+            Station(
+                id = "test", name = "Test", nameTe = "", nameHi = "",
+                language = "Hindi", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+                streams =
+                    listOf(
+                        Station.Stream("https://example.com/backup.mp3", "MP3", 9),
+                        Station.Stream("https://example.com/primary.mp3", "MP3", 1),
+                    ),
+            )
+        val ordered = station.preferredStreams()
+        assertEquals("https://example.com/primary.mp3", ordered[0].url)
+        assertEquals("https://example.com/backup.mp3", ordered[1].url)
+    }
+
+    @Test
+    fun `primaryStream returns preferred first stream`() {
+        val station =
+            Station(
+                id = "test", name = "Test", nameTe = "", nameHi = "",
+                language = "Hindi", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+                streams =
+                    listOf(
+                        Station.Stream("https://example.com/evening.m3u8", "HLS", 2),
+                        Station.Stream("https://example.com/morning.m3u8", "HLS", 1),
+                    ),
+            )
+        assertEquals("https://example.com/morning.m3u8", station.primaryStream?.url)
+    }
+
+    @Test
+    fun `primaryStream is null when no streams`() {
+        val station =
+            Station(
+                id = "test", name = "Test", nameTe = "", nameHi = "",
+                language = "Hindi", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false, streams = emptyList(),
+            )
+        assertNull(station.primaryStream)
     }
 }

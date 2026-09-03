@@ -183,7 +183,10 @@ fun NowPlayingSheet(
             @Composable
             fun Details() {
                 MarqueeText(
-                    text = station?.localizedName(uiLang) ?: playback.currentStationName ?: stringResource(R.string.no_station),
+                    text =
+                        station?.localizedName(uiLang)
+                            ?: playback.currentStationName
+                            ?: stringResource(R.string.no_station),
                     style =
                         MaterialTheme.typography.headlineSmall.copy(
                             fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
@@ -306,9 +309,15 @@ fun NowPlayingSheet(
                     station?.let {
                         SheetIconButton(onClick = { viewModel.toggleFavorite(it.id) }) {
                             Icon(
-                                imageVector = if (it.id in favorites) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                                imageVector =
+                                    if (it.id in favorites) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                                 contentDescription = stringResource(R.string.favorite),
-                                tint = if (it.id in favorites) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                tint =
+                                    if (it.id in favorites) {
+                                        MaterialTheme.colorScheme.primary
+                                    } else {
+                                        MaterialTheme.colorScheme.onSurfaceVariant
+                                    },
                             )
                         }
                     }
@@ -350,9 +359,16 @@ fun NowPlayingSheet(
                             if (currentIndex >= 0) {
                                 currentIndex + 1
                             } else {
-                                schedule.programs.indexOfFirst { (parseEpgTimeToMinutes(it.start) ?: Int.MAX_VALUE) > now }
+                                schedule.programs.indexOfFirst {
+                                    (parseEpgTimeToMinutes(it.start) ?: Int.MAX_VALUE) > now
+                                }
                             }
-                        val next = if (nextIndex >= 0 && nextIndex < schedule.programs.size) schedule.programs[nextIndex] else null
+                        val next =
+                            if (nextIndex >= 0 && nextIndex < schedule.programs.size) {
+                                schedule.programs[nextIndex]
+                            } else {
+                                null
+                            }
                         val restStart = if (nextIndex >= 0) nextIndex + 1 else schedule.programs.size
                         val rest = schedule.programs.drop(restStart)
 
@@ -510,7 +526,12 @@ private fun AlarmAction(
         Icon(
             Icons.Filled.Alarm,
             stringResource(R.string.alarm),
-            tint = if (scheduled != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+            tint =
+                if (scheduled != null) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
         )
     }
     if (showDialog) {
@@ -632,7 +653,8 @@ private fun shareStation(
 ) {
     if (station == null) return
     val name = station.name
-    val text = "Listen to $name on OpenRadio-IN: ${station.homepage.ifBlank { "https://kedharnadh.github.io/OpenRadio-IN/" }}"
+    val homepage = station.homepage.ifBlank { "https://kedharnadh.github.io/OpenRadio-IN/" }
+    val text = "Listen to $name on OpenRadio-IN: $homepage"
     val intent =
         Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"

@@ -331,7 +331,9 @@ fun HomeScreen(
                             StationCard(
                                 station = station,
                                 isFavorite = station.id in favorites,
-                                isCurrent = playback.currentStationId == station.id && (playback.playing || playback.paused || playback.loading),
+                                isCurrent =
+                                    playback.currentStationId == station.id &&
+                                        (playback.playing || playback.paused || playback.loading),
                                 isPlaying = playback.currentStationId == station.id && playback.playing,
                                 wideLayout = wideLayout,
                                 onPlay = { viewModel.togglePlay(station) },
@@ -763,7 +765,12 @@ private fun StationCard(
                     Icon(
                         imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                         contentDescription = stringResource(R.string.favorite),
-                        tint = if (isFavorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                        tint =
+                            if (isFavorite) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            },
                     )
                 }
             }
@@ -802,7 +809,12 @@ private fun StationCard(
                     Text(
                         footerText,
                         style = MaterialTheme.typography.labelSmall,
-                        color = if (station.verified) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                        color =
+                            if (station.verified) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            },
                     )
                     if (station.city.isNotBlank() || station.country.isNotBlank()) {
                         Text(

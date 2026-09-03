@@ -8,7 +8,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 data class NowPlaying(
     val streamTitle: String,
@@ -31,11 +30,7 @@ data class EpgSchedule(
  * Prasar Bharati EPG cuesheets for AIR stations.
  */
 class MetadataRepository {
-    private val client =
-        OkHttpClient.Builder()
-            .connectTimeout(8, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
-            .build()
+    private val client: OkHttpClient = HttpClient.client
 
     suspend fun fetchNowPlaying(
         streamUrl: String,

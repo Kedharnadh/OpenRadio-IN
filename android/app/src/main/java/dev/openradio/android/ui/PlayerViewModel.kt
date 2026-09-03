@@ -10,6 +10,7 @@ import dev.openradio.android.data.Station
 import dev.openradio.android.data.StationsStore
 import dev.openradio.android.playback.AppPlayer
 import dev.openradio.android.playback.PlaybackUiState
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,10 +18,13 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 data class FilterState(
     val query: String = "",
@@ -29,13 +33,24 @@ data class FilterState(
     val onlyFavorites: Boolean = false,
 )
 
+@OptIn(FlowPreview::class)
 class PlayerViewModel(application: Application) : AndroidViewModel(application) {
     private val metadataRepository = MetadataRepository()
 
     val playback: StateFlow<PlaybackUiState> = AppPlayer.state
 
+    /**
+     * Filter state with the query debounced (short delay) so fast typing doesn't
+     * recompute the list and rebuild the now-playing queue on every keystroke.
+     * Language / category / favorites changes apply immediately.
+     */
     private val _filter = MutableStateFlow(FilterState(language = Prefs.filterLanguage()))
     val filter: StateFlow<FilterState> = _filter.asStateFlow()
+
+    private val debouncedFilter: StateFlow<FilterState> =
+        _filter
+            .debounce { state -> if (state.query.isNotEmpty()) 250.milliseconds else Duration.ZERO }
+            .stateIn(viewModelScope, SharingStarted.Eagerly, _filter.value)
 
     private val _favorites = MutableStateFlow(Prefs.favorites())
     val favorites: StateFlow<Set<String>> = _favorites.asStateFlow()
@@ -70,7 +85,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     val filteredStations: StateFlow<List<Station>> =
-        combine(stations, _filter, _favorites) { list, f, favs ->
+        combine(debouncedFilter, stations, _favorites) { f, list, favs ->
             list.filter { station ->
                 val matchesQuery =
                     f.query.isBlank() ||

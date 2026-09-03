@@ -1,7 +1,6 @@
 package dev.openradio.android.data
 
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.value
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
