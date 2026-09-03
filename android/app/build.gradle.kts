@@ -33,17 +33,17 @@ android {
         buildConfigField(
             "String",
             "STATIONS_URL",
-            "\"https://kedharnadh.github.io/OpenRadio-IN/data/stations.json\""
+            "\"https://kedharnadh.github.io/OpenRadio-IN/data/stations.json\"",
         )
         buildConfigField(
             "String",
             "STATIONS_URL_FALLBACK",
-            "\"https://raw.githubusercontent.com/Kedharnadh/OpenRadio-IN/main/database/stations.json\""
+            "\"https://raw.githubusercontent.com/Kedharnadh/OpenRadio-IN/main/database/stations.json\"",
         )
         buildConfigField(
             "String",
             "HLS_PROXY_URL",
-            "\"https://openradio-hls-proxy.kedharnadh1.workers.dev\""
+            "\"https://openradio-hls-proxy.kedharnadh1.workers.dev\"",
         )
     }
 
