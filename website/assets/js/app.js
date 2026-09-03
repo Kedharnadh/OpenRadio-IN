@@ -4,9 +4,10 @@
   const I18N = {
     en: {
       'app.eyebrow': 'Community radio \u2022 PWA',
-      'app.tagline': 'Discover and play Indian online radio stations with instant search, filters, and a polished app-style experience.',
+      'app.tagline':
+        'Discover and play Indian online radio stations with instant search, filters, and a polished app-style experience.',
       'search.placeholder': 'Search stations, language, or category',
-      'install': 'Install app',
+      install: 'Install app',
       'section.recent': 'Recently Played',
       'section.favorites': 'Favorite Stations',
       'section.all': 'All stations',
@@ -45,7 +46,8 @@
       'status.playingCast': 'Casting {name}',
       'status.casting': 'Casting',
       'status.noCastSession': 'No Cast session available',
-      'status.castBlocked': 'Cast blocked for this HLS stream. Deploy the proxy worker and set HLS_PROXY_URL in app.js.',
+      'status.castBlocked':
+        'Cast blocked for this HLS stream. Deploy the proxy worker and set HLS_PROXY_URL in app.js.',
       'status.castError': 'Cast error: {error}',
       'status.appInstalled': 'App installed',
       'player.unknownLanguage': 'Unknown language',
@@ -68,8 +70,8 @@
       'status.copied': 'Link copied!',
       'results.shown.one': '1 station shown',
       'results.shown.many': '{n} stations shown',
-      'verified': 'Verified',
-      'community': 'Community',
+      verified: 'Verified',
+      community: 'Community',
       'status.online': 'Online',
       'status.offline': 'Offline',
       'status.unknown': 'Status unknown',
@@ -97,97 +99,148 @@
       'timer.min60': '60 min',
       'timer.off': 'Off',
       'toast.addedFavorite': '{name} added to favorites',
-      'toast.removedFavorite': '{name} removed from favorites'
+      'toast.removedFavorite': '{name} removed from favorites',
     },
     te: {
-      'app.eyebrow': '\u0C15\u0C2E\u0C4D\u0C2F\u0C42\u0C28\u0C3F\u0C1F\u0C40 \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u2022 PWA',
-      'app.tagline': '\u0C2D\u0C3E\u0C30\u0C24\u0C40\u0C2F \u0C06\u0C28\u0C4D\u0C32\u0C48\u0C28\u0C4D \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C28\u0C41 \u0C24\u0C15\u0C4D\u0C37\u0C23 \u0C36\u0C4B\u0C27\u0C28, \u0C2B\u0C3F\u0C32\u0C4D\u0C1F\u0C30\u0C4D\u0C32\u0C24\u0C4B \u0C35\u0C3F\u0C28\u0C02\u0C21\u0C3F.',
-      'search.placeholder': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41, \u0C2D\u0C3E\u0C37 \u0C32\u0C47\u0C26\u0C3E \u0C35\u0C30\u0C4D\u0C17\u0C02 \u0C15\u0C4B\u0C38\u0C02 \u0C35\u0C46\u0C24\u0C15\u0C02\u0C21\u0C3F',
-      'install': '\u0C2F\u0C3E\u0C2A\u0C4D\u0C28\u0C41 \u0C07\u0C28\u0C4D\u0C38\u0C4D\u0C1F\u0C3E\u0C32\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      'app.eyebrow':
+        '\u0C15\u0C2E\u0C4D\u0C2F\u0C42\u0C28\u0C3F\u0C1F\u0C40 \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u2022 PWA',
+      'app.tagline':
+        '\u0C2D\u0C3E\u0C30\u0C24\u0C40\u0C2F \u0C06\u0C28\u0C4D\u0C32\u0C48\u0C28\u0C4D \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C28\u0C41 \u0C24\u0C15\u0C4D\u0C37\u0C23 \u0C36\u0C4B\u0C27\u0C28, \u0C2B\u0C3F\u0C32\u0C4D\u0C1F\u0C30\u0C4D\u0C32\u0C24\u0C4B \u0C35\u0C3F\u0C28\u0C02\u0C21\u0C3F.',
+      'search.placeholder':
+        '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41, \u0C2D\u0C3E\u0C37 \u0C32\u0C47\u0C26\u0C3E \u0C35\u0C30\u0C4D\u0C17\u0C02 \u0C15\u0C4B\u0C38\u0C02 \u0C35\u0C46\u0C24\u0C15\u0C02\u0C21\u0C3F',
+      install:
+        '\u0C2F\u0C3E\u0C2A\u0C4D\u0C28\u0C41 \u0C07\u0C28\u0C4D\u0C38\u0C4D\u0C1F\u0C3E\u0C32\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
       'section.recent': '\u0C07\u0C24\u0C40\u0C35\u0C32 \u0C35\u0C3F\u0C28\u0C4D\u0C28\u0C35\u0C3F',
-      'section.favorites': '\u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28 \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41',
-      'section.all': '\u0C05\u0C28\u0C4D\u0C28\u0C3F \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41',
+      'section.favorites':
+        '\u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28 \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41',
+      'section.all':
+        '\u0C05\u0C28\u0C4D\u0C28\u0C3F \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41',
       'filter.all': '\u0C05\u0C28\u0C4D\u0C28\u0C40',
       'filter.allLanguages': '\u0C05\u0C28\u0C4D\u0C28\u0C3F \u0C2D\u0C3E\u0C37\u0C32\u0C41',
-      'player.defaultTitle': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C28\u0C41 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C02\u0C21\u0C3F',
-      'player.defaultMeta': '\u0C2E\u0C40\u0C30\u0C41 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C41\u0C28\u0C4D\u0C28 \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C07\u0C15\u0C4D\u0C15\u0C21 \u0C15\u0C28\u0C3F\u0C2A\u0C3F\u0C38\u0C4D\u0C24\u0C41\u0C02\u0C26\u0C3F.',
+      'player.defaultTitle':
+        '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C28\u0C41 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C02\u0C21\u0C3F',
+      'player.defaultMeta':
+        '\u0C2E\u0C40\u0C30\u0C41 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C41\u0C28\u0C4D\u0C28 \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C07\u0C15\u0C4D\u0C15\u0C21 \u0C15\u0C28\u0C3F\u0C2A\u0C3F\u0C38\u0C4D\u0C24\u0C41\u0C02\u0C26\u0C3F.',
       'controls.play': '\u0C2A\u0C4D\u0C32\u0C47',
       'controls.resume': '\u0C15\u0C4A\u0C28\u0C38\u0C3E\u0C17\u0C3F\u0C02\u0C1A\u0C41',
       'controls.pause': '\u0C2A\u0C3E\u0C1C\u0C4D',
       'controls.stop': '\u0C06\u0C2A\u0C41',
       'controls.previous': '\u0C2E\u0C41\u0C28\u0C41\u0C2A\u0C1F\u0C3F',
       'controls.next': '\u0C24\u0C30\u0C41\u0C35\u0C3E\u0C24',
-      'controls.volume': '\u0C2E\u0C4D\u0C2F\u0C42\u0C1F\u0C4D/\u0C05\u0C28\u0C4D\u0C2E\u0C4D\u0C2F\u0C42\u0C1F\u0C4D',
-      'np.title': '\u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24\u0C02 \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
+      'controls.volume':
+        '\u0C2E\u0C4D\u0C2F\u0C42\u0C1F\u0C4D/\u0C05\u0C28\u0C4D\u0C2E\u0C4D\u0C2F\u0C42\u0C1F\u0C4D',
+      'np.title':
+        '\u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24\u0C02 \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
       'np.share': '\u0C37\u0C47\u0C30\u0C4D',
       'np.timer': '\u0C1F\u0C48\u0C2E\u0C30\u0C4D',
       'np.alarm': '\u0C05\u0C32\u0C3E\u0C30\u0C02',
       'np.now': '\u0C07\u0C2A\u0C4D\u0C2A\u0C41\u0C21\u0C41',
       'np.next': '\u0C24\u0C30\u0C4D\u0C35\u0C3E\u0C24',
-      'np.noSchedule': '\u0C36\u0C47\u0C26\u0C4D\u0C2F\u0C42\u0C32\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41',
+      'np.noSchedule':
+        '\u0C36\u0C47\u0C26\u0C4D\u0C2F\u0C42\u0C32\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41',
       'np.favorite': '\u0C2B\u0C47\u0C35\u0C30\u0C46\u0C1F\u0C4D',
-      'np.favorited': '\u0C2B\u0C47\u0C35\u0C30\u0C46\u0C1F\u0C4D \u0C1A\u0C47\u0C38\u0C3E\u0C30\u0C41',
+      'np.favorited':
+        '\u0C2B\u0C47\u0C35\u0C30\u0C46\u0C1F\u0C4D \u0C1A\u0C47\u0C38\u0C3E\u0C30\u0C41',
       'theme.light': '\u0C32\u0C48\u0C1F\u0C4D',
       'theme.dark': '\u0C21\u0C3E\u0C30\u0C4D\u0C15\u0C4D',
       'theme.auto': '\u0C06\u0C1F\u0C4B',
       'theme.toggle': '\u0C25\u0C3F\u0C2E\u0C4D \u0C2E\u0C3E\u0C30\u0C4D\u0C1A\u0C02\u0C21\u0C3F',
-      'update.available': '\u0C05\u0C2A\u0C4D\u0C21\u0C47\u0C1F\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C09\u0C02\u0C26\u0C3F',
+      'update.available':
+        '\u0C05\u0C2A\u0C4D\u0C21\u0C47\u0C1F\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C09\u0C02\u0C26\u0C3F',
       'update.refresh': '\u0C30\u0C3F\u0C2B\u0C4D\u0C30\u0C47\u0C37\u0C4D',
-      'update.whatsNew': '\u0C15\u0C4B\u0C24\u0C4D\u0C24\u0C17\u0C3E \u0C0F\u0C2E\u0C41\u0C02\u0C26\u0C3F',
+      'update.whatsNew':
+        '\u0C15\u0C4B\u0C24\u0C4D\u0C24\u0C17\u0C3E \u0C0F\u0C2E\u0C41\u0C02\u0C26\u0C3F',
       'update.close': '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C3F',
-      'status.loading': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C41\u0C28\u0C4D\u0C28\u0C3E\u0C2F\u0C3F\u2026',
-      'status.loaded': '{n} \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C2F\u0C4D\u0C2F\u0C3E\u0C2F\u0C3F',
-      'status.playing': '{name} \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
-      'status.playingCast': '{name} \u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C3F\u0C02\u0C17\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
+      'status.loading':
+        '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C41\u0C28\u0C4D\u0C28\u0C3E\u0C2F\u0C3F\u2026',
+      'status.loaded':
+        '{n} \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C2F\u0C4D\u0C2F\u0C3E\u0C2F\u0C3F',
+      'status.playing':
+        '{name} \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
+      'status.playingCast':
+        '{name} \u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C3F\u0C02\u0C17\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
       'status.casting': '\u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C3F\u0C02\u0C17\u0C4D',
-      'status.noCastSession': '\u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C38\u0C47\u0C37\u0C28\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41',
-      'status.castBlocked': '\u0C08 HLS \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02\u0C15\u0C3F \u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C28\u0C3F\u0C30\u0C4B\u0C26\u0C4D\u0C27\u0C3F\u0C02\u0C1A\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F. HLS_PROXY_URL \u0C38\u0C46\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F.',
+      'status.noCastSession':
+        '\u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C38\u0C47\u0C37\u0C28\u0C4D \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41',
+      'status.castBlocked':
+        '\u0C08 HLS \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02\u0C15\u0C3F \u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C28\u0C3F\u0C30\u0C4B\u0C26\u0C4D\u0C27\u0C3F\u0C02\u0C1A\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F. HLS_PROXY_URL \u0C38\u0C46\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F.',
       'status.castError': '\u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C26\u0C4B\u0C37\u0C02: {error}',
-      'status.appInstalled': '\u0C2F\u0C3E\u0C2A\u0C4D \u0C07\u0C28\u0C4D\u0C38\u0C4D\u0C1F\u0C3E\u0C32\u0C4D \u0C05\u0C2F\u0C4D\u0C2F\u0C3F\u0C02\u0C26\u0C3F',
+      'status.appInstalled':
+        '\u0C2F\u0C3E\u0C2A\u0C4D \u0C07\u0C28\u0C4D\u0C38\u0C4D\u0C1F\u0C3E\u0C32\u0C4D \u0C05\u0C2F\u0C4D\u0C2F\u0C3F\u0C02\u0C26\u0C3F',
       'player.unknownLanguage': '\u0C24\u0C46\u0C32\u0C3F\u0C2F\u0C28\u0C3F \u0C2D\u0C3E\u0C37',
       'player.stream': '\u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02',
       'share.text': 'OpenRadio-IN \u0C32\u0C4B {name} \u0C35\u0C3F\u0C28\u0C02\u0C21\u0C3F',
-      'status.resumed': '\u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C2A\u0C41\u0C28\u0C03\u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D\u0C3F\u0C02\u0C1A\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F',
-      'status.noStream': '\u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02 \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41',
-      'status.hlsUnsupported': '\u0C08 \u0C2C\u0C4D\u0C30\u0C4C\u0C1C\u0C30\u0C4D\u0C32\u0C4B HLS \u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C38\u0C2A\u0C4B\u0C30\u0C4D\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C2C\u0C21\u0C26\u0C41',
-      'status.loadingHls': 'HLS \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F\u2026',
-      'status.loadFailed': '\u0C08 \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02\u0C28\u0C3F \u0C32\u0C4B\u0C21\u0C4D \u0C1A\u0C47\u0C2F\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
-      'status.tryingBackup': '\u0C2E\u0C42\u0C32 \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02 \u0C2C\u0C3F\u0C32\u0C4D\u0C32\u0C2F\u0C48\u0C02\u0A26\u0C3F \u2014 \u0C2C\u0C48\u0C15\u0C4D\u0C2A\u0C4D \u0C2A\u0C4D\u0C30\u0C2F\u0C24\u0C4D\u0C28\u0C3F\u0C38\u0C4D\u0C24\u0C41\u0C28\u0C4D\u0C28\u0C3E\u0C2E\u0C41\u2026',
-      'status.playFailed': '\u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D\u0C3F\u0C02\u0C1A\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
-      'status.streamFailed': '\u0C08 \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02\u0C28\u0C3F \u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D\u0C3F\u0C02\u0C1A\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
-      'status.ended': '\u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C2E\u0C41\u0C17\u0C3F\u0C38\u0C3F\u0C02\u0C26\u0C3F',
-      'status.error': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C21\u0C3E\u0C1F\u0C3E\u0C28\u0C41 \u0C32\u0C4B\u0C21\u0C4D \u0C1A\u0C47\u0C2F\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
-      'status.dataUnavailable': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C21\u0C3E\u0C1F\u0C3E \u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24\u0C02 \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41.',
-      'status.emptyData': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C21\u0C3E\u0C1F\u0C3E\u0C2C\u0C47\u0C38\u0C4D \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C32\u0C47\u0C26\u0C41. \u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C2E\u0C33\u0C4D\u0C33\u0C40 \u0C2A\u0C4D\u0C30\u0C2F\u0C24\u0C4D\u0C28\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F.',
-      'status.emptyList': '\u0C08 \u0C36\u0C4B\u0C27\u0C28\u0C15\u0C3F \u0C38\u0C30\u0C3F\u0C2A\u0C4B\u0C32\u0C47 \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C32\u0C47\u0C35\u0C41.',
-      'status.sleeptimerStopped': '\u0C28\u0C3F\u0C26\u0C4D\u0C30 \u0C1F\u0C48\u0C2E\u0C30\u0C4D: \u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C06\u0C2A\u0C3F\u0C02\u0C26\u0C3F',
-      'status.copied': '\u0C32\u0C3F\u0C02\u0C15\u0C4D \u0C15\u0C3E\u0C2A\u0C40 \u0C05\u0C2F\u0C4D\u0C2F\u0C3F\u0C02\u0C26\u0C3F!',
-      'results.shown.one': '1 \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C1A\u0C42\u0C2A\u0C2C\u0C21\u0C41\u0C24\u0C41\u0C02\u0C26\u0C3F',
-      'results.shown.many': '{n} \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C1A\u0C42\u0C2A\u0C2C\u0C21\u0C41\u0C24\u0C41\u0C28\u0C4D\u0C28\u0C3E\u0C2F\u0C3F',
-      'verified': '\u0C27\u0C43\u0C35\u0C40\u0C15\u0C30\u0C3F\u0C02\u0C1A\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F',
-      'community': '\u0C15\u0C2E\u0C4D\u0C2F\u0C42\u0C28\u0C3F\u0C1F\u0C40',
+      'status.resumed':
+        '\u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C2A\u0C41\u0C28\u0C03\u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D\u0C3F\u0C02\u0C1A\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F',
+      'status.noStream':
+        '\u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02 \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41',
+      'status.hlsUnsupported':
+        '\u0C08 \u0C2C\u0C4D\u0C30\u0C4C\u0C1C\u0C30\u0C4D\u0C32\u0C4B HLS \u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C38\u0C2A\u0C4B\u0C30\u0C4D\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C2C\u0C21\u0C26\u0C41',
+      'status.loadingHls':
+        'HLS \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02 \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F\u2026',
+      'status.loadFailed':
+        '\u0C08 \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02\u0C28\u0C3F \u0C32\u0C4B\u0C21\u0C4D \u0C1A\u0C47\u0C2F\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
+      'status.tryingBackup':
+        '\u0C2E\u0C42\u0C32 \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02 \u0C2C\u0C3F\u0C32\u0C4D\u0C32\u0C2F\u0C48\u0C02\u0A26\u0C3F \u2014 \u0C2C\u0C48\u0C15\u0C4D\u0C2A\u0C4D \u0C2A\u0C4D\u0C30\u0C2F\u0C24\u0C4D\u0C28\u0C3F\u0C38\u0C4D\u0C24\u0C41\u0C28\u0C4D\u0C28\u0C3E\u0C2E\u0C41\u2026',
+      'status.playFailed':
+        '\u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D\u0C3F\u0C02\u0C1A\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
+      'status.streamFailed':
+        '\u0C08 \u0C38\u0C4D\u0C1F\u0C4D\u0C30\u0C40\u0C02\u0C28\u0C3F \u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D\u0C3F\u0C02\u0C1A\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
+      'status.ended':
+        '\u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C2E\u0C41\u0C17\u0C3F\u0C38\u0C3F\u0C02\u0C26\u0C3F',
+      'status.error':
+        '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C21\u0C3E\u0C1F\u0C3E\u0C28\u0C41 \u0C32\u0C4B\u0C21\u0C4D \u0C1A\u0C47\u0C2F\u0C32\u0C47\u0C15\u0C2A\u0C4B\u0C2F\u0C3E\u0C2E\u0C41',
+      'status.dataUnavailable':
+        '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C21\u0C3E\u0C1F\u0C3E \u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24\u0C02 \u0C05\u0C02\u0C26\u0C41\u0C2C\u0C3E\u0C1F\u0C41\u0C32\u0C4B \u0C32\u0C47\u0C26\u0C41.',
+      'status.emptyData':
+        '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C21\u0C3E\u0C1F\u0C3E\u0C2C\u0C47\u0C38\u0C4D \u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C32\u0C47\u0C26\u0C41. \u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C2E\u0C33\u0C4D\u0C33\u0C40 \u0C2A\u0C4D\u0C30\u0C2F\u0C24\u0C4D\u0C28\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F.',
+      'status.emptyList':
+        '\u0C08 \u0C36\u0C4B\u0C27\u0C28\u0C15\u0C3F \u0C38\u0C30\u0C3F\u0C2A\u0C4B\u0C32\u0C47 \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C32\u0C47\u0C35\u0C41.',
+      'status.sleeptimerStopped':
+        '\u0C28\u0C3F\u0C26\u0C4D\u0C30 \u0C1F\u0C48\u0C2E\u0C30\u0C4D: \u0C2A\u0C4D\u0C32\u0C47\u0C2C\u0C4D\u0C2F\u0C3E\u0C15\u0C4D \u0C06\u0C2A\u0C3F\u0C02\u0C26\u0C3F',
+      'status.copied':
+        '\u0C32\u0C3F\u0C02\u0C15\u0C4D \u0C15\u0C3E\u0C2A\u0C40 \u0C05\u0C2F\u0C4D\u0C2F\u0C3F\u0C02\u0C26\u0C3F!',
+      'results.shown.one':
+        '1 \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C1A\u0C42\u0C2A\u0C2C\u0C21\u0C41\u0C24\u0C41\u0C02\u0C26\u0C3F',
+      'results.shown.many':
+        '{n} \u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u0C32\u0C41 \u0C1A\u0C42\u0C2A\u0C2C\u0C21\u0C41\u0C24\u0C41\u0C28\u0C4D\u0C28\u0C3E\u0C2F\u0C3F',
+      verified:
+        '\u0C27\u0C43\u0C35\u0C40\u0C15\u0C30\u0C3F\u0C02\u0C1A\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F',
+      community: '\u0C15\u0C2E\u0C4D\u0C2F\u0C42\u0C28\u0C3F\u0C1F\u0C40',
       'status.online': '\u0C06\u0C28\u0C4D\u0C32\u0C48\u0C28\u0C4D',
       'status.offline': '\u0C06\u0C2B\u0C4D\u0C32\u0C48\u0C28\u0C4D',
-      'status.unknown': '\u0C38\u0C4D\u0C25\u0C3F\u0C24\u0C3F \u0C24\u0C46\u0C32\u0C3F\u0C2F\u0C26\u0C41',
+      'status.unknown':
+        '\u0C38\u0C4D\u0C25\u0C3F\u0C24\u0C3F \u0C24\u0C46\u0C32\u0C3F\u0C2F\u0C26\u0C41',
       'alarm.timeLabel': '\u0C38\u0C2E\u0C2F\u0C02',
       'alarm.stationLabel': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D',
       'alarm.set': '\u0C05\u0C32\u0C3E\u0C30\u0C02 \u0C38\u0C46\u0C1F\u0C4D',
       'alarm.off': '\u0C06\u0C2B\u0C4D \u0C1A\u0C47\u0C2F\u0C3F',
       'alarm.status': '{time} \u0C15\u0C3F \u0C05\u0C32\u0C3E\u0C30\u0C02',
-      'alarm.fired': '\u0C32\u0C46\u0C02\u0C1A\u0C02\u0C21\u0C3F \u2014 {name} \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
+      'alarm.fired':
+        '\u0C32\u0C46\u0C02\u0C1A\u0C02\u0C21\u0C3F \u2014 {name} \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
       'np.close': '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C3F',
       'volume.label': '\u0C35\u0C3E\u0C32\u0C4D\u0C2F\u0C42\u0C2E\u0C4D',
-      'controls.collapse': '\u0C35\u0C3F\u0C2D\u0C3E\u0C17\u0C3E\u0C28\u0C4D\u0C28\u0C3F \u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C3F',
-      'np.share.title': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u200C\u0C28\u0C41 \u0C37\u0C47\u0C30\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
-      'np.timer.title': '\u0C38\u0C4D\u0C32\u0C40\u0C2A\u0C4D \u0C1F\u0C48\u0C2F\u0C4D\u0C2E\u0C30\u0C4D',
-      'np.favorite.title': '\u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      'controls.collapse':
+        '\u0C35\u0C3F\u0C2D\u0C3E\u0C17\u0C3E\u0C28\u0C4D\u0C28\u0C3F \u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C3F',
+      'np.share.title':
+        '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D\u200C\u0C28\u0C41 \u0C37\u0C47\u0C30\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      'np.timer.title':
+        '\u0C38\u0C4D\u0C32\u0C40\u0C2A\u0C4D \u0C1F\u0C48\u0C2F\u0C4D\u0C2E\u0C30\u0C4D',
+      'np.favorite.title':
+        '\u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
       'np.alarm.title': '\u0C05\u0C32\u0C3E\u0C30\u0C02',
-      'player.open': '\u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24\u0C02 \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C41\u0C28\u0C4D\u0C28 \u0C35\u0C40\u0C15\u0C4D\u0C37\u0C23 \u0C24\u0C46\u0C30\u0C35\u0C02\u0C21\u0C3F',
-      'hint.tapFooter': '\u004E\u006F\u0077\u0020\u0050\u006C\u0061\u0079\u0069\u006E\u0067\u0020\u0C24\u0C46\u0C30\u0C35\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F\u0020\u0C15\u0C4D\u0C30\u0C3F\u0C02\u0C26\u0C3F\u0020\u0C2A\u0C4D\u0C32\u0C47\u0C2F\u0C30\u0C4D\u0020\u0C2C\u0C3E\u0C30\u0C4D\u0020\u0C28\u0C41\u0020\u0C28\u0C4A\u0C15\u0C4D\u0C15\u0C02\u0C21\u0C3F',
-      'hint.dismiss': '\u0C38\u0C42\u0C1A\u0C28\u0C28\u0C41\u0020\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F',
-      'cast.launch': 'Google Cast \u0C2A\u0C30\u0C3F\u0C15\u0C30\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
-      'filters.categories': '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C35\u0C30\u0C4D\u0C17\u0C3E\u0C32\u0C41',
-      'filter.byLanguage': '\u0C2D\u0C3E\u0C37 \u0C26\u0C4D\u0C35\u0C3E\u0C30\u0C3E \u0C2B\u0C3F\u0C32\u0C4D\u0C1F\u0C30\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      'player.open':
+        '\u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24\u0C02 \u0C2A\u0C4D\u0C32\u0C47 \u0C05\u0C35\u0C41\u0C24\u0C41\u0C28\u0C4D\u0C28 \u0C35\u0C40\u0C15\u0C4D\u0C37\u0C23 \u0C24\u0C46\u0C30\u0C35\u0C02\u0C21\u0C3F',
+      'hint.tapFooter':
+        '\u004E\u006F\u0077\u0020\u0050\u006C\u0061\u0079\u0069\u006E\u0067\u0020\u0C24\u0C46\u0C30\u0C35\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F\u0020\u0C15\u0C4D\u0C30\u0C3F\u0C02\u0C26\u0C3F\u0020\u0C2A\u0C4D\u0C32\u0C47\u0C2F\u0C30\u0C4D\u0020\u0C2C\u0C3E\u0C30\u0C4D\u0020\u0C28\u0C41\u0020\u0C28\u0C4A\u0C15\u0C4D\u0C15\u0C02\u0C21\u0C3F',
+      'hint.dismiss':
+        '\u0C38\u0C42\u0C1A\u0C28\u0C28\u0C41\u0020\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      'cast.launch':
+        'Google Cast \u0C2A\u0C30\u0C3F\u0C15\u0C30\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C30\u0C47\u0C21\u0C3F\u0C2F\u0C4B \u0C15\u0C3E\u0C38\u0C4D\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      'filters.categories':
+        '\u0C38\u0C4D\u0C1F\u0C47\u0C37\u0C28\u0C4D \u0C35\u0C30\u0C4D\u0C17\u0C3E\u0C32\u0C41',
+      'filter.byLanguage':
+        '\u0C2D\u0C3E\u0C37 \u0C26\u0C4D\u0C35\u0C3E\u0C30\u0C3E \u0C2B\u0C3F\u0C32\u0C4D\u0C1F\u0C30\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
       'timer.min15': '15 \u0C28\u0C3F\u0C2E\u0C3F\u0C37\u0C3E\u0C32\u0C41',
       'timer.min30': '30 \u0C28\u0C3F\u0C2E\u0C3F\u0C37\u0C3E\u0C32\u0C41',
       'timer.min60': '60 \u0C28\u0C3F\u0C2E\u0C3F\u0C37\u0C3E\u0C32\u0C41',
@@ -232,98 +285,144 @@
       'lang.Telugu': '\u0C24\u0C46\u0C32\u0C41\u0C17\u0C41',
       'lang.Tulu': '\u0C24\u0C41\u0C33\u0C41',
       'lang.Urdu': '\u0C09\u0C30\u0C4D\u0C26\u0C42',
-      'toast.addedFavorite': '{name} \u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C3E\u0C30\u0C41',
-      'toast.removedFavorite': '{name} \u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C24\u0C40\u0C38\u0C3F\u0C28\u0C3E\u0C30\u0C41'
+      'toast.addedFavorite':
+        '{name} \u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C3E\u0C30\u0C41',
+      'toast.removedFavorite':
+        '{name} \u0C07\u0C37\u0C4D\u0C1F\u0C2E\u0C48\u0C28\u0C35\u0C3E\u0C1F\u0C3F\u0C15\u0C3F \u0C24\u0C40\u0C38\u0C3F\u0C28\u0C3E\u0C30\u0C41',
     },
     hi: {
-      'app.eyebrow': '\u0915\u092E\u094D\u092F\u0942\u0928\u093F\u091F\u0940 \u0930\u0947\u0921\u093F\u092F\u094B \u2022 PWA',
-      'app.tagline': '\u0924\u0941\u0930\u0902\u0924 \u0916\u094B\u091C \u0914\u0930 \u092B\u093C\u093F\u0932\u094D\u091F\u0930 \u0915\u0947 \u0938\u093E\u0925 \u092D\u093E\u0930\u0924\u0940\u092F \u0911\u0928\u0932\u093E\u0907\u0928 \u0930\u0947\u0921\u093F\u092F\u094B \u0938\u094D\u091F\u0947\u0936\u0928 \u0938\u0941\u0928\u0947\u0902\u0964',
-      'search.placeholder': '\u0938\u094D\u091F\u0947\u0936\u0928, \u092D\u093E\u0937\u093E \u092F\u093E \u0936\u094D\u0930\u0947\u0923\u0940 \u0916\u094B\u091C\u0947\u0902',
-      'install': '\u0910\u092A \u0907\u0902\u0938\u094D\u091F\u093E\u0932 \u0915\u0930\u0947\u0902',
-      'section.recent': '\u0939\u093E\u0932 \u092E\u0947\u0902 \u0938\u0941\u0928\u0947 \u0917\u090F',
-      'section.favorites': '\u092A\u0938\u0902\u0926\u0940\u0926\u093E \u0938\u094D\u091F\u0947\u0936\u0928',
+      'app.eyebrow':
+        '\u0915\u092E\u094D\u092F\u0942\u0928\u093F\u091F\u0940 \u0930\u0947\u0921\u093F\u092F\u094B \u2022 PWA',
+      'app.tagline':
+        '\u0924\u0941\u0930\u0902\u0924 \u0916\u094B\u091C \u0914\u0930 \u092B\u093C\u093F\u0932\u094D\u091F\u0930 \u0915\u0947 \u0938\u093E\u0925 \u092D\u093E\u0930\u0924\u0940\u092F \u0911\u0928\u0932\u093E\u0907\u0928 \u0930\u0947\u0921\u093F\u092F\u094B \u0938\u094D\u091F\u0947\u0936\u0928 \u0938\u0941\u0928\u0947\u0902\u0964',
+      'search.placeholder':
+        '\u0938\u094D\u091F\u0947\u0936\u0928, \u092D\u093E\u0937\u093E \u092F\u093E \u0936\u094D\u0930\u0947\u0923\u0940 \u0916\u094B\u091C\u0947\u0902',
+      install: '\u0910\u092A \u0907\u0902\u0938\u094D\u091F\u093E\u0932 \u0915\u0930\u0947\u0902',
+      'section.recent':
+        '\u0939\u093E\u0932 \u092E\u0947\u0902 \u0938\u0941\u0928\u0947 \u0917\u090F',
+      'section.favorites':
+        '\u092A\u0938\u0902\u0926\u0940\u0926\u093E \u0938\u094D\u091F\u0947\u0936\u0928',
       'section.all': '\u0938\u092D\u0940 \u0938\u094D\u091F\u0947\u0936\u0928',
       'filter.all': '\u0938\u092D\u0940',
       'filter.allLanguages': '\u0938\u092D\u0940 \u092D\u093E\u0937\u093E\u090F\u0901',
       'player.defaultTitle': '\u0938\u094D\u091F\u0947\u0936\u0928 \u091A\u0941\u0928\u0947\u0902',
-      'player.defaultMeta': '\u0906\u092A\u0915\u093E \u091A\u0941\u0928\u093E \u0939\u0941\u0906 \u0930\u0947\u0921\u093F\u092F\u094B \u0938\u094D\u091F\u0947\u0936\u0928 \u092F\u0939\u093E\u0902 \u0926\u093F\u0916\u0947\u0917\u093E\u0964',
+      'player.defaultMeta':
+        '\u0906\u092A\u0915\u093E \u091A\u0941\u0928\u093E \u0939\u0941\u0906 \u0930\u0947\u0921\u093F\u092F\u094B \u0938\u094D\u091F\u0947\u0936\u0928 \u092F\u0939\u093E\u0902 \u0926\u093F\u0916\u0947\u0917\u093E\u0964',
       'controls.play': '\u092A\u094D\u0932\u0947',
-      'controls.resume': '\u092B\u093C\u093F\u0930 \u0936\u0941\u0930\u0942 \u0915\u0930\u0947\u0902',
+      'controls.resume':
+        '\u092B\u093C\u093F\u0930 \u0936\u0941\u0930\u0942 \u0915\u0930\u0947\u0902',
       'controls.pause': '\u092A\u0949\u091C\u093C',
       'controls.stop': '\u0930\u094B\u0915\u0947\u0902',
       'controls.previous': '\u092A\u093F\u091B\u0932\u093E',
       'controls.next': '\u0905\u0917\u0932\u093E',
-      'controls.volume': '\u092E\u094D\u092F\u0942\u091F/\u0905\u0928\u092E\u094D\u092F\u0942\u091F',
+      'controls.volume':
+        '\u092E\u094D\u092F\u0942\u091F/\u0905\u0928\u092E\u094D\u092F\u0942\u091F',
       'np.title': '\u0905\u092D\u0940 \u091A\u0932 \u0930\u0939\u093E \u0939\u0948',
       'np.share': '\u0936\u0947\u092F\u0930',
       'np.timer': '\u091F\u093E\u0907\u092E\u0930',
       'np.alarm': '\u0905\u0932\u093E\u0930\u094D\u092E',
       'np.now': '\u0905\u092D\u0940',
       'np.next': '\u0905\u0917\u0932\u093E',
-      'np.noSchedule': '\u0936\u0947\u0921\u094D\u092F\u0942\u0932 \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948',
+      'np.noSchedule':
+        '\u0936\u0947\u0921\u094D\u092F\u0942\u0932 \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948',
       'np.favorite': '\u092A\u0938\u0902\u0926\u0940\u0926\u093E',
       'np.favorited': '\u092A\u0938\u0902\u0926\u0940\u0926\u093E \u0939\u0948',
       'theme.light': '\u0932\u093E\u0907\u091F',
       'theme.dark': '\u0921\u093E\u0930\u094D\u0915',
       'theme.auto': '\u0911\u091F\u094B',
       'theme.toggle': '\u0925\u0940\u092E \u092C\u0926\u0932\u0947\u0902',
-      'update.available': '\u0905\u092A\u0921\u0947\u091F \u0909\u092A\u0932\u092C\u094D\u0927 \u0939\u0948',
+      'update.available':
+        '\u0905\u092A\u0921\u0947\u091F \u0909\u092A\u0932\u092C\u094D\u0927 \u0939\u0948',
       'update.refresh': '\u0930\u093F\u092B\u093C\u094D\u0930\u0947\u0936',
       'update.whatsNew': '\u0928\u092F\u093E \u0915\u094D\u092F\u093E \u0939\u0948',
       'update.close': '\u092C\u0902\u0926 \u0915\u0930\u0947\u0902',
-      'status.loading': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0932\u094B\u0921 \u0939\u094B \u0930\u0939\u0947 \u0939\u0948\u0902\u2026',
-      'status.loaded': '{n} \u0938\u094D\u091F\u0947\u0936\u0928 \u0932\u094B\u0921 \u0939\u0941\u090F',
+      'status.loading':
+        '\u0938\u094D\u091F\u0947\u0936\u0928 \u0932\u094B\u0921 \u0939\u094B \u0930\u0939\u0947 \u0939\u0948\u0902\u2026',
+      'status.loaded':
+        '{n} \u0938\u094D\u091F\u0947\u0936\u0928 \u0932\u094B\u0921 \u0939\u0941\u090F',
       'status.playing': '{name} \u091A\u0932 \u0930\u0939\u093E \u0939\u0948',
-      'status.playingCast': '{name} \u0915\u093E\u0938\u094D\u091F \u0939\u094B \u0930\u0939\u093E \u0939\u0948',
+      'status.playingCast':
+        '{name} \u0915\u093E\u0938\u094D\u091F \u0939\u094B \u0930\u0939\u093E \u0939\u0948',
       'status.casting': '\u0915\u093E\u0938\u094D\u091F\u093F\u0902\u0917',
-      'status.noCastSession': '\u0915\u094B\u0908 \u0915\u093E\u0938\u094D\u091F \u0938\u0947\u0936\u0928 \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902',
-      'status.castBlocked': '\u0907\u0938 HLS \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0915\u0947 \u0932\u093F\u090F \u0915\u093E\u0938\u094D\u091F \u092C\u094D\u0932\u0949\u0915 \u0939\u0948. HLS_PROXY_URL \u0938\u0947\u091F \u0915\u0930\u0947\u0902.',
-      'status.castError': '\u0915\u093E\u0938\u094D\u091F \u0924\u094D\u0930\u0941\u091F\u093F: {error}',
-      'status.appInstalled': '\u0910\u092A \u0907\u0902\u0938\u094D\u091F\u093E\u0932 \u0939\u094B \u0917\u092F\u093E',
+      'status.noCastSession':
+        '\u0915\u094B\u0908 \u0915\u093E\u0938\u094D\u091F \u0938\u0947\u0936\u0928 \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902',
+      'status.castBlocked':
+        '\u0907\u0938 HLS \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0915\u0947 \u0932\u093F\u090F \u0915\u093E\u0938\u094D\u091F \u092C\u094D\u0932\u0949\u0915 \u0939\u0948. HLS_PROXY_URL \u0938\u0947\u091F \u0915\u0930\u0947\u0902.',
+      'status.castError':
+        '\u0915\u093E\u0938\u094D\u091F \u0924\u094D\u0930\u0941\u091F\u093F: {error}',
+      'status.appInstalled':
+        '\u0910\u092A \u0907\u0902\u0938\u094D\u091F\u093E\u0932 \u0939\u094B \u0917\u092F\u093E',
       'player.unknownLanguage': '\u0905\u091C\u094D\u091E\u093E\u0924 \u092D\u093E\u0937\u093E',
       'player.stream': '\u0938\u094D\u091F\u094D\u0930\u0940\u092E',
       'share.text': 'OpenRadio-IN \u092A\u0930 {name} \u0938\u0941\u0928\u0947\u0902',
-      'status.resumed': '\u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u092B\u093F\u0930 \u0936\u0941\u0930\u0942 \u0939\u0941\u0906',
-      'status.noStream': '\u0915\u094B\u0908 \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902',
-      'status.hlsUnsupported': '\u0907\u0938 \u092C\u094D\u0930\u093E\u0909\u091C\u093C\u0930 \u092E\u0947\u0902 HLS \u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0938\u092E\u0930\u094D\u0925\u093F\u0924 \u0928\u0939\u0940\u0902 \u0939\u0948',
-      'status.loadingHls': 'HLS \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0932\u094B\u0921 \u0939\u094B \u0930\u0939\u0940 \u0939\u0948\u2026',
-      'status.loadFailed': '\u092F\u0939 \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0932\u094B\u0921 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u0940',
-      'status.tryingBackup': '\u092E\u0941\u0916\u094D\u092F \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0935\u093F\u092B\u0932 \u0939\u0941\u0908 \u2014 \u092C\u0948\u0915\u0905\u092A \u0915\u0940 \u0915\u094B\u0936\u093F\u0936 \u0915\u0940 \u091C\u093E \u0930\u0939\u0940 \u0939\u0948\u2026',
-      'status.playFailed': '\u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0936\u0941\u0930\u0942 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u093E',
-      'status.streamFailed': '\u092F\u0939 \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0936\u0941\u0930\u0942 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u0940',
-      'status.ended': '\u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0938\u092E\u093E\u092A\u094D\u0924',
-      'status.error': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0921\u0947\u091F\u093E \u0932\u094B\u0921 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u093E',
-      'status.dataUnavailable': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0921\u0947\u091F\u093E \u0905\u092D\u0940 \u0905\u0928\u0941\u092A\u0932\u092C\u094D\u0927 \u0939\u0948\u0964',
-      'status.emptyData': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0921\u0947\u091F\u093E\u092C\u0947\u0938 \u0932\u094B\u0921 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u0940\u0964 \u0915\u0943\u092A\u092F\u093E \u092B\u093F\u0930 \u0938\u0947 \u0915\u094B\u0936\u093F\u0936 \u0915\u0930\u0947\u0902\u0964',
-      'status.emptyList': '\u0907\u0938 \u0916\u094B\u091C \u0938\u0947 \u0915\u094B\u0908 \u0938\u094D\u091F\u0947\u0936\u0928 \u092E\u0947\u0932 \u0928\u0939\u0940\u0902 \u0916\u093E\u0924\u093E\u0964',
-      'status.sleeptimerStopped': '\u0938\u094D\u0932\u0940\u092A \u091F\u093E\u0907\u092E\u0930: \u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0930\u094B\u0915 \u0939\u0941\u0906',
+      'status.resumed':
+        '\u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u092B\u093F\u0930 \u0936\u0941\u0930\u0942 \u0939\u0941\u0906',
+      'status.noStream':
+        '\u0915\u094B\u0908 \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902',
+      'status.hlsUnsupported':
+        '\u0907\u0938 \u092C\u094D\u0930\u093E\u0909\u091C\u093C\u0930 \u092E\u0947\u0902 HLS \u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0938\u092E\u0930\u094D\u0925\u093F\u0924 \u0928\u0939\u0940\u0902 \u0939\u0948',
+      'status.loadingHls':
+        'HLS \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0932\u094B\u0921 \u0939\u094B \u0930\u0939\u0940 \u0939\u0948\u2026',
+      'status.loadFailed':
+        '\u092F\u0939 \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0932\u094B\u0921 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u0940',
+      'status.tryingBackup':
+        '\u092E\u0941\u0916\u094D\u092F \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0935\u093F\u092B\u0932 \u0939\u0941\u0908 \u2014 \u092C\u0948\u0915\u0905\u092A \u0915\u0940 \u0915\u094B\u0936\u093F\u0936 \u0915\u0940 \u091C\u093E \u0930\u0939\u0940 \u0939\u0948\u2026',
+      'status.playFailed':
+        '\u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0936\u0941\u0930\u0942 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u093E',
+      'status.streamFailed':
+        '\u092F\u0939 \u0938\u094D\u091F\u094D\u0930\u0940\u092E \u0936\u0941\u0930\u0942 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u0940',
+      'status.ended':
+        '\u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0938\u092E\u093E\u092A\u094D\u0924',
+      'status.error':
+        '\u0938\u094D\u091F\u0947\u0936\u0928 \u0921\u0947\u091F\u093E \u0932\u094B\u0921 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u093E',
+      'status.dataUnavailable':
+        '\u0938\u094D\u091F\u0947\u0936\u0928 \u0921\u0947\u091F\u093E \u0905\u092D\u0940 \u0905\u0928\u0941\u092A\u0932\u092C\u094D\u0927 \u0939\u0948\u0964',
+      'status.emptyData':
+        '\u0938\u094D\u091F\u0947\u0936\u0928 \u0921\u0947\u091F\u093E\u092C\u0947\u0938 \u0932\u094B\u0921 \u0928\u0939\u0940\u0902 \u0939\u094B \u0938\u0915\u0940\u0964 \u0915\u0943\u092A\u092F\u093E \u092B\u093F\u0930 \u0938\u0947 \u0915\u094B\u0936\u093F\u0936 \u0915\u0930\u0947\u0902\u0964',
+      'status.emptyList':
+        '\u0907\u0938 \u0916\u094B\u091C \u0938\u0947 \u0915\u094B\u0908 \u0938\u094D\u091F\u0947\u0936\u0928 \u092E\u0947\u0932 \u0928\u0939\u0940\u0902 \u0916\u093E\u0924\u093E\u0964',
+      'status.sleeptimerStopped':
+        '\u0938\u094D\u0932\u0940\u092A \u091F\u093E\u0907\u092E\u0930: \u092A\u094D\u0932\u0947\u092C\u0948\u0915 \u0930\u094B\u0915 \u0939\u0941\u0906',
       'status.copied': '\u0932\u093F\u0902\u0915 \u0915\u0949\u092A\u0940 \u0939\u0941\u0906!',
-      'results.shown.one': '1 \u0938\u094D\u091F\u0947\u0936\u0928 \u0926\u093F\u0916\u093E\u092F\u093E \u0917\u092F\u093E',
-      'results.shown.many': '{n} \u0938\u094D\u091F\u0947\u0936\u0928 \u0926\u093F\u0916\u093E\u090F \u091C\u093E \u0930\u0939\u0947 \u0939\u0948\u0902',
-      'verified': '\u0938\u0924\u094D\u092F\u093E\u092A\u093F\u0924',
-      'community': '\u0915\u092E\u094D\u092F\u0942\u0928\u093F\u091F\u0940',
+      'results.shown.one':
+        '1 \u0938\u094D\u091F\u0947\u0936\u0928 \u0926\u093F\u0916\u093E\u092F\u093E \u0917\u092F\u093E',
+      'results.shown.many':
+        '{n} \u0938\u094D\u091F\u0947\u0936\u0928 \u0926\u093F\u0916\u093E\u090F \u091C\u093E \u0930\u0939\u0947 \u0939\u0948\u0902',
+      verified: '\u0938\u0924\u094D\u092F\u093E\u092A\u093F\u0924',
+      community: '\u0915\u092E\u094D\u092F\u0942\u0928\u093F\u091F\u0940',
       'status.online': '\u0911\u0928\u0932\u093E\u0907\u0928',
       'status.offline': '\u0911\u092B\u093C\u0932\u093E\u0907\u0928',
       'status.unknown': '\u0938\u094D\u0925\u093F\u0924\u093F \u0905\u091C\u094D\u091E\u093E\u0924',
       'alarm.timeLabel': '\u0938\u092E\u092F',
       'alarm.stationLabel': '\u0938\u094D\u091F\u0947\u0936\u0928',
-      'alarm.set': '\u0905\u0932\u093E\u0930\u094D\u092E \u0938\u0947\u091F \u0915\u0930\u0947\u0902',
+      'alarm.set':
+        '\u0905\u0932\u093E\u0930\u094D\u092E \u0938\u0947\u091F \u0915\u0930\u0947\u0902',
       'alarm.off': '\u092C\u0902\u0926 \u0915\u0930\u0947\u0902',
       'alarm.status': '{time} \u092A\u0930 \u0905\u0932\u093E\u0930\u094D\u092E',
-      'alarm.fired': '\u091C\u093E\u0917\u094B \u2014 {name} \u091A\u0932 \u0930\u0939\u093E \u0939\u0948',
+      'alarm.fired':
+        '\u091C\u093E\u0917\u094B \u2014 {name} \u091A\u0932 \u0930\u0939\u093E \u0939\u0948',
       'np.close': '\u092C\u0902\u0926 \u0915\u0930\u0947\u0902',
       'volume.label': '\u0935\u0949\u0932\u094D\u092F\u0942\u092E',
-      'controls.collapse': '\u0905\u0928\u0941\u092D\u093E\u0917 \u0938\u0902\u0915\u094D\u0937\u093F\u092A\u094D\u0924 \u0915\u0930\u0947\u0902',
-      'np.share.title': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0938\u093E\u091D\u093E \u0915\u0930\u0947\u0902',
+      'controls.collapse':
+        '\u0905\u0928\u0941\u092D\u093E\u0917 \u0938\u0902\u0915\u094D\u0937\u093F\u092A\u094D\u0924 \u0915\u0930\u0947\u0902',
+      'np.share.title':
+        '\u0938\u094D\u091F\u0947\u0936\u0928 \u0938\u093E\u091D\u093E \u0915\u0930\u0947\u0902',
       'np.timer.title': '\u0938\u094D\u0932\u0940\u092A \u091F\u093E\u0907\u092E\u0930',
-      'np.favorite.title': '\u092A\u0938\u0902\u0926\u0940\u0926\u093E \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u0947\u0902',
+      'np.favorite.title':
+        '\u092A\u0938\u0902\u0926\u0940\u0926\u093E \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u0947\u0902',
       'np.alarm.title': '\u0905\u0932\u093E\u0930\u094D\u092E',
-      'player.open': '\u0905\u092D\u0940 \u091A\u0932 \u0930\u0939\u093E \u0926\u0943\u0936\u094D\u092F \u0916\u094B\u0932\u0947\u0902',
-      'hint.tapFooter': '\u004E\u006F\u0077\u0020\u0050\u006C\u0061\u0079\u0069\u006E\u0067\u0020\u0916\u094B\u0932\u0928\u0947\u0020\u0915\u0947\u0020\u0932\u093F\u090F\u0020\u0928\u0940\u091A\u0947\u0020\u092A\u094D\u0932\u0947\u092F\u0930\u0020\u092C\u093E\u0930\u0020\u092A\u0930\u0020\u091F\u0948\u092A\u0020\u0915\u0930\u0947\u0902',
-      'hint.dismiss': '\u0938\u0902\u0915\u0947\u0924\u0020\u092C\u0902\u0926\u0020\u0915\u0930\u0947\u0902',
-      'cast.launch': 'Google Cast \u0921\u093F\u0935\u093E\u0907\u0938 \u092A\u0930 \u0930\u0947\u0921\u093F\u092F\u094B \u0915\u093E\u0938\u094D\u091F \u0915\u0930\u0947\u0902',
-      'filters.categories': '\u0938\u094D\u091F\u0947\u0936\u0928 \u0936\u094D\u0930\u0947\u0923\u093F\u092F\u093E\u0901',
-      'filter.byLanguage': '\u092D\u093E\u0937\u093E \u0915\u0947 \u0905\u0928\u0941\u0938\u093E\u0930 \u092B\u093C\u093F\u0932\u094D\u091F\u0930 \u0915\u0930\u0947\u0902',
+      'player.open':
+        '\u0905\u092D\u0940 \u091A\u0932 \u0930\u0939\u093E \u0926\u0943\u0936\u094D\u092F \u0916\u094B\u0932\u0947\u0902',
+      'hint.tapFooter':
+        '\u004E\u006F\u0077\u0020\u0050\u006C\u0061\u0079\u0069\u006E\u0067\u0020\u0916\u094B\u0932\u0928\u0947\u0020\u0915\u0947\u0020\u0932\u093F\u090F\u0020\u0928\u0940\u091A\u0947\u0020\u092A\u094D\u0932\u0947\u092F\u0930\u0020\u092C\u093E\u0930\u0020\u092A\u0930\u0020\u091F\u0948\u092A\u0020\u0915\u0930\u0947\u0902',
+      'hint.dismiss':
+        '\u0938\u0902\u0915\u0947\u0924\u0020\u092C\u0902\u0926\u0020\u0915\u0930\u0947\u0902',
+      'cast.launch':
+        'Google Cast \u0921\u093F\u0935\u093E\u0907\u0938 \u092A\u0930 \u0930\u0947\u0921\u093F\u092F\u094B \u0915\u093E\u0938\u094D\u091F \u0915\u0930\u0947\u0902',
+      'filters.categories':
+        '\u0938\u094D\u091F\u0947\u0936\u0928 \u0936\u094D\u0930\u0947\u0923\u093F\u092F\u093E\u0901',
+      'filter.byLanguage':
+        '\u092D\u093E\u0937\u093E \u0915\u0947 \u0905\u0928\u0941\u0938\u093E\u0930 \u092B\u093C\u093F\u0932\u094D\u091F\u0930 \u0915\u0930\u0947\u0902',
       'timer.min15': '15 \u092E\u093F\u0928\u091F',
       'timer.min30': '30 \u092E\u093F\u0928\u091F',
       'timer.min60': '60 \u092E\u093F\u0928\u091F',
@@ -368,9 +467,11 @@
       'lang.Telugu': '\u0924\u0947\u0932\u0941\u0917\u0941',
       'lang.Tulu': '\u0924\u0941\u0932\u0941',
       'lang.Urdu': '\u0909\u0930\u094D\u0926\u0942',
-      'toast.addedFavorite': '{name} \u092B\u0947\u0935\u0930\u0947\u091F \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u093E',
-      'toast.removedFavorite': '{name} \u092B\u0947\u0935\u0930\u0947\u091F \u0938\u0947 \u0939\u091F\u093E\u092F\u093E'
-    }
+      'toast.addedFavorite':
+        '{name} \u092B\u0947\u0935\u0930\u0947\u091F \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u093E',
+      'toast.removedFavorite':
+        '{name} \u092B\u0947\u0935\u0930\u0947\u091F \u0938\u0947 \u0939\u091F\u093E\u092F\u093E',
+    },
   };
   let uiLang = localStorage.getItem('openradio-ui-lang') || 'en';
 
@@ -450,7 +551,7 @@
     metadataIntervalId: null,
     epgPrograms: null,
     epgDate: null,
-    epgRefreshIntervalId: null
+    epgRefreshIntervalId: null,
   };
 
   const elements = {
@@ -510,7 +611,7 @@
     alarmOff: document.getElementById('alarm-off'),
     alarmStatus: document.getElementById('alarm-status'),
     firstHint: document.getElementById('first-hint'),
-    firstHintDismiss: document.getElementById('first-hint-dismiss')
+    firstHintDismiss: document.getElementById('first-hint-dismiss'),
   };
   let installPrompt;
   let castContext;
@@ -548,7 +649,10 @@
 
   function debounce(fn, ms) {
     let id;
-    return function (...args) { clearTimeout(id); id = setTimeout(() => fn.apply(this, args), ms); };
+    return function (...args) {
+      clearTimeout(id);
+      id = setTimeout(() => fn.apply(this, args), ms);
+    };
   }
 
   function showToast(message) {
@@ -556,7 +660,9 @@
     if (!container) return;
     const toast = makeElement('div', 'toast', message);
     container.appendChild(toast);
-    setTimeout(() => { toast.remove(); }, 2500);
+    setTimeout(() => {
+      toast.remove();
+    }, 2500);
   }
 
   function translateLanguages(languageField) {
@@ -569,19 +675,28 @@
   }
 
   function stationTags(station) {
-    return [...new Set([translateLanguages(station.language), ...(station.categories || []).map(translateCategory)].filter(Boolean))]
+    return [
+      ...new Set(
+        [
+          translateLanguages(station.language),
+          ...(station.categories || []).map(translateCategory),
+        ].filter(Boolean)
+      ),
+    ]
       .slice(0, 3)
       .join(' \u2022 ');
   }
 
   function hasCategory(station, category) {
     if (category === 'all') return true;
-    return [station.language, ...(station.categories || [])]
-      .some((value) => String(value).toLowerCase() === category.toLowerCase());
+    return [station.language, ...(station.categories || [])].some(
+      (value) => String(value).toLowerCase() === category.toLowerCase()
+    );
   }
 
   function stationMatches(station) {
-    if (!station.streams || !station.streams.length || !station.streams.some((s) => s.url)) return false;
+    if (!station.streams || !station.streams.length || !station.streams.some((s) => s.url))
+      return false;
     const query = state.search.trim().toLowerCase();
     const searchable = [
       station.name,
@@ -591,7 +706,7 @@
       station.state,
       station.city,
       ...(station.categories || []),
-      ...(station.categories || []).map(translateCategory)
+      ...(station.categories || []).map(translateCategory),
     ]
       .filter(Boolean)
       .join(' ')
@@ -600,7 +715,8 @@
       .split(',')
       .map((language) => language.trim().toLowerCase())
       .filter(Boolean);
-    const languageOk = state.activeLanguage === 'all' || languages.includes(state.activeLanguage.toLowerCase());
+    const languageOk =
+      state.activeLanguage === 'all' || languages.includes(state.activeLanguage.toLowerCase());
     return languageOk && searchable.includes(query) && hasCategory(station, state.activeCategory);
   }
 
@@ -645,7 +761,12 @@
   }
 
   function updateVolumeIcon() {
-    const icon = state.muted || state.volume === 0 ? '\u{1F507}' : state.volume < 0.5 ? '\u{1F509}' : '\u{1F50A}';
+    const icon =
+      state.muted || state.volume === 0
+        ? '\u{1F507}'
+        : state.volume < 0.5
+          ? '\u{1F509}'
+          : '\u{1F50A}';
     elements.volumeBtn.textContent = icon;
     elements.npVolumeBtn.textContent = icon;
   }
@@ -708,15 +829,23 @@
       title,
       artist,
       album: songAlbum || '',
-      artwork: artSrc ? [{ src: artSrc, sizes: '512x512' }] : []
+      artwork: artSrc ? [{ src: artSrc, sizes: '512x512' }] : [],
     });
-    navigator.mediaSession.playbackState = state.playing ? 'playing' : (state.paused ? 'paused' : 'none');
+    navigator.mediaSession.playbackState = state.playing
+      ? 'playing'
+      : state.paused
+        ? 'paused'
+        : 'none';
   }
 
   /* ---------- Collapse Sections ---------- */
 
   function getCollapsedSections() {
-    try { return JSON.parse(localStorage.getItem('openradio-collapsed') || '[]'); } catch { return []; }
+    try {
+      return JSON.parse(localStorage.getItem('openradio-collapsed') || '[]');
+    } catch {
+      return [];
+    }
   }
 
   function saveCollapsedSections(sections) {
@@ -752,7 +881,10 @@
     const station = state.currentStation;
     const art = state.nowPlayingArt || station?.logo || '';
     if (elements.nowPlayingLogo.src === art && art !== '') return;
-    elements.nowPlayingLogo.onload = () => { artFallbackActive = false; syncPlayerArt(); };
+    elements.nowPlayingLogo.onload = () => {
+      artFallbackActive = false;
+      syncPlayerArt();
+    };
     elements.nowPlayingLogo.onerror = () => {
       if (artFallbackActive) {
         elements.nowPlayingLogo.hidden = true;
@@ -791,9 +923,16 @@
 
   function updatePlayer() {
     const station = state.currentStation;
-    const list = state.currentSource === 'favorites'
-      ? state.stations.filter((s) => state.favorites.has(s.id) && s.streams && s.streams.length && s.streams.some((st) => st.url))
-      : state.filteredStations;
+    const list =
+      state.currentSource === 'favorites'
+        ? state.stations.filter(
+            (s) =>
+              state.favorites.has(s.id) &&
+              s.streams &&
+              s.streams.length &&
+              s.streams.some((st) => st.url)
+          )
+        : state.filteredStations;
     const hasMultiple = list.length > 1;
 
     if (!station) {
@@ -820,7 +959,9 @@
       return;
     }
 
-    const destination = isCasting() ? t('status.casting') : (station.streams?.[0]?.codec || t('player.stream'));
+    const destination = isCasting()
+      ? t('status.casting')
+      : station.streams?.[0]?.codec || t('player.stream');
     const languageLabel = station.language || t('player.unknownLanguage');
     elements.playerTitle.textContent = localizedName(station);
     elements.playerMeta.textContent = `${languageLabel} \u2022 ${destination}`;
@@ -841,10 +982,18 @@
     const isPlaying = state.playing || (!!elements.audio.src && !elements.audio.paused);
     const isPaused = state.paused && !isPlaying;
     elements.playToggle.disabled = false;
-    elements.playToggle.textContent = isPlaying ? '\u23f8 ' + t('controls.pause') : (isPaused ? '\u25b6 ' + t('controls.resume') : '\u25b6 ' + t('controls.play'));
+    elements.playToggle.textContent = isPlaying
+      ? '\u23f8 ' + t('controls.pause')
+      : isPaused
+        ? '\u25b6 ' + t('controls.resume')
+        : '\u25b6 ' + t('controls.play');
     elements.stopBtn.disabled = false;
     elements.npPlayToggle.disabled = false;
-    elements.npPlayToggle.textContent = isPlaying ? '\u23f8 ' + t('controls.pause') : (isPaused ? '\u25b6 ' + t('controls.resume') : '\u25b6 ' + t('controls.play'));
+    elements.npPlayToggle.textContent = isPlaying
+      ? '\u23f8 ' + t('controls.pause')
+      : isPaused
+        ? '\u25b6 ' + t('controls.resume')
+        : '\u25b6 ' + t('controls.play');
     elements.npStopBtn.disabled = false;
     updateNowPlayingFavorite();
     renderEpg();
@@ -882,7 +1031,12 @@
 
   function addRecentStation(station) {
     state.recentStations = state.recentStations.filter((s) => s.id !== station.id);
-    state.recentStations.unshift({ id: station.id, name: station.name, language: station.language, categories: station.categories });
+    state.recentStations.unshift({
+      id: station.id,
+      name: station.name,
+      language: station.language,
+      categories: station.categories,
+    });
     if (state.recentStations.length > RECENT_MAX) state.recentStations.pop();
     localStorage.setItem('openradio-recent', JSON.stringify(state.recentStations));
     renderRecent();
@@ -906,7 +1060,10 @@
     const card = makeElement('article', `station-card${featured ? ' featured-card' : ''}`);
     const top = makeElement('div', 'station-card__top');
 
-    const initials = (station.name.match(/\b\w/g) || []).slice(0, 2).join('').toUpperCase() || station.name[0] || '?';
+    const initials =
+      (station.name.match(/\b\w/g) || []).slice(0, 2).join('').toUpperCase() ||
+      station.name[0] ||
+      '?';
     const thumb = makeElement('img', 'station-thumb');
     thumb.loading = 'lazy';
     thumb.alt = localizedName(station);
@@ -918,18 +1075,28 @@
     } else {
       thumb.style.display = 'none';
     }
-    thumb.addEventListener('error', () => { thumb.style.display = 'none'; thumbFallback.hidden = false; });
+    thumb.addEventListener('error', () => {
+      thumb.style.display = 'none';
+      thumbFallback.hidden = false;
+    });
 
     const titleBlock = document.createElement('div');
     titleBlock.className = 'station-card__title';
-    titleBlock.append(makeElement('h3', '', localizedName(station)), makeElement('p', '', stationTags(station)));
+    titleBlock.append(
+      makeElement('h3', '', localizedName(station)),
+      makeElement('p', '', stationTags(station))
+    );
 
     const status = station.status || 'unknown';
     const dot = makeElement('span', `status-dot status-dot--${status}`, '');
     dot.title = t(`status.${status}`);
     dot.setAttribute('aria-label', t(`status.${status}`));
 
-    const favorite = makeElement('button', `icon-btn${state.favorites.has(station.id) ? ' active' : ''}`, state.favorites.has(station.id) ? '\u2665' : '\u2661');
+    const favorite = makeElement(
+      'button',
+      `icon-btn${state.favorites.has(station.id) ? ' active' : ''}`,
+      state.favorites.has(station.id) ? '\u2665' : '\u2661'
+    );
     favorite.type = 'button';
     favorite.dataset.action = 'favorite';
     favorite.dataset.id = station.id;
@@ -937,13 +1104,31 @@
     top.append(thumb, thumbFallback, titleBlock, dot, favorite);
 
     const badges = makeElement('div', 'station-badges');
-    (station.categories || []).filter(Boolean).slice(0, featured ? 3 : 4).forEach((category) => badges.append(makeElement('span', '', translateCategory(category))));
+    (station.categories || [])
+      .filter(Boolean)
+      .slice(0, featured ? 3 : 4)
+      .forEach((category) => badges.append(makeElement('span', '', translateCategory(category))));
 
     const footer = makeElement('div', 'station-card__footer');
-    footer.append(makeElement('span', '', featured ? (station.verified ? t('verified') : t('community')) : (station.country || t('player.stream'))));
-    const playLabel = state.currentStation?.id === station.id
-      ? (state.playing ? t('controls.pause') : (state.paused ? t('controls.resume') : t('controls.play')))
-      : t('controls.play');
+    footer.append(
+      makeElement(
+        'span',
+        '',
+        featured
+          ? station.verified
+            ? t('verified')
+            : t('community')
+          : station.country || t('player.stream')
+      )
+    );
+    const playLabel =
+      state.currentStation?.id === station.id
+        ? state.playing
+          ? t('controls.pause')
+          : state.paused
+            ? t('controls.resume')
+            : t('controls.play')
+        : t('controls.play');
     const play = makeElement('button', 'secondary-btn', playLabel);
     play.type = 'button';
     play.dataset.action = 'play';
@@ -955,31 +1140,56 @@
   }
 
   function renderFilters() {
-    const categories = ['all', ...new Set(state.stations.flatMap((station) => station.categories || []))]
+    const categories = [
+      'all',
+      ...new Set(state.stations.flatMap((station) => station.categories || [])),
+    ]
       .filter(Boolean)
       .filter((category) => category === 'all' || String(category).toLowerCase() !== 'all')
       .sort((first, second) => String(first).localeCompare(String(second)));
-    const availableCategories = new Set(categories.map((category) => String(category).toLowerCase()));
+    const availableCategories = new Set(
+      categories.map((category) => String(category).toLowerCase())
+    );
     availableCategories.add('all');
-    if (state.stations.length && !availableCategories.has(String(state.activeCategory).toLowerCase())) state.activeCategory = 'all';
-    elements.filters.replaceChildren(...categories.map((category) => {
-      const button = makeElement('button', `pill${state.activeCategory.toLowerCase() === String(category).toLowerCase() ? ' active' : ''}`, category === 'all' ? t('filter.all') : translateCategory(category));
-      button.type = 'button';
-      button.dataset.category = category;
-      return button;
-    }));
+    if (
+      state.stations.length &&
+      !availableCategories.has(String(state.activeCategory).toLowerCase())
+    )
+      state.activeCategory = 'all';
+    elements.filters.replaceChildren(
+      ...categories.map((category) => {
+        const button = makeElement(
+          'button',
+          `pill${state.activeCategory.toLowerCase() === String(category).toLowerCase() ? ' active' : ''}`,
+          category === 'all' ? t('filter.all') : translateCategory(category)
+        );
+        button.type = 'button';
+        button.dataset.category = category;
+        return button;
+      })
+    );
     renderLanguageOptions();
   }
 
   function renderLanguageOptions() {
-    const languages = [...new Set(
-      state.stations
-        .map((station) => String(station.language || ''))
-        .flatMap((languages) => languages.split(',').map((language) => language.trim()).filter(Boolean))
-    )]
-      .sort((first, second) => String(first).localeCompare(String(second)));
+    const languages = [
+      ...new Set(
+        state.stations
+          .map((station) => String(station.language || ''))
+          .flatMap((languages) =>
+            languages
+              .split(',')
+              .map((language) => language.trim())
+              .filter(Boolean)
+          )
+      ),
+    ].sort((first, second) => String(first).localeCompare(String(second)));
     const availableLanguages = new Set(languages.map((language) => String(language).toLowerCase()));
-    if (state.stations.length && !availableLanguages.has(String(state.activeLanguage).toLowerCase())) state.activeLanguage = 'all';
+    if (
+      state.stations.length &&
+      !availableLanguages.has(String(state.activeLanguage).toLowerCase())
+    )
+      state.activeLanguage = 'all';
     const allOption = makeElement('option', '', t('filter.allLanguages'));
     allOption.value = 'all';
     elements.languageSelect.replaceChildren(
@@ -994,14 +1204,23 @@
   }
 
   function renderStationLists() {
-    const favoriteStations = state.stations.filter((s) => state.favorites.has(s.id) && s.streams && s.streams.length && s.streams.some((st) => st.url));
+    const favoriteStations = state.stations.filter(
+      (s) =>
+        state.favorites.has(s.id) && s.streams && s.streams.length && s.streams.some((st) => st.url)
+    );
     if (favoriteStations.length) {
       elements.favoritesSection.hidden = false;
-      elements.featured.replaceChildren(...favoriteStations.map((station) => createStationCard(station, true)));
+      elements.featured.replaceChildren(
+        ...favoriteStations.map((station) => createStationCard(station, true))
+      );
     } else {
       elements.favoritesSection.hidden = true;
     }
-    elements.stations.replaceChildren(...(state.filteredStations.length ? state.filteredStations.map((station) => createStationCard(station, false)) : [makeElement('div', 'empty-state', t('status.emptyList'))]));
+    elements.stations.replaceChildren(
+      ...(state.filteredStations.length
+        ? state.filteredStations.map((station) => createStationCard(station, false))
+        : [makeElement('div', 'empty-state', t('status.emptyList'))])
+    );
     renderRecent();
   }
 
@@ -1019,18 +1238,27 @@
       if (playBtn) {
         const isCurrentStation = state.currentStation?.id === id;
         playBtn.textContent = isCurrentStation
-          ? (state.playing ? t('controls.pause') : (state.paused ? t('controls.resume') : t('controls.play')))
+          ? state.playing
+            ? t('controls.pause')
+            : state.paused
+              ? t('controls.resume')
+              : t('controls.play')
           : t('controls.play');
       }
     });
   }
 
   function applyFilters() {
-    state.filteredStations = state.stations.filter(stationMatches).sort((first, second) => String(first.name).localeCompare(String(second.name)));
+    state.filteredStations = state.stations
+      .filter(stationMatches)
+      .sort((first, second) => String(first.name).localeCompare(String(second.name)));
     renderFilters();
     renderStationLists();
     const count = state.filteredStations.length;
-    elements.resultsCount.textContent = t(count === 1 ? 'results.shown.one' : 'results.shown.many', { n: count });
+    elements.resultsCount.textContent = t(
+      count === 1 ? 'results.shown.one' : 'results.shown.many',
+      { n: count }
+    );
   }
 
   function saveFavorites() {
@@ -1045,22 +1273,32 @@
   /* ---------- Cast ---------- */
 
   function isCasting() {
-    return Boolean(castContext && window.cast && castContext.getCastState() === cast.framework.CastState.CONNECTED);
+    return Boolean(
+      castContext &&
+      window.cast &&
+      castContext.getCastState() === cast.framework.CastState.CONNECTED
+    );
   }
 
   function streamContentType(stream) {
     const codec = String(stream.codec || '').toLowerCase();
-    if (codec === 'hls' || String(stream.url || '').includes('.m3u8')) return 'application/vnd.apple.mpegurl';
+    if (codec === 'hls' || String(stream.url || '').includes('.m3u8'))
+      return 'application/vnd.apple.mpegurl';
     if (codec === 'aac') return 'audio/aac';
     if (codec === 'ogg') return 'audio/ogg';
     return 'audio/mpeg';
   }
 
   function normalizeCastContentType(contentType, streamUrl) {
-    if (window.OpenRadioCast && typeof window.OpenRadioCast.normalizeCastContentType === 'function') {
+    if (
+      window.OpenRadioCast &&
+      typeof window.OpenRadioCast.normalizeCastContentType === 'function'
+    ) {
       return window.OpenRadioCast.normalizeCastContentType(contentType, streamUrl);
     }
-    const ct = String(contentType || '').trim().toLowerCase();
+    const ct = String(contentType || '')
+      .trim()
+      .toLowerCase();
     if (ct.includes('mpegurl')) return 'application/vnd.apple.mpegurl';
     if (ct === 'audio/mpeg' || ct === 'audio/mp3') return 'audio/mpeg';
     if (ct === 'audio/aac' || ct === 'audio/aacp') return 'audio/aac';
@@ -1075,7 +1313,10 @@
   }
 
   function isHlsStream(stream) {
-    return String(stream.codec || '').toLowerCase() === 'hls' || String(stream.url || '').includes('.m3u8');
+    return (
+      String(stream.codec || '').toLowerCase() === 'hls' ||
+      String(stream.url || '').includes('.m3u8')
+    );
   }
 
   function secureStreamUrl(stream) {
@@ -1113,7 +1354,9 @@
         el.removeEventListener('error', onError);
         resolve(ok);
       };
-      const onPlaying = () => { if (state.playGeneration === generation && !state.userInitiatedStop) finish(true); };
+      const onPlaying = () => {
+        if (state.playGeneration === generation && !state.userInitiatedStop) finish(true);
+      };
       const onError = () => finish(false);
       const timer = setTimeout(() => finish(false), 10000);
       el.addEventListener('playing', onPlaying);
@@ -1129,7 +1372,10 @@
     // not enough to know whether playback is actually alive.
     return new Promise((resolve) => {
       const el = elements.audio;
-      if (el.paused || el.readyState < 2) { resolve(false); return; }
+      if (el.paused || el.readyState < 2) {
+        resolve(false);
+        return;
+      }
       const start = el.currentTime;
       setTimeout(() => {
         resolve(!el.paused && el.currentTime > start + 0.05);
@@ -1150,7 +1396,9 @@
         if (!response.ok || !response.body) return 'error';
         const reader = response.body.getReader();
         return reader.read().then(({ value }) => {
-          try { reader.cancel(); } catch {}
+          try {
+            reader.cancel();
+          } catch {}
           if (!value) return 'error';
           const head = new TextDecoder().decode(value.slice(0, 64));
           return head.trimStart().startsWith('#EXT') ? 'playlist' : 'ok';
@@ -1193,9 +1441,11 @@
   async function backgroundWatchdogTick() {
     state.backgroundWatchdogId = null;
     if (!document.hidden) return;
-    if (!state.currentStation || state.userInitiatedStop || state.paused || state.pauseIntent) return;
+    if (!state.currentStation || state.userInitiatedStop || state.paused || state.pauseIntent)
+      return;
     if (isCasting() || state.castSessionLost) return;
-    if (state.hls || state.streamSwitching || state.nativeProbing || state.backgroundMigration) return;
+    if (state.hls || state.streamSwitching || state.nativeProbing || state.backgroundMigration)
+      return;
     if (await probeMediaProgress()) {
       startBackgroundWatchdog();
       return;
@@ -1258,11 +1508,14 @@
       scheduleBackgroundMigrationRetry();
       return false;
     }
-    if (state.playGeneration !== generation || !state.hls || document.visibilityState !== 'hidden') return false;
+    if (state.playGeneration !== generation || !state.hls || document.visibilityState !== 'hidden')
+      return false;
     if (state.userInitiatedStop || state.paused || state.pauseIntent) return false;
 
     state.backgroundMigration = true;
-    try { state.hls.destroy(); } catch {}
+    try {
+      state.hls.destroy();
+    } catch {}
     state.hls = null;
     const nativeOk = await playNativeHlsStream(proxyUrl, generation);
     state.backgroundMigration = false;
@@ -1303,7 +1556,13 @@
 
   async function castStation(station) {
     if (state.castInProgress) return;
-    if (state.playing && isCasting() && state.currentStation && station && state.currentStation.id === station.id) {
+    if (
+      state.playing &&
+      isCasting() &&
+      state.currentStation &&
+      station &&
+      state.currentStation.id === station.id
+    ) {
       return;
     }
     state.castInProgress = true;
@@ -1320,7 +1579,10 @@
     const stream = streams[0];
 
     state.currentStation = station;
-    if (state.hls) { state.hls.destroy(); state.hls = null; }
+    if (state.hls) {
+      state.hls.destroy();
+      state.hls = null;
+    }
     elements.audio.pause();
     elements.audio.src = '';
 
@@ -1359,7 +1621,12 @@
     const directContentType = streamContentType(stream);
     const isHls = directContentType === 'application/vnd.apple.mpegurl';
     const candidates = [{ url: stream.url, contentType: directContentType }];
-    if (!isHls && HLS_PROXY_URL && /^http:\/\//i.test(stream.url) && location.protocol === 'https:') {
+    if (
+      !isHls &&
+      HLS_PROXY_URL &&
+      /^http:\/\//i.test(stream.url) &&
+      location.protocol === 'https:'
+    ) {
       // Mixed-content rule blocks plain-HTTP streams from HTTPS pages; relay
       // them through the HTTPS proxy instead of playing the receiver directly.
       candidates.unshift({ url: secureStreamUrl(stream), contentType: directContentType });
@@ -1368,27 +1635,39 @@
       const hlsSegmentFormats = ['ts_aac', 'ts_he_aac', 'ts', 'aac', 'mp3'];
       let resolvedUrl = stream.url;
       try {
-        const redirectResponse = await fetch(stream.url, { redirect: 'follow', signal: AbortSignal.timeout(10000) });
+        const redirectResponse = await fetch(stream.url, {
+          redirect: 'follow',
+          signal: AbortSignal.timeout(10000),
+        });
         if (redirectResponse.ok && redirectResponse.url && redirectResponse.url !== stream.url) {
           resolvedUrl = redirectResponse.url;
         }
       } catch {}
       candidates.length = 0;
-      hlsSegmentFormats.forEach((fmt) => candidates.push({ url: resolvedUrl, contentType: directContentType, hlsSegmentFormat: fmt }));
+      hlsSegmentFormats.forEach((fmt) =>
+        candidates.push({ url: resolvedUrl, contentType: directContentType, hlsSegmentFormat: fmt })
+      );
       if (resolvedUrl !== stream.url) {
-        candidates.push({ url: stream.url, contentType: directContentType, hlsSegmentFormat: hlsSegmentFormats[0] });
+        candidates.push({
+          url: stream.url,
+          contentType: directContentType,
+          hlsSegmentFormat: hlsSegmentFormats[0],
+        });
       }
     }
     if (HLS_PROXY_URL && !isHls) {
       try {
         const relay = /^http:\/\//i.test(stream.url) ? '&relay=1' : '';
-        const probeResponse = await fetch(`${HLS_PROXY_URL}?probe=1${relay}&url=${encodeURIComponent(stream.url)}`, { signal: AbortSignal.timeout(10000) });
+        const probeResponse = await fetch(
+          `${HLS_PROXY_URL}?probe=1${relay}&url=${encodeURIComponent(stream.url)}`,
+          { signal: AbortSignal.timeout(10000) }
+        );
         if (probeResponse.ok) {
           const probe = await probeResponse.json();
           if (probe && probe.contentType && probe.url && probe.type !== 'relay') {
             candidates.push({
               url: `${HLS_PROXY_URL}?url=${encodeURIComponent(probe.url)}&contentType=${encodeURIComponent(probe.contentType)}`,
-              contentType: normalizeCastContentType(probe.contentType, probe.url)
+              contentType: normalizeCastContentType(probe.contentType, probe.url),
             });
           }
         }
@@ -1415,7 +1694,9 @@
         state.paused = false;
         state.castSessionLost = false;
         state.lastCastStationId = station.id;
-        try { sessionStorage.setItem('openradio-cast-station', station.id); } catch {}
+        try {
+          sessionStorage.setItem('openradio-cast-station', station.id);
+        } catch {}
         startMetadataPolling(stream.url, station);
         startCastSync();
         setStatus('status.playingCast', { name: localizedName(station) });
@@ -1430,7 +1711,9 @@
     state.playing = false;
     state.paused = false;
     state.lastCastStationId = null;
-    try { sessionStorage.removeItem('openradio-cast-station'); } catch {}
+    try {
+      sessionStorage.removeItem('openradio-cast-station');
+    } catch {}
     stopMetadataPolling();
     stopCastSync();
     setStatus('status.castError', { error: lastError || t('status.castError') });
@@ -1464,22 +1747,28 @@
       cast.framework.RemotePlayerEventType.IS_PAUSED_CHANGED,
       cast.framework.RemotePlayerEventType.IS_PLAYING_CHANGED,
       cast.framework.RemotePlayerEventType.PLAYER_STATE_CHANGED,
-      cast.framework.RemotePlayerEventType.MEDIA_INFO_CHANGED
+      cast.framework.RemotePlayerEventType.MEDIA_INFO_CHANGED,
     ];
-    events.forEach((eventType) => castPlayerController.addEventListener(eventType, syncFromCastPlayer));
+    events.forEach((eventType) =>
+      castPlayerController.addEventListener(eventType, syncFromCastPlayer)
+    );
   }
 
   async function acquireCastWakeLock() {
     if (castWakeLock || !('wakeLock' in navigator)) return;
     try {
       castWakeLock = await navigator.wakeLock.request('screen');
-      castWakeLock.addEventListener('release', () => { castWakeLock = null; });
+      castWakeLock.addEventListener('release', () => {
+        castWakeLock = null;
+      });
     } catch {}
   }
 
   function releaseCastWakeLock() {
     if (castWakeLock) {
-      try { castWakeLock.release(); } catch {}
+      try {
+        castWakeLock.release();
+      } catch {}
       castWakeLock = null;
     }
   }
@@ -1523,54 +1812,62 @@
   function initializeCast() {
     if (typeof window.cast === 'undefined' || castContext) return;
     castContext = cast.framework.CastContext.getInstance();
-    castContext.setOptions({ receiverApplicationId: CAST_RECEIVER_APP_ID, autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED });
-    castContext.addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, (event) => {
-      switch (event.castState) {
-        case cast.framework.CastState.CONNECTED:
-          state.castWasConnected = true;
-          setupCastPlayer();
-          startCastSync();
-          if (state.currentStation) {
-            if (state.playing && !state.castSessionLost) {
-              // Already playing this session; just reconcile UI from the RemotePlayer.
-              syncFromCastPlayer();
-            } else if (state.lastCastStationId === state.currentStation.id) {
-              // Re-attached to the same receiver session that is still playing —
-              // restore the UI without reloading the media on the receiver.
-              state.playing = true;
+    castContext.setOptions({
+      receiverApplicationId: CAST_RECEIVER_APP_ID,
+      autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
+    });
+    castContext.addEventListener(
+      cast.framework.CastContextEventType.CAST_STATE_CHANGED,
+      (event) => {
+        switch (event.castState) {
+          case cast.framework.CastState.CONNECTED:
+            state.castWasConnected = true;
+            setupCastPlayer();
+            startCastSync();
+            if (state.currentStation) {
+              if (state.playing && !state.castSessionLost) {
+                // Already playing this session; just reconcile UI from the RemotePlayer.
+                syncFromCastPlayer();
+              } else if (state.lastCastStationId === state.currentStation.id) {
+                // Re-attached to the same receiver session that is still playing —
+                // restore the UI without reloading the media on the receiver.
+                state.playing = true;
+                state.paused = false;
+                state.castSessionLost = false;
+                updatePlayer();
+                patchStationCardStates();
+                syncFromCastPlayer();
+              } else {
+                castStation(state.currentStation);
+              }
+            }
+            break;
+          case cast.framework.CastState.NOT_CONNECTED:
+          case cast.framework.CastState.NO_DEVICES_AVAILABLE:
+            if (state.currentStation && !state.userInitiatedStop && state.castWasConnected) {
+              // A live session dropped mid-playback; the receiver may still be
+              // playing, so the periodic sync re-attaches if the sender re-joins.
+              state.castSessionLost = true;
+            } else {
+              // No live session this page load (e.g. fresh refresh): fall back to
+              // normal local playback instead of treating it as a lost cast.
+              castPlayer = undefined;
+              castPlayerController = undefined;
+              state.castWasConnected = false;
+              state.playing = false;
               state.paused = false;
               state.castSessionLost = false;
-              updatePlayer();
-              patchStationCardStates();
-              syncFromCastPlayer();
-            } else {
-              castStation(state.currentStation);
+              state.lastCastStationId = null;
+              try {
+                sessionStorage.removeItem('openradio-cast-station');
+              } catch {}
+              stopCastSync();
             }
-          }
-          break;
-        case cast.framework.CastState.NOT_CONNECTED:
-        case cast.framework.CastState.NO_DEVICES_AVAILABLE:
-          if (state.currentStation && !state.userInitiatedStop && state.castWasConnected) {
-            // A live session dropped mid-playback; the receiver may still be
-            // playing, so the periodic sync re-attaches if the sender re-joins.
-            state.castSessionLost = true;
-          } else {
-            // No live session this page load (e.g. fresh refresh): fall back to
-            // normal local playback instead of treating it as a lost cast.
-            castPlayer = undefined;
-            castPlayerController = undefined;
-            state.castWasConnected = false;
-            state.playing = false;
-            state.paused = false;
-            state.castSessionLost = false;
-            state.lastCastStationId = null;
-            try { sessionStorage.removeItem('openradio-cast-station'); } catch {}
-            stopCastSync();
-          }
-          break;
+            break;
+        }
+        updatePlayer();
       }
-      updatePlayer();
-    });
+    );
   }
 
   /* ---------- Playback & Retry ---------- */
@@ -1648,8 +1945,14 @@
         try {
           const script = document.createElement('script');
           script.src = 'https://cdn.jsdelivr.net/npm/hls.js@1';
-          await new Promise((resolve, reject) => { script.onload = resolve; script.onerror = reject; document.head.appendChild(script); });
-        } catch { /* ignore */ }
+          await new Promise((resolve, reject) => {
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+          });
+        } catch {
+          /* ignore */
+        }
       }
       if (!window.Hls || !window.Hls.isSupported()) {
         setStatus('status.hlsUnsupported');
@@ -1669,13 +1972,15 @@
         liveSyncDurationCount: 8,
         liveMaxLatencyDurationCount: 16,
         fragLoadingMaxRetry: 8,
-        manifestLoadingMaxRetry: 4
+        manifestLoadingMaxRetry: 4,
       });
       const hls = state.hls;
       hls.on(window.Hls.Events.ERROR, (event, data) => {
         if (!data.fatal) return;
         if (state.playGeneration !== generation) return;
-        try { hls.destroy(); } catch {}
+        try {
+          hls.destroy();
+        } catch {}
         if (state.hls === hls) state.hls = null;
         if (loadReject) {
           loadReject(new Error(data.type));
@@ -1700,7 +2005,10 @@
         await new Promise((resolve, reject) => {
           loadReject = reject;
           const timeout = setTimeout(() => reject(new Error('HLS load timed out')), 20000);
-          hls.on(window.Hls.Events.MANIFEST_PARSED, () => { clearTimeout(timeout); resolve(); });
+          hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
+            clearTimeout(timeout);
+            resolve();
+          });
         });
       } catch (error) {
         if (state.playGeneration !== generation) return;
@@ -1720,7 +2028,9 @@
         return;
       }
       if (state.userInitiatedStop || state.paused) {
-        try { hls.destroy(); } catch {}
+        try {
+          hls.destroy();
+        } catch {}
         if (state.hls === hls) state.hls = null;
         updatePlayer();
         patchStationCardStates();
@@ -1788,13 +2098,21 @@
   }
 
   function retryPlayback() {
-    if (!state.currentStation || state.retryCount >= state.maxRetries || state.externallyInterrupted) {
+    if (
+      !state.currentStation ||
+      state.retryCount >= state.maxRetries ||
+      state.externallyInterrupted
+    ) {
       state.retryCount = 0;
       return;
     }
     state.retryCount++;
     const delay = Math.min(1000 * Math.pow(2, state.retryCount), 15000);
-    setStatus('status.retrying', { sec: Math.round(delay / 1000), attempt: state.retryCount, max: state.maxRetries });
+    setStatus('status.retrying', {
+      sec: Math.round(delay / 1000),
+      attempt: state.retryCount,
+      max: state.maxRetries,
+    });
     setTimeout(() => {
       if (state.userInitiatedStop) return;
       playStation(state.currentStation, state.streamIndex || 0);
@@ -1810,22 +2128,31 @@
     state.resumeAttempts = 0;
     state.streamSwitching = false;
     clearBackgroundTimers();
-    if (state.hls) { state.hls.destroy(); state.hls = null; }
+    if (state.hls) {
+      state.hls.destroy();
+      state.hls = null;
+    }
     elements.audio.pause();
     elements.audio.src = '';
     if (isCasting() || state.castSessionLost) {
       if (castPlayerController && typeof castPlayerController.stop === 'function') {
-        try { castPlayerController.stop(); } catch {}
+        try {
+          castPlayerController.stop();
+        } catch {}
       }
       if (castContext && typeof castContext.endCurrentSession === 'function') {
-        try { castContext.endCurrentSession(true); } catch {}
+        try {
+          castContext.endCurrentSession(true);
+        } catch {}
       }
       stopCastSync();
       releaseCastWakeLock();
       state.castWasConnected = false;
       state.castSessionLost = false;
       state.lastCastStationId = null;
-      try { sessionStorage.removeItem('openradio-cast-station'); } catch {}
+      try {
+        sessionStorage.removeItem('openradio-cast-station');
+      } catch {}
     }
     state.playing = false;
     state.nowPlayingTrack = '';
@@ -1849,7 +2176,9 @@
     }
     if (state.castSessionLost) {
       if (castContext && typeof castContext.endCurrentSession === 'function') {
-        try { castContext.endCurrentSession(true); } catch {}
+        try {
+          castContext.endCurrentSession(true);
+        } catch {}
       }
       return;
     }
@@ -1905,8 +2234,14 @@
     return new Promise((resolve) => {
       const timer = setTimeout(() => resolve(false), 2500);
       promise
-        .then(() => { clearTimeout(timer); resolve(true); })
-        .catch(() => { clearTimeout(timer); resolve(false); });
+        .then(() => {
+          clearTimeout(timer);
+          resolve(true);
+        })
+        .catch(() => {
+          clearTimeout(timer);
+          resolve(false);
+        });
     });
   }
 
@@ -1967,7 +2302,12 @@
         const proxyUrl = stream ? proxyHlsStreamUrl(stream) : null;
         if (proxyUrl && state.hlsOnlyUrl !== stream.url) {
           const generation = state.playGeneration;
-          if (state.hls) { try { state.hls.destroy(); } catch {} state.hls = null; }
+          if (state.hls) {
+            try {
+              state.hls.destroy();
+            } catch {}
+            state.hls = null;
+          }
           state.externallyInterrupted = false;
           state.paused = false;
           state.pauseIntent = false;
@@ -1987,10 +2327,18 @@
             return;
           }
         }
-        setTimeout(attemptResume, RESUME_BACKOFF_MS[Math.min(state.resumeAttempts, RESUME_BACKOFF_MS.length - 1)]);
+        setTimeout(
+          attemptResume,
+          RESUME_BACKOFF_MS[Math.min(state.resumeAttempts, RESUME_BACKOFF_MS.length - 1)]
+        );
         return;
       }
-      if (state.hls) { try { state.hls.destroy(); } catch {} state.hls = null; }
+      if (state.hls) {
+        try {
+          state.hls.destroy();
+        } catch {}
+        state.hls = null;
+      }
       // Rebuild the stream from scratch so the manifest is re-fetched and the
       // buffer rebuilt. Lock this stream to hls.js: a stalled native proxy stream
       // is unreliable in the background, so do not re-attempt it.
@@ -2035,9 +2383,16 @@
 
   function playAdjacentStation(direction) {
     if (!state.currentStation) return;
-    const list = state.currentSource === 'favorites'
-      ? state.stations.filter((s) => state.favorites.has(s.id) && s.streams && s.streams.length && s.streams.some((st) => st.url))
-      : state.filteredStations;
+    const list =
+      state.currentSource === 'favorites'
+        ? state.stations.filter(
+            (s) =>
+              state.favorites.has(s.id) &&
+              s.streams &&
+              s.streams.length &&
+              s.streams.some((st) => st.url)
+          )
+        : state.filteredStations;
     if (list.length < 2) return;
     const currentIndex = list.findIndex((s) => s.id === state.currentStation.id);
     if (currentIndex === -1) return;
@@ -2055,10 +2410,17 @@
       wasFav ? state.favorites.delete(station.id) : state.favorites.add(station.id);
       saveFavorites();
       renderStationLists();
-      showToast(wasFav ? t('toast.removedFavorite', { name: localizedName(station) }) : t('toast.addedFavorite', { name: localizedName(station) }));
+      showToast(
+        wasFav
+          ? t('toast.removedFavorite', { name: localizedName(station) })
+          : t('toast.addedFavorite', { name: localizedName(station) })
+      );
       return;
     }
-    state.currentSource = event.currentTarget === elements.featured || event.currentTarget === elements.recentStations ? 'favorites' : 'all';
+    state.currentSource =
+      event.currentTarget === elements.featured || event.currentTarget === elements.recentStations
+        ? 'favorites'
+        : 'all';
     if (state.currentStation?.id === station.id) {
       const actuallyPlaying = !elements.audio.paused;
       if (state.playing || actuallyPlaying) pausePlayback();
@@ -2083,7 +2445,12 @@
     const fav = state.favorites.has(station.id);
     btn.classList.toggle('active', fav);
     btn.innerHTML = (fav ? '\u2665 ' : '\u2661 ') + (fav ? t('np.favorited') : t('np.favorite'));
-    btn.setAttribute('aria-label', fav ? `Remove ${localizedName(station)} from favorites` : `Add ${localizedName(station)} to favorites`);
+    btn.setAttribute(
+      'aria-label',
+      fav
+        ? `Remove ${localizedName(station)} from favorites`
+        : `Add ${localizedName(station)} to favorites`
+    );
     btn.title = fav ? 'Remove from favorites' : 'Add to favorites';
   }
 
@@ -2130,7 +2497,9 @@
   function dismissFirstHint() {
     if (!elements.firstHint || elements.firstHint.hidden) return;
     elements.firstHint.hidden = true;
-    try { localStorage.setItem('openradio-hint-dismissed', String(Date.now())); } catch {}
+    try {
+      localStorage.setItem('openradio-hint-dismissed', String(Date.now()));
+    } catch {}
   }
 
   function maybeShowFirstHint() {
@@ -2139,7 +2508,7 @@
       const dismissed = localStorage.getItem('openradio-hint-dismissed');
       if (dismissed) {
         const ts = Number(dismissed);
-        if (ts && (Date.now() - ts) < HINT_RESHOW_MS) return;
+        if (ts && Date.now() - ts < HINT_RESHOW_MS) return;
       }
     } catch {}
     elements.firstHint.hidden = false;
@@ -2185,18 +2554,21 @@
       return;
     }
     state.sleepTimerEnd = Date.now() + minutes * 60 * 1000;
-    state.sleepTimerId = setTimeout(() => {
-      stopPlayback();
-      state.sleepTimerId = null;
-      state.sleepTimerEnd = null;
-      if (state.sleepTimerIntervalId) {
-        clearInterval(state.sleepTimerIntervalId);
-        state.sleepTimerIntervalId = null;
-      }
-      elements.sleepTimerBtn.textContent = '\u23F0 ' + t('np.timer');
-      setStatus('status.sleeptimerStopped');
-      updatePlayer();
-    }, minutes * 60 * 1000);
+    state.sleepTimerId = setTimeout(
+      () => {
+        stopPlayback();
+        state.sleepTimerId = null;
+        state.sleepTimerEnd = null;
+        if (state.sleepTimerIntervalId) {
+          clearInterval(state.sleepTimerIntervalId);
+          state.sleepTimerIntervalId = null;
+        }
+        elements.sleepTimerBtn.textContent = '\u23F0 ' + t('np.timer');
+        setStatus('status.sleeptimerStopped');
+        updatePlayer();
+      },
+      minutes * 60 * 1000
+    );
     state.sleepTimerIntervalId = setInterval(updateSleepTimerDisplay, 1000);
     elements.sleepTimerPicker.hidden = true;
     updateSleepTimerDisplay();
@@ -2210,12 +2582,17 @@
     const shareData = {
       title: localizedName(station),
       text: t('share.text', { name: localizedName(station) }),
-      url: `${window.location.origin}${window.location.pathname}?station=${station.id}`
+      url: `${window.location.origin}${window.location.pathname}?station=${station.id}`,
     };
     if (navigator.share) {
-      try { await navigator.share(shareData); } catch {}
+      try {
+        await navigator.share(shareData);
+      } catch {}
     } else {
-      try { await navigator.clipboard.writeText(shareData.url); setStatus('status.copied'); } catch {}
+      try {
+        await navigator.clipboard.writeText(shareData.url);
+        setStatus('status.copied');
+      } catch {}
     }
   }
 
@@ -2227,7 +2604,9 @@
       if (station?.metadata_url) {
         params += `&metaUrl=${encodeURIComponent(station.metadata_url)}`;
       }
-      const response = await fetch(`${HLS_PROXY_URL}${params}`, { signal: AbortSignal.timeout(8000) });
+      const response = await fetch(`${HLS_PROXY_URL}${params}`, {
+        signal: AbortSignal.timeout(8000),
+      });
       const data = await response.json();
       applyTrackMetadata(data.streamTitle || '', station, data.art || '', {
         title: data.title || '',
@@ -2386,7 +2765,9 @@
   }
 
   function parseEpgTime(timeStr) {
-    const match = String(timeStr || '').trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    const match = String(timeStr || '')
+      .trim()
+      .match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
     if (!match) return null;
     let hours = parseInt(match[1], 10);
     const minutes = parseInt(match[2], 10);
@@ -2434,14 +2815,19 @@
     const rows = [];
 
     const nowRow = makeElement('div', 'epg-row epg-now');
-    nowRow.append(makeElement('span', 'epg-label', t('np.now')), document.createTextNode(`  ${truncateEpgTitle(current.title, EPG_NOW_TITLE_MAX)}`));
+    nowRow.append(
+      makeElement('span', 'epg-label', t('np.now')),
+      document.createTextNode(`  ${truncateEpgTitle(current.title, EPG_NOW_TITLE_MAX)}`)
+    );
     rows.push(nowRow);
 
     if (next && parseEpgTime(next.start) !== null) {
       const nextRow = makeElement('div', 'epg-row epg-next');
       nextRow.append(makeElement('span', 'epg-label', t('np.next')), document.createTextNode(' '));
       nextRow.append(makeElement('span', 'epg-time', next.start));
-      nextRow.append(document.createTextNode(`  ${truncateEpgTitle(next.title, EPG_NEXT_TITLE_MAX)}`));
+      nextRow.append(
+        document.createTextNode(`  ${truncateEpgTitle(next.title, EPG_NEXT_TITLE_MAX)}`)
+      );
       rows.push(nextRow);
     }
 
@@ -2512,13 +2898,18 @@
         let data = null;
         // The cuesheet site sends ACAO:*, so the browser can fetch it directly.
         try {
-          const response = await fetch(`https://cuesheets.prasarbharati.org/viewsheet/${encodeURIComponent(epgId)}`, { signal: AbortSignal.timeout(8000) });
+          const response = await fetch(
+            `https://cuesheets.prasarbharati.org/viewsheet/${encodeURIComponent(epgId)}`,
+            { signal: AbortSignal.timeout(8000) }
+          );
           if (response.ok) data = parseCuesheetHtml(await response.text());
         } catch {}
         // Fall back to the proxy worker if the direct fetch is blocked/unreachable.
         if (!data || !data.programs || !data.programs.length) {
           try {
-            const response = await fetch(`${HLS_PROXY_URL}?epg=${encodeURIComponent(epgId)}`, { signal: AbortSignal.timeout(8000) });
+            const response = await fetch(`${HLS_PROXY_URL}?epg=${encodeURIComponent(epgId)}`, {
+              signal: AbortSignal.timeout(8000),
+            });
             if (response.ok) data = await response.json();
           } catch {}
         }
@@ -2539,15 +2930,30 @@
   /* ---------- Keyboard Shortcuts ---------- */
 
   function handleKeydown(e) {
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
-    if (!elements.nowPlaying.hidden && e.key === 'Escape') { closeNowPlaying(); return; }
+    if (
+      e.target.tagName === 'INPUT' ||
+      e.target.tagName === 'TEXTAREA' ||
+      e.target.tagName === 'SELECT'
+    )
+      return;
+    if (!elements.nowPlaying.hidden && e.key === 'Escape') {
+      closeNowPlaying();
+      return;
+    }
     if (!elements.nowPlaying.hidden && e.key === 'Tab') {
-      const focusable = elements.nowPlaying.querySelectorAll('button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])');
+      const focusable = elements.nowPlaying.querySelectorAll(
+        'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
       if (!focusable.length) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
       return;
     }
     switch (e.key) {
@@ -2571,7 +2977,10 @@
       const skeleton = Array.from({ length: 6 }, () => {
         const card = makeElement('div', 'skeleton-card');
         const top = makeElement('div', 'skeleton-card__top');
-        top.append(makeElement('div', 'skeleton-thumb'), makeElement('div', 'skeleton-text skeleton-text--long'));
+        top.append(
+          makeElement('div', 'skeleton-thumb'),
+          makeElement('div', 'skeleton-text skeleton-text--long')
+        );
         const badges = makeElement('div', 'skeleton-badges');
         badges.append(makeElement('div', 'skeleton-badge'), makeElement('div', 'skeleton-badge'));
         card.append(top, badges);
@@ -2584,8 +2993,14 @@
       state.stations = (await response.json()).filter(Boolean);
       const lastStationId = localStorage.getItem('openradio-last-station');
       state.currentStation = state.stations.find((station) => station.id === lastStationId) || null;
-      if (window.cast && castContext && castContext.getCastState() === cast.framework.CastState.CONNECTED && state.currentStation) {
-        const castStationId = state.lastCastStationId || sessionStorage.getItem('openradio-cast-station');
+      if (
+        window.cast &&
+        castContext &&
+        castContext.getCastState() === cast.framework.CastState.CONNECTED &&
+        state.currentStation
+      ) {
+        const castStationId =
+          state.lastCastStationId || sessionStorage.getItem('openradio-cast-station');
         if (castStationId === state.currentStation.id) {
           // A cast receiver is still playing this station after a reload —
           // restore the UI instead of showing reset controls.
@@ -2617,7 +3032,9 @@
     elements.alarmStationSelect.replaceChildren(...options);
     if (state.alarm) {
       elements.alarmTimeInput.value = state.alarm.time || '';
-      elements.alarmStationSelect.value = state.stations.some((s) => s.id === state.alarm.stationId) ? state.alarm.stationId : '';
+      elements.alarmStationSelect.value = state.stations.some((s) => s.id === state.alarm.stationId)
+        ? state.alarm.stationId
+        : '';
     }
     renderAlarmStatus();
   }
@@ -2676,10 +3093,18 @@
     localStorage.setItem('openradio-ui-lang', uiLang);
     document.documentElement.lang = uiLang;
     elements.uiLang.value = uiLang;
-    document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
-    document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => { el.placeholder = t(el.dataset.i18nPlaceholder); });
-    document.querySelectorAll('[data-i18n-title]').forEach((el) => { el.title = t(el.dataset.i18nTitle); });
-    document.querySelectorAll('[data-i18n-aria]').forEach((el) => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      el.textContent = t(el.dataset.i18n);
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+      el.placeholder = t(el.dataset.i18nPlaceholder);
+    });
+    document.querySelectorAll('[data-i18n-title]').forEach((el) => {
+      el.title = t(el.dataset.i18nTitle);
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach((el) => {
+      el.setAttribute('aria-label', t(el.dataset.i18nAria));
+    });
     setStatus(statusKey, statusVars);
     applyFilters();
     updatePlayer();
@@ -2695,12 +3120,17 @@
   setupMediaSession();
   restoreCollapsedStates();
   applyUiLanguage();
-  try { state.lastCastStationId = sessionStorage.getItem('openradio-cast-station') || null; } catch {}
+  try {
+    state.lastCastStationId = sessionStorage.getItem('openradio-cast-station') || null;
+  } catch {}
 
-  elements.search.addEventListener('input', debounce((event) => {
-    state.search = event.target.value;
-    applyFilters();
-  }, 200));
+  elements.search.addEventListener(
+    'input',
+    debounce((event) => {
+      state.search = event.target.value;
+      applyFilters();
+    }, 200)
+  );
   elements.filters.addEventListener('click', (event) => {
     const button = event.target.closest('button[data-category]');
     if (!button) return;
@@ -2738,7 +3168,11 @@
     saveFavorites();
     renderStationLists();
     updateNowPlayingFavorite();
-    showToast(wasFav ? t('toast.removedFavorite', { name: localizedName(station) }) : t('toast.addedFavorite', { name: localizedName(station) }));
+    showToast(
+      wasFav
+        ? t('toast.removedFavorite', { name: localizedName(station) })
+        : t('toast.addedFavorite', { name: localizedName(station) })
+    );
   });
 
   document.querySelector('.app-shell').addEventListener('click', (e) => {
@@ -2776,20 +3210,28 @@
     const backdrop = elements.nowPlayingBackdrop;
     let dragStartY = 0;
     let dragging = false;
-    sheet.addEventListener('touchstart', (e) => {
-      if (sheet.scrollTop > 0) return;
-      dragStartY = e.touches[0].clientY;
-      dragging = true;
-      sheet.style.transition = 'none';
-    }, { passive: true });
-    sheet.addEventListener('touchmove', (e) => {
-      if (!dragging) return;
-      const dy = e.touches[0].clientY - dragStartY;
-      if (dy <= 0) return;
-      e.preventDefault();
-      sheet.style.transform = `translateY(${dy}px)`;
-      backdrop.style.opacity = String(Math.max(0, 1 - dy / 300));
-    }, { passive: false });
+    sheet.addEventListener(
+      'touchstart',
+      (e) => {
+        if (sheet.scrollTop > 0) return;
+        dragStartY = e.touches[0].clientY;
+        dragging = true;
+        sheet.style.transition = 'none';
+      },
+      { passive: true }
+    );
+    sheet.addEventListener(
+      'touchmove',
+      (e) => {
+        if (!dragging) return;
+        const dy = e.touches[0].clientY - dragStartY;
+        if (dy <= 0) return;
+        e.preventDefault();
+        sheet.style.transform = `translateY(${dy}px)`;
+        backdrop.style.opacity = String(Math.max(0, 1 - dy / 300));
+      },
+      { passive: false }
+    );
     sheet.addEventListener('touchend', (e) => {
       if (!dragging) return;
       dragging = false;
@@ -2810,8 +3252,16 @@
     });
   }
 
-  elements.volumeSlider.addEventListener('input', (e) => { state.muted = false; applyVolume(parseFloat(e.target.value)); updateVolumeIcon(); });
-  elements.npVolumeSlider.addEventListener('input', (e) => { state.muted = false; applyVolume(parseFloat(e.target.value)); updateVolumeIcon(); });
+  elements.volumeSlider.addEventListener('input', (e) => {
+    state.muted = false;
+    applyVolume(parseFloat(e.target.value));
+    updateVolumeIcon();
+  });
+  elements.npVolumeSlider.addEventListener('input', (e) => {
+    state.muted = false;
+    applyVolume(parseFloat(e.target.value));
+    updateVolumeIcon();
+  });
   elements.volumeBtn.addEventListener('click', toggleMute);
   elements.npVolumeBtn.addEventListener('click', toggleMute);
 
@@ -2863,7 +3313,13 @@
       attemptResume();
       return;
     }
-    if (state.currentStation && !state.userInitiatedStop && !state.paused && !state.pauseIntent && elements.audio.paused) {
+    if (
+      state.currentStation &&
+      !state.userInitiatedStop &&
+      !state.paused &&
+      !state.pauseIntent &&
+      elements.audio.paused
+    ) {
       state.externallyInterrupted = false;
       scheduleAutoResume();
       return;
@@ -2871,10 +3327,17 @@
     // HLS/MSE elements can report paused === false yet be frozen with an empty
     // buffer after a background freeze (the MediaSource underflowed without firing
     // 'pause'). If the playhead is not advancing, force the resume system.
-    if (state.currentStation && !state.userInitiatedStop && !state.paused && !state.pauseIntent && !elements.audio.paused) {
+    if (
+      state.currentStation &&
+      !state.userInitiatedStop &&
+      !state.paused &&
+      !state.pauseIntent &&
+      !elements.audio.paused
+    ) {
       probeMediaProgress().then((advancing) => {
         if (advancing) return;
-        if (!state.currentStation || state.userInitiatedStop || state.paused || state.pauseIntent) return;
+        if (!state.currentStation || state.userInitiatedStop || state.paused || state.pauseIntent)
+          return;
         state.externallyInterrupted = false;
         scheduleAutoResume();
       });
@@ -2894,14 +3357,31 @@
     patchStationCardStates();
   });
   elements.audio.addEventListener('stalled', () => {
-    if (state.playing && !state.userInitiatedStop && !state.pauseIntent && !state.externallyInterrupted && !isCasting()) scheduleAutoResume();
+    if (
+      state.playing &&
+      !state.userInitiatedStop &&
+      !state.pauseIntent &&
+      !state.externallyInterrupted &&
+      !isCasting()
+    )
+      scheduleAutoResume();
   });
   elements.audio.addEventListener('waiting', () => {
-    if (state.playing && !state.userInitiatedStop && !state.pauseIntent && !state.externallyInterrupted && !isCasting()) scheduleAutoResume();
+    if (
+      state.playing &&
+      !state.userInitiatedStop &&
+      !state.pauseIntent &&
+      !state.externallyInterrupted &&
+      !isCasting()
+    )
+      scheduleAutoResume();
   });
   elements.audio.addEventListener('ended', () => {
     if (state.backgroundMigration) return;
-    if (state.hls) { state.hls.destroy(); state.hls = null; }
+    if (state.hls) {
+      state.hls.destroy();
+      state.hls = null;
+    }
     state.playing = false;
     state.paused = false;
     if (!state.userInitiatedStop && !state.pauseIntent && state.currentStation) {
@@ -2925,7 +3405,10 @@
       patchStationCardStates();
       return;
     }
-    if (state.hls) { state.hls.destroy(); state.hls = null; }
+    if (state.hls) {
+      state.hls.destroy();
+      state.hls = null;
+    }
     state.playing = false;
     state.paused = false;
     state.nowPlayingTrack = '';
@@ -2993,7 +3476,10 @@
     installPrompt = null;
     elements.install.hidden = true;
   });
-  window.addEventListener('appinstalled', () => { elements.install.hidden = true; setStatus('status.appInstalled'); });
+  window.addEventListener('appinstalled', () => {
+    elements.install.hidden = true;
+    setStatus('status.appInstalled');
+  });
 
   window.addEventListener('openradio-cast-api', (event) => {
     if (event.detail) initializeCast();
@@ -3007,16 +3493,19 @@
       }
     });
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').then((reg) => {
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              elements.updateBanner.hidden = false;
-            }
+      navigator.serviceWorker
+        .register('./sw.js')
+        .then((reg) => {
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                elements.updateBanner.hidden = false;
+              }
+            });
           });
-        });
-      }).catch(() => {});
+        })
+        .catch(() => {});
     });
     elements.updateBtn.addEventListener('click', () => {
       elements.updateBanner.hidden = true;
