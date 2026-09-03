@@ -12,7 +12,6 @@ android/app/build/
 android/local.properties
 android/keystore.properties
 android/keystore/
-android/app/google-services.json
 *.apk
 *.aab
 
