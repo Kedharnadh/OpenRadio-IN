@@ -26,8 +26,6 @@ PWA: https://kedharnadh.github.io/OpenRadio-IN/
 
 If you find OpenRadio-IN useful, please give it a star! It helps others discover the project.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Kedharnadh/OpenRadio-IN&type=Date)](https://star-history.com/#Kedharnadh/OpenRadio-IN&Date)
-
 ---
 
 ## Features
