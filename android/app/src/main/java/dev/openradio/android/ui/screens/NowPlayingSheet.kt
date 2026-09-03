@@ -1,8 +1,10 @@
 package dev.openradio.android.ui.screens
 
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.text.format.DateFormat
+import android.widget.Toast
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -75,10 +77,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import android.app.TimePickerDialog
-import android.widget.Toast
-import coil.compose.AsyncImage
 import androidx.media3.cast.MediaRouteButton
+import coil.compose.AsyncImage
 import dev.openradio.android.LocaleManager
 import dev.openradio.android.Prefs
 import dev.openradio.android.R
@@ -89,14 +89,17 @@ import dev.openradio.android.ui.MarqueeText
 import dev.openradio.android.ui.PlayerViewModel
 import dev.openradio.android.ui.theme.Sky
 import dev.openradio.android.ui.theme.Violet
-import java.util.Calendar
-import java.util.Date
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import java.util.Calendar
+import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
+fun NowPlayingSheet(
+    viewModel: PlayerViewModel,
+    onDismiss: () -> Unit,
+) {
     val playback by viewModel.playback.collectAsState()
     val favorites by viewModel.favorites.collectAsState()
     val epg by viewModel.epg.collectAsState()
@@ -117,54 +120,61 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
         onDismissRequest = onDismiss,
         sheetState = sheetState,
         containerColor = MaterialTheme.colorScheme.surface,
-        dragHandle = null
+        dragHandle = null,
     ) {
         BoxWithConstraints(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        listOf(
-                            Sky.copy(alpha = 0.16f),
-                            MaterialTheme.colorScheme.surface.copy(alpha = 0f),
-                            MaterialTheme.colorScheme.surface
-                        )
-                    )
-                )
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(
+                                Sky.copy(alpha = 0.16f),
+                                MaterialTheme.colorScheme.surface.copy(alpha = 0f),
+                                MaterialTheme.colorScheme.surface,
+                            ),
+                        ),
+                    ),
         ) {
             val wide = maxWidth >= 760.dp || maxWidth > maxHeight
-            val artSize = (if (wide) (maxHeight * 0.58f).coerceIn(240.dp, 480.dp)
-            else (maxWidth - 48.dp).coerceIn(160.dp, 320.dp))
+            val artSize = (
+                if (wide) {
+                    (maxHeight * 0.58f).coerceIn(240.dp, 480.dp)
+                } else {
+                    (maxWidth - 48.dp).coerceIn(160.dp, 320.dp)
+                }
+            )
             val artwork = playback.nowPlayingArt ?: station?.logo
 
             @Composable
             fun Artwork() {
                 Box(
-                    modifier = Modifier
-                        .size(artSize)
-                        .shadow(
-                            elevation = 24.dp,
-                            shape = RoundedCornerShape(36.dp),
-                            ambientColor = Violet.copy(alpha = 0.4f),
-                            spotColor = Sky.copy(alpha = 0.4f)
-                        )
-                        .clip(RoundedCornerShape(36.dp))
-                        .background(Brush.linearGradient(listOf(Sky, Violet))),
-                    contentAlignment = Alignment.Center
+                    modifier =
+                        Modifier
+                            .size(artSize)
+                            .shadow(
+                                elevation = 24.dp,
+                                shape = RoundedCornerShape(36.dp),
+                                ambientColor = Violet.copy(alpha = 0.4f),
+                                spotColor = Sky.copy(alpha = 0.4f),
+                            )
+                            .clip(RoundedCornerShape(36.dp))
+                            .background(Brush.linearGradient(listOf(Sky, Violet))),
+                    contentAlignment = Alignment.Center,
                 ) {
                     if (!artwork.isNullOrBlank()) {
                         AsyncImage(
                             model = artwork,
                             contentDescription = station?.localizedName(uiLang) ?: playback.currentStationName,
                             modifier = Modifier.fillMaxSize(),
-                            contentScale = ContentScale.Crop
+                            contentScale = ContentScale.Crop,
                         )
                     } else {
                         Icon(
                             Icons.Filled.Radio,
                             contentDescription = null,
                             modifier = Modifier.size(96.dp),
-                            tint = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.9f)
+                            tint = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.9f),
                         )
                     }
                 }
@@ -174,58 +184,73 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
             fun Details() {
                 MarqueeText(
                     text = station?.localizedName(uiLang) ?: playback.currentStationName ?: stringResource(R.string.no_station),
-                    style = MaterialTheme.typography.headlineSmall.copy(
-                        fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
-                    ),
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp)
+                    style =
+                        MaterialTheme.typography.headlineSmall.copy(
+                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                        ),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
                 )
                 Spacer(Modifier.height(6.dp))
-                val subtitle = playback.retryStatus ?: when {
-                    playback.loading -> stringResource(R.string.buffering)
-                    playback.paused -> stringResource(R.string.paused)
-                    else -> playback.nowPlayingTrack?.takeIf { it.isNotBlank() }
-                        ?: stringResource(R.string.live_radio)
-                }
+                val subtitle =
+                    playback.retryStatus ?: when {
+                        playback.loading -> stringResource(R.string.buffering)
+                        playback.paused -> stringResource(R.string.paused)
+                        else ->
+                            playback.nowPlayingTrack?.takeIf { it.isNotBlank() }
+                                ?: stringResource(R.string.live_radio)
+                    }
                 Text(
                     subtitle,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = if (playback.retryStatus != null) MaterialTheme.colorScheme.error
-                    else MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center
+                    color =
+                        if (playback.retryStatus != null) {
+                            MaterialTheme.colorScheme.error
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        },
+                    textAlign = TextAlign.Center,
                 )
 
                 // Transport controls
                 Spacer(Modifier.height(24.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(28.dp)
+                    horizontalArrangement = Arrangement.spacedBy(28.dp),
                 ) {
                     SheetIconButton(onClick = viewModel::skipPrevious) {
-                        Icon(Icons.Filled.SkipPrevious, stringResource(R.string.previous), modifier = Modifier.size(32.dp))
+                        Icon(
+                            Icons.Filled.SkipPrevious,
+                            stringResource(R.string.previous),
+                            modifier = Modifier.size(32.dp),
+                        )
                     }
                     Box(
-                        modifier = Modifier
-                            .size(76.dp)
-                            .shadow(
-                                elevation = 12.dp,
-                                shape = CircleShape,
-                                ambientColor = Violet.copy(alpha = 0.5f),
-                                spotColor = Sky.copy(alpha = 0.5f)
-                            )
-                            .clip(CircleShape)
-                            .background(Brush.linearGradient(listOf(Sky, Violet))),
-                        contentAlignment = Alignment.Center
+                        modifier =
+                            Modifier
+                                .size(76.dp)
+                                .shadow(
+                                    elevation = 12.dp,
+                                    shape = CircleShape,
+                                    ambientColor = Violet.copy(alpha = 0.5f),
+                                    spotColor = Sky.copy(alpha = 0.5f),
+                                )
+                                .clip(CircleShape)
+                                .background(Brush.linearGradient(listOf(Sky, Violet))),
+                        contentAlignment = Alignment.Center,
                     ) {
                         SheetIconButton(
                             onClick = { if (playback.playing) viewModel.pause() else viewModel.resume() },
                             outerSize = 76.dp,
-                            showRing = false
+                            showRing = false,
                         ) {
                             Icon(
                                 imageVector = if (playback.playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-                                contentDescription = stringResource(if (playback.playing) R.string.pause else R.string.play),
+                                contentDescription =
+                                    stringResource(
+                                        if (playback.playing) R.string.pause else R.string.play,
+                                    ),
                                 tint = Color.White,
-                                modifier = Modifier.size(40.dp)
+                                modifier = Modifier.size(40.dp),
                             )
                         }
                     }
@@ -238,35 +263,37 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                     Spacer(Modifier.height(16.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         SheetIconButton(onClick = viewModel::toggleMute) {
                             Icon(
                                 imageVector = if (playback.muted) Icons.Filled.VolumeOff else Icons.Filled.VolumeUp,
-                                contentDescription = stringResource(R.string.mute)
+                                contentDescription = stringResource(R.string.mute),
                             )
                         }
                         Slider(
                             value = playback.volume,
                             onValueChange = viewModel::setVolume,
                             modifier = Modifier.weight(1f),
-                            colors = SliderDefaults.colors(
-                                thumbColor = Violet,
-                                activeTrackColor = Violet,
-                                inactiveTrackColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.24f)
-                            )
+                            colors =
+                                SliderDefaults.colors(
+                                    thumbColor = Violet,
+                                    activeTrackColor = Violet,
+                                    inactiveTrackColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.24f),
+                                ),
                         )
                     }
                 }
 
                 Spacer(Modifier.height(12.dp))
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(28.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                        .padding(vertical = 6.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(28.dp))
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                            .padding(vertical = 6.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
                     if (playback.castAvailable) {
                         MediaRouteButton()
@@ -281,7 +308,7 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                             Icon(
                                 imageVector = if (it.id in favorites) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                                 contentDescription = stringResource(R.string.favorite),
-                                tint = if (it.id in favorites) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+                                tint = if (it.id in favorites) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
                     }
@@ -291,19 +318,19 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                     Spacer(Modifier.height(12.dp))
                     Column(
                         modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
                     ) {
                         if (sleepEndAt != null) {
                             val remaining = rememberRemainingText(sleepEndAt)
                             StatusRow(
                                 Icons.Filled.Timer,
-                                stringResource(R.string.sleep_timer_remaining, remaining)
+                                stringResource(R.string.sleep_timer_remaining, remaining),
                             )
                         }
                         alarmMillis?.let { alarmTime ->
                             StatusRow(
                                 Icons.Filled.Alarm,
-                                stringResource(R.string.alarm_scheduled, formatTimeMillis(alarmTime, context))
+                                stringResource(R.string.alarm_scheduled, formatTimeMillis(alarmTime, context)),
                             )
                         }
                     }
@@ -312,17 +339,19 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                 epg?.let { schedule ->
                     if (schedule.programs.isNotEmpty()) {
                         val now = rememberEpgTime()
-                        val currentIndex = schedule.programs.indexOfFirst { program ->
-                            val s = parseEpgTimeToMinutes(program.start)
-                            val e = parseEpgTimeToMinutes(program.end)
-                            s != null && e != null && now >= s && now < e
-                        }
+                        val currentIndex =
+                            schedule.programs.indexOfFirst { program ->
+                                val s = parseEpgTimeToMinutes(program.start)
+                                val e = parseEpgTimeToMinutes(program.end)
+                                s != null && e != null && now >= s && now < e
+                            }
                         val current = if (currentIndex >= 0) schedule.programs[currentIndex] else null
-                        val nextIndex = if (currentIndex >= 0) {
-                            currentIndex + 1
-                        } else {
-                            schedule.programs.indexOfFirst { (parseEpgTimeToMinutes(it.start) ?: Int.MAX_VALUE) > now }
-                        }
+                        val nextIndex =
+                            if (currentIndex >= 0) {
+                                currentIndex + 1
+                            } else {
+                                schedule.programs.indexOfFirst { (parseEpgTimeToMinutes(it.start) ?: Int.MAX_VALUE) > now }
+                            }
                         val next = if (nextIndex >= 0 && nextIndex < schedule.programs.size) schedule.programs[nextIndex] else null
                         val restStart = if (nextIndex >= 0) nextIndex + 1 else schedule.programs.size
                         val rest = schedule.programs.drop(restStart)
@@ -331,13 +360,14 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
                         Text(
                             stringResource(R.string.epg_schedule),
                             style = MaterialTheme.typography.titleSmall,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
                         )
                         Spacer(Modifier.height(8.dp))
                         LazyColumn(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .heightIn(max = 240.dp)
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(max = 240.dp),
                         ) {
                             if (current != null) {
                                 item {
@@ -359,41 +389,44 @@ fun NowPlayingSheet(viewModel: PlayerViewModel, onDismiss: () -> Unit) {
 
             if (wide) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                        .padding(24.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                            .padding(24.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(32.dp)
+                    horizontalArrangement = Arrangement.spacedBy(32.dp),
                 ) {
                     Box(
                         modifier = Modifier.weight(1f),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
                     ) {
                         Artwork()
                     }
                     Column(
                         modifier = Modifier.weight(1.25f),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Details()
                     }
                 }
             } else {
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .verticalScroll(rememberScrollState())
-                        .padding(horizontal = 24.dp)
-                        .padding(top = 40.dp, bottom = 40.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .verticalScroll(rememberScrollState())
+                            .padding(horizontal = 24.dp)
+                            .padding(top = 40.dp, bottom = 40.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     // Drag handle
                     Box(
-                        modifier = Modifier
-                            .size(width = 40.dp, height = 4.dp)
-                            .clip(RoundedCornerShape(2.dp))
-                            .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f))
+                        modifier =
+                            Modifier
+                                .size(width = 40.dp, height = 4.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)),
                     )
                     Spacer(Modifier.height(52.dp))
 
@@ -415,7 +448,7 @@ private fun SleepTimerAction(viewModel: PlayerViewModel) {
         Icon(
             Icons.Filled.Timer,
             stringResource(R.string.sleep_timer),
-            tint = if (active) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+            tint = if (active) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
     if (showDialog) {
@@ -429,7 +462,7 @@ private fun SleepTimerAction(viewModel: PlayerViewModel) {
                         Text(
                             stringResource(R.string.sleep_timer_remaining, remaining),
                             style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.primary
+                            color = MaterialTheme.colorScheme.primary,
                         )
                         Spacer(Modifier.height(8.dp))
                     }
@@ -439,7 +472,7 @@ private fun SleepTimerAction(viewModel: PlayerViewModel) {
                                 viewModel.startSleepTimer(minutes)
                                 showDialog = false
                             },
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
                         ) {
                             Text(stringResource(R.string.sleep_minutes, minutes))
                         }
@@ -450,23 +483,26 @@ private fun SleepTimerAction(viewModel: PlayerViewModel) {
                                 viewModel.cancelSleepTimer()
                                 showDialog = false
                             },
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
                         ) {
                             Text(
                                 stringResource(R.string.cancel_sleep_timer),
-                                color = MaterialTheme.colorScheme.error
+                                color = MaterialTheme.colorScheme.error,
                             )
                         }
                     }
                 }
             },
-            confirmButton = {}
+            confirmButton = {},
         )
     }
 }
 
 @Composable
-private fun AlarmAction(viewModel: PlayerViewModel, onAlarmSet: (Long?) -> Unit) {
+private fun AlarmAction(
+    viewModel: PlayerViewModel,
+    onAlarmSet: (Long?) -> Unit,
+) {
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
     val scheduled = Prefs.alarmTimeMillis()
@@ -474,7 +510,7 @@ private fun AlarmAction(viewModel: PlayerViewModel, onAlarmSet: (Long?) -> Unit)
         Icon(
             Icons.Filled.Alarm,
             stringResource(R.string.alarm),
-            tint = if (scheduled != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+            tint = if (scheduled != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
     if (showDialog) {
@@ -487,7 +523,7 @@ private fun AlarmAction(viewModel: PlayerViewModel, onAlarmSet: (Long?) -> Unit)
                         Text(
                             stringResource(R.string.alarm_scheduled, formatTimeMillis(scheduled, context)),
                             style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.primary
+                            color = MaterialTheme.colorScheme.primary,
                         )
                         Spacer(Modifier.height(4.dp))
                         TextButton(
@@ -497,7 +533,7 @@ private fun AlarmAction(viewModel: PlayerViewModel, onAlarmSet: (Long?) -> Unit)
                                 onAlarmSet(null)
                                 showDialog = false
                             },
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
                         ) {
                             Text(stringResource(R.string.cancel_alarm), color = MaterialTheme.colorScheme.error)
                         }
@@ -512,29 +548,34 @@ private fun AlarmAction(viewModel: PlayerViewModel, onAlarmSet: (Long?) -> Unit)
                             TimePickerDialog(
                                 context,
                                 { _, hour, minute ->
-                                    val cal = Calendar.getInstance().apply {
-                                        set(Calendar.HOUR_OF_DAY, hour)
-                                        set(Calendar.MINUTE, minute)
-                                        set(Calendar.SECOND, 0)
-                                        if (before(Calendar.getInstance())) add(Calendar.DAY_OF_YEAR, 1)
-                                    }
+                                    val cal =
+                                        Calendar.getInstance().apply {
+                                            set(Calendar.HOUR_OF_DAY, hour)
+                                            set(Calendar.MINUTE, minute)
+                                            set(Calendar.SECOND, 0)
+                                            if (before(Calendar.getInstance())) add(Calendar.DAY_OF_YEAR, 1)
+                                        }
                                     AlarmReceiver.schedule(context, hour, minute, stationId)
                                     Prefs.setAlarmTimeMillis(cal.timeInMillis)
                                     onAlarmSet(cal.timeInMillis)
-                                    Toast.makeText(context, context.getString(R.string.alarm_set), Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context,
+                                        context.getString(R.string.alarm_set),
+                                        Toast.LENGTH_SHORT,
+                                    ).show()
                                 },
                                 now.get(Calendar.HOUR_OF_DAY),
                                 now.get(Calendar.MINUTE),
-                                DateFormat.is24HourFormat(context)
+                                DateFormat.is24HourFormat(context),
                             ).show()
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(stringResource(R.string.set_alarm))
                     }
                 }
             },
-            confirmButton = {}
+            confirmButton = {},
         )
     }
 }
@@ -560,18 +601,24 @@ private fun rememberRemainingText(endAt: Long?): String {
     }
 }
 
-private fun formatTimeMillis(millis: Long, context: Context): String =
-    DateFormat.getTimeFormat(context).format(Date(millis))
+private fun formatTimeMillis(
+    millis: Long,
+    context: Context,
+): String = DateFormat.getTimeFormat(context).format(Date(millis))
 
 @Composable
-private fun StatusRow(icon: ImageVector, text: String) {
+private fun StatusRow(
+    icon: ImageVector,
+    text: String,
+) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(14.dp))
-            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(14.dp))
+                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                .padding(horizontal = 12.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
         Spacer(Modifier.width(8.dp))
@@ -579,18 +626,22 @@ private fun StatusRow(icon: ImageVector, text: String) {
     }
 }
 
-private fun shareStation(context: Context, station: Station?) {
+private fun shareStation(
+    context: Context,
+    station: Station?,
+) {
     if (station == null) return
     val name = station.name
     val text = "Listen to $name on OpenRadio-IN: ${station.homepage.ifBlank { "https://kedharnadh.github.io/OpenRadio-IN/" }}"
-    val intent = Intent(Intent.ACTION_SEND).apply {
-        type = "text/plain"
-        putExtra(Intent.EXTRA_TEXT, text)
-    }
+    val intent =
+        Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, text)
+        }
     context.startActivity(Intent.createChooser(intent, null))
 }
 
-/* ---------- EPG (Prasar Bharati schedule) helpers ---------- */
+// ---------- EPG (Prasar Bharati schedule) helpers ----------
 
 // IST (UTC+5:30) offset in milliseconds, used to align with AIR cuesheet times.
 private const val IST_OFFSET_MS = 19_800_000L
@@ -604,8 +655,9 @@ private fun istMinutesNow(): Int {
 
 /** Parse an "h:mm AM/PM" cuesheet time into minutes since midnight, or null. */
 private fun parseEpgTimeToMinutes(timeStr: String): Int? {
-    val match = Regex("""^(\d{1,2}):(\d{2})\s*(AM|PM)$""", RegexOption.IGNORE_CASE)
-        .find(timeStr.trim()) ?: return null
+    val match =
+        Regex("""^(\d{1,2}):(\d{2})\s*(AM|PM)$""", RegexOption.IGNORE_CASE)
+            .find(timeStr.trim()) ?: return null
     var hours = match.groupValues[1].toInt()
     val minutes = match.groupValues[2].toInt()
     when (match.groupValues[3].uppercase()) {
@@ -633,25 +685,27 @@ private fun rememberEpgTime(): Int {
 @Composable
 private fun EpgNowRow(program: EpgProgram) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(Brush.linearGradient(listOf(Sky.copy(alpha = 0.22f), Violet.copy(alpha = 0.16f))))
-            .padding(horizontal = 10.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+                .background(Brush.linearGradient(listOf(Sky.copy(alpha = 0.22f), Violet.copy(alpha = 0.16f))))
+                .padding(horizontal = 10.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
-            modifier = Modifier
-                .size(8.dp)
-                .clip(CircleShape)
-                .background(Violet)
+            modifier =
+                Modifier
+                    .size(8.dp)
+                    .clip(CircleShape)
+                    .background(Violet),
         )
         Spacer(Modifier.width(8.dp))
         Text(
             stringResource(R.string.epg_now),
             style = MaterialTheme.typography.labelSmall,
             color = Violet,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
         Spacer(Modifier.width(8.dp))
         Column(Modifier.weight(1f)) {
@@ -660,12 +714,12 @@ private fun EpgNowRow(program: EpgProgram) {
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.SemiBold,
                 maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
             Text(
                 "${program.start} – ${program.end}",
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
     }
@@ -674,16 +728,17 @@ private fun EpgNowRow(program: EpgProgram) {
 @Composable
 private fun EpgNextRow(program: EpgProgram) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 6.dp, vertical = 6.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 6.dp, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             stringResource(R.string.epg_next),
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
         )
         Spacer(Modifier.width(8.dp))
         Column(Modifier.weight(1f)) {
@@ -691,12 +746,12 @@ private fun EpgNextRow(program: EpgProgram) {
                 program.title,
                 style = MaterialTheme.typography.bodyMedium,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
             Text(
                 program.start,
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
     }
@@ -705,23 +760,24 @@ private fun EpgNextRow(program: EpgProgram) {
 @Composable
 private fun EpgRow(program: EpgProgram) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 6.dp, vertical = 5.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 6.dp, vertical = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             program.start,
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.width(52.dp)
+            modifier = Modifier.width(52.dp),
         )
         Text(
             program.title,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }
@@ -732,33 +788,34 @@ private fun SheetIconButton(
     modifier: Modifier = Modifier,
     outerSize: Dp = 52.dp,
     showRing: Boolean = true,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     var focused by remember { mutableStateOf(false) }
     val scale by animateFloatAsState(
         targetValue = if (focused) 1.12f else 1f,
         animationSpec = tween(160),
-        label = "sheetBtnScale"
+        label = "sheetBtnScale",
     )
     Box(
         modifier = modifier.size(outerSize),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         IconButton(
             onClick = onClick,
-            modifier = Modifier
-                .fillMaxSize()
-                .graphicsLayer {
-                    scaleX = scale
-                    scaleY = scale
-                }
-                .focusable()
-                .onFocusChanged { focused = it.isFocused }
-                .border(
-                    width = if (focused && showRing) 2.dp else 0.dp,
-                    color = Violet,
-                    shape = CircleShape
-                )
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .graphicsLayer {
+                        scaleX = scale
+                        scaleY = scale
+                    }
+                    .focusable()
+                    .onFocusChanged { focused = it.isFocused }
+                    .border(
+                        width = if (focused && showRing) 2.dp else 0.dp,
+                        color = Violet,
+                        shape = CircleShape,
+                    ),
         ) {
             content()
         }

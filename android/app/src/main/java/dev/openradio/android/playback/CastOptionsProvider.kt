@@ -12,7 +12,6 @@ import com.google.android.gms.cast.framework.SessionProvider
  * [com.google.android.gms.cast.framework.CastContext.getSharedInstance] call.
  */
 class CastOptionsProvider : OptionsProvider {
-
     override fun getCastOptions(context: Context): CastOptions {
         // Disable session resume / reconnection so CastPlayer never attaches to a
         // stale or foreign Cast session (e.g. one started by the web PWA). Media3's

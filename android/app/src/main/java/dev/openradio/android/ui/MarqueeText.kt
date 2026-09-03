@@ -25,7 +25,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.round
 import kotlin.math.roundToInt
 
 /**
@@ -39,21 +38,22 @@ fun MarqueeText(
     modifier: Modifier = Modifier,
     style: TextStyle,
     color: Color = Color.Unspecified,
-    maxLines: Int = 1
+    maxLines: Int = 1,
 ) {
     val textMeasurer = rememberTextMeasurer()
-    val textWidthPx = remember(text, style) {
-        textMeasurer.measure(
-            text = text,
-            style = style,
-            maxLines = maxLines,
-            overflow = TextOverflow.Clip
-        ).size.width
-    }
+    val textWidthPx =
+        remember(text, style) {
+            textMeasurer.measure(
+                text = text,
+                style = style,
+                maxLines = maxLines,
+                overflow = TextOverflow.Clip,
+            ).size.width
+        }
 
     BoxWithConstraints(
         modifier = modifier.clipToBounds(),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart,
     ) {
         val density = LocalDensity.current
         val viewWidthPx = with(density) { maxWidth.roundToPx() }
@@ -64,14 +64,14 @@ fun MarqueeText(
         if (!shouldScroll) {
             Box(
                 modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 Text(
                     text = text,
                     style = style,
                     color = color,
                     maxLines = maxLines,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
             return@BoxWithConstraints
@@ -81,27 +81,30 @@ fun MarqueeText(
         val offsetPx by transition.animateFloat(
             initialValue = 0f,
             targetValue = -scrollDistance.toFloat(),
-            animationSpec = infiniteRepeatable(
-                animation = tween(
-                    durationMillis = (scrollDistance * 5 + 2000).coerceIn(2000, 30000),
-                    easing = LinearEasing
+            animationSpec =
+                infiniteRepeatable(
+                    animation =
+                        tween(
+                            durationMillis = (scrollDistance * 5 + 2000).coerceIn(2000, 30000),
+                            easing = LinearEasing,
+                        ),
+                    repeatMode = RepeatMode.Reverse,
                 ),
-                repeatMode = RepeatMode.Reverse
-            ),
-            label = "marqueeOffset"
+            label = "marqueeOffset",
         )
 
         Box(
-            modifier = Modifier
-                .requiredWidth(with(density) { textWidthPx.toDp() })
-                .offset { IntOffset(offsetPx.roundToInt(), 0) }
+            modifier =
+                Modifier
+                    .requiredWidth(with(density) { textWidthPx.toDp() })
+                    .offset { IntOffset(offsetPx.roundToInt(), 0) },
         ) {
             Text(
                 text = text,
                 style = style,
                 color = color,
                 maxLines = maxLines,
-                overflow = TextOverflow.Clip
+                overflow = TextOverflow.Clip,
             )
         }
     }

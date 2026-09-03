@@ -6,7 +6,6 @@ import org.json.JSONArray
 
 /** Tiny persistence for favorites, recent stations and volume. */
 object Prefs {
-
     private const val FILE = "openradio_prefs"
     private const val KEY_FAVORITES = "favorites"
     private const val KEY_RECENTS = "recents"
@@ -21,8 +20,7 @@ object Prefs {
         prefs = context.getSharedPreferences(FILE, Context.MODE_PRIVATE)
     }
 
-    fun favorites(): Set<String> =
-        prefs.getStringSet(KEY_FAVORITES, emptySet()) ?: emptySet()
+    fun favorites(): Set<String> = prefs.getStringSet(KEY_FAVORITES, emptySet()) ?: emptySet()
 
     fun setFavorites(ids: Set<String>) {
         prefs.edit().putStringSet(KEY_FAVORITES, ids).apply()

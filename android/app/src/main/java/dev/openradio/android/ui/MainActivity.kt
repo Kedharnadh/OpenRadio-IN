@@ -16,7 +16,6 @@ import dev.openradio.android.ui.screens.HomeScreen
 import dev.openradio.android.ui.theme.OpenRadioTheme
 
 class MainActivity : ComponentActivity() {
-
     private val viewModel: PlayerViewModel by viewModels()
 
     override fun attachBaseContext(newBase: Context) {
@@ -39,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     onLanguageChanged = {
                         Prefs.setUiLanguage(it)
                         recreate()
-                    }
+                    },
                 )
             }
         }

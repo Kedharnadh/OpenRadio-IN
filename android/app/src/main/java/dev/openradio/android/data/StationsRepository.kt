@@ -20,31 +20,33 @@ import java.util.concurrent.TimeUnit
  * so stations added to the repo appear automatically after the next refresh.
  */
 class StationsRepository(private val context: Context) {
-
-    private val client = OkHttpClient.Builder()
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(20, TimeUnit.SECONDS)
-        .build()
+    private val client =
+        OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .build()
 
     private val cacheFile: File get() = File(context.filesDir, "stations.json")
 
-    suspend fun refresh(): List<Station> = withContext(Dispatchers.IO) {
-        val text = runCatching {
-            fetch(BuildConfig.STATIONS_URL)
-                ?: fetch(BuildConfig.STATIONS_URL_FALLBACK)
-        }.onFailure { e ->
-            App.reportError(e, "Failed to fetch stations from network")
-        }.getOrNull()
-        if (text != null) {
-            saveCache(text)
-            runCatching { StationParser.parse(text) }.onFailure { e ->
-                App.reportError(e, "Failed to parse station data")
-            }.getOrElse { loadCache() }
-        } else {
-            App.log("Network unavailable, loading stations from cache")
-            loadCache()
+    suspend fun refresh(): List<Station> =
+        withContext(Dispatchers.IO) {
+            val text =
+                runCatching {
+                    fetch(BuildConfig.STATIONS_URL)
+                        ?: fetch(BuildConfig.STATIONS_URL_FALLBACK)
+                }.onFailure { e ->
+                    App.reportError(e, "Failed to fetch stations from network")
+                }.getOrNull()
+            if (text != null) {
+                saveCache(text)
+                runCatching { StationParser.parse(text) }.onFailure { e ->
+                    App.reportError(e, "Failed to parse station data")
+                }.getOrElse { loadCache() }
+            } else {
+                App.log("Network unavailable, loading stations from cache")
+                loadCache()
+            }
         }
-    }
 
     suspend fun cached(): List<Station> = withContext(Dispatchers.IO) { loadCache() }
 
@@ -75,7 +77,6 @@ class StationsRepository(private val context: Context) {
 
 /** Process-wide holder so both the UI and the media service share one station list. */
 object StationsStore {
-
     private val _stations = MutableStateFlow<List<Station>>(emptyList())
     val stations: StateFlow<List<Station>> = _stations.asStateFlow()
 
@@ -84,7 +85,10 @@ object StationsStore {
 
     private var loadJobStarted = false
 
-    fun ensureLoaded(context: Context, force: Boolean = false) {
+    fun ensureLoaded(
+        context: Context,
+        force: Boolean = false,
+    ) {
         if (loadJobStarted && !force) return
         loadJobStarted = true
         kotlinx.coroutines.MainScope().launch {
