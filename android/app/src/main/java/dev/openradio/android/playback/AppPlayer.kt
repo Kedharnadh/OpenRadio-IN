@@ -22,6 +22,7 @@ import com.google.common.util.concurrent.ListenableFuture
 import dev.openradio.android.App
 import dev.openradio.android.BuildConfig
 import dev.openradio.android.R
+import dev.openradio.android.data.HttpClient
 import dev.openradio.android.data.Station
 import dev.openradio.android.data.StationsStore
 import dev.openradio.android.ui.MainActivity
@@ -33,6 +34,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import okhttp3.Request
 import org.json.JSONObject
 
 /** Snapshot of playback state surfaced to the UI. */
@@ -131,10 +133,12 @@ object AppPlayer {
         ioScope.launch {
             runCatching {
                 val probeUrl = "${HlsCastProxy.base}?probe=1&url=${Uri.encode(hlsUrl)}"
-                val conn = java.net.URL(probeUrl).openConnection()
-                conn.connectTimeout = 10_000
-                conn.readTimeout = 10_000
-                val body = conn.getInputStream().bufferedReader().use { it.readText() }
+                val request = Request.Builder().url(probeUrl).build()
+                val body =
+                    HttpClient.client.newCall(request).execute().use { response ->
+                        if (!response.isSuccessful) return@use null
+                        response.body?.string()
+                    } ?: return@launch
                 val obj = JSONObject(body)
                 HlsCastProxy.probedForUrl = hlsUrl
                 HlsCastProxy.resolvedUrl = obj.optString("url").takeIf { it.isNotBlank() }
@@ -217,6 +221,7 @@ object AppPlayer {
         station.primaryStream?.takeIf { it.isHls }?.let { stream ->
             probeHlsCastStream(station.id, stream.url)
         }
+        App.log("Playing station ${station.id} (${station.name})")
     }
 
     /**
@@ -233,10 +238,12 @@ object AppPlayer {
 
     fun pause() {
         _player?.pause()
+        App.log("Paused station ${_state.value.currentStationId}")
     }
 
     fun resume() {
         _player?.play()
+        App.log("Resumed station ${_state.value.currentStationId}")
     }
 
     fun stop() {
@@ -255,6 +262,7 @@ object AppPlayer {
                 nowPlayingArt = null,
             )
         }
+        App.log("Stopped playback")
     }
 
     fun skipNext() {
@@ -308,6 +316,7 @@ object AppPlayer {
                 .build()
         p.replaceMediaItem(index, item.buildUpon().setMediaMetadata(updatedMetadata).build())
         _state.update { it.copy(nowPlayingTrack = title, nowPlayingArt = artUrl) }
+        App.log("Now playing on ${_state.value.currentStationId}: ${title ?: "(track)"}")
     }
 
     // ---- Chromecast -------------------------------------------------------
@@ -366,10 +375,7 @@ object AppPlayer {
         val station = StationsStore.stations.value.firstOrNull { it.id == stationId } ?: return
         val ctx = appContext
         val currentUrl = _player?.currentMediaItem?.localConfiguration?.uri?.toString()
-        val fallback =
-            station.streams
-                .sortedWith(compareByDescending<Station.Stream> { it.isHls }.thenBy { it.priority })
-                .firstOrNull { it.url != currentUrl }
+        val fallback = station.preferredStreams().firstOrNull { it.url != currentUrl }
         if (fallback == null) {
             val reason =
                 ctx?.getString(R.string.status_unreachable)

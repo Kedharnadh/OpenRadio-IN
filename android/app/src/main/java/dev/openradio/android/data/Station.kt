@@ -1,6 +1,7 @@
 package dev.openradio.android.data
 
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 
 data class Station(
@@ -33,7 +34,14 @@ data class Station(
     }
 
     val primaryStream: Stream?
-        get() = streams.sortedWith(compareByDescending<Stream> { it.isHls }.thenBy { it.priority }).firstOrNull()
+        get() = preferredStreams().firstOrNull()
+
+    /**
+     * Streams ordered by preference: HLS streams first (they play natively in
+     * ExoPlayer / the Cast HLS pipeline), then by ascending priority (1 = primary).
+     */
+    fun preferredStreams(): List<Stream> =
+        streams.sortedWith(compareByDescending<Stream> { it.isHls }.thenBy { it.priority })
 
     val languageTags: List<String>
         get() = language.split(',').map { it.trim() }.filter { it.isNotEmpty() }
@@ -49,13 +57,17 @@ data class Station(
 object StationParser {
     fun parse(text: String): List<Station> {
         if (text.isBlank()) return emptyList()
-        val array = JSONArray(text)
-        val result = ArrayList<Station>(array.length())
-        for (i in 0 until array.length()) {
-            val obj = array.optJSONObject(i) ?: continue
-            result.add(parseStation(obj))
+        return try {
+            val array = JSONArray(text)
+            val result = ArrayList<Station>(array.length())
+            for (i in 0 until array.length()) {
+                val obj = array.optJSONObject(i) ?: continue
+                result.add(parseStation(obj))
+            }
+            result
+        } catch (_: JSONException) {
+            emptyList()
         }
-        return result
     }
 
     private fun parseStation(obj: JSONObject): Station {

@@ -12,6 +12,8 @@ indent_size = 4
 indent_size = 4
 max_line_length = 120
 ktlint_code_style = ktlint_official
+# Allow idiomatic Compose PascalCase composable names (e.g. @Composable fun HomeScreen).
+ktlint_function_naming_ignore_when_annotated_with = Composable
 
 [*.{js,jsx,ts,tsx}]
 indent_size = 2

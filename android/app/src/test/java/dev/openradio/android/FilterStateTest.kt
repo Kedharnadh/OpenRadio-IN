@@ -11,7 +11,7 @@ class FilterStateTest {
         id: String,
         name: String = "Station $id",
         language: String = "Hindi",
-        categories: List<String> = listOf("AIR"),
+        categories: List<String> = emptyList(),
     ): Station {
         return Station(
             id = id,

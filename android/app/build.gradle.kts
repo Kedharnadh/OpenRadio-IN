@@ -74,7 +74,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             if (keystorePropertiesFile.exists()) {
                 signingConfig = signingConfigs.getByName("release")
@@ -84,6 +85,14 @@ android {
 
     packaging {
         resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+    }
+
+    testOptions {
+        unitTests {
+            // Provide real Android framework classes (Uri, MediaItem, etc.) in
+            // Robolectric unit tests instead of the "not mocked" stubs.
+            isIncludeAndroidResources = true
+        }
     }
 
     // Release-lint validates against the vital checks but its cache conflicts with

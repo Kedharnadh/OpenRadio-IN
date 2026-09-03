@@ -13,18 +13,13 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
 import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 /**
  * Loads the station database straight from the OpenRadio-IN git repo (GitHub Pages),
  * so stations added to the repo appear automatically after the next refresh.
  */
 class StationsRepository(private val context: Context) {
-    private val client =
-        OkHttpClient.Builder()
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(20, TimeUnit.SECONDS)
-            .build()
+    private val client: OkHttpClient = HttpClient.client
 
     private val cacheFile: File get() = File(context.filesDir, "stations.json")
 
