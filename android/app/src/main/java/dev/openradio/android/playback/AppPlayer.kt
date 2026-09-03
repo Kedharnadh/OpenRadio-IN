@@ -20,6 +20,7 @@ import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import dev.openradio.android.R
+import dev.openradio.android.App
 import dev.openradio.android.BuildConfig
 import dev.openradio.android.data.Station
 import dev.openradio.android.data.StationsStore
@@ -412,6 +413,7 @@ object AppPlayer {
         }
 
         override fun onPlayerError(error: PlaybackException) {
+            App.reportError(error, "Playback error for station ${_state.value.currentStationId}")
             _state.update { it.copy(error = error.message, playing = false, loading = false, retryStatus = null) }
             retryWithFallbackStream()
         }

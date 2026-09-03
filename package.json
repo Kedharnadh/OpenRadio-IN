@@ -1,5 +1,20 @@
 {
+  "name": "openradio-in",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint website/ --ext .js",
+    "lint:fix": "eslint website/ --ext .js --fix",
+    "format": "prettier --write 'website/**/*.{js,css,html}'",
+    "format:check": "prettier --check 'website/**/*.{js,css,html}'",
+    "test": "node --test website/*.test.js",
+    "deploy:worker": "wrangler deploy"
+  },
   "devDependencies": {
-    "wrangler": "^4.115.0"
+    "wrangler": "^4.115.0",
+    "eslint": "^9.10.0",
+    "@eslint/js": "^9.10.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3"
   }
 }

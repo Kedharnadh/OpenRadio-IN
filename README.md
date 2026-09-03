@@ -4,10 +4,29 @@
 
 PWA: https://kedharnadh.github.io/OpenRadio-IN/
 
-![GitHub](https://img.shields.io/github/license/Kedharnadh/OpenRadio-IN)
-![GitHub stars](https://img.shields.io/github/stars/Kedharnadh/OpenRadio-IN)
-![GitHub issues](https://img.shields.io/github/issues/Kedharnadh/OpenRadio-IN)
-![GitHub last commit](https://img.shields.io/github/last-commit/Kedharnadh/OpenRadio-IN)
+---
+
+[![GitHub License](https://img.shields.io/github/license/Kedharnadh/OpenRadio-IN)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/Kedharnadh/OpenRadio-IN)](https://github.com/Kedharnadh/OpenRadio-IN/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/Kedharnadh/OpenRadio-IN)](https://github.com/Kedharnadh/OpenRadio-IN/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Kedharnadh/OpenRadio-IN)](https://github.com/Kedharnadh/OpenRadio-IN/pulls)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/Kedharnadh/OpenRadio-IN)](https://github.com/Kedharnadh/OpenRadio-IN/commits/main)
+
+[![Android CI](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/android.yml/badge.svg)](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/android.yml)
+[![Deploy PWA](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/deploy-pages.yml)
+
+[![Stations](https://img.shields.io/badge/stations-294-blue)](database/stations.json)
+[![Languages](https://img.shields.io/badge/languages-34-green)](database/languages.json)
+[![Playlists](https://img.shields.io/badge/playlists-37-orange)](playlists/)
+[![Android](https://img.shields.io/badge/Android-Kotlin%20%2B%20Compose-3DDC84?logo=android)](android/)
+
+---
+
+## Star History
+
+If you find OpenRadio-IN useful, please give it a star! It helps others discover the project.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Kedharnadh/OpenRadio-IN&type=Date)](https://star-history.com/#Kedharnadh/OpenRadio-IN&Date)
 
 ---
 
@@ -352,7 +371,32 @@ Contributions are welcome! You can help by:
 - Reporting issues
 - Improving documentation
 
-Please ensure every submitted stream is publicly accessible and legal to redistribute.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide, including code style and PR process.
+
+---
+
+## Community
+
+### Spread the Word
+
+- Star this repository to help others discover it
+- Share on social media with **#OpenRadioIN**
+- Write about it on your blog or dev community
+- Submit it to [awesome lists](https://github.com/sindresorhus/awesome) (awesome-open-source, awesome-android, etc.)
+
+### Get Involved
+
+- **Add a station** — Know of an Indian radio station not listed? [Open an issue](https://github.com/Kedharnadh/OpenRadio-IN/issues/new?template=add-station.md) with the stream details
+- **Report bugs** — Found something broken? [File an issue](https://github.com/Kedharnadh/OpenRadio-IN/issues/new)
+- **Submit a PR** — Want to fix a bug or add a feature? Check the [Contributing guide](CONTRIBUTING.md)
+- **Test on different devices** — Help test the Android app on various devices and Android versions
+
+### Platform Links
+
+- **PWA**: [kedharnadh.github.io/OpenRadio-IN](https://kedharnadh.github.io/OpenRadio-IN/)
+- **GitHub**: [Kedharnadh/OpenRadio-IN](https://github.com/Kedharnadh/OpenRadio-IN)
+- **Issues**: [Report a bug](https://github.com/Kedharnadh/OpenRadio-IN/issues)
+- **Discussions**: [Share feedback](https://github.com/Kedharnadh/OpenRadio-IN/discussions)
 
 ---
 
@@ -413,9 +457,11 @@ Thanks to:
 ## Support the Project
 
 If you find OpenRadio-IN useful:
-- Star this repository
-- Report broken streams
-- Submit new stations
-- Contribute improvements
+
+1. **Star** this repository
+2. **Share** it with friends who listen to Indian radio
+3. **Report** broken streams so we can fix them
+4. **Submit** new stations to expand the collection
+5. **Contribute** code, docs, or feedback
 
 Every contribution helps make OpenRadio-IN a better resource for everyone.

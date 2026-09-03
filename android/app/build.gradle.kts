@@ -5,6 +5,9 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
+    id("org.jlleitschuh.gradle.ktlint")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 // Signing credentials come from android/keystore.properties (gitignored).
@@ -22,8 +25,8 @@ android {
         applicationId = "in.openradio.android"
         minSdk = 26
         targetSdk = 35
-        versionCode = 7
-        versionName = "1.3.3"
+        versionCode = 8
+        versionName = "1.4.0"
 
         // Station data is served straight from the OpenRadio-IN git repo (GitHub Pages),
         // so new stations added to the repo appear in the app automatically after refresh.
@@ -91,6 +94,18 @@ android {
     }
 }
 
+ktlint {
+    // Use .editorconfig for ktlint settings (official code style)
+    reporters {
+        reporter("plain")
+    }
+    filter {
+        // Exclude generated files
+        exclude("**/generated/**")
+        exclude("**/build/**")
+    }
+}
+
 dependencies {
     // Compose (Material 3 / Material You)
     implementation(platform("androidx.compose:compose-bom:2024.12.01"))
@@ -120,4 +135,25 @@ dependencies {
     implementation("com.google.android.gms:play-services-cast-framework:21.5.0")
     implementation("androidx.mediarouter:mediarouter:1.8.1")
     implementation("com.google.guava:guava:33.3.1-android")
+
+    // Unit tests
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.14.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
+    testImplementation("org.json:json:20231013")
+
+    // Instrumented tests (Espresso + Compose testing)
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("androidx.test:runner:1.6.2")
+    androidTestImplementation("androidx.test:rules:1.6.1")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.12.01"))
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // Firebase Crashlytics
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 }

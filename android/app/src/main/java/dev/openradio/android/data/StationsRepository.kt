@@ -1,6 +1,7 @@
 package dev.openradio.android.data
 
 import android.content.Context
+import dev.openradio.android.App
 import dev.openradio.android.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,11 +32,16 @@ class StationsRepository(private val context: Context) {
         val text = runCatching {
             fetch(BuildConfig.STATIONS_URL)
                 ?: fetch(BuildConfig.STATIONS_URL_FALLBACK)
+        }.onFailure { e ->
+            App.reportError(e, "Failed to fetch stations from network")
         }.getOrNull()
         if (text != null) {
             saveCache(text)
-            runCatching { StationParser.parse(text) }.getOrElse { loadCache() }
+            runCatching { StationParser.parse(text) }.onFailure { e ->
+                App.reportError(e, "Failed to parse station data")
+            }.getOrElse { loadCache() }
         } else {
+            App.log("Network unavailable, loading stations from cache")
             loadCache()
         }
     }

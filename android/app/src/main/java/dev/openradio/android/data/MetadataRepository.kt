@@ -1,5 +1,6 @@
 package dev.openradio.android.data
 
+import android.util.Log
 import dev.openradio.android.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -77,13 +78,21 @@ class MetadataRepository {
             val request = Request.Builder().url(url).build()
             try {
                 client.newCall(request).execute().use { response ->
-                    if (!response.isSuccessful) return@use null
+                    if (!response.isSuccessful) {
+                        Log.w(TAG, "HTTP ${response.code} from $url")
+                        return@use null
+                    }
                     response.body?.string()?.let { text -> runCatching { JSONObject(text) }.getOrNull() }
                 }
-            } catch (_: IOException) {
+            } catch (e: IOException) {
+                Log.w(TAG, "Network error fetching $url", e)
                 null
             }
         }
+
+    companion object {
+        private const val TAG = "MetadataRepo"
+    }
 
     private fun encode(value: String): String = java.net.URLEncoder.encode(value, "UTF-8")
 }
