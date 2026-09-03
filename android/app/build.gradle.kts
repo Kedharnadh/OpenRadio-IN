@@ -96,9 +96,6 @@ android {
 
 ktlint {
     // Use .editorconfig for ktlint settings (official code style)
-    reporters {
-        reporter("plain")
-    }
     filter {
         // Exclude generated files
         exclude("**/generated/**")
