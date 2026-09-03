@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "829581153413",
+    "project_id": "openradio-in",
+    "storage_bucket": "openradio-in.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829581153413:android:8075a005f99c752e9985ec",
+        "android_client_info": {
+          "package_name": "in.openradio.android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAerZxmwVHz17U0AtVTwmBjMR7wrdAj2tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
