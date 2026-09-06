@@ -6,8 +6,18 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
     id("org.jlleitschuh.gradle.ktlint")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+}
+
+// google-services.json contains a Google API key, so it is intentionally NOT
+// committed (see the secret-scanning alert). Firebase plugins are only applied
+// when the file is present locally or injected in CI via a GitHub Secret.
+val googleServicesFile = file("google-services.json")
+val googleServicesEnabled =
+    googleServicesFile.exists() || project.hasProperty("googleServices")
+
+if (googleServicesEnabled) {
+    apply(plugin = "com.google.gms.google-services")
+    apply(plugin = "com.google.firebase.crashlytics")
 }
 
 // Signing credentials come from android/keystore.properties (gitignored).
