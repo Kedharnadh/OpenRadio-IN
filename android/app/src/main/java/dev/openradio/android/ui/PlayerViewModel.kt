@@ -103,6 +103,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
     private var metadataJob: Job? = null
     private var metadataStationId: String? = null
     private var sleepJob: Job? = null
+    private var volumeDebounceJob: Job? = null
 
     init {
         viewModelScope.launch {
@@ -160,13 +161,22 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
 
     fun stop() = AppPlayer.stop()
 
+    fun refreshStations() {
+        StationsStore.ensureLoaded(getApplication(), force = true)
+    }
+
     fun skipNext() = AppPlayer.skipNext()
 
     fun skipPrevious() = AppPlayer.skipPrevious()
 
     fun setVolume(volume: Float) {
         AppPlayer.setVolume(volume)
-        Prefs.setVolume(volume)
+        volumeDebounceJob?.cancel()
+        volumeDebounceJob =
+            viewModelScope.launch {
+                delay(500)
+                Prefs.setVolume(volume)
+            }
     }
 
     fun toggleMute() = AppPlayer.toggleMute()
@@ -203,7 +213,11 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
     fun isSleepTimerActive(): Boolean = sleepJob?.isActive == true
 
     private fun handlePlaybackState(state: PlaybackUiState) {
-        val stationId = state.currentStationId ?: return
+        val stationId = state.currentStationId
+        if (stationId == null) {
+            stopMetadataPolling()
+            return
+        }
         if (state.playing) {
             updateRecents(stationId)
             startMetadataPolling(stationId)

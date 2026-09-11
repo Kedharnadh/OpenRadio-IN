@@ -328,6 +328,9 @@ A native Android app built with Kotlin and Jetpack Compose (Material 3 / Materia
 
 - Full PWA feature set: search, language filter, favorites, recents
 - Now-playing bottom sheet with album art and track metadata
+- Polished now-playing bar that slides in while playing (pull-to-refresh station list, retry button, wide-screen sidebar)
+- Graceful audio-focus handling: pauses for other audio and auto-resumes once the other app stops, without ever interrupting it
+- Volume control with mute toggle (persisted across pauses)
 - Sleep timer, alarm, and station sharing
 - Chromecast support via CastPlayer (ExoPlayer local + Cast transfer)
 - Android Auto / Android Automotive (MediaLibraryService browses full station list)
@@ -399,6 +402,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide, including code style 
 ---
 
 ## Version History
+
+### v1.6.0
+- **Audio focus reclaim** — the radio now auto-resumes only *after* the interrupting app (another player, video, or navigation prompt) actually stops: it pauses on focus loss and re-acquires focus in the background without ever stealing audio, so the other app keeps playing uninterrupted
+- Fixed station volume being reset to full when a station was paused
+- Fixed Now Playing UI overlapping the system navigation bar on phones with three-button navigation (edge-to-edge insets)
+- Now Playing artwork falls back to the station logo when live album art is missing or fails to load (no more empty placeholders)
+- Notification now dismisses correctly when playback is stopped
+- UI polish: animated now-playing bar, pull-to-refresh station list, retry button, wide-screen now-playing sidebar
+- Performance: Coil-based notification artwork, exponential audio ducking, volume debounce, metadata polling cancellation, and more
 
 ### v1.2.0
 - Fixed album art spilling over to next station when switching (art state reset, image cache cleared immediately)

@@ -24,6 +24,7 @@ import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import dev.openradio.android.App
 import dev.openradio.android.BuildConfig
+import dev.openradio.android.Prefs
 import dev.openradio.android.R
 import dev.openradio.android.data.HttpClient
 import dev.openradio.android.data.Station
@@ -31,11 +32,14 @@ import dev.openradio.android.data.StationsStore
 import dev.openradio.android.ui.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import okhttp3.Request
 import org.json.JSONObject
@@ -76,7 +80,14 @@ object AppPlayer {
      */
     const val HLS_MIME_TYPE = "application/x-mpegURL"
 
+    /** First reclaim delay after a permanent audio-focus loss; doubles per attempt. */
+    private const val FOCUS_RECLAIM_BASE_DELAY_MS = 3_000L
+
+    /** Max re-request attempts before giving up on auto-resuming. */
+    private const val MAX_FOCUS_RECLAIM_ATTEMPTS = 15
+
     private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val mainScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     private val _state = MutableStateFlow(PlaybackUiState())
     val state: StateFlow<PlaybackUiState> = _state.asStateFlow()
@@ -89,7 +100,14 @@ object AppPlayer {
     private var audioManager: AudioManager? = null
     private var audioFocusRequest: AudioFocusRequest? = null
     private var duckVolumeBeforePause = 1f
+    private var ducked = false
     private var audioFocusGranted = false
+
+    /** True when playback was paused by audio-focus loss; auto-resumes on GAIN. */
+    private var autoResumeOnGain = false
+
+    /** In-flight bounded focus re-request loop after a permanent focus loss. */
+    private var focusReclaimJob: Job? = null
 
     val player: Player? get() = _player
     val librarySession: MediaLibraryService.MediaLibrarySession? get() = _librarySession
@@ -100,13 +118,14 @@ object AppPlayer {
      * Focus is released when playback stops. Uses a Media-audio-focus request
      * alongside media3's own handling so the radio reliably yields to other audio.
      */
-    private fun requestAudioFocusIfNeeded() {
-        val ctx = appContext ?: return
-        if (audioFocusGranted || isRemotePlayback()) return
+    private fun requestAudioFocusIfNeeded(): Int {
+        val ctx = appContext ?: return AudioManager.AUDIOFOCUS_REQUEST_FAILED
+        if (audioFocusGranted) return AudioManager.AUDIOFOCUS_REQUEST_GRANTED
+        if (isRemotePlayback()) return AudioManager.AUDIOFOCUS_REQUEST_FAILED
         val am =
             audioManager
                 ?: (ctx.getSystemService(Context.AUDIO_SERVICE) as? AudioManager)
-                ?: return
+                ?: return AudioManager.AUDIOFOCUS_REQUEST_FAILED
         audioManager = am
         val request =
             audioFocusRequest
@@ -117,11 +136,77 @@ object AppPlayer {
                             .setContentType(FrameworkAudioAttributes.CONTENT_TYPE_MUSIC)
                             .build(),
                     )
+                    // Never steal focus from an active app: when someone else is
+                    // playing, queue the request and get audio back only once the
+                    // other app stops (receiving then a normal AUDIOFOCUS_GAIN).
+                    .setAcceptsDelayedFocusGain(true)
                     .setOnAudioFocusChangeListener(audioFocusListener)
                     .build()
                     .also { audioFocusRequest = it }
         val result = am.requestAudioFocus(request)
         audioFocusGranted = result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED
+        return result
+    }
+
+    /**
+     * True while another app is actively playing music/media. Used to gate focus
+     * reclaim so the radio only takes audio back once the interrupting app has
+     * truly stopped, never over it.
+     */
+    private fun isOtherAudioActive(): Boolean {
+        val am = audioManager ?: return false
+        @Suppress("DEPRECATION") // Deprecated in API 35 but still the reliable cross-version signal.
+        return am.isMusicActive
+    }
+
+    /**
+     * A permanent focus loss removes this app from the focus stack, so Android
+     * never delivers a GAIN when the other app finishes. Re-request focus on a
+     * growing backoff and resume once granted.
+     */
+    private fun scheduleAudioFocusReclaim() {
+        focusReclaimJob?.cancel()
+        focusReclaimJob =
+            mainScope.launch {
+                var attempt = 0
+                while (isActive && autoResumeOnGain) {
+                    delay(FOCUS_RECLAIM_BASE_DELAY_MS * (1L shl attempt.coerceAtMost(3)))
+                    if (!autoResumeOnGain) return@launch
+                    // Never take focus away while the other app is still playing.
+                    if (isOtherAudioActive()) {
+                        attempt++
+                        if (attempt >= MAX_FOCUS_RECLAIM_ATTEMPTS) return@launch
+                        continue
+                    }
+                    when (requestAudioFocusIfNeeded()) {
+                        AudioManager.AUDIOFOCUS_REQUEST_GRANTED -> {
+                            if (autoResumeOnGain) {
+                                autoResumeOnGain = false
+                                _player?.let { p ->
+                                    if (ducked) {
+                                        p.volume = duckVolumeBeforePause
+                                        ducked = false
+                                    }
+                                    p.play()
+                                }
+                            }
+                            return@launch
+                        }
+                        // Delayed: Android queues the request and our listener
+                        // gets AUDIOFOCUS_GAIN once the active app releases,
+                        // which resumes playback there. Keep looping so we
+                        // eventually resume even without that event.
+                        AudioManager.AUDIOFOCUS_REQUEST_DELAYED -> {
+                            attempt++
+                            if (attempt >= MAX_FOCUS_RECLAIM_ATTEMPTS) return@launch
+                        }
+                        else -> {
+                            attempt++
+                            if (attempt >= MAX_FOCUS_RECLAIM_ATTEMPTS) return@launch
+                        }
+                    }
+                }
+            }
     }
 
     private fun abandonAudioFocus() {
@@ -129,8 +214,9 @@ object AppPlayer {
         val request = audioFocusRequest ?: return
         am.abandonAudioFocusRequest(request)
         audioFocusGranted = false
-        if (duckVolumeBeforePause != _player?.volume) {
+        if (ducked) {
             _player?.volume = duckVolumeBeforePause
+            ducked = false
         }
     }
 
@@ -140,21 +226,41 @@ object AppPlayer {
             when (focusChange) {
                 AudioManager.AUDIOFOCUS_LOSS -> {
                     audioFocusGranted = false
+                    // Remember that we were playing so we can auto-resume when
+                    // the other app / call finishes and focus returns.
+                    autoResumeOnGain = player.isPlaying
                     player.pause()
+                    if (autoResumeOnGain) {
+                        scheduleAudioFocusReclaim()
+                    }
                 }
                 AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
+                    autoResumeOnGain = player.isPlaying
                     player.pause()
                 }
                 AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> {
+                    ducked = true
                     duckVolumeBeforePause = player.volume
-                    player.volume = (player.volume * 0.25f).coerceAtLeast(0f)
+                    player.volume = (player.volume * player.volume * 0.25f).coerceAtLeast(0.02f)
                 }
                 AudioManager.AUDIOFOCUS_GAIN -> {
-                    player.volume = duckVolumeBeforePause
-                    if (player.playWhenReady) player.play()
+                    focusReclaimJob?.cancel()
+                    audioFocusGranted = true
+                    if (ducked) {
+                        player.volume = duckVolumeBeforePause
+                        ducked = false
+                    }
+                    if (autoResumeOnGain) {
+                        autoResumeOnGain = false
+                        player.play()
+                    }
                 }
                 AudioManager.AUDIOFOCUS_GAIN_TRANSIENT -> {
-                    player.volume = duckVolumeBeforePause
+                    audioFocusGranted = true
+                    if (ducked) {
+                        player.volume = duckVolumeBeforePause
+                        ducked = false
+                    }
                 }
             }
         }
@@ -275,7 +381,7 @@ object AppPlayer {
                 .setSessionActivity(sessionActivity)
                 .build()
 
-        _state.update { it.copy(castAvailable = isCastPlayer) }
+        _state.update { it.copy(castAvailable = isCastPlayer, volume = Prefs.volume()) }
     }
 
     // ---- Playback control -------------------------------------------------
@@ -325,18 +431,23 @@ object AppPlayer {
     }
 
     fun pause() {
+        autoResumeOnGain = false
+        focusReclaimJob?.cancel()
         _player?.pause()
         abandonAudioFocus()
         App.log("Paused station ${_state.value.currentStationId}")
     }
 
     fun resume() {
+        focusReclaimJob?.cancel()
         requestAudioFocusIfNeeded()
         _player?.play()
         App.log("Resumed station ${_state.value.currentStationId}")
     }
 
     fun stop() {
+        autoResumeOnGain = false
+        focusReclaimJob?.cancel()
         _player?.let { p ->
             p.stop()
             p.clearMediaItems()
@@ -381,10 +492,12 @@ object AppPlayer {
         if (_state.value.muted) {
             p.volume = volumeBeforeMute.coerceIn(0f, 1f)
             _state.update { it.copy(volume = p.volume, muted = false) }
+            Prefs.setVolume(p.volume)
         } else {
             volumeBeforeMute = p.volume
             p.volume = 0f
             _state.update { it.copy(volume = 0f, muted = true) }
+            Prefs.setVolume(volumeBeforeMute)
         }
     }
 

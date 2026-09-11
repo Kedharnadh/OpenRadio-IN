@@ -1,11 +1,14 @@
 package dev.openradio.android.ui.screens
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -17,10 +20,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -40,7 +45,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Radio
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.SearchOff
 import androidx.compose.material.icons.filled.SkipNext
@@ -60,6 +65,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -95,6 +102,7 @@ import dev.openradio.android.playback.PlaybackUiState
 import dev.openradio.android.ui.FilterState
 import dev.openradio.android.ui.MarqueeText
 import dev.openradio.android.ui.PlayerViewModel
+import dev.openradio.android.ui.StationArtwork
 import dev.openradio.android.ui.theme.Sky
 import dev.openradio.android.ui.theme.Violet
 import dev.openradio.android.ui.theme.stationStatusColor
@@ -120,6 +128,8 @@ fun HomeScreen(
     var recentsExpanded by rememberSaveable { mutableStateOf(true) }
     var favoritesExpanded by rememberSaveable { mutableStateOf(true) }
     var allExpanded by rememberSaveable { mutableStateOf(true) }
+    var isRefreshing by remember { mutableStateOf(false) }
+    val pullToRefreshState = rememberPullToRefreshState()
     val searchFocus = remember { FocusRequester() }
     val config = LocalContext.current.resources.configuration
     val isDpadDevice =
@@ -130,300 +140,343 @@ fun HomeScreen(
     LaunchedEffect(isDpadDevice) {
         if (isDpadDevice) searchFocus.requestFocus()
     }
+    LaunchedEffect(stationsLoading) {
+        if (!stationsLoading) isRefreshing = false
+    }
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            stringResource(R.string.app_name),
-                            style = MaterialTheme.typography.titleLarge,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                        Text(
-                            stringResource(R.string.app_tagline),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    }
-                },
-                actions = {
-                    UiLanguageMenu(onLanguageChanged = onLanguageChanged)
-                    if (playback.castAvailable) {
-                        MediaRouteButton()
-                    }
-                },
-            )
-        },
-        bottomBar = {
-            NowPlayingBar(
-                playback = playback,
-                viewModel = viewModel,
-                onClick = { showNowPlaying = true },
-            )
-        },
-    ) { innerPadding ->
-        BoxWithConstraints(Modifier.fillMaxSize()) {
-            val wideLayout = maxWidth >= 840.dp
-            val horizontalPadding = if (wideLayout) 32.dp else 16.dp
-            val gridColumns =
-                if (maxWidth >= 1200.dp) {
-                    4
-                } else if (maxWidth >= 880.dp) {
-                    3
-                } else if (maxWidth >= 600.dp) {
-                    2
-                } else {
-                    1
-                }
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+        val wideLayout = maxWidth >= 840.dp
+        val horizontalPadding = if (wideLayout) 32.dp else 16.dp
+        val gridColumns =
+            if (maxWidth >= 1200.dp) {
+                4
+            } else if (maxWidth >= 880.dp) {
+                3
+            } else if (maxWidth >= 600.dp) {
+                2
+            } else {
+                1
+            }
 
-            Column(
-                modifier =
-                    Modifier
-                        .padding(innerPadding)
-                        .fillMaxSize(),
+        val stationListContent: @Composable () -> Unit = {
+            PullToRefreshBox(
+                isRefreshing = isRefreshing,
+                onRefresh = {
+                    isRefreshing = true
+                    viewModel.refreshStations()
+                },
+                state = pullToRefreshState,
+                modifier = Modifier.fillMaxSize(),
             ) {
-                OutlinedTextField(
-                    value = filter.query,
-                    onValueChange = viewModel::setQuery,
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = horizontalPadding, vertical = 8.dp)
-                            .focusRequester(searchFocus),
-                    placeholder = { Text(stringResource(R.string.search_hint)) },
-                    leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
-                    trailingIcon = {
-                        if (filter.query.isNotBlank()) {
-                            IconButton(
-                                onClick = { viewModel.setQuery("") },
-                                modifier = Modifier.size(48.dp),
-                            ) {
-                                Icon(
-                                    Icons.Filled.Close,
-                                    contentDescription = stringResource(R.string.clear_search),
-                                )
-                            }
-                        }
-                    },
-                    singleLine = true,
-                    shape = RoundedCornerShape(28.dp),
-                )
-                FilterControls(
-                    filter = filter,
-                    languages = languages,
-                    categories = categories,
-                    favorites = favorites,
-                    onLanguage = viewModel::setLanguage,
-                    onCategory = viewModel::setCategory,
-                    onFavorites = viewModel::setOnlyFavorites,
-                    horizontalPadding = horizontalPadding,
-                    wideLayout = wideLayout,
-                )
-
-                val currentStationHidden =
-                    playback.currentStationId != null &&
-                        stations.none { it.id == playback.currentStationId }
-                if (currentStationHidden) {
-                    Surface(
-                        shape = RoundedCornerShape(16.dp),
-                        color = MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.7f),
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    OutlinedTextField(
+                        value = filter.query,
+                        onValueChange = viewModel::setQuery,
                         modifier =
                             Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = horizontalPadding, vertical = 4.dp),
-                    ) {
-                        Row(
+                                .padding(horizontal = horizontalPadding, vertical = 8.dp)
+                                .focusRequester(searchFocus),
+                        placeholder = { Text(stringResource(R.string.search_hint)) },
+                        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+                        trailingIcon = {
+                            if (filter.query.isNotBlank()) {
+                                IconButton(
+                                    onClick = { viewModel.setQuery("") },
+                                    modifier = Modifier.size(48.dp),
+                                ) {
+                                    Icon(
+                                        Icons.Filled.Close,
+                                        contentDescription = stringResource(R.string.clear_search),
+                                    )
+                                }
+                            }
+                        },
+                        singleLine = true,
+                        shape = RoundedCornerShape(28.dp),
+                    )
+                    FilterControls(
+                        filter = filter,
+                        languages = languages,
+                        categories = categories,
+                        favorites = favorites,
+                        onLanguage = viewModel::setLanguage,
+                        onCategory = viewModel::setCategory,
+                        onFavorites = viewModel::setOnlyFavorites,
+                        horizontalPadding = horizontalPadding,
+                        wideLayout = wideLayout,
+                    )
+
+                    val currentStationHidden =
+                        playback.currentStationId != null &&
+                            stations.none { it.id == playback.currentStationId }
+                    if (currentStationHidden) {
+                        Surface(
+                            shape = RoundedCornerShape(16.dp),
+                            color = MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.7f),
                             modifier =
                                 Modifier
-                                    .clip(RoundedCornerShape(16.dp))
-                                    .clickable { showNowPlaying = true }
-                                    .padding(horizontal = 14.dp, vertical = 10.dp),
-                            verticalAlignment = Alignment.CenterVertically,
+                                    .fillMaxWidth()
+                                    .padding(horizontal = horizontalPadding, vertical = 4.dp),
                         ) {
-                            Box(
+                            Row(
                                 modifier =
                                     Modifier
-                                        .size(28.dp)
-                                        .clip(CircleShape)
-                                        .background(Brush.linearGradient(listOf(Sky, Violet))),
-                                contentAlignment = Alignment.Center,
+                                        .clip(RoundedCornerShape(16.dp))
+                                        .clickable { showNowPlaying = true }
+                                        .padding(horizontal = 14.dp, vertical = 10.dp),
+                                verticalAlignment = Alignment.CenterVertically,
                             ) {
+                                Box(
+                                    modifier =
+                                        Modifier
+                                            .size(28.dp)
+                                            .clip(CircleShape)
+                                            .background(Brush.linearGradient(listOf(Sky, Violet))),
+                                    contentAlignment = Alignment.Center,
+                                ) {
+                                    Icon(
+                                        imageVector =
+                                            if (playback.playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+                                        contentDescription = null,
+                                        tint = Color.White,
+                                        modifier = Modifier.size(16.dp),
+                                    )
+                                }
+                                Spacer(Modifier.width(10.dp))
+                                Column(Modifier.weight(1f)) {
+                                    Text(
+                                        stringResource(R.string.now_playing),
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
+                                    Text(
+                                        playback.currentStationName
+                                            ?: stringResource(R.string.select_station),
+                                        style = MaterialTheme.typography.titleSmall,
+                                        fontWeight = FontWeight.SemiBold,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis,
+                                    )
+                                }
                                 Icon(
-                                    imageVector = if (playback.playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+                                    Icons.Filled.SkipNext,
                                     contentDescription = null,
-                                    tint = Color.White,
-                                    modifier = Modifier.size(16.dp),
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
                             }
-                            Spacer(Modifier.width(10.dp))
-                            Column(Modifier.weight(1f)) {
+                        }
+                    }
+
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(gridColumns),
+                        modifier =
+                            Modifier
+                                .weight(1f)
+                                .focusTarget(),
+                        contentPadding =
+                            PaddingValues(
+                                start = if (wideLayout) 16.dp else 0.dp,
+                                end = if (wideLayout) 16.dp else 0.dp,
+                                bottom = 16.dp,
+                            ),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        if (filter.query.isBlank() && !filter.onlyFavorites && recentsStations.isNotEmpty()) {
+                            item(span = { GridItemSpan(maxLineSpan) }) {
+                                SectionHeader(
+                                    title = stringResource(R.string.recently_played),
+                                    expanded = recentsExpanded,
+                                    onToggle = { recentsExpanded = !recentsExpanded },
+                                )
+                            }
+                            if (recentsExpanded) {
+                                item(span = { GridItemSpan(maxLineSpan) }) {
+                                    LazyRow(
+                                        contentPadding = PaddingValues(horizontal = horizontalPadding),
+                                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                    ) {
+                                        items(recentsStations, key = { it.id }) { station ->
+                                            val onPlay = remember(station) { { viewModel.togglePlay(station) } }
+                                            FeaturedCard(
+                                                station = station,
+                                                isFavorite = station.id in favorites,
+                                                isPlaying = playback.currentStationId == station.id && playback.playing,
+                                                onPlay = onPlay,
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (showFavorites && favoriteStations.isNotEmpty() &&
+                            filter.query.isBlank() && filter.category == null && filter.language == null
+                        ) {
+                            item(span = { GridItemSpan(maxLineSpan) }) {
+                                SectionHeader(
+                                    title = stringResource(R.string.favorite_stations),
+                                    expanded = favoritesExpanded,
+                                    onToggle = { favoritesExpanded = !favoritesExpanded },
+                                )
+                            }
+                            if (favoritesExpanded) {
+                                item(span = { GridItemSpan(maxLineSpan) }) {
+                                    LazyRow(
+                                        contentPadding = PaddingValues(horizontal = horizontalPadding),
+                                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                    ) {
+                                        items(favoriteStations, key = { it.id }) { station ->
+                                            val onPlay = remember(station) { { viewModel.togglePlay(station) } }
+                                            FeaturedCard(
+                                                station = station,
+                                                isFavorite = true,
+                                                isPlaying = playback.currentStationId == station.id && playback.playing,
+                                                onPlay = onPlay,
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (filter.query.isBlank() && !filter.onlyFavorites) {
+                            item(span = { GridItemSpan(maxLineSpan) }) {
+                                SectionHeader(
+                                    title = stringResource(R.string.all_stations),
+                                    expanded = allExpanded,
+                                    onToggle = { allExpanded = !allExpanded },
+                                )
+                            }
+                        }
+
+                        if (showFavorites && favorites.isEmpty()) {
+                            item(span = { GridItemSpan(maxLineSpan) }) {
                                 Text(
-                                    stringResource(R.string.now_playing),
-                                    style = MaterialTheme.typography.labelSmall,
+                                    stringResource(R.string.no_favorites_hint),
+                                    style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
-                                Text(
-                                    playback.currentStationName
-                                        ?: stringResource(R.string.select_station),
-                                    style = MaterialTheme.typography.titleSmall,
-                                    fontWeight = FontWeight.SemiBold,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
+                                    modifier = Modifier.padding(horizontal = horizontalPadding, vertical = 8.dp),
                                 )
                             }
-                            Icon(
-                                Icons.Filled.SkipNext,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
+                        }
+
+                        if (allExpanded) {
+                            if (stationsLoading && stations.isEmpty()) {
+                                items(6) {
+                                    StationCardSkeleton(wideLayout = wideLayout)
+                                }
+                            } else if (stations.isEmpty()) {
+                                item(span = { GridItemSpan(maxLineSpan) }) {
+                                    Column(
+                                        modifier =
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .padding(vertical = 32.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                    ) {
+                                        Icon(
+                                            Icons.Filled.SearchOff,
+                                            contentDescription = null,
+                                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.size(40.dp),
+                                        )
+                                        Text(
+                                            stringResource(R.string.empty_list),
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.padding(top = 12.dp, start = 24.dp, end = 24.dp),
+                                            textAlign = TextAlign.Center,
+                                        )
+                                    }
+                                }
+                            }
+
+                            items(stations, key = { it.id }) { station ->
+                                val onPlay = remember(station) { { viewModel.togglePlay(station) } }
+                                val onFavorite = remember(station) { { viewModel.toggleFavorite(station.id) } }
+                                StationCard(
+                                    station = station,
+                                    isFavorite = station.id in favorites,
+                                    isCurrent =
+                                        playback.currentStationId == station.id &&
+                                            (playback.playing || playback.paused || playback.loading),
+                                    isPlaying = playback.currentStationId == station.id && playback.playing,
+                                    wideLayout = wideLayout,
+                                    onPlay = onPlay,
+                                    onStop = viewModel::stop,
+                                    onFavorite = onFavorite,
+                                )
+                            }
                         }
                     }
                 }
+            }
+        }
 
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(gridColumns),
-                    modifier =
-                        Modifier
-                            .weight(1f)
-                            .focusTarget(),
-                    contentPadding =
-                        PaddingValues(
-                            start = if (wideLayout) 16.dp else 0.dp,
-                            end = if (wideLayout) 16.dp else 0.dp,
-                            bottom = 16.dp,
-                        ),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
-                ) {
-                    if (filter.query.isBlank() && !filter.onlyFavorites && recentsStations.isNotEmpty()) {
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            SectionHeader(
-                                title = stringResource(R.string.recently_played),
-                                expanded = recentsExpanded,
-                                onToggle = { recentsExpanded = !recentsExpanded },
-                            )
-                        }
-                        if (recentsExpanded) {
-                            item(span = { GridItemSpan(maxLineSpan) }) {
-                                LazyRow(
-                                    contentPadding = PaddingValues(horizontal = horizontalPadding),
-                                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                                ) {
-                                    items(recentsStations, key = { it.id }) { station ->
-                                        FeaturedCard(
-                                            station = station,
-                                            isFavorite = station.id in favorites,
-                                            isPlaying = playback.currentStationId == station.id && playback.playing,
-                                            onPlay = { viewModel.togglePlay(station) },
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    if (showFavorites && favoriteStations.isNotEmpty() &&
-                        filter.query.isBlank() && filter.category == null && filter.language == null
-                    ) {
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            SectionHeader(
-                                title = stringResource(R.string.favorite_stations),
-                                expanded = favoritesExpanded,
-                                onToggle = { favoritesExpanded = !favoritesExpanded },
-                            )
-                        }
-                        if (favoritesExpanded) {
-                            item(span = { GridItemSpan(maxLineSpan) }) {
-                                LazyRow(
-                                    contentPadding = PaddingValues(horizontal = horizontalPadding),
-                                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                                ) {
-                                    items(favoriteStations, key = { it.id }) { station ->
-                                        FeaturedCard(
-                                            station = station,
-                                            isFavorite = true,
-                                            isPlaying = playback.currentStationId == station.id && playback.playing,
-                                            onPlay = { viewModel.togglePlay(station) },
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    if (filter.query.isBlank() && !filter.onlyFavorites) {
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            SectionHeader(
-                                title = stringResource(R.string.all_stations),
-                                expanded = allExpanded,
-                                onToggle = { allExpanded = !allExpanded },
-                            )
-                        }
-                    }
-
-                    if (showFavorites && favorites.isEmpty()) {
-                        item(span = { GridItemSpan(maxLineSpan) }) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(
-                                stringResource(R.string.no_favorites_hint),
-                                style = MaterialTheme.typography.bodyMedium,
+                                stringResource(R.string.app_name),
+                                style = MaterialTheme.typography.titleLarge,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                            Text(
+                                stringResource(R.string.app_tagline),
+                                style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.padding(horizontal = horizontalPadding, vertical = 8.dp),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
                             )
                         }
-                    }
-
-                    if (allExpanded) {
-                        if (stationsLoading && stations.isEmpty()) {
-                            items(6) {
-                                StationCardSkeleton(wideLayout = wideLayout)
-                            }
-                        } else if (stations.isEmpty()) {
-                            item(span = { GridItemSpan(maxLineSpan) }) {
-                                Column(
-                                    modifier =
-                                        Modifier
-                                            .fillMaxWidth()
-                                            .padding(vertical = 32.dp),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                ) {
-                                    Icon(
-                                        Icons.Filled.SearchOff,
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.size(40.dp),
-                                    )
-                                    Text(
-                                        stringResource(R.string.empty_list),
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.padding(top = 12.dp, start = 24.dp, end = 24.dp),
-                                        textAlign = TextAlign.Center,
-                                    )
-                                }
-                            }
+                    },
+                    actions = {
+                        UiLanguageMenu(onLanguageChanged = onLanguageChanged)
+                        if (playback.castAvailable) {
+                            MediaRouteButton()
                         }
-
-                        items(stations, key = { it.id }) { station ->
-                            StationCard(
-                                station = station,
-                                isFavorite = station.id in favorites,
-                                isCurrent =
-                                    playback.currentStationId == station.id &&
-                                        (playback.playing || playback.paused || playback.loading),
-                                isPlaying = playback.currentStationId == station.id && playback.playing,
-                                wideLayout = wideLayout,
-                                onPlay = { viewModel.togglePlay(station) },
-                                onStop = { viewModel.stop() },
-                                onFavorite = { viewModel.toggleFavorite(station.id) },
-                            )
-                        }
+                    },
+                )
+            },
+            bottomBar = {
+                if (!wideLayout) {
+                    AnimatedVisibility(
+                        visible = playback.currentStationId != null,
+                        enter = slideInVertically(initialOffsetY = { it }),
+                        exit = slideOutVertically(targetOffsetY = { it }),
+                    ) {
+                        NowPlayingBar(
+                            playback = playback,
+                            viewModel = viewModel,
+                            onClick = { showNowPlaying = true },
+                        )
                     }
+                }
+            },
+        ) { innerPadding ->
+            if (wideLayout) {
+                Row(Modifier.padding(innerPadding).fillMaxSize()) {
+                    Column(Modifier.weight(1f).fillMaxHeight()) {
+                        stationListContent()
+                    }
+                    NowPlayingSidebar(
+                        playback = playback,
+                        viewModel = viewModel,
+                        stations = stations,
+                        onClick = { showNowPlaying = true },
+                    )
+                }
+            } else {
+                Box(Modifier.padding(innerPadding).fillMaxSize()) {
+                    stationListContent()
                 }
             }
         }
@@ -1040,6 +1093,7 @@ private fun NowPlayingBar(
             viewModel.stations.value.firstOrNull { it.id == id }
         }
     Surface(
+        modifier = Modifier.navigationBarsPadding(),
         tonalElevation = 10.dp,
         shadowElevation = 8.dp,
         shape = RoundedCornerShape(topStart = 22.dp, topEnd = 22.dp),
@@ -1099,18 +1153,30 @@ private fun NowPlayingBar(
             }
             Spacer(Modifier.width(2.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                FocusableIconButton(onClick = viewModel::skipPrevious, enabled = hasStation) {
-                    Icon(Icons.Filled.SkipPrevious, stringResource(R.string.previous))
-                }
-                FocusablePlayPause(
-                    playing = playback.playing,
-                    onClick = { if (playback.playing) viewModel.pause() else viewModel.resume() },
-                )
-                FocusableIconButton(onClick = viewModel::stop, enabled = hasStation) {
-                    Icon(Icons.Filled.Stop, stringResource(R.string.stop))
-                }
-                FocusableIconButton(onClick = viewModel::skipNext, enabled = hasStation) {
-                    Icon(Icons.Filled.SkipNext, stringResource(R.string.next))
+                if (playback.retryStatus != null) {
+                    FocusableIconButton(
+                        onClick = {
+                            val station = viewModel.stations.value.firstOrNull { it.id == playback.currentStationId }
+                            if (station != null) viewModel.play(station)
+                        },
+                        enabled = true,
+                    ) {
+                        Icon(Icons.Filled.Refresh, stringResource(R.string.play))
+                    }
+                } else {
+                    FocusableIconButton(onClick = viewModel::skipPrevious, enabled = hasStation) {
+                        Icon(Icons.Filled.SkipPrevious, stringResource(R.string.previous))
+                    }
+                    FocusablePlayPause(
+                        playing = playback.playing,
+                        onClick = { if (playback.playing) viewModel.pause() else viewModel.resume() },
+                    )
+                    FocusableIconButton(onClick = viewModel::stop, enabled = hasStation) {
+                        Icon(Icons.Filled.Stop, stringResource(R.string.stop))
+                    }
+                    FocusableIconButton(onClick = viewModel::skipNext, enabled = hasStation) {
+                        Icon(Icons.Filled.SkipNext, stringResource(R.string.next))
+                    }
                 }
             }
         }
@@ -1199,12 +1265,96 @@ private fun FocusablePlayPause(
 }
 
 @Composable
+private fun NowPlayingSidebar(
+    playback: PlaybackUiState,
+    viewModel: PlayerViewModel,
+    stations: List<Station>,
+    onClick: () -> Unit,
+) {
+    if (playback.currentStationId == null) return
+    val currentStation = stations.firstOrNull { it.id == playback.currentStationId }
+    Surface(
+        modifier =
+            Modifier
+                .width(320.dp)
+                .fillMaxHeight()
+                .padding(start = 8.dp),
+        tonalElevation = 4.dp,
+        shape = RoundedCornerShape(topStart = 22.dp, bottomStart = 22.dp),
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.96f),
+    ) {
+        Column(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(topStart = 22.dp, bottomStart = 22.dp))
+                    .clickable(onClick = onClick)
+                    .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+        ) {
+            StationAvatarBox(
+                nowPlayingArt = playback.nowPlayingArt,
+                fallbackLogo = currentStation?.logo,
+                playing = playback.playing,
+            )
+            Spacer(Modifier.height(12.dp))
+            MarqueeText(
+                text = playback.currentStationName ?: "",
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(Modifier.height(4.dp))
+            val subtitle =
+                when {
+                    playback.retryStatus != null -> playback.retryStatus
+                    playback.loading -> stringResource(R.string.buffering)
+                    playback.paused -> stringResource(R.string.paused)
+                    !playback.nowPlayingTrack.isNullOrBlank() -> playback.nowPlayingTrack
+                    else -> stringResource(R.string.live_radio)
+                }
+            Text(
+                subtitle,
+                style = MaterialTheme.typography.bodySmall,
+                color =
+                    if (playback.retryStatus != null) {
+                        MaterialTheme.colorScheme.error
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Spacer(Modifier.height(16.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                FocusableIconButton(onClick = viewModel::skipPrevious) {
+                    Icon(Icons.Filled.SkipPrevious, stringResource(R.string.previous))
+                }
+                FocusablePlayPause(
+                    playing = playback.playing,
+                    onClick = { if (playback.playing) viewModel.pause() else viewModel.resume() },
+                )
+                FocusableIconButton(onClick = viewModel::stop) {
+                    Icon(Icons.Filled.Stop, stringResource(R.string.stop))
+                }
+                FocusableIconButton(onClick = viewModel::skipNext) {
+                    Icon(Icons.Filled.SkipNext, stringResource(R.string.next))
+                }
+            }
+        }
+    }
+}
+
+@Composable
 private fun StationAvatarBox(
     nowPlayingArt: String?,
     fallbackLogo: String?,
     playing: Boolean = false,
 ) {
-    val artwork = nowPlayingArt?.takeIf { it.isNotBlank() } ?: fallbackLogo?.takeIf { it.isNotBlank() }
     Box(
         modifier =
             Modifier
@@ -1215,21 +1365,12 @@ private fun StationAvatarBox(
                 ),
         contentAlignment = Alignment.Center,
     ) {
-        if (artwork != null) {
-            AsyncImage(
-                model = artwork,
-                contentDescription = null,
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop,
-            )
-        } else {
-            Icon(
-                Icons.Filled.Radio,
-                contentDescription = null,
-                tint = androidx.compose.ui.graphics.Color.White,
-                modifier = Modifier.size(28.dp),
-            )
-        }
+        StationArtwork(
+            primary = nowPlayingArt,
+            fallback = fallbackLogo,
+            modifier = Modifier.fillMaxSize(),
+            iconSize = 28.dp,
+        )
         if (playing) {
             Box(
                 modifier =

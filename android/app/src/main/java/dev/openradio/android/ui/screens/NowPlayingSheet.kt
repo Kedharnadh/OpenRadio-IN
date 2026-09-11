@@ -34,7 +34,6 @@ import androidx.compose.material.icons.filled.Alarm
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Radio
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
@@ -69,7 +68,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -78,7 +76,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.media3.cast.MediaRouteButton
-import coil.compose.AsyncImage
 import dev.openradio.android.LocaleManager
 import dev.openradio.android.Prefs
 import dev.openradio.android.R
@@ -87,6 +84,7 @@ import dev.openradio.android.data.EpgProgram
 import dev.openradio.android.data.Station
 import dev.openradio.android.ui.MarqueeText
 import dev.openradio.android.ui.PlayerViewModel
+import dev.openradio.android.ui.StationArtwork
 import dev.openradio.android.ui.theme.Sky
 import dev.openradio.android.ui.theme.Violet
 import dev.openradio.android.ui.theme.stationStatusColor
@@ -145,7 +143,6 @@ fun NowPlayingSheet(
                     (maxWidth - 48.dp).coerceIn(160.dp, 320.dp)
                 }
             )
-            val artwork = playback.nowPlayingArt ?: station?.logo
 
             @Composable
             fun Artwork() {
@@ -163,21 +160,14 @@ fun NowPlayingSheet(
                             .background(Brush.linearGradient(listOf(Sky, Violet))),
                     contentAlignment = Alignment.Center,
                 ) {
-                    if (!artwork.isNullOrBlank()) {
-                        AsyncImage(
-                            model = artwork,
-                            contentDescription = station?.localizedName(uiLang) ?: playback.currentStationName,
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = ContentScale.Crop,
-                        )
-                    } else {
-                        Icon(
-                            Icons.Filled.Radio,
-                            contentDescription = null,
-                            modifier = Modifier.size(96.dp),
-                            tint = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.9f),
-                        )
-                    }
+                    StationArtwork(
+                        primary = playback.nowPlayingArt,
+                        fallback = station?.logo,
+                        modifier = Modifier.fillMaxSize(),
+                        iconSize = 96.dp,
+                        iconTint = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.9f),
+                        contentDescription = station?.localizedName(uiLang) ?: playback.currentStationName,
+                    )
                 }
             }
 

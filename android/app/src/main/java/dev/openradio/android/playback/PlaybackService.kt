@@ -15,15 +15,15 @@ import androidx.media3.common.Player
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaStyleNotificationHelper
+import coil.Coil
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import dev.openradio.android.R
 import dev.openradio.android.ui.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.net.HttpURLConnection
-import java.net.URL
 
 /**
  * Exposes the [AppPlayer] session to Android Auto / other MediaBrowser
@@ -45,6 +45,7 @@ class PlaybackService : MediaLibraryService() {
         private const val ACTION_SKIP_NEXT = "dev.openradio.android.action.SKIP_NEXT"
         private const val ACTION_SKIP_PREV = "dev.openradio.android.action.SKIP_PREV"
         private const val ACTION_STOP = "dev.openradio.android.action.STOP"
+        private const val NOTIFICATION_ICON_SIZE = 128
     }
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -55,7 +56,14 @@ class PlaybackService : MediaLibraryService() {
         object : Player.Listener {
             override fun onIsPlayingChanged(isPlaying: Boolean) = updateNotification()
 
-            override fun onPlaybackStateChanged(playbackState: Int) = updateNotification()
+            override fun onPlaybackStateChanged(playbackState: Int) {
+                // When the player has no media items (stopped), dismiss the notification.
+                if (AppPlayer.player?.mediaItemCount == 0) {
+                    dismissNotification()
+                } else {
+                    updateNotification()
+                }
+            }
 
             override fun onMediaItemTransition(
                 mediaItem: MediaItem?,
@@ -74,6 +82,12 @@ class PlaybackService : MediaLibraryService() {
         AppPlayer.initialize(this)
         createNotificationChannel()
         AppPlayer.player?.addListener(playerListener)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AppPlayer.player?.removeListener(playerListener)
+        dismissNotification()
     }
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibraryService.MediaLibrarySession? {
@@ -102,9 +116,14 @@ class PlaybackService : MediaLibraryService() {
             ACTION_SKIP_PREV -> player.seekToPreviousMediaItem()
             ACTION_STOP -> {
                 AppPlayer.stop()
+                dismissNotification()
                 stopSelf()
             }
         }
+    }
+
+    private fun dismissNotification() {
+        NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID)
     }
 
     private fun updateNotification() {
@@ -196,28 +215,36 @@ class PlaybackService : MediaLibraryService() {
 
     private fun loadArtworkAsync(url: String) {
         scope.launch {
-            val bitmap = withContext(Dispatchers.IO) { downloadBitmap(url) }
-            if (bitmap != null) {
+            val ctx = applicationContext
+            val request =
+                ImageRequest.Builder(ctx)
+                    .data(url)
+                    .size(NOTIFICATION_ICON_SIZE)
+                    .build()
+            val result = Coil.imageLoader(ctx).execute(request)
+            if (result is SuccessResult) {
+                val drawable = result.drawable
+                val bitmap =
+                    when (drawable) {
+                        is android.graphics.drawable.BitmapDrawable -> drawable.bitmap
+                        else -> {
+                            val bmp =
+                                android.graphics.Bitmap.createBitmap(
+                                    NOTIFICATION_ICON_SIZE,
+                                    NOTIFICATION_ICON_SIZE,
+                                    android.graphics.Bitmap.Config.ARGB_8888,
+                                )
+                            val canvas = android.graphics.Canvas(bmp)
+                            drawable.setBounds(0, 0, NOTIFICATION_ICON_SIZE, NOTIFICATION_ICON_SIZE)
+                            drawable.draw(canvas)
+                            bmp
+                        }
+                    }
                 cachedArtwork = bitmap
                 updateNotification()
             }
         }
     }
-
-    private fun downloadBitmap(url: String): Bitmap? =
-        runCatching {
-            val connection = URL(url).openConnection() as HttpURLConnection
-            connection.connectTimeout = 4000
-            connection.readTimeout = 4000
-            connection.instanceFollowRedirects = true
-            val input = connection.inputStream
-            try {
-                BitmapFactory.decodeStream(java.io.BufferedInputStream(input))
-            } finally {
-                input.close()
-                connection.disconnect()
-            }
-        }.getOrNull()
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
