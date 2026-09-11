@@ -34,7 +34,7 @@ android {
     defaultConfig {
         applicationId = "in.openradio.android"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 10
         versionName = "1.6.0"
 
