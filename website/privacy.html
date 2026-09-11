@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta
+      name="description"
+      content="Privacy policy for the OpenRadio-IN app and website."
+    />
+    <title>Privacy Policy - OpenRadio-IN</title>
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero-card policy-header">
+        <a href="index.html" class="privacy-link">&larr; OpenRadio-IN</a>
+        <p class="eyebrow">Privacy Policy</p>
+        <h1>OpenRadio-IN</h1>
+        <p class="hero-copy">Last updated: 11 September 2026</p>
+      </header>
+      <main style="max-width: 760px; margin: 0 auto; padding: 24px 20px 72px; line-height: 1.65; color: #e2e8f0">
+        <section>
+          <h2>1. Overview</h2>
+          <p>
+            OpenRadio-IN (“the app”, “the website”, “we”) lets you discover and stream online
+            radio stations. This policy explains what information is collected, why, and how you
+            can control it. The app and website do <strong>not</strong> create accounts, collect
+            names, email addresses, or payment information, and they do <strong>not</strong> sell
+            or share personal data to third parties.
+          </p>
+        </section>
+
+        <section>
+          <h2>2. Station data</h2>
+          <p>
+            The list of radio stations is fetched from a public GitHub repository
+            (github.com/Kedharnadh/OpenRadio-IN) and cached on your device for offline use. No
+            personal data is included in this request. Your IP address is visible to our hosting
+            providers only as a normal part of serving content.
+          </p>
+        </section>
+
+        <section>
+          <h2>3. Analytics &amp; crash reporting</h2>
+          <p>
+            We use analytics and crash-reporting tools to understand how the app is used and to
+            fix problems. These services collect aggregated, non-personal diagnostic information:
+          </p>
+          <ul>
+            <li>
+              <strong>Android app</strong> &mdash; Google Analytics for Firebase and Firebase
+              Crashlytics. This may include crash logs, performance data, device type, OS version,
+              and device identifiers used for analytics (e.g. an advertising/analytics ID). This is
+              managed by Google and subject to
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener"
+                >Google's privacy policy</a
+              >. You can consent to, or disable, analytics in the app's settings screens.
+            </li>
+            <li>
+              <strong>Website (PWA)</strong> &mdash; Google Analytics (property G-48120XZZQ4),
+              which may use cookies to measure anonymous usage.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. Audio proxy</h2>
+          <p>
+            Some streams are played through an HLS proxy hosted on Cloudflare Workers
+            (openradio-hls-proxy.kedharnadh1.workers.dev). The proxy only relays audio and does
+            not log or store personal data beyond transient connection metadata.
+          </p>
+        </section>
+
+        <section>
+          <h2>5. Services we rely on</h2>
+          <p>
+            The app uses third-party services that process minimal technical data: Google Play
+            Services (Cast), Cloudflare (hosting and the audio proxy), and GitHub Pages (station
+            data hosting). Each provider processes data under its own privacy policy.
+          </p>
+        </section>
+
+        <section>
+          <h2>6. Permissions</h2>
+          <p>The Android app requests only the permissions needed for playback:</p>
+          <ul>
+            <li>Internet &mdash; to stream radio stations;</li>
+            <li>
+              Foreground service + media playback &mdash; to keep playing while the screen is off;
+            </li>
+            <li>
+              Notifications &mdash; to show playback controls and a “now playing” notification.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>7. Data retention &amp; deletion</h2>
+          <p>
+            The app stores only your local preferences (favourite stations, volume, alarm) on your
+            device. To delete this data, clear the app's data or uninstall the app. Diagnostics
+            forwarded to Google Analytics/Firebase are retained under the retention settings of
+            those services; aggregated data is kept for up to 14 months and can be disabled as
+            described in section 3.
+          </p>
+        </section>
+
+        <section>
+          <h2>8. Children</h2>
+          <p>
+            The app is a general media player and is not directed at children under 13. We do not
+            knowingly collect personal data from children.
+          </p>
+        </section>
+
+        <section>
+          <h2>9. Changes &amp; contact</h2>
+          <p>
+            We may update this policy from time to time; changes appear on this page. Questions?
+            Open an issue at
+            <a href="https://github.com/Kedharnadh/OpenRadio-IN/issues" target="_blank" rel="noopener"
+              >github.com/Kedharnadh/OpenRadio-IN/issues</a
+            >.
+          </p>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
