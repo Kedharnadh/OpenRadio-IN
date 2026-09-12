@@ -147,6 +147,7 @@ fun HomeScreen(
 
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val wideLayout = maxWidth >= 840.dp
+        val sidebarLayout = maxWidth >= 1200.dp
         val horizontalPadding = if (wideLayout) 32.dp else 16.dp
         val gridColumns =
             if (maxWidth >= 1200.dp) {
@@ -452,7 +453,7 @@ fun HomeScreen(
                 )
             },
             bottomBar = {
-                if (!wideLayout) {
+                if (!sidebarLayout) {
                     AnimatedVisibility(
                         visible = playback.currentStationId != null,
                         enter = slideInVertically(initialOffsetY = { it }),
@@ -467,7 +468,7 @@ fun HomeScreen(
                 }
             },
         ) { innerPadding ->
-            if (wideLayout) {
+            if (sidebarLayout) {
                 Row(Modifier.padding(innerPadding).fillMaxSize()) {
                     Column(Modifier.weight(1f).fillMaxHeight()) {
                         stationListContent()

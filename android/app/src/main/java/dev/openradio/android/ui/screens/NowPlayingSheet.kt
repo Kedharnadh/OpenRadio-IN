@@ -138,7 +138,7 @@ fun NowPlayingSheet(
             val wide = maxWidth >= 760.dp || maxWidth > maxHeight
             val artSize = (
                 if (wide) {
-                    (maxHeight * 0.58f).coerceIn(240.dp, 480.dp)
+                    (maxHeight * 0.7f).coerceIn(200.dp, 440.dp)
                 } else {
                     (maxWidth - 48.dp).coerceIn(160.dp, 320.dp)
                 }
@@ -406,12 +406,12 @@ fun NowPlayingSheet(
                             .fillMaxSize()
                             .verticalScroll(rememberScrollState())
                             .padding(24.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+                    verticalAlignment = Alignment.Top,
                     horizontalArrangement = Arrangement.spacedBy(32.dp),
                 ) {
                     Box(
                         modifier = Modifier.weight(1f),
-                        contentAlignment = Alignment.Center,
+                        contentAlignment = Alignment.TopCenter,
                     ) {
                         Artwork()
                     }
