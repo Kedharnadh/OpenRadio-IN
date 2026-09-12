@@ -39,6 +39,7 @@ jobs:
         run: |
           mkdir -p public/data
           cp -R website/. public/
+          cp -R station-logos public/station-logos
           cp database/stations.json public/data/stations.json
       - name: Check station health
         run: |

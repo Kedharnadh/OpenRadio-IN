@@ -6,8 +6,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
+import java.net.URI
 
 data class NowPlaying(
     val streamTitle: String,
@@ -39,15 +41,69 @@ class MetadataRepository {
         withContext(Dispatchers.IO) {
             var params = "?meta=1&url=${encode(streamUrl)}"
             if (!metadataUrl.isNullOrBlank()) params += "&metaUrl=${encode(metadataUrl)}"
-            fetchJson("${BuildConfig.HLS_PROXY_URL}$params")?.let { obj ->
-                val title = obj.optString("streamTitle", "")
-                if (title.isBlank()) {
-                    null
-                } else {
-                    NowPlaying(title, obj.optString("art", ""))
+            fetchJson("${BuildConfig.HLS_PROXY_URL}$params")
+                ?.let { obj ->
+                    val title = obj.optString("streamTitle", "")
+                    if (title.isBlank()) {
+                        null
+                    } else {
+                        NowPlaying(title, obj.optString("art", ""))
+                    }
                 }
+                ?: fetchIcecastStatus(streamUrl)
+        }
+
+    /**
+     * Fallback for Icecast streams whose ICY metadata is unreachable through the
+     * proxy worker: query the server's status-json.xsl endpoint directly, which
+     * reports the currently playing song.
+     */
+    private suspend fun fetchIcecastStatus(streamUrl: String): NowPlaying? =
+        withContext(Dispatchers.IO) {
+            val statusUrl = deriveIcecastStatusUrl(streamUrl) ?: return@withContext null
+            val request = Request.Builder().url(statusUrl).build()
+            try {
+                client.newCall(request).execute().use { response ->
+                    if (!response.isSuccessful) return@use null
+                    val text = response.body?.string() ?: return@use null
+                    parseIcecastStatus(text)?.let { NowPlaying(it, "") }
+                }
+            } catch (e: IOException) {
+                Log.w(TAG, "Network error fetching Icecast status $statusUrl", e)
+                null
             }
         }
+
+    /**
+     * Parses an Icecast [status-json.xsl payload][json] and returns the title of
+     * the currently playing song (or null if none is reported).
+     */
+    internal fun parseIcecastStatus(json: String): String? =
+        runCatching {
+            val obj = JSONObject(json).getJSONObject("icestats")
+            when (val source = obj.opt("source")) {
+                is JSONArray ->
+                    (0 until source.length()).mapNotNull { index ->
+                        source.optJSONObject(index)?.let { icecastTitle(it) }
+                    }.firstOrNull()
+                is JSONObject -> icecastTitle(source)
+                else -> null
+            }
+        }.getOrNull()
+
+    private fun icecastTitle(mount: JSONObject): String? {
+        val song = mount.optString("song", "").trim()
+        if (song.isNotEmpty()) return song
+        val title = mount.optString("title", "").trim()
+        return title.takeIf { it.isNotEmpty() }
+    }
+
+    internal fun deriveIcecastStatusUrl(streamUrl: String): String? =
+        runCatching {
+            val uri = URI(streamUrl)
+            if (uri.scheme != "http" && uri.scheme != "https") return@runCatching null
+            "${uri.scheme}://${uri.authority}/status-json.xsl"
+        }.getOrNull()
 
     suspend fun fetchEpg(epgId: Long): EpgSchedule? =
         withContext(Dispatchers.IO) {

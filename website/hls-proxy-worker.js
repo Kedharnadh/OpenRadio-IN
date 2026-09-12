@@ -89,15 +89,26 @@ async function handleMetadataRequest(streamUrl, metaUrl) {
   try {
     icy = await fetchIcyMetadata(streamUrl);
   } catch (err) {
-    // fall through to the station's status endpoint, if provided
+    // fall through to a status endpoint
   }
 
+  // Fallback sources: an explicit station status URL, then the Icecast
+  // status-json.xsl endpoint derived from the stream URL (some Icecast
+  // servers stall long-lived streaming connections from datacenter IPs but
+  // still answer the lightweight status JSON, which reports the current song).
   let status = {};
-  if (metaUrl) {
+  const statusUrls = [];
+  if (metaUrl) statusUrls.push(metaUrl);
+  if (!icy.streamTitle) {
+    const derived = deriveIcecastStatusUrl(streamUrl);
+    if (derived && !statusUrls.includes(derived)) statusUrls.push(derived);
+  }
+  for (const url of statusUrls) {
     try {
-      status = await fetchStatusMetadata(metaUrl);
+      status = await fetchStatusMetadata(url);
+      if (status.streamTitle || status.title) break;
     } catch (err) {
-      // fall through
+      // try the next source
     }
   }
 
@@ -242,6 +253,20 @@ async function fetchStatusMetadata(metaUrl) {
   const mount = sources.find((entry) => entry && (entry.song || entry.title)) || sources[0] || {};
   const streamTitle = String(mount.song || mount.title || mount.server_name || '').trim();
   return { streamTitle, art: '' };
+}
+
+// Icecast exposes status-json.xsl at the root of the stream host:port. It
+// reports the currently playing song even on servers that stall long-lived
+// streaming connections, so it is used as a fallback when ICY metadata is
+// unavailable.
+function deriveIcecastStatusUrl(streamUrl) {
+  try {
+    const u = new URL(streamUrl);
+    if (u.protocol !== 'http:' && u.protocol !== 'https:') return '';
+    return `${u.protocol}//${u.host}/status-json.xsl`;
+  } catch {
+    return '';
+  }
 }
 
 function segmentLines(manifest) {
