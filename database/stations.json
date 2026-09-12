@@ -8525,5 +8525,292 @@
     "verified": false,
     "last_checked": null,
     "name_kn": "ಶೈವ ಲಹರಿ"
+  },
+  {
+    "id": "suno_kannada",
+    "name": "Radio Suno Kannada",
+    "name_hi": "सुनो कन्नड़",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Kannada",
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_SUNO_MELODY_S06.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ರೇಡಿಯೋ ಸುನೋ ಕನ್ನಡ"
+  },
+  {
+    "id": "svbc_ttd_radio",
+    "name": "SVBC TTD Radio",
+    "name_te": "ఎస్వీబీసీ టీటీడీ రేడియో",
+    "name_hi": "एसवीबीसी टीटीडी रेडियो",
+    "language": "Telugu",
+    "country": "India",
+    "state": "Andhra Pradesh",
+    "city": "Tirupati",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://radio.mslivecdn.com:6278/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_sai_telugu",
+    "name": "Radio Sai Telugu",
+    "name_te": "రేడియో సాయి తెలుగు",
+    "name_hi": "रेडियो साई तेलुगु",
+    "language": "Telugu",
+    "country": "India",
+    "state": "Andhra Pradesh",
+    "city": "Puttaparthi",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Spiritual",
+      "Devotional"
+    ],
+    "homepage": "https://www.radiosai.org/",
+    "logo": "",
+    "streams": [
+      {
+        "url": "http://stream.radiosai.net:8020/",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "aaj_tak_news_radio",
+    "name": "Aaj Tak News Radio Live",
+    "name_hi": "आज तक न्यूज़ रेडियो",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Delhi",
+    "city": "New Delhi",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "News"
+    ],
+    "homepage": "https://www.aajtak.in/",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://feeds.intoday.in/aajtak/api/master.m3u8",
+        "codec": "HLS",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "gurgaon_ki_awaaz_107_8_fm",
+    "name": "Gurgaon Ki Awaaz 107.8 FM",
+    "name_hi": "गुरुग्राम की आवाज़ 107.8 एफएम",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Haryana",
+    "city": "Gurugram",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Talk",
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://gurgaonradio.out.airtime.pro/gurgaonradio_a",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "gunjan_radio",
+    "name": "Gunjan Radio",
+    "name_hi": "गुंजन रेडियो",
+    "language": "Hindi",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional",
+      "Talk"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://streamasiacdn.atc-labs.com/gunjanradio.aac",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "jaipur_radio",
+    "name": "Jaipur Radio",
+    "name_hi": "जयपुर रेडियो",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Rajasthan",
+    "city": "Jaipur",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://streamasiacdn.atc-labs.com/jaipurradio.aac",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "bhakti_world_krishna",
+    "name": "Bhakti World Krishna",
+    "name_hi": "भक्ति वर्ल्ड कृष्ण",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Maharashtra",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "https://www.bhaktiworld.com/",
+    "logo": "",
+    "streams": [
+      {
+        "url": "http://millenniumhits.out.airtime.pro:8000/millenniumhits_a",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "bhakti_world_devi_maa",
+    "name": "Bhakti World Devi Maa",
+    "name_hi": "भक्ति वर्ल्ड देवी माँ",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Maharashtra",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "https://www.bhaktiworld.com/",
+    "logo": "",
+    "streams": [
+      {
+        "url": "http://ibadat.out.airtime.pro:8000/ibadat_a",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "bhakti_world_hanuman",
+    "name": "Bhakti World Hanuman",
+    "name_hi": "भक्ति वर्ल्ड हनुमान",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Maharashtra",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "https://www.bhaktiworld.com/",
+    "logo": "",
+    "streams": [
+      {
+        "url": "http://2bhanuman.out.airtime.pro:8000/2bhanuman_a",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
   }
 ]
