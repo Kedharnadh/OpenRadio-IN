@@ -46,6 +46,13 @@
     <string name="paused">विरामित</string>
     <string name="play">प्ले</string>
     <string name="previous">पिछला</string>
+    <string name="prefs_export_failed">प्राथमिकताएँ निर्यात नहीं हो सकीं</string>
+    <string name="prefs_exported">प्राथमिकताएँ निर्यात हो गईं</string>
+    <string name="prefs_import_failed">अमान्य प्राथमिकताएँ फ़ाइल</string>
+    <string name="prefs_imported">प्राथमिकताएँ आयात हो गईं</string>
+    <string name="prefs_menu">प्राथमिकताएँ निर्यात और आयात करें</string>
+    <string name="export_preferences">प्राथमिकताएँ निर्यात करें</string>
+    <string name="import_preferences">प्राथमिकताएँ आयात करें</string>
     <string name="recently_played">हाल में सुने गए</string>
     <string name="results_shown">%1$d स्टेशन</string>
     <string name="resume">फ़िर शुरू करें</string>

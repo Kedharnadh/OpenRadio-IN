@@ -29,6 +29,13 @@
     <string name="pause">ವಿರಾಮ</string>
     <string name="play">ಆಡು</string>
     <string name="previous">ಹಿಂದಿನ</string>
+    <string name="prefs_export_failed">ಆದ್ಯತೆಗಳನ್ನು ರಫ್ತು ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
+    <string name="prefs_exported">ಆದ್ಯತೆಗಳನ್ನು ರಫ್ತು ಮಾಡಲಾಗಿದೆ</string>
+    <string name="prefs_import_failed">ಅಮಾನ್ಯ ಆದ್ಯತೆಗಳ ಫೈಲ್</string>
+    <string name="prefs_imported">ಆದ್ಯತೆಗಳನ್ನು ಆಮದು ಮಾಡಲಾಗಿದೆ</string>
+    <string name="prefs_menu">ಆದ್ಯತೆಗಳನ್ನು ರಫ್ತು/ಆಮದು ಮಾಡಿ</string>
+    <string name="export_preferences">ಆದ್ಯತೆಗಳನ್ನು ರಫ್ತು ಮಾಡಿ</string>
+    <string name="import_preferences">ಆದ್ಯತೆಗಳನ್ನು ಆಮದು ಮಾಡಿ</string>
     <string name="recently_played">ಇತ್ತೀಚೆಗೆ ಆಡಿದವು</string>
     <string name="resume">ಮುಂದುವರಿಸಿ</string>
     <string name="search_hint">ಕೇಂದ್ರ, ಭಾಷೆ ಅಥವಾ ವರ್ಗವನ್ನು ಹುಡುಕಿ</string>

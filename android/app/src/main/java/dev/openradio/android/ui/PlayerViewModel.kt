@@ -136,6 +136,18 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
         Prefs.setFavorites(updated)
     }
 
+    /**
+     * Re-reads persisted preferences after an import so the in-memory state
+     * (favorites, recents, station-language filter and volume) reflects the
+     * restored data. The UI language is applied separately by the screen/activity.
+     */
+    fun reloadFromPrefs() {
+        _favorites.value = Prefs.favorites()
+        _recents.value = Prefs.recents()
+        _filter.value = _filter.value.copy(language = Prefs.filterLanguage())
+        AppPlayer.setVolume(Prefs.volume())
+    }
+
     fun play(station: Station) {
         val queue = filteredStations.value.ifEmpty { StationsStore.stations.value }
         AppPlayer.playStation(station, queue)

@@ -1,5 +1,8 @@
 package dev.openradio.android.ui.screens
 
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -52,6 +55,7 @@ import androidx.compose.material.icons.filled.SearchOff
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material.icons.filled.Stop
+import androidx.compose.material.icons.filled.SyncAlt
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -98,6 +102,7 @@ import androidx.compose.ui.unit.sp
 import androidx.media3.cast.MediaRouteButton
 import coil.compose.AsyncImage
 import dev.openradio.android.LocaleManager
+import dev.openradio.android.Prefs
 import dev.openradio.android.R
 import dev.openradio.android.data.Station
 import dev.openradio.android.playback.PlaybackUiState
@@ -172,9 +177,15 @@ fun HomeScreen(
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = hp, vertical = 8.dp)
+                        .padding(horizontal = hp, vertical = 4.dp)
                         .focusRequester(searchFocus),
-                placeholder = { Text(stringResource(R.string.search_hint)) },
+                placeholder = {
+                    Text(
+                        stringResource(R.string.search_hint),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                },
                 leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
                 trailingIcon = {
                     if (filter.query.isNotBlank()) {
@@ -204,7 +215,6 @@ fun HomeScreen(
                 onCategory = viewModel::setCategory,
                 onFavorites = viewModel::setOnlyFavorites,
                 horizontalPadding = hp,
-                wideLayout = wideLayout,
             )
         }
 
@@ -479,6 +489,7 @@ fun HomeScreen(
                                 overflow = TextOverflow.Ellipsis,
                                 modifier = Modifier.weight(1f),
                             )
+                            PrefsMenu(viewModel = viewModel, onLanguageChanged = onLanguageChanged)
                             UiLanguageMenu(onLanguageChanged = onLanguageChanged)
                             if (playback.castAvailable) {
                                 MediaRouteButton()
@@ -496,6 +507,7 @@ fun HomeScreen(
                             )
                         },
                         actions = {
+                            PrefsMenu(viewModel = viewModel, onLanguageChanged = onLanguageChanged)
                             UiLanguageMenu(onLanguageChanged = onLanguageChanged)
                             if (playback.castAvailable) {
                                 MediaRouteButton()
@@ -608,6 +620,87 @@ private fun SectionHeader(
 }
 
 @Composable
+private fun PrefsMenu(
+    viewModel: PlayerViewModel,
+    onLanguageChanged: (String) -> Unit,
+) {
+    val context = LocalContext.current
+    var expanded by remember { mutableStateOf(false) }
+
+    val exportLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
+            if (uri != null) {
+                val ok =
+                    runCatching {
+                        val text = Prefs.exportJson()
+                        if (text.isBlank()) {
+                            false
+                        } else {
+                            context.contentResolver.openOutputStream(uri)?.use { out ->
+                                out.write(text.toByteArray(Charsets.UTF_8))
+                            } != null
+                        }
+                    }.getOrDefault(false)
+                Toast.makeText(
+                    context,
+                    context.getString(if (ok) R.string.prefs_exported else R.string.prefs_export_failed),
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }
+        }
+
+    val importLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            if (uri != null) {
+                val json =
+                    runCatching {
+                        context.contentResolver.openInputStream(uri)?.use { input ->
+                            input.bufferedReader().use { it.readText() }
+                        }
+                    }.getOrNull().orEmpty()
+                val ok = if (json.isBlank()) false else Prefs.importJson(json)
+                if (ok) {
+                    viewModel.reloadFromPrefs()
+                    val importedLang = Prefs.uiLanguage()
+                    if (importedLang != LocaleManager.currentLanguage()) {
+                        onLanguageChanged(importedLang)
+                    }
+                }
+                Toast.makeText(
+                    context,
+                    context.getString(if (ok) R.string.prefs_imported else R.string.prefs_import_failed),
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }
+        }
+
+    Box {
+        IconButton(onClick = { expanded = true }) {
+            Icon(
+                Icons.Filled.SyncAlt,
+                contentDescription = stringResource(R.string.prefs_menu),
+            )
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.export_preferences)) },
+                onClick = {
+                    expanded = false
+                    exportLauncher.launch("openradio-preferences.json")
+                },
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.import_preferences)) },
+                onClick = {
+                    expanded = false
+                    importLauncher.launch(arrayOf("application/json", "text/plain", "*/*"))
+                },
+            )
+        }
+    }
+}
+
+@Composable
 private fun UiLanguageMenu(onLanguageChanged: (String) -> Unit) {
     val currentLang = remember { LocaleManager.currentLanguage() }
     var expanded by remember { mutableStateOf(false) }
@@ -648,7 +741,6 @@ private fun FilterControls(
     onCategory: (String?) -> Unit,
     onFavorites: (Boolean) -> Unit,
     horizontalPadding: androidx.compose.ui.unit.Dp,
-    wideLayout: Boolean,
 ) {
     Column(Modifier.fillMaxWidth()) {
         Row(
@@ -706,7 +798,7 @@ private fun FavoritePill(
     Box(
         modifier =
             Modifier
-                .height(56.dp)
+                .height(48.dp)
                 .focusable(),
         contentAlignment = Alignment.Center,
     ) {

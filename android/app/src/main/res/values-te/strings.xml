@@ -46,6 +46,13 @@
     <string name="paused">విరామం</string>
     <string name="play">ప్లే</string>
     <string name="previous">మునుపటి</string>
+    <string name="prefs_export_failed">ప్రాధాన్యతలను ఎగుమతి చేయలేకపోయాము</string>
+    <string name="prefs_exported">ప్రాధాన్యతలు ఎగుమతి అయ్యాయి</string>
+    <string name="prefs_import_failed">చెల్లని ప్రాధాన్యతల ఫైల్</string>
+    <string name="prefs_imported">ప్రాధాన్యతలు దిగుమతి అయ్యాయి</string>
+    <string name="prefs_menu">ప్రాధాన్యతలను ఎగుమతి, దిగుమతి చేయండి</string>
+    <string name="export_preferences">ప్రాధాన్యతలను ఎగుమతి చేయండి</string>
+    <string name="import_preferences">ప్రాధాన్యతలను దిగుమతి చేయండి</string>
     <string name="recently_played">ఇతీవల విన్నవి</string>
     <string name="results_shown">%1$d స్టేషన్లు</string>
     <string name="resume">కొనసాగించు</string>

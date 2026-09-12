@@ -50,6 +50,13 @@
     <string name="paused">Paused</string>
     <string name="play">Play</string>
     <string name="previous">Previous</string>
+    <string name="prefs_export_failed">Could not export preferences</string>
+    <string name="prefs_exported">Preferences exported</string>
+    <string name="prefs_import_failed">Invalid preferences file</string>
+    <string name="prefs_imported">Preferences imported</string>
+    <string name="prefs_menu">Export and import preferences</string>
+    <string name="export_preferences">Export preferences</string>
+    <string name="import_preferences">Import preferences</string>
     <string name="recently_played">Recently Played</string>
     <string name="results_shown">%1$d stations</string>
     <string name="resume">Resume</string>
