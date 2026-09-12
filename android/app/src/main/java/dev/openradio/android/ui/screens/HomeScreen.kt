@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -91,6 +92,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.media3.cast.MediaRouteButton
@@ -148,6 +150,7 @@ fun HomeScreen(
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val wideLayout = maxWidth >= 840.dp
         val sidebarLayout = maxWidth >= 1200.dp
+        val isLandscape = maxWidth > maxHeight
         val horizontalPadding = if (wideLayout) 32.dp else 16.dp
         val gridColumns =
             if (maxWidth >= 1200.dp) {
@@ -159,6 +162,117 @@ fun HomeScreen(
             } else {
                 1
             }
+
+        val inGridPadding = if (wideLayout) 0.dp else horizontalPadding
+
+        val searchField: @Composable (Dp) -> Unit = { hp ->
+            OutlinedTextField(
+                value = filter.query,
+                onValueChange = viewModel::setQuery,
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = hp, vertical = 8.dp)
+                        .focusRequester(searchFocus),
+                placeholder = { Text(stringResource(R.string.search_hint)) },
+                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+                trailingIcon = {
+                    if (filter.query.isNotBlank()) {
+                        IconButton(
+                            onClick = { viewModel.setQuery("") },
+                            modifier = Modifier.size(48.dp),
+                        ) {
+                            Icon(
+                                Icons.Filled.Close,
+                                contentDescription = stringResource(R.string.clear_search),
+                            )
+                        }
+                    }
+                },
+                singleLine = true,
+                shape = RoundedCornerShape(28.dp),
+            )
+        }
+
+        val filterControls: @Composable (Dp) -> Unit = { hp ->
+            FilterControls(
+                filter = filter,
+                languages = languages,
+                categories = categories,
+                favorites = favorites,
+                onLanguage = viewModel::setLanguage,
+                onCategory = viewModel::setCategory,
+                onFavorites = viewModel::setOnlyFavorites,
+                horizontalPadding = hp,
+                wideLayout = wideLayout,
+            )
+        }
+
+        val currentStationHidden =
+            playback.currentStationId != null &&
+                stations.none { it.id == playback.currentStationId }
+
+        val hiddenStationCard: @Composable (Dp) -> Unit = { hp ->
+            val uiLang = remember { LocaleManager.currentLanguage() }
+            val hiddenStation =
+                viewModel.stations.value.firstOrNull { it.id == playback.currentStationId }
+            Surface(
+                shape = RoundedCornerShape(16.dp),
+                color = MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.7f),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = hp, vertical = 4.dp),
+            ) {
+                Row(
+                    modifier =
+                        Modifier
+                            .clip(RoundedCornerShape(16.dp))
+                            .clickable { showNowPlaying = true }
+                            .padding(horizontal = 14.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Box(
+                        modifier =
+                            Modifier
+                                .size(28.dp)
+                                .clip(CircleShape)
+                                .background(Brush.linearGradient(listOf(Sky, Violet))),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(
+                            imageVector =
+                                if (playback.playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(16.dp),
+                        )
+                    }
+                    Spacer(Modifier.width(10.dp))
+                    Column(Modifier.weight(1f)) {
+                        Text(
+                            stringResource(R.string.now_playing),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Text(
+                            hiddenStation?.localizedName(uiLang)
+                                ?: playback.currentStationName
+                                ?: stringResource(R.string.select_station),
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.SemiBold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    }
+                    Icon(
+                        Icons.Filled.SkipNext,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+        }
 
         val stationListContent: @Composable () -> Unit = {
             PullToRefreshBox(
@@ -173,107 +287,10 @@ fun HomeScreen(
                 Column(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    OutlinedTextField(
-                        value = filter.query,
-                        onValueChange = viewModel::setQuery,
-                        modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = horizontalPadding, vertical = 8.dp)
-                                .focusRequester(searchFocus),
-                        placeholder = { Text(stringResource(R.string.search_hint)) },
-                        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
-                        trailingIcon = {
-                            if (filter.query.isNotBlank()) {
-                                IconButton(
-                                    onClick = { viewModel.setQuery("") },
-                                    modifier = Modifier.size(48.dp),
-                                ) {
-                                    Icon(
-                                        Icons.Filled.Close,
-                                        contentDescription = stringResource(R.string.clear_search),
-                                    )
-                                }
-                            }
-                        },
-                        singleLine = true,
-                        shape = RoundedCornerShape(28.dp),
-                    )
-                    FilterControls(
-                        filter = filter,
-                        languages = languages,
-                        categories = categories,
-                        favorites = favorites,
-                        onLanguage = viewModel::setLanguage,
-                        onCategory = viewModel::setCategory,
-                        onFavorites = viewModel::setOnlyFavorites,
-                        horizontalPadding = horizontalPadding,
-                        wideLayout = wideLayout,
-                    )
-
-                    val currentStationHidden =
-                        playback.currentStationId != null &&
-                            stations.none { it.id == playback.currentStationId }
-                    if (currentStationHidden) {
-                        val uiLang = remember { LocaleManager.currentLanguage() }
-                        val hiddenStation =
-                            viewModel.stations.value.firstOrNull { it.id == playback.currentStationId }
-                        Surface(
-                            shape = RoundedCornerShape(16.dp),
-                            color = MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.7f),
-                            modifier =
-                                Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = horizontalPadding, vertical = 4.dp),
-                        ) {
-                            Row(
-                                modifier =
-                                    Modifier
-                                        .clip(RoundedCornerShape(16.dp))
-                                        .clickable { showNowPlaying = true }
-                                        .padding(horizontal = 14.dp, vertical = 10.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Box(
-                                    modifier =
-                                        Modifier
-                                            .size(28.dp)
-                                            .clip(CircleShape)
-                                            .background(Brush.linearGradient(listOf(Sky, Violet))),
-                                    contentAlignment = Alignment.Center,
-                                ) {
-                                    Icon(
-                                        imageVector =
-                                            if (playback.playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-                                        contentDescription = null,
-                                        tint = Color.White,
-                                        modifier = Modifier.size(16.dp),
-                                    )
-                                }
-                                Spacer(Modifier.width(10.dp))
-                                Column(Modifier.weight(1f)) {
-                                    Text(
-                                        stringResource(R.string.now_playing),
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    )
-                                    Text(
-                                        hiddenStation?.localizedName(uiLang)
-                                            ?: playback.currentStationName
-                                            ?: stringResource(R.string.select_station),
-                                        style = MaterialTheme.typography.titleSmall,
-                                        fontWeight = FontWeight.SemiBold,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis,
-                                    )
-                                }
-                                Icon(
-                                    Icons.Filled.SkipNext,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
-                            }
-                        }
+                    if (!isLandscape) {
+                        searchField(horizontalPadding)
+                        filterControls(horizontalPadding)
+                        if (currentStationHidden) hiddenStationCard(horizontalPadding)
                     }
 
                     LazyVerticalGrid(
@@ -291,6 +308,20 @@ fun HomeScreen(
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
+                        if (isLandscape) {
+                            item(span = { GridItemSpan(maxLineSpan) }) {
+                                searchField(inGridPadding)
+                            }
+                            item(span = { GridItemSpan(maxLineSpan) }) {
+                                filterControls(inGridPadding)
+                            }
+                            if (currentStationHidden) {
+                                item(span = { GridItemSpan(maxLineSpan) }) {
+                                    hiddenStationCard(inGridPadding)
+                                }
+                            }
+                        }
+
                         if (filter.query.isBlank() && !filter.onlyFavorites && recentsStations.isNotEmpty()) {
                             item(span = { GridItemSpan(maxLineSpan) }) {
                                 SectionHeader(
@@ -426,31 +457,52 @@ fun HomeScreen(
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
-                CenterAlignedTopAppBar(
-                    title = {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                if (isLandscape) {
+                    Surface(
+                        color = MaterialTheme.colorScheme.surface,
+                        tonalElevation = 3.dp,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Row(
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .statusBarsPadding()
+                                    .height(48.dp)
+                                    .padding(horizontal = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(
+                                stringResource(R.string.app_name),
+                                style = MaterialTheme.typography.titleMedium,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.weight(1f),
+                            )
+                            UiLanguageMenu(onLanguageChanged = onLanguageChanged)
+                            if (playback.castAvailable) {
+                                MediaRouteButton()
+                            }
+                        }
+                    }
+                } else {
+                    CenterAlignedTopAppBar(
+                        title = {
                             Text(
                                 stringResource(R.string.app_name),
                                 style = MaterialTheme.typography.titleLarge,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
                             )
-                            Text(
-                                stringResource(R.string.app_tagline),
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        }
-                    },
-                    actions = {
-                        UiLanguageMenu(onLanguageChanged = onLanguageChanged)
-                        if (playback.castAvailable) {
-                            MediaRouteButton()
-                        }
-                    },
-                )
+                        },
+                        actions = {
+                            UiLanguageMenu(onLanguageChanged = onLanguageChanged)
+                            if (playback.castAvailable) {
+                                MediaRouteButton()
+                            }
+                        },
+                    )
+                }
             },
             bottomBar = {
                 if (!sidebarLayout) {
@@ -598,48 +650,50 @@ private fun FilterControls(
     horizontalPadding: androidx.compose.ui.unit.Dp,
     wideLayout: Boolean,
 ) {
-    Row(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = horizontalPadding, vertical = 2.dp)
-                .heightIn(min = 48.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        LanguageDropdown(
-            filter = filter,
-            languages = languages,
-            onLanguage = onLanguage,
-            modifier = Modifier.weight(1f),
-        )
-        // Favorites pill is kept at the same height as the language selector so the
-        // two controls line up on the same baseline across all screen sizes.
-        FavoritePill(
-            filter = filter,
-            onFavorites = onFavorites,
-        )
-    }
-
-    LazyRow(
-        modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = horizontalPadding),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        item {
-            FilterChip(
-                selected = filter.category == null,
-                onClick = { onCategory(null) },
-                label = { Text(stringResource(R.string.all_categories)) },
+    Column(Modifier.fillMaxWidth()) {
+        Row(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPadding, vertical = 2.dp)
+                    .heightIn(min = 48.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            LanguageDropdown(
+                filter = filter,
+                languages = languages,
+                onLanguage = onLanguage,
+                modifier = Modifier.weight(1f),
+            )
+            // Favorites pill is kept at the same height as the language selector so the
+            // two controls line up on the same baseline across all screen sizes.
+            FavoritePill(
+                filter = filter,
+                onFavorites = onFavorites,
             )
         }
-        items(categories, key = { it }) { category ->
-            val uiLang = LocaleManager.currentLanguage()
-            FilterChip(
-                selected = filter.category == category,
-                onClick = { onCategory(if (filter.category == category) null else category) },
-                label = { Text(LocalizedData.category(category, uiLang)) },
-            )
+
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(horizontal = horizontalPadding),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            item {
+                FilterChip(
+                    selected = filter.category == null,
+                    onClick = { onCategory(null) },
+                    label = { Text(stringResource(R.string.all_categories)) },
+                )
+            }
+            items(categories, key = { it }) { category ->
+                val uiLang = LocaleManager.currentLanguage()
+                FilterChip(
+                    selected = filter.category == category,
+                    onClick = { onCategory(if (filter.category == category) null else category) },
+                    label = { Text(LocalizedData.category(category, uiLang)) },
+                )
+            }
         }
     }
 }
