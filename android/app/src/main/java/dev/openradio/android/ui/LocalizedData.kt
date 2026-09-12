@@ -94,14 +94,27 @@ object LocalizedData {
             "Community" to "समुदाय",
         )
 
-    fun language(value: String, uiLang: String): String = localized(value, uiLang, languageTe, languageHi)
+    fun language(
+        value: String,
+        uiLang: String,
+    ): String = localized(value, uiLang, languageTe, languageHi)
 
-    fun category(value: String, uiLang: String): String = localized(value, uiLang, categoryTe, categoryHi)
+    fun category(
+        value: String,
+        uiLang: String,
+    ): String = localized(value, uiLang, categoryTe, categoryHi)
 
-    fun languagesData(languageField: String, uiLang: String): String =
-        languageField.split(',').joinToString(", ") { tag -> language(tag.trim(), uiLang) }
+    fun languagesData(
+        languageField: String,
+        uiLang: String,
+    ): String = languageField.split(',').joinToString(", ") { tag -> language(tag.trim(), uiLang) }
 
-    private fun localized(value: String, uiLang: String, te: Map<String, String>, hi: Map<String, String>): String =
+    private fun localized(
+        value: String,
+        uiLang: String,
+        te: Map<String, String>,
+        hi: Map<String, String>,
+    ): String =
         when (uiLang) {
             "te" -> te[value]
             "hi" -> hi[value]
