@@ -42,9 +42,11 @@ jobs:
         run: chmod +x gradlew
         working-directory: android
       - name: Inject google-services.json
-        if: ${{ secrets.GOOGLE_SERVICES_JSON != '' }}
+        if: env.GOOGLE_SERVICES_JSON != ''
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         shell: bash
-        run: printf '%s' "${{ secrets.GOOGLE_SERVICES_JSON }}" > android/app/google-services.json
+        run: printf '%s' "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
       - name: Run ktlint
         working-directory: android
         run: ./gradlew ktlintCheck
@@ -76,9 +78,11 @@ jobs:
         run: chmod +x gradlew
         working-directory: android
       - name: Inject google-services.json
-        if: ${{ secrets.GOOGLE_SERVICES_JSON != '' }}
+        if: env.GOOGLE_SERVICES_JSON != ''
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         shell: bash
-        run: printf '%s' "${{ secrets.GOOGLE_SERVICES_JSON }}" > android/app/google-services.json
+        run: printf '%s' "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
       - name: Build Debug APK
         working-directory: android
         run: ./gradlew assembleDebug
@@ -113,9 +117,11 @@ jobs:
         run: chmod +x gradlew
         working-directory: android
       - name: Inject google-services.json
-        if: ${{ secrets.GOOGLE_SERVICES_JSON != '' }}
+        if: env.GOOGLE_SERVICES_JSON != ''
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         shell: bash
-        run: printf '%s' "${{ secrets.GOOGLE_SERVICES_JSON }}" > android/app/google-services.json
+        run: printf '%s' "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
       - name: Run Unit Tests
         working-directory: android
         run: ./gradlew test
