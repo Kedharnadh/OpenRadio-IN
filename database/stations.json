@@ -8573,8 +8573,8 @@
     "genre": [
       "Devotional"
     ],
-    "homepage": "",
-    "logo": "",
+    "homepage": "http://www.svbcttd.com/",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/0/0c/SVBCTVLogo.png",
     "streams": [
       {
         "url": "https://radio.mslivecdn.com:6278/stream",
@@ -8603,8 +8603,8 @@
       "Spiritual",
       "Devotional"
     ],
-    "homepage": "https://www.radiosai.org/",
-    "logo": "",
+    "homepage": "https://beta.sssmediacentre.org/",
+    "logo": "https://archive.sssmediacentre.org/www/SI_Mail/images/3.png",
     "streams": [
       {
         "url": "http://stream.radiosai.net:8020/",
