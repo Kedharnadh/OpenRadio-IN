@@ -934,7 +934,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी बेल्लारी"
+    "name_hi": "आकाशवाणी बेल्लारी",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಬಳ್ಳಾರಿ"
   },
   {
     "id": "akashvani_belonia",
@@ -1065,7 +1066,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी भद्रावती"
+    "name_hi": "आकाशवाणी भद्रावती",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಭದ್ರಾವತಿ"
   },
   {
     "id": "akashvani_bhagalpur",
@@ -1235,7 +1237,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी विजयपुर"
+    "name_hi": "आकाशवाणी विजयपुर",
+    "name_kn": "ಆಕಾಶವಾಣಿ ವಿಜಯಪುರ"
   },
   {
     "id": "akashvani_bikaner",
@@ -1537,7 +1540,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी चित्रदुर्ग"
+    "name_hi": "आकाशवाणी चित्रदुर्ग",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಚಿತ್ರದುರ್ಗ"
   },
   {
     "id": "akashvani_chittorgarh",
@@ -1911,7 +1915,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी धारवाड़"
+    "name_hi": "आकाशवाणी धारवाड़",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಧಾರವಾಡ"
   },
   {
     "id": "akashvani_dhule",
@@ -2310,7 +2315,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी हासन"
+    "name_hi": "आकाशवाणी हासन",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಹಾಸನ"
   },
   {
     "id": "akashvani_hazaribagh",
@@ -2418,7 +2424,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी होसपेट"
+    "name_hi": "आकाशवाणी होसपेट",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಹೊಸಪೇಟೆ"
   },
   {
     "id": "akashvani_imphal_kangla",
@@ -3016,7 +3023,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी कलबुर्गी (गुलबर्गा)"
+    "name_hi": "आकाशवाणी कलबुर्गी (गुलबर्गा)",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಕಲಬುರಗಿ"
   },
   {
     "id": "akashvani_kannur",
@@ -3147,7 +3155,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी कर्नाटक"
+    "name_hi": "आकाशवाणी कर्नाटक",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಕರ್ನಾಟಕ"
   },
   {
     "id": "akashvani_karwar",
@@ -3177,7 +3186,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी कारवार"
+    "name_hi": "आकाशवाणी कारवार",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಕಾರವಾರ"
   },
   {
     "id": "akashvani_kathua",
@@ -3770,7 +3780,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी मडिकेरी"
+    "name_hi": "आकाशवाणी मडिकेरी",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಮಡಿಕೇರಿ"
   },
   {
     "id": "akashvani_madurai",
@@ -3904,7 +3915,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी मंगलुरु"
+    "name_hi": "आकाशवाणी मंगलुरु",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಮಂಗಳೂರು"
   },
   {
     "id": "akashvani_manjeri",
@@ -4117,7 +4129,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी मैसूरु"
+    "name_hi": "आकाशवाणी मैसूरु",
+    "name_kn": "ಆಕಾಶವಾಣಿ ಮೈಸೂರು"
   },
   {
     "id": "akashvani_nagaon",
@@ -4743,7 +4756,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "आकाशवाणी रायचूर"
+    "name_hi": "आकाशवाणी रायचूर",
+    "name_kn": "ಆಕಾಶವಾಣಿ ರಾಯಚೂರು"
   },
   {
     "id": "akashvani_raigarh",
@@ -6088,7 +6102,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "अमृतवर्षिणी"
+    "name_hi": "अमृतवर्षिणी",
+    "name_kn": "ಅಮೃತವರ್ಷಿಣಿ"
   },
   {
     "id": "ap_9_fm",
@@ -7082,7 +7097,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "रेनबो कन्नड़ कामनबिलु"
+    "name_hi": "रेनबो कन्नड़ कामनबिलु",
+    "name_kn": "ರೇನ್ಬೋ ಕನ್ನಡ ಕಾಮನಬಿಲ್ಲು"
   },
   {
     "id": "samvadita_mumbai",
@@ -7218,7 +7234,8 @@
     ],
     "verified": false,
     "last_checked": null,
-    "name_hi": "वीबी कन्नड़"
+    "name_hi": "वीबी कन्नड़",
+    "name_kn": "ವಿಬಿ ಕನ್ನಡ"
   },
   {
     "id": "vb_malayalam",

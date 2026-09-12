@@ -15,6 +15,7 @@ class StationTest {
         name: String = "Test Station",
         nameTe: String = "",
         nameHi: String = "",
+        nameKn: String = "",
         language: String = "Hindi",
         categories: List<String> = listOf("AIR"),
         streams: List<JSONObject> = emptyList(),
@@ -36,6 +37,7 @@ class StationTest {
             put("name", name)
             put("name_te", nameTe)
             put("name_hi", nameHi)
+            put("name_kn", nameKn)
             put("language", language)
             put("categories", categoriesArray)
             put("verified", verified)
@@ -208,6 +210,34 @@ class StationTest {
                 epgId = -1L, metadataUrl = "", songFirst = false,
             )
         assertEquals("एआईआर दिल्ली", station.localizedName("hi"))
+    }
+
+    @Test
+    fun `localizedName returns Kannada name when uiLang is kn`() {
+        val station =
+            Station(
+                id = "test", name = "Akashvani Mysuru", nameTe = "", nameHi = "",
+                nameKn = "ಆಕಾಶವಾಣಿ ಮೈಸೂರು",
+                language = "Kannada", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", streams = emptyList(), verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+            )
+        assertEquals("ಆಕಾಶವಾಣಿ ಮೈಸೂರು", station.localizedName("kn"))
+    }
+
+    @Test
+    fun `localizedName falls back to default name when Kannada name is blank`() {
+        val station =
+            Station(
+                id = "test", name = "Akashvani Mysuru", nameTe = "", nameHi = "",
+                nameKn = "",
+                language = "Kannada", country = "", state = "", city = "",
+                categories = emptyList(), genre = emptyList(), homepage = "",
+                logo = "", streams = emptyList(), verified = true, status = "online",
+                epgId = -1L, metadataUrl = "", songFirst = false,
+            )
+        assertEquals("Akashvani Mysuru", station.localizedName("kn"))
     }
 
     @Test

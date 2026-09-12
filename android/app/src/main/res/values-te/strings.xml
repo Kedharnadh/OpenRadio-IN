@@ -5,9 +5,9 @@
 
     <string name="alarm">అలారం</string>
     <string name="alarm_off_button">ఆఫ్ చేయి</string>
+    <string name="alarm_scheduled">అలారం %1$s వద్ద సెట్ చేయబడింది</string>
     <string name="alarm_set">అలారం సెట్ అయింది — ఎంచుకున్న సమయంలో స్టేషన్ ప్లే అవుతుంది.</string>
     <string name="alarm_set_button">అలారం సెట్</string>
-    <string name="alarm_scheduled">అలారం %1$s వద్ద సెట్ చేయబడింది</string>
     <string name="alarm_station_label">స్టేషన్</string>
     <string name="alarm_time_label">సమయం</string>
     <string name="all_categories">అన్నీ</string>
@@ -62,6 +62,6 @@
     <string name="status_unreachable">ఈ స్టేషన్ ప్రస్తుతం అందుబాటులో లేదు.</string>
     <string name="stop">ఆపు</string>
     <string name="stream">స్ట్రీం</string>
-    <string name="verified">ధృవీకరించబడింది</string>
     <string name="ui_language">UI భాష</string>
+    <string name="verified">ధృవీకరించబడింది</string>
 </resources>

@@ -5,9 +5,9 @@
 
     <string name="alarm">अलार्म</string>
     <string name="alarm_off_button">बंद करें</string>
+    <string name="alarm_scheduled">अलार्म %1$s के लिए सेट है</string>
     <string name="alarm_set">अलार्म सेट — चुने गए समय पर स्टेशन चलना शुरू होगा।</string>
     <string name="alarm_set_button">अलार्म सेट करें</string>
-    <string name="alarm_scheduled">अलार्म %1$s के लिए सेट है</string>
     <string name="alarm_station_label">स्टेशन</string>
     <string name="alarm_time_label">समय</string>
     <string name="all_categories">सभी</string>
@@ -62,6 +62,6 @@
     <string name="status_unreachable">यह स्टेशन अभी उपलब्ध नहीं है।</string>
     <string name="stop">रोकें</string>
     <string name="stream">स्ट्रीम</string>
-    <string name="verified">सत्यापित</string>
     <string name="ui_language">UI भाषा</string>
+    <string name="verified">सत्यापित</string>
 </resources>

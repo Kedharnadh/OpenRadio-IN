@@ -84,6 +84,47 @@ object LocalizedData {
             "Urdu" to "उर्दू",
         )
 
+    private val languageKn: Map<String, String> =
+        mapOf(
+            "Assamese" to "ಅಸ್ಸಾಮಿ",
+            "Bengali" to "ಬಂಗಾಳಿ",
+            "Bhojpuri" to "ಭೋಜ್ಪುರಿ",
+            "Braj Bhasha" to "ಬ್ರಜ್ ಭಾಷಾ",
+            "Chhattisgarhi" to "ಛತ್ತೀಸ್ಗಢಿ",
+            "Dogri" to "ಡೋಗ್ರಿ",
+            "English" to "ಇಂಗ್ಲಿಷ್",
+            "Garhwali" to "ಗರ್ಹ್ವಾಲಿ",
+            "Gujarati" to "ಗುಜರಾತಿ",
+            "Haryanvi" to "ಹರ್ಯಾಣಿ",
+            "Hindi" to "ಹಿಂದಿ",
+            "International" to "ಅಂತಾರಾಷ್ಟ್ರೀಯ",
+            "Kannada" to "ಕನ್ನಡ",
+            "Khasi" to "ಖಾಸಿ",
+            "Kokborok" to "ಕೊಕ್ಬೊರೊಕ್",
+            "Konkani" to "ಕೊಂಕಣಿ",
+            "Ladakhi" to "ಲಡಾಖಿ",
+            "Maithili" to "ಮೈಥಿಲಿ",
+            "Malayalam" to "ಮಲಯಾಳಂ",
+            "Manipuri" to "ಮಣಿಪುರಿ",
+            "Marathi" to "ಮರಾಠಿ",
+            "Mizo" to "ಮಿಜೊ",
+            "Monpa" to "ಮೋನ್ಪಾ",
+            "Multilingual" to "ಬಹುಭಾಷಾ",
+            "Nagamese" to "ನಾಗಾಮಿ",
+            "Nagpuri" to "ನಾಗ್ಪುರಿ",
+            "Nepali" to "ನೇಪಾಳಿ",
+            "Nicobarese" to "ನಿಕೋಬಾರಿ",
+            "Odia" to "ಒಡಿಯಾ",
+            "Pahari" to "ಪಹಾಡಿ",
+            "Punjabi" to "ಪಂಜಾಬಿ",
+            "Rajasthani" to "ರಾಜಸ್ಥಾನಿ",
+            "Sanskrit" to "ಸಂಸ್ಕೃತ",
+            "Tamil" to "ತಮಿಳು",
+            "Telugu" to "ತೆಲುಗು",
+            "Tulu" to "ತುಳು",
+            "Urdu" to "ಉರ್ದು",
+        )
+
     private val categoryTe: Map<String, String> =
         mapOf(
             "Community" to "కమ్యూనిటీ",
@@ -94,15 +135,20 @@ object LocalizedData {
             "Community" to "समुदाय",
         )
 
+    private val categoryKn: Map<String, String> =
+        mapOf(
+            "Community" to "ಸಮುದಾಯ",
+        )
+
     fun language(
         value: String,
         uiLang: String,
-    ): String = localized(value, uiLang, languageTe, languageHi)
+    ): String = localized(value, uiLang, languageTe, languageHi, languageKn)
 
     fun category(
         value: String,
         uiLang: String,
-    ): String = localized(value, uiLang, categoryTe, categoryHi)
+    ): String = localized(value, uiLang, categoryTe, categoryHi, categoryKn)
 
     fun languagesData(
         languageField: String,
@@ -114,10 +160,12 @@ object LocalizedData {
         uiLang: String,
         te: Map<String, String>,
         hi: Map<String, String>,
+        kn: Map<String, String>,
     ): String =
         when (uiLang) {
             "te" -> te[value]
             "hi" -> hi[value]
+            "kn" -> kn[value]
             else -> null
         } ?: value
 }

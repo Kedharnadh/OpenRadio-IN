@@ -21,6 +21,11 @@ class LocaleManagerTest {
     }
 
     @Test
+    fun `supportsLanguage returns true for kn`() {
+        assertTrue(LocaleManager.supportsLanguage("kn"))
+    }
+
+    @Test
     fun `supportsLanguage returns false for unsupported languages`() {
         assertFalse(LocaleManager.supportsLanguage("fr"))
         assertFalse(LocaleManager.supportsLanguage("es"))

@@ -27,6 +27,7 @@ class StationParserTest {
                     "name": "AIR Hyderabad",
                     "name_te": "ఏఐఆర్ హైదరాబాద్",
                     "name_hi": "एआईआर हैदराबाद",
+                    "name_kn": "ಏಐಆರ್ ಹೈದರಾಬಾದ್",
                     "language": "Telugu",
                     "country": "India",
                     "state": "Andhra Pradesh",
@@ -59,6 +60,7 @@ class StationParserTest {
         assertEquals("AIR Hyderabad", station.name)
         assertEquals("ఏఐఆర్ హైదరాబాద్", station.nameTe)
         assertEquals("एआईआर हैदराबाद", station.nameHi)
+        assertEquals("ಏಐಆರ್ ಹೈದರಾಬಾದ್", station.nameKn)
         assertEquals("Telugu", station.language)
         assertEquals("India", station.country)
         assertEquals("Andhra Pradesh", station.state)

@@ -217,7 +217,7 @@ Station fields:
 |-------|-------------|
 | `id` | Unique station identifier |
 | `name` | Display name |
-| `name_te` / `name_hi` | Localized names (Telugu, Hindi, ...) |
+| `name_te` / `name_hi` / `name_kn` | Localized names (Telugu, Hindi, Kannada) |
 | `language` | Broadcast language(s) |
 | `country` / `state` / `city` | Location |
 | `categories` | Category tags (e.g. AIR, FM, News, Devotional) |

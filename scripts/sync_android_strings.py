@@ -22,6 +22,7 @@ LOCALE_DIRS = {
     "en": "values",
     "te": "values-te",
     "hi": "values-hi",
+    "kn": "values-kn",
 }
 
 # PWA key          -> Android resource name

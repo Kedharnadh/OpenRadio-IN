@@ -9,6 +9,7 @@ data class Station(
     val name: String,
     val nameTe: String,
     val nameHi: String,
+    val nameKn: String = "",
     val language: String,
     val country: String,
     val state: String,
@@ -50,6 +51,7 @@ data class Station(
         when (uiLang) {
             "te" -> nameTe.ifBlank { name }
             "hi" -> nameHi.ifBlank { name }
+            "kn" -> nameKn.ifBlank { name }
             else -> name
         }
 }
@@ -92,6 +94,7 @@ object StationParser {
             name = obj.optString("name", "Unknown station"),
             nameTe = obj.optString("name_te", ""),
             nameHi = obj.optString("name_hi", ""),
+            nameKn = obj.optString("name_kn", ""),
             language = obj.optString("language", ""),
             country = obj.optString("country", ""),
             state = obj.optString("state", ""),

@@ -568,8 +568,9 @@ private fun UiLanguageMenu(onLanguageChanged: (String) -> Unit) {
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             listOf(
                 "en" to stringResource(R.string.lang_en),
-                "te" to stringResource(R.string.lang_te),
                 "hi" to stringResource(R.string.lang_hi),
+                "kn" to stringResource(R.string.lang_kn),
+                "te" to stringResource(R.string.lang_te),
             )
                 .forEach { (code, label) ->
                     DropdownMenuItem(

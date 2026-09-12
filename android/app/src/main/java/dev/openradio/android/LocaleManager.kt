@@ -20,7 +20,8 @@ object LocaleManager {
         return context.createConfigurationContext(config)
     }
 
-    fun supportsLanguage(language: String): Boolean = language == "en" || language == "te" || language == "hi"
+    fun supportsLanguage(language: String): Boolean =
+        language == "en" || language == "te" || language == "hi" || language == "kn"
 
     fun currentLanguage(): String = Prefs.uiLanguage().takeIf { supportsLanguage(it) } ?: "en"
 }
