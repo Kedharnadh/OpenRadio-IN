@@ -101,6 +101,7 @@ import dev.openradio.android.data.Station
 import dev.openradio.android.playback.PlaybackUiState
 import dev.openradio.android.ui.FilterState
 import dev.openradio.android.ui.MarqueeText
+import dev.openradio.android.ui.LocalizedData
 import dev.openradio.android.ui.PlayerViewModel
 import dev.openradio.android.ui.StationArtwork
 import dev.openradio.android.ui.theme.Sky
@@ -213,6 +214,9 @@ fun HomeScreen(
                         playback.currentStationId != null &&
                             stations.none { it.id == playback.currentStationId }
                     if (currentStationHidden) {
+                        val uiLang = remember { LocaleManager.currentLanguage() }
+                        val hiddenStation =
+                            viewModel.stations.value.firstOrNull { it.id == playback.currentStationId }
                         Surface(
                             shape = RoundedCornerShape(16.dp),
                             color = MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.7f),
@@ -253,7 +257,8 @@ fun HomeScreen(
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     )
                                     Text(
-                                        playback.currentStationName
+                                        hiddenStation?.localizedName(uiLang)
+                                            ?: playback.currentStationName
                                             ?: stringResource(R.string.select_station),
                                         style = MaterialTheme.typography.titleSmall,
                                         fontWeight = FontWeight.SemiBold,
@@ -470,7 +475,6 @@ fun HomeScreen(
                     NowPlayingSidebar(
                         playback = playback,
                         viewModel = viewModel,
-                        stations = stations,
                         onClick = { showNowPlaying = true },
                     )
                 }
@@ -628,10 +632,11 @@ private fun FilterControls(
             )
         }
         items(categories, key = { it }) { category ->
+            val uiLang = LocaleManager.currentLanguage()
             FilterChip(
                 selected = filter.category == category,
                 onClick = { onCategory(if (filter.category == category) null else category) },
-                label = { Text(category) },
+                label = { Text(LocalizedData.category(category, uiLang)) },
             )
         }
     }
@@ -671,13 +676,15 @@ private fun LanguageDropdown(
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
+    val uiLang = remember { LocaleManager.currentLanguage() }
     Box(modifier = modifier) {
         FilterChip(
             selected = filter.language != null,
             onClick = { expanded = true },
             label = {
                 Text(
-                    filter.language ?: stringResource(R.string.all_languages),
+                    filter.language?.let { LocalizedData.language(it, uiLang) }
+                        ?: stringResource(R.string.all_languages),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
@@ -698,7 +705,7 @@ private fun LanguageDropdown(
             )
             languages.forEach { language ->
                 DropdownMenuItem(
-                    text = { Text(language) },
+                    text = { Text(LocalizedData.language(language, uiLang)) },
                     onClick = {
                         onLanguage(language)
                         expanded = false
@@ -882,7 +889,9 @@ private fun StationCard(
                         Spacer(Modifier.width(6.dp))
                         StatusDot(station.status)
                     }
-                    val tags = listOf(station.language) + station.categories
+                    val tags =
+                        station.languageTags.map { LocalizedData.language(it, uiLang) } +
+                            station.categories.map { LocalizedData.category(it, uiLang) }
                     Text(
                         tags.filter { it.isNotBlank() }.take(3).joinToString(" • "),
                         style = MaterialTheme.typography.bodySmall,
@@ -1088,6 +1097,7 @@ private fun NowPlayingBar(
     onClick: () -> Unit,
 ) {
     val hasStation = playback.currentStationId != null
+    val uiLang = remember { LocaleManager.currentLanguage() }
     val currentStation =
         playback.currentStationId?.let { id ->
             viewModel.stations.value.firstOrNull { it.id == id }
@@ -1124,7 +1134,10 @@ private fun NowPlayingBar(
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
                     MarqueeText(
-                        text = playback.currentStationName ?: stringResource(R.string.select_station),
+                        text =
+                            currentStation?.localizedName(uiLang)
+                                ?: playback.currentStationName
+                                ?: stringResource(R.string.select_station),
                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
                         color = MaterialTheme.colorScheme.onSurface,
                     )
@@ -1268,11 +1281,11 @@ private fun FocusablePlayPause(
 private fun NowPlayingSidebar(
     playback: PlaybackUiState,
     viewModel: PlayerViewModel,
-    stations: List<Station>,
     onClick: () -> Unit,
 ) {
     if (playback.currentStationId == null) return
-    val currentStation = stations.firstOrNull { it.id == playback.currentStationId }
+    val uiLang = remember { LocaleManager.currentLanguage() }
+    val currentStation = viewModel.stations.value.firstOrNull { it.id == playback.currentStationId }
     Surface(
         modifier =
             Modifier
@@ -1300,7 +1313,7 @@ private fun NowPlayingSidebar(
             )
             Spacer(Modifier.height(12.dp))
             MarqueeText(
-                text = playback.currentStationName ?: "",
+                text = currentStation?.localizedName(uiLang) ?: playback.currentStationName ?: "",
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.fillMaxWidth(),
