@@ -1275,8 +1275,8 @@
   function isCasting() {
     return Boolean(
       castContext &&
-      window.cast &&
-      castContext.getCastState() === cast.framework.CastState.CONNECTED
+        window.cast &&
+        castContext.getCastState() === cast.framework.CastState.CONNECTED
     );
   }
 
