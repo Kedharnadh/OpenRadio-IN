@@ -1,4 +1,6 @@
 #EXTM3U
+#EXTINF:-1 tvg-id="aaj_tak_news_radio" tvg-name="Aaj Tak News Radio Live" tvg-logo="" group-title="Community, ALL",Aaj Tak News Radio Live
+https://feeds.intoday.in/aajtak/api/master.m3u8
 #EXTINF:-1 tvg-id="akashvani_aaradhana" tvg-name="Akashvani Aaradhana" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/Aaradhana.jpg" group-title="AIR, ALL",Akashvani Aaradhana
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio003/hlspbaudio003_Auto.m3u8
 #EXTINF:-1 tvg-id="akashvani_agartala" tvg-name="Akashvani Agartala" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_690649.jpg" group-title="AIR, ALL",Akashvani Agartala
@@ -361,6 +363,12 @@ https://radio.wavespb.com/live/1f4ec5a1ea8e9015/1f4ec5a1ea8e9015.m3u8
 https://radio.wavespb.com/live/8a1bb2ca9d2a6741/8a1bb2ca9d2a6741.m3u8
 #EXTINF:-1 tvg-id="amrutvarshini" tvg-name="Amrutvarshini" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/amrutvarshini.jpg" group-title="AIR, ALL",Amrutvarshini
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio028/hlspbaudio028_Auto.m3u8
+#EXTINF:-1 tvg-id="bhakti_world_devi_maa" tvg-name="Bhakti World Devi Maa" tvg-logo="" group-title="Community, ALL",Bhakti World Devi Maa
+http://ibadat.out.airtime.pro:8000/ibadat_a
+#EXTINF:-1 tvg-id="bhakti_world_hanuman" tvg-name="Bhakti World Hanuman" tvg-logo="" group-title="Community, ALL",Bhakti World Hanuman
+http://2bhanuman.out.airtime.pro:8000/2bhanuman_a
+#EXTINF:-1 tvg-id="bhakti_world_krishna" tvg-name="Bhakti World Krishna" tvg-logo="" group-title="Community, ALL",Bhakti World Krishna
+http://millenniumhits.out.airtime.pro:8000/millenniumhits_a
 #EXTINF:-1 tvg-id="big_fm_92_7_bangalore" tvg-name="BIG 92.7 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/big-fm.webp" group-title="FM, ALL",BIG 92.7 FM Bangalore
 https://stream.zeno.fm/dbstwo3dvhhtv
 #EXTINF:-1 tvg-id="fm_arun_itanagar" tvg-name="FM Arun Itanagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_131123.jpg" group-title="FM, ALL",FM Arun Itanagar
@@ -401,8 +409,14 @@ https://radio.wavespb.com/live/fff99886b825e2ae/fff99886b825e2ae.m3u8
 https://radio.wavespb.com/live/d65912ef9829b8c9/d65912ef9829b8c9.m3u8
 #EXTINF:-1 tvg-id="fm_zoawi_aizawl" tvg-name="FM Zoawi Aizawl" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_461023.jpg" group-title="FM, ALL",FM Zoawi Aizawl
 https://radio.wavespb.com/live/443b0a952fbbe057/443b0a952fbbe057.m3u8
+#EXTINF:-1 tvg-id="gunjan_radio" tvg-name="Gunjan Radio" tvg-logo="" group-title="Community, ALL",Gunjan Radio
+https://streamasiacdn.atc-labs.com/gunjanradio.aac
+#EXTINF:-1 tvg-id="gurgaon_ki_awaaz_107_8_fm" tvg-name="Gurgaon Ki Awaaz 107.8 FM" tvg-logo="" group-title="Community, ALL",Gurgaon Ki Awaaz 107.8 FM
+https://gurgaonradio.out.airtime.pro/gurgaonradio_a
 #EXTINF:-1 tvg-id="indraprastha" tvg-name="Indraprastha" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_435004.jpg" group-title="AIR, ALL",Indraprastha
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio006/hlspbaudio006_Auto.m3u8
+#EXTINF:-1 tvg-id="jaipur_radio" tvg-name="Jaipur Radio" tvg-logo="" group-title="Community, ALL",Jaipur Radio
+https://streamasiacdn.atc-labs.com/jaipurradio.aac
 #EXTINF:-1 tvg-id="kumbhvani" tvg-name="KumbhVani" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/Kumbhvani.jpg" group-title="AIR, ALL",KumbhVani
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio300/playlist.m3u8
 #EXTINF:-1 tvg-id="live_news_24x7" tvg-name="Live News 24x7" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/air-live.jpg" group-title="AIR, ALL",Live News 24x7

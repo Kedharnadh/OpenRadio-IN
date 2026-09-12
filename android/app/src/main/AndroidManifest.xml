@@ -73,6 +73,16 @@
         <receiver
             android:name=".alarm.AlarmReceiver"
             android:exported="false" />
+
+        <!-- Pause playback when a Bluetooth / wired audio device disconnects so the
+             station doesn't keep playing through the phone speaker. -->
+        <receiver
+            android:name=".playback.AudioBecomingNoisyReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

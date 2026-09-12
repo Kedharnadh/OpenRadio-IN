@@ -1,4 +1,6 @@
 #EXTM3U
+#EXTINF:-1 tvg-id="aaj_tak_news_radio" tvg-name="Aaj Tak News Radio Live" tvg-logo="" group-title="Community, ALL",Aaj Tak News Radio Live
+https://feeds.intoday.in/aajtak/api/master.m3u8
 #EXTINF:-1 tvg-id="air_adilabad" tvg-name="AIR Adilabad" tvg-logo="https://radiobarfi.com/wp-content/uploads/2022/02/All-India-Radio-Adilabad.webp" group-title="AIR, ALL",AIR Adilabad
 https://radio.wavespb.com/live/e47c5f0cec4af335/e47c5f0cec4af335.m3u8
 #EXTINF:-1 tvg-id="air_anantapur" tvg-name="AIR Anantapur" tvg-logo="https://radiobarfi.com/wp-content/uploads/2023/06/All-India-Radio-Anantapur.webp" group-title="AIR, ALL",AIR Anantapur
@@ -447,6 +449,12 @@ https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio028/hlspbaudio028_Au
 https://stream.ap9fm.in/radio/8000/radio.mp3
 #EXTINF:-1 tvg-id="austin_telugu_radio" tvg-name="Austin Telugu Radio" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_93339_1785003639.webp" group-title="FM, ALL",Austin Telugu Radio
 https://stream.zeno.fm/gjwvfftymtftv
+#EXTINF:-1 tvg-id="bhakti_world_devi_maa" tvg-name="Bhakti World Devi Maa" tvg-logo="" group-title="Community, ALL",Bhakti World Devi Maa
+http://ibadat.out.airtime.pro:8000/ibadat_a
+#EXTINF:-1 tvg-id="bhakti_world_hanuman" tvg-name="Bhakti World Hanuman" tvg-logo="" group-title="Community, ALL",Bhakti World Hanuman
+http://2bhanuman.out.airtime.pro:8000/2bhanuman_a
+#EXTINF:-1 tvg-id="bhakti_world_krishna" tvg-name="Bhakti World Krishna" tvg-logo="" group-title="Community, ALL",Bhakti World Krishna
+http://millenniumhits.out.airtime.pro:8000/millenniumhits_a
 #EXTINF:-1 tvg-id="big_fm_92_7_bangalore" tvg-name="BIG 92.7 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/big-fm.webp" group-title="FM, ALL",BIG 92.7 FM Bangalore
 https://stream.zeno.fm/dbstwo3dvhhtv
 #EXTINF:-1 tvg-id="fm_arun_itanagar" tvg-name="FM Arun Itanagar" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_131123.jpg" group-title="FM, ALL",FM Arun Itanagar
@@ -503,10 +511,20 @@ https://radio.wavespb.com/live/443b0a952fbbe057/443b0a952fbbe057.m3u8
 https://server.geetradio.com/hls/telugu/live.m3u8
 #EXTINF:-1 tvg-id="ghantasala_hits" tvg-name="Ghantasala Hits" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_75332_ghantasala.webp" group-title="FM, ALL",Ghantasala Hits
 http://cast6.my-control-panel.com:7426/live
+#EXTINF:-1 tvg-id="gunjan_radio" tvg-name="Gunjan Radio" tvg-logo="" group-title="Community, ALL",Gunjan Radio
+https://streamasiacdn.atc-labs.com/gunjanradio.aac
+#EXTINF:-1 tvg-id="gurgaon_ki_awaaz_107_8_fm" tvg-name="Gurgaon Ki Awaaz 107.8 FM" tvg-logo="" group-title="Community, ALL",Gurgaon Ki Awaaz 107.8 FM
+https://gurgaonradio.out.airtime.pro/gurgaonradio_a
 #EXTINF:-1 tvg-id="ilayaraja_hits" tvg-name="Ilayaraja Hits" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_61983_ilayaraja.webp" group-title="FM, ALL",Ilayaraja Hits
 https://stream.zeno.fm/5bc5hwbsqg8uv
 #EXTINF:-1 tvg-id="indraprastha" tvg-name="Indraprastha" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/RADIO_435004.jpg" group-title="AIR, ALL",Indraprastha
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio006/hlspbaudio006_Auto.m3u8
+#EXTINF:-1 tvg-id="jaipur_radio" tvg-name="Jaipur Radio" tvg-logo="" group-title="Community, ALL",Jaipur Radio
+https://streamasiacdn.atc-labs.com/jaipurradio.aac
+#EXTINF:-1 tvg-id="janadhwani_kannada" tvg-name="Janadhwani Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/jana-dhwani-kannda.jpg" group-title="Community, ALL",Janadhwani Kannada
+https://d3n2o48cmfppr2.cloudfront.net/svymradio.m3u8
+#EXTINF:-1 tvg-id="kannada_hits" tvg-name="Kannada Hits" tvg-logo="" group-title="Community, ALL",Kannada Hits
+https://stream.zeno.fm/68snnbug8rhvv
 #EXTINF:-1 tvg-id="kumbhvani" tvg-name="KumbhVani" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/Kumbhvani.jpg" group-title="AIR, ALL",KumbhVani
 https://air.pc.cdn.bitgravity.com/air/live/pbaudio300/playlist.m3u8
 #EXTINF:-1 tvg-id="kushi_fm" tvg-name="Kushi FM" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_33925_1781374770.webp" group-title="FM, ALL",Kushi FM
@@ -517,8 +535,14 @@ https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio002/hlspbaudio002_Au
 https://c8.radioboss.fm/stream/33
 #EXTINF:-1 tvg-id="melody_radio" tvg-name="Melody Radio" tvg-logo="https://img1.wsimg.com/isteam/ip/d547af60-4305-4c1a-a90e-b8c81b606aa0/logo_new_.png" group-title="FM, ALL",Melody Radio
 https://a1.asurahosting.com/listen/melody_radio/radio.mp3
+#EXTINF:-1 tvg-id="namm_radio_kannada" tvg-name="Namm Radio Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/naam-radio-kannada.jpg" group-title="Community, ALL",Namm Radio Kannada
+https://stream.zenolive.com/bbs8prb015quv
+#EXTINF:-1 tvg-id="nammoora_baanuli" tvg-name="Nammoora Baanuli" tvg-logo="" group-title="Community, ALL",Nammoora Baanuli
+http://198.245.61.103:8029/stream
 #EXTINF:-1 tvg-id="raagam" tvg-name="Raagam" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/raagam.jpg" group-title="AIR, ALL",Raagam
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudioragam/hlspbaudioragam_Auto.m3u8
+#EXTINF:-1 tvg-id="radio_amr_kannada" tvg-name="Radio AMR Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/amr.jpg" group-title="Community, ALL",Radio AMR Kannada
+https://stream.zenolive.com/7g8axtgtsg0uv
 #EXTINF:-1 tvg-id="radio_city_91_1_bangalore" tvg-name="Radio City 91.1 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/radiocity9911.webp" group-title="FM, ALL",Radio City 91.1 FM Bangalore
 https://radios.crabdance.com:8002/5
 #EXTINF:-1 tvg-id="radio_hungama_telugu" tvg-name="Radio Hungama Telugu" tvg-logo="" group-title="FM, ALL",Radio Hungama Telugu
@@ -527,6 +551,10 @@ https://radioindia.net/radio/humgama-telugu/icecast.audio
 https://stream.zeno.fm/wgaznsmt92quv
 #EXTINF:-1 tvg-id="radio_ranjan_90_4_fm" tvg-name="Radio Ranjan 90.4 FM" tvg-logo="" group-title="FM, ALL",Radio Ranjan 90.4 FM
 https://stream.zeno.fm/rfqqoi2w5u0tv
+#EXTINF:-1 tvg-id="radio_sai_telugu" tvg-name="Radio Sai Telugu" tvg-logo="https://archive.sssmediacentre.org/www/SI_Mail/images/3.png" group-title="Community, ALL",Radio Sai Telugu
+http://stream.radiosai.net:8020/
+#EXTINF:-1 tvg-id="suno_kannada" tvg-name="Radio Suno Kannada" tvg-logo="" group-title="Community, ALL",Radio Suno Kannada
+https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_SUNO_MELODY_S06.mp3
 #EXTINF:-1 tvg-id="radio_surabhi" tvg-name="Radio Surabhi" tvg-logo="https://www.radiosurabhi.com/assets/images/logo_full_new.png" group-title="FM, ALL",Radio Surabhi
 https://radiosurabhi.streamguys1.com/live1-web
 #EXTINF:-1 tvg-id="radio_vishnu_90_4" tvg-name="Radio Vishnu 90.4" tvg-logo="" group-title="FM, ALL",Radio Vishnu 90.4
@@ -535,10 +563,16 @@ https://streamasiahlscdn.atc-labs.com/radiovishnu.m3u8
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio027/hlspbaudio027_Auto.m3u8
 #EXTINF:-1 tvg-id="red_fm_93_5_bangalore" tvg-name="Red FM 93.5 Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/red-fm15.webp" group-title="FM, ALL",Red FM 93.5 Bangalore
 https://stream.zeno.fm/9phrkb1e3v8uv
+#EXTINF:-1 tvg-id="sakkath_radio_kannada" tvg-name="Sakkath Radio Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/sakkath-radio-kannada.jpg" group-title="Community, ALL",Sakkath Radio Kannada
+https://stream.zeno.fm/fcsk9ryerd0uv
 #EXTINF:-1 tvg-id="samvadita_mumbai" tvg-name="Samvadita Mumbai" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/sammumbai.jpg" group-title="AIR, ALL",Samvadita Mumbai
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio009/hlspbaudio009_Auto.m3u8
+#EXTINF:-1 tvg-id="shaiva_lahari" tvg-name="Shaiva Lahari" tvg-logo="https://shaivam.org/images/shaivam-logo-2015.png" group-title="Community, ALL",Shaiva Lahari
+https://radio.shaivam.org/listen/shaiva-lahari/radio.mp3
 #EXTINF:-1 tvg-id="spb_hits" tvg-name="SPB Hits" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_30498_spb.webp" group-title="FM, ALL",SPB Hits
 http://cast6.my-control-panel.com:9295/live
+#EXTINF:-1 tvg-id="svbc_ttd_radio" tvg-name="SVBC TTD Radio" tvg-logo="https://kedharnadh.github.io/OpenRadio-IN/station-logos/svbc.png" group-title="Community, ALL",SVBC TTD Radio
+https://radio.mslivecdn.com:6278/stream
 #EXTINF:-1 tvg-id="telugu_hits" tvg-name="Telugu Hits" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/Telugu%20Radio.webp" group-title="FM, ALL",Telugu Hits
 https://stream-173.zeno.fm/ysucrq37uwzuv
 #EXTINF:-1 tvg-id="radio_kokila" tvg-name="Telugu Kokila Radio" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_16688_1781028160.webp" group-title="FM, ALL",Telugu Kokila Radio

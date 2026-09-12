@@ -72,6 +72,19 @@ data class PlaybackUiState(
 object AppPlayer {
     const val ROOT_MEDIA_ID = "openradio_root"
 
+    /** Browsable folders exposed to Android Auto / Android TV. */
+    const val ALL_MEDIA_ID = "openradio_all"
+    const val FAVORITES_MEDIA_ID = "openradio_favorites"
+    const val LANGUAGES_MEDIA_ID = "openradio_languages"
+
+    /** Root of the "suggested" list (favorites) that Android Auto surfaces on the home screen. */
+    const val SUGGESTED_MEDIA_ID = "openradio_suggested"
+
+    private const val LANGUAGE_FOLDER_PREFIX = "openradio_lang:"
+
+    /** Media id for the browsable folder holding stations in [tag]. */
+    fun languageFolderMediaId(tag: String): String = "$LANGUAGE_FOLDER_PREFIX$tag"
+
     /**
      * MIME type that media3/ExoPlayer recognizes as HLS (MimeTypes.APPLICATION_M3U8).
      * NOTE: must NOT be "application/vnd.apple.mpegurl" — media3's Util.inferContentType()
@@ -540,6 +553,21 @@ object AppPlayer {
         }
     }
 
+    /** All language tags present in the station list, sorted, one browsable folder each. */
+    fun languageTags(stations: List<Station>): List<String> = stations.flatMap { it.languageTags }.distinct().sorted()
+
+    /** Stations whose language tags include [tag]. */
+    fun stationsInLanguage(
+        stations: List<Station>,
+        tag: String,
+    ): List<Station> = stations.filter { it.languageTags.contains(tag) }
+
+    /** Stations whose ids are in [favoriteIds] (see [Prefs.favorites]). */
+    fun favoriteStations(
+        stations: List<Station>,
+        favoriteIds: Set<String>,
+    ): List<Station> = stations.filter { favoriteIds.contains(it.id) }
+
     private fun stationToMediaItem(
         station: Station,
         url: String,
@@ -669,6 +697,21 @@ object AppPlayer {
 
     // ---- Android Auto / MediaBrowser library ------------------------------
 
+    private fun folderItem(
+        mediaId: String,
+        title: String,
+    ): MediaItem =
+        MediaItem.Builder()
+            .setMediaId(mediaId)
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setTitle(title)
+                    .setIsBrowsable(true)
+                    .setIsPlayable(false)
+                    .build(),
+            )
+            .build()
+
     private val libraryCallback =
         object : MediaLibraryService.MediaLibrarySession.Callback {
             override fun onGetLibraryRoot(
@@ -676,9 +719,12 @@ object AppPlayer {
                 browser: MediaSession.ControllerInfo,
                 params: MediaLibraryService.LibraryParams?,
             ): ListenableFuture<LibraryResult<MediaItem>> {
+                // Android Auto requests the "suggested" list separately and shows
+                // it prominently on the home screen; serve favorites there.
+                val suggested = params?.isSuggested == true
                 val root =
                     MediaItem.Builder()
-                        .setMediaId(ROOT_MEDIA_ID)
+                        .setMediaId(if (suggested) SUGGESTED_MEDIA_ID else ROOT_MEDIA_ID)
                         .setMediaMetadata(
                             MediaMetadata.Builder()
                                 .setTitle(appContext?.getString(R.string.app_name) ?: "OpenRadio-IN")
@@ -698,10 +744,43 @@ object AppPlayer {
                 pageSize: Int,
                 params: MediaLibraryService.LibraryParams?,
             ): ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> {
-                if (parentId != ROOT_MEDIA_ID) {
-                    return Futures.immediateFuture(LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE))
-                }
-                val items = AppPlayer.buildQueue(StationsStore.stations.value)
+                val stations = StationsStore.stations.value
+                val items: List<MediaItem> =
+                    when (parentId) {
+                        ROOT_MEDIA_ID ->
+                            listOf(
+                                folderItem(
+                                    ALL_MEDIA_ID,
+                                    appContext?.getString(R.string.all_stations) ?: "All stations",
+                                ),
+                                folderItem(
+                                    FAVORITES_MEDIA_ID,
+                                    appContext?.getString(R.string.favorites) ?: "Favorites",
+                                ),
+                                folderItem(
+                                    LANGUAGES_MEDIA_ID,
+                                    appContext?.getString(R.string.language) ?: "Language",
+                                ),
+                            )
+                        ALL_MEDIA_ID -> buildQueue(stations)
+                        FAVORITES_MEDIA_ID,
+                        SUGGESTED_MEDIA_ID,
+                        ->
+                            buildQueue(favoriteStations(stations, Prefs.favorites()))
+                        LANGUAGES_MEDIA_ID ->
+                            languageTags(stations).map { tag ->
+                                folderItem(languageFolderMediaId(tag), tag)
+                            }
+                        else ->
+                            if (parentId.startsWith(LANGUAGE_FOLDER_PREFIX)) {
+                                val tag = parentId.removePrefix(LANGUAGE_FOLDER_PREFIX)
+                                buildQueue(stationsInLanguage(stations, tag))
+                            } else {
+                                return Futures.immediateFuture(
+                                    LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE),
+                                )
+                            }
+                    }
                 return Futures.immediateFuture(LibraryResult.ofItemList(items, params))
             }
 
@@ -710,6 +789,25 @@ object AppPlayer {
                 browser: MediaSession.ControllerInfo,
                 mediaId: String,
             ): ListenableFuture<LibraryResult<MediaItem>> {
+                val folderTitle =
+                    when (mediaId) {
+                        ROOT_MEDIA_ID -> appContext?.getString(R.string.app_name) ?: "OpenRadio-IN"
+                        ALL_MEDIA_ID -> appContext?.getString(R.string.all_stations) ?: "All stations"
+                        FAVORITES_MEDIA_ID -> appContext?.getString(R.string.favorites) ?: "Favorites"
+                        LANGUAGES_MEDIA_ID -> appContext?.getString(R.string.language) ?: "Language"
+                        SUGGESTED_MEDIA_ID -> appContext?.getString(R.string.favorite_stations) ?: "Favorite Stations"
+                        else -> null
+                    }
+                if (folderTitle != null) {
+                    return Futures.immediateFuture(
+                        LibraryResult.ofItem(folderItem(mediaId, folderTitle), null),
+                    )
+                }
+                if (mediaId.startsWith(LANGUAGE_FOLDER_PREFIX)) {
+                    return Futures.immediateFuture(
+                        LibraryResult.ofItem(folderItem(mediaId, mediaId.removePrefix(LANGUAGE_FOLDER_PREFIX)), null),
+                    )
+                }
                 val station = StationsStore.stations.value.firstOrNull { it.id == mediaId }
                 val stream = station?.primaryStream
                 return if (station != null && stream != null) {
@@ -754,10 +852,18 @@ object AppPlayer {
                 controller: MediaSession.ControllerInfo,
                 mediaItems: List<MediaItem>,
             ): ListenableFuture<List<MediaItem>> {
-                val queue = AppPlayer.buildQueue(StationsStore.stations.value)
-                val requested = mediaItems.firstOrNull()?.mediaId
-                return if (requested != null && queue.any { it.mediaId == requested }) {
-                    // Return the full queue so Auto's next/previous walks the station list.
+                val fullQueue = AppPlayer.buildQueue(StationsStore.stations.value)
+                val requestedIds = mediaItems.mapNotNull { it.mediaId }
+                return if (requestedIds.isNotEmpty() && fullQueue.any { it.mediaId == requestedIds.first() }) {
+                    // Return a context-aware queue so Auto's next/previous walks the
+                    // favorites list when the tapped station came from the Favorites
+                    // folder, and the full station list otherwise.
+                    val queue =
+                        if (requestedIds.all { Prefs.favorites().contains(it) }) {
+                            AppPlayer.buildQueue(favoriteStations(StationsStore.stations.value, Prefs.favorites()))
+                        } else {
+                            fullQueue
+                        }
                     Futures.immediateFuture(queue)
                 } else {
                     val items = mediaItems.map { it.buildUpon().setLiveConfiguration(liveConfig()).build() }

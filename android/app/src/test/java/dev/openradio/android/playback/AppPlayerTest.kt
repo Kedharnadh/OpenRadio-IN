@@ -147,4 +147,56 @@ class AppPlayerTest {
     fun `ROOT_MEDIA_ID is set`() {
         assertEquals("openradio_root", AppPlayer.ROOT_MEDIA_ID)
     }
+
+    @Test
+    fun `language folder media id is stable and prefixed`() {
+        assertEquals("openradio_lang:Telugu", AppPlayer.languageFolderMediaId("Telugu"))
+    }
+
+    @Test
+    fun `languageTags returns distinct sorted tags`() {
+        val stations =
+            listOf(
+                createStation("1", language = "Telugu"),
+                createStation("2", language = "Hindi, Telugu"),
+                createStation("3", language = "Kannada"),
+            )
+        assertEquals(listOf("Hindi", "Kannada", "Telugu"), AppPlayer.languageTags(stations))
+    }
+
+    @Test
+    fun `stationsInLanguage filters by language tags`() {
+        val stations =
+            listOf(
+                createStation("1", language = "Telugu"),
+                createStation("2", language = "Telugu, Hindi"),
+                createStation("3", language = "Kannada"),
+            )
+        val telugu = AppPlayer.stationsInLanguage(stations, "Telugu")
+        assertEquals(listOf("1", "2"), telugu.map { it.id })
+    }
+
+    @Test
+    fun `stationsInLanguage returns empty list for unknown tag`() {
+        val stations = listOf(createStation("1", language = "Telugu"))
+        assertTrue(AppPlayer.stationsInLanguage(stations, "Tamil").isEmpty())
+    }
+
+    @Test
+    fun `favoriteStations filters by favorite id set`() {
+        val stations =
+            listOf(
+                createStation("1"),
+                createStation("2"),
+                createStation("3"),
+            )
+        val favorites = AppPlayer.favoriteStations(stations, setOf("1", "3"))
+        assertEquals(listOf("1", "3"), favorites.map { it.id })
+    }
+
+    @Test
+    fun `favoriteStations ignores ids with no matching station`() {
+        val stations = listOf(createStation("1"))
+        assertTrue(AppPlayer.favoriteStations(stations, setOf("missing")).isEmpty())
+    }
 }

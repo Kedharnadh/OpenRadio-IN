@@ -1,6 +1,6 @@
 # OpenRadio-IN
 
-> A community-driven collection of 294 Indian online radio stations across 34 languages with a progressive web app, native Android app, Chromecast support, and automatically generated playlists for VLC, Kodi, Home Assistant, and other compatible players.
+> A community-driven collection of 324 Indian online radio stations across 37 languages with a progressive web app, native Android app, Chromecast support, and automatically generated playlists for VLC, Kodi, Home Assistant, and other compatible players.
 
 PWA: https://kedharnadh.github.io/OpenRadio-IN/
 
@@ -15,9 +15,9 @@ PWA: https://kedharnadh.github.io/OpenRadio-IN/
 [![Android CI](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/android.yml/badge.svg)](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/android.yml)
 [![Deploy PWA](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/deploy-pages.yml)
 
-[![Stations](https://img.shields.io/badge/stations-294-blue)](database/stations.json)
-[![Languages](https://img.shields.io/badge/languages-34-green)](database/languages.json)
-[![Playlists](https://img.shields.io/badge/playlists-37-orange)](playlists/)
+[![Stations](https://img.shields.io/badge/stations-324-blue)](database/stations.json)
+[![Languages](https://img.shields.io/badge/languages-37-green)](database/languages.json)
+[![Playlists](https://img.shields.io/badge/playlists-41-orange)](playlists/)
 [![Android](https://img.shields.io/badge/Android-Kotlin%20%2B%20Compose-3DDC84?logo=android)](android/)
 
 ---
@@ -30,7 +30,7 @@ If you find OpenRadio-IN useful, please give it a star! It helps others discover
 
 ## Features
 
-- 294 radio stations across 34 Indian languages (Telugu, Tamil, Hindi, Kannada, Malayalam, Bengali, Gujarati, Marathi, Punjabi, and more)
+- 324 radio stations across 37 Indian languages (Telugu, Tamil, Hindi, Kannada, Malayalam, Bengali, Gujarati, Marathi, Punjabi, and more)
 - AIR (Akashvani), FM, News, Devotional, Classical, Community, and Internet Radio
 - Progressive Web App (installable, offline-capable)
 - Native Android app (Kotlin + Jetpack Compose)
@@ -47,7 +47,7 @@ If you find OpenRadio-IN useful, please give it a star! It helps others discover
 - Station sharing (Web Share API)
 - Dark/light theme toggle
 - Keyboard shortcuts (Space = play/pause, arrows = prev/next)
-- 37 automatically generated playlists
+- 41 automatically generated playlists
 - JSON-based station database
 - Python build system with stream health checks
 - GitHub Actions CI/CD
@@ -77,7 +77,7 @@ OpenRadio-IN playlists work with:
 OpenRadio-IN
 │
 ├── database/                 # Station database + metadata
-│   ├── stations.json         # 294 stations, 34 languages
+│   ├── stations.json         # 324 stations, 37 languages
 │   ├── categories.json
 │   ├── languages.json
 │   ├── states.json
@@ -95,7 +95,7 @@ OpenRadio-IN
 │   ├── generate_playlist.py
 │   └── validate_playlist.py
 │
-├── playlists/                # 37 generated playlists (all.m3u, air.m3u, 34 languages, fm.m3u)
+├── playlists/                # 41 generated playlists (all.m3u, air.m3u, 37 languages, fm.m3u)
 │
 ├── stations/                 # Source station files (e.g. stations/telugu)
 │
@@ -153,11 +153,11 @@ OpenRadio-IN
 
 ## Available Playlists
 
-37 playlists are generated from the station database:
+41 playlists are generated from the station database:
 
 | Playlist | Description |
 |----------|-------------|
-| `all.m3u` | Every station (294) |
+| `all.m3u` | Every station with a stream (313) |
 | `air.m3u` | All India Radio (AIR/Akashvani) stations |
 | `fm.m3u` | FM stations |
 | `telugu.m3u` | Telugu stations |
@@ -333,7 +333,8 @@ A native Android app built with Kotlin and Jetpack Compose (Material 3 / Materia
 - Volume control with mute toggle (persisted across pauses)
 - Sleep timer, alarm, and station sharing
 - Chromecast support via CastPlayer (ExoPlayer local + Cast transfer)
-- Android Auto / Android Automotive (MediaLibraryService browses full station list)
+- Android Auto / Android Automotive (MediaLibraryService browses All stations, Favorites, and per-language folders)
+- Pauses playback when a Bluetooth or wired audio device disconnects, instead of continuing through the phone speaker
 - Live station data fetched from GitHub Pages, cached for offline use
 - EPG schedules for AIR stations
 
@@ -402,6 +403,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide, including code style 
 ---
 
 ## Version History
+
+### v1.12.0
+- **Android Auto browsable folders** — the media library now exposes **All stations**, **Favorites**, and per-language folders on the Android Auto / Android Automotive screen, with favorites also surfaced as suggestions on the head-unit home screen
+- **Bluetooth disconnect pause** — playback pauses when a Bluetooth stereo disconnects (or wired headphones unplug) so the station doesn't keep playing through the phone speaker; unaffected while casting
+- Android Auto next/previous now walks the favorites queue when started from the Favorites folder
+- Regenerated language and category playlists from the updated station database
 
 ### v1.6.0
 - **Audio focus reclaim** — the radio now auto-resumes only *after* the interrupting app (another player, video, or navigation prompt) actually stops: it pauses on focus loss and re-acquires focus in the background without ever stealing audio, so the other app keeps playing uninterrupted

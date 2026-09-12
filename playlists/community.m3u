@@ -1,1 +1,35 @@
 #EXTM3U
+#EXTINF:-1 tvg-id="aaj_tak_news_radio" tvg-name="Aaj Tak News Radio Live" tvg-logo="" group-title="Community, ALL",Aaj Tak News Radio Live
+https://feeds.intoday.in/aajtak/api/master.m3u8
+#EXTINF:-1 tvg-id="bhakti_world_devi_maa" tvg-name="Bhakti World Devi Maa" tvg-logo="" group-title="Community, ALL",Bhakti World Devi Maa
+http://ibadat.out.airtime.pro:8000/ibadat_a
+#EXTINF:-1 tvg-id="bhakti_world_hanuman" tvg-name="Bhakti World Hanuman" tvg-logo="" group-title="Community, ALL",Bhakti World Hanuman
+http://2bhanuman.out.airtime.pro:8000/2bhanuman_a
+#EXTINF:-1 tvg-id="bhakti_world_krishna" tvg-name="Bhakti World Krishna" tvg-logo="" group-title="Community, ALL",Bhakti World Krishna
+http://millenniumhits.out.airtime.pro:8000/millenniumhits_a
+#EXTINF:-1 tvg-id="gunjan_radio" tvg-name="Gunjan Radio" tvg-logo="" group-title="Community, ALL",Gunjan Radio
+https://streamasiacdn.atc-labs.com/gunjanradio.aac
+#EXTINF:-1 tvg-id="gurgaon_ki_awaaz_107_8_fm" tvg-name="Gurgaon Ki Awaaz 107.8 FM" tvg-logo="" group-title="Community, ALL",Gurgaon Ki Awaaz 107.8 FM
+https://gurgaonradio.out.airtime.pro/gurgaonradio_a
+#EXTINF:-1 tvg-id="jaipur_radio" tvg-name="Jaipur Radio" tvg-logo="" group-title="Community, ALL",Jaipur Radio
+https://streamasiacdn.atc-labs.com/jaipurradio.aac
+#EXTINF:-1 tvg-id="janadhwani_kannada" tvg-name="Janadhwani Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/jana-dhwani-kannda.jpg" group-title="Community, ALL",Janadhwani Kannada
+https://d3n2o48cmfppr2.cloudfront.net/svymradio.m3u8
+#EXTINF:-1 tvg-id="kannada_hits" tvg-name="Kannada Hits" tvg-logo="" group-title="Community, ALL",Kannada Hits
+https://stream.zeno.fm/68snnbug8rhvv
+#EXTINF:-1 tvg-id="namm_radio_kannada" tvg-name="Namm Radio Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/naam-radio-kannada.jpg" group-title="Community, ALL",Namm Radio Kannada
+https://stream.zenolive.com/bbs8prb015quv
+#EXTINF:-1 tvg-id="nammoora_baanuli" tvg-name="Nammoora Baanuli" tvg-logo="" group-title="Community, ALL",Nammoora Baanuli
+http://198.245.61.103:8029/stream
+#EXTINF:-1 tvg-id="radio_amr_kannada" tvg-name="Radio AMR Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/amr.jpg" group-title="Community, ALL",Radio AMR Kannada
+https://stream.zenolive.com/7g8axtgtsg0uv
+#EXTINF:-1 tvg-id="radio_sai_telugu" tvg-name="Radio Sai Telugu" tvg-logo="https://archive.sssmediacentre.org/www/SI_Mail/images/3.png" group-title="Community, ALL",Radio Sai Telugu
+http://stream.radiosai.net:8020/
+#EXTINF:-1 tvg-id="suno_kannada" tvg-name="Radio Suno Kannada" tvg-logo="" group-title="Community, ALL",Radio Suno Kannada
+https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_SUNO_MELODY_S06.mp3
+#EXTINF:-1 tvg-id="sakkath_radio_kannada" tvg-name="Sakkath Radio Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/sakkath-radio-kannada.jpg" group-title="Community, ALL",Sakkath Radio Kannada
+https://stream.zeno.fm/fcsk9ryerd0uv
+#EXTINF:-1 tvg-id="shaiva_lahari" tvg-name="Shaiva Lahari" tvg-logo="https://shaivam.org/images/shaivam-logo-2015.png" group-title="Community, ALL",Shaiva Lahari
+https://radio.shaivam.org/listen/shaiva-lahari/radio.mp3
+#EXTINF:-1 tvg-id="svbc_ttd_radio" tvg-name="SVBC TTD Radio" tvg-logo="https://kedharnadh.github.io/OpenRadio-IN/station-logos/svbc.png" group-title="Community, ALL",SVBC TTD Radio
+https://radio.mslivecdn.com:6278/stream

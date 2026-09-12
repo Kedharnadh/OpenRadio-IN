@@ -55,6 +55,8 @@ https://radioindia.net/radio/humgama-telugu/icecast.audio
 https://stream.zeno.fm/wgaznsmt92quv
 #EXTINF:-1 tvg-id="radio_ranjan_90_4_fm" tvg-name="Radio Ranjan 90.4 FM" tvg-logo="" group-title="FM, ALL",Radio Ranjan 90.4 FM
 https://stream.zeno.fm/rfqqoi2w5u0tv
+#EXTINF:-1 tvg-id="radio_sai_telugu" tvg-name="Radio Sai Telugu" tvg-logo="https://archive.sssmediacentre.org/www/SI_Mail/images/3.png" group-title="Community, ALL",Radio Sai Telugu
+http://stream.radiosai.net:8020/
 #EXTINF:-1 tvg-id="radio_surabhi" tvg-name="Radio Surabhi" tvg-logo="https://www.radiosurabhi.com/assets/images/logo_full_new.png" group-title="FM, ALL",Radio Surabhi
 https://radiosurabhi.streamguys1.com/live1-web
 #EXTINF:-1 tvg-id="radio_vishnu_90_4" tvg-name="Radio Vishnu 90.4" tvg-logo="" group-title="FM, ALL",Radio Vishnu 90.4
@@ -63,6 +65,8 @@ https://streamasiahlscdn.atc-labs.com/radiovishnu.m3u8
 https://stream.zeno.fm/9phrkb1e3v8uv
 #EXTINF:-1 tvg-id="spb_hits" tvg-name="SPB Hits" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_30498_spb.webp" group-title="FM, ALL",SPB Hits
 http://cast6.my-control-panel.com:9295/live
+#EXTINF:-1 tvg-id="svbc_ttd_radio" tvg-name="SVBC TTD Radio" tvg-logo="https://kedharnadh.github.io/OpenRadio-IN/station-logos/svbc.png" group-title="Community, ALL",SVBC TTD Radio
+https://radio.mslivecdn.com:6278/stream
 #EXTINF:-1 tvg-id="telugu_hits" tvg-name="Telugu Hits" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/Telugu%20Radio.webp" group-title="FM, ALL",Telugu Hits
 https://stream-173.zeno.fm/ysucrq37uwzuv
 #EXTINF:-1 tvg-id="radio_kokila" tvg-name="Telugu Kokila Radio" tvg-logo="https://admin.teluguradios.com/uploads/radios/radio_16688_1781028160.webp" group-title="FM, ALL",Telugu Kokila Radio
