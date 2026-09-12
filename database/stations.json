@@ -8318,5 +8318,212 @@
     "verified": false,
     "last_checked": null,
     "name_kn": "ರಾಗಂ ರೇಡಿಯೋ 100.1 ಎಫ್ಎಂ ಬೆಂಗಳೂರು"
+  },
+  {
+    "id": "sakkath_radio_kannada",
+    "name": "Sakkath Radio Kannada",
+    "name_hi": "सक्कत रेडियो कन्नड़",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Kannada",
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "https://onlineradiohub.com/wp-content/uploads/2022/01/sakkath-radio-kannada.jpg",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/fcsk9ryerd0uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ಸಕ್ಕತ್ ರೇಡಿಯೋ ಕನ್ನಡ"
+  },
+  {
+    "id": "kannada_hits",
+    "name": "Kannada Hits",
+    "name_hi": "कन्नड़ हिट्स",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/68snnbug8rhvv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ಕನ್ನಡ ಹಿಟ್ಸ್"
+  },
+  {
+    "id": "radio_amr_kannada",
+    "name": "Radio AMR Kannada",
+    "name_hi": "रेडियो एएमआर कन्नड़",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "https://onlineradiohub.com/wp-content/uploads/2022/01/amr.jpg",
+    "streams": [
+      {
+        "url": "https://stream.zenolive.com/7g8axtgtsg0uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ರೇಡಿಯೋ ಎಎಂಆರ್ ಕನ್ನಡ"
+  },
+  {
+    "id": "namm_radio_kannada",
+    "name": "Namm Radio Kannada",
+    "name_hi": "नम्म रेडियो कन्नड़",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music",
+      "Talk"
+    ],
+    "homepage": "",
+    "logo": "https://onlineradiohub.com/wp-content/uploads/2022/01/naam-radio-kannada.jpg",
+    "streams": [
+      {
+        "url": "https://stream.zenolive.com/bbs8prb015quv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ನಮ್ಮ ರೇಡಿಯೋ ಕನ್ನಡ"
+  },
+  {
+    "id": "janadhwani_kannada",
+    "name": "Janadhwani Kannada",
+    "name_hi": "जनध्वनि कन्नड़",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music",
+      "Folk"
+    ],
+    "homepage": "",
+    "logo": "https://onlineradiohub.com/wp-content/uploads/2022/01/jana-dhwani-kannda.jpg",
+    "streams": [
+      {
+        "url": "https://d3n2o48cmfppr2.cloudfront.net/svymradio.m3u8",
+        "codec": "HLS",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ಜನಧ್ವನಿ ಕನ್ನಡ"
+  },
+  {
+    "id": "nammoora_baanuli",
+    "name": "Nammoora Baanuli",
+    "name_hi": "नम्मूरा बानुली",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Folk",
+      "Indian Music"
+    ],
+    "homepage": "https://www.facebook.com/p/Nammur-Banuli-community-Radio-Station-908FM-100065169272419/",
+    "logo": "",
+    "streams": [
+      {
+        "url": "http://198.245.61.103:8029/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ನಮ್ಮೂರ ಬಾನುಲಿ"
+  },
+  {
+    "id": "shaiva_lahari",
+    "name": "Shaiva Lahari",
+    "name_hi": "शैव लहरी",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "https://shaivam.org/",
+    "logo": "https://shaivam.org/images/shaivam-logo-2015.png",
+    "streams": [
+      {
+        "url": "https://radio.shaivam.org/listen/shaiva-lahari/radio.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ಶೈವ ಲಹರಿ"
   }
 ]
