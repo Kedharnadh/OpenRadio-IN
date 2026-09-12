@@ -552,6 +552,8 @@ object AppPlayer {
                 .setArtist(subtitle.ifBlank { station.name })
                 .setArtworkUri(station.logo.takeIf { it.isNotBlank() }?.let { Uri.parse(it) })
                 .setMediaType(MediaMetadata.MEDIA_TYPE_RADIO_STATION)
+                .setIsBrowsable(false)
+                .setIsPlayable(true)
                 .build()
         val builder =
             MediaItem.Builder()
@@ -680,6 +682,8 @@ object AppPlayer {
                         .setMediaMetadata(
                             MediaMetadata.Builder()
                                 .setTitle(appContext?.getString(R.string.app_name) ?: "OpenRadio-IN")
+                                .setIsBrowsable(true)
+                                .setIsPlayable(false)
                                 .build(),
                         )
                         .build()

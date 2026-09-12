@@ -75,9 +75,19 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 3. Browse stations → tap one to play; the playback shows in the media notification and lock screen.
 
 If Auto doesn't show the app, check that:
-- the service is exported and its intent-filter action is `androidx.media3.session.MediaLibraryService`,
-- the manifest declares `com.google.android.gms.car.application` → `automotive_app_desc.xml` with `<uses name="media"/>`.
-- Rebuild and reinstall, then force-stop and restart the Auto screen / emulator.
+- the service is exported and its intent-filter lists both `androidx.media3.session.MediaLibraryService`
+  **and** `android.media.browse.MediaBrowserService` (Auto's launcher discovers media apps by scanning
+  for this action),
+- the manifest declares `com.google.android.gms.car.application` → `automotive_app_desc.xml` with
+  `<uses name="media"/>`.
+- Rebuild and reinstall, then force-stop and restart the Auto screen / emulator (Auto caches the
+  known-app list).
+
+Apps installed from a non-trusted source (adb sideload) are hidden from Auto by default. To test a
+sideloaded build, enable Android Auto developer mode on the phone (Settings ≥ Apps ≥ Android Auto ≥
+"Version", tap it ~10 times), tick **Developer settings → Unknown sources**, then make sure the app
+is checked under **Customize launcher**. Published Play Store builds (or Internal App Sharing /
+Internal test tracks) show up without this step.
 
 ## Testing Chromecast
 

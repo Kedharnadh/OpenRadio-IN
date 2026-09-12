@@ -73,6 +73,8 @@ class AppPlayerTest {
         val metadata = item.mediaMetadata
         assertEquals("AIR Delhi", metadata.title?.toString())
         assertEquals("Delhi • Hindi", metadata.artist?.toString())
+        assertEquals(false, metadata.isBrowsable)
+        assertEquals(true, metadata.isPlayable)
     }
 
     @Test
