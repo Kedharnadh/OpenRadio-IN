@@ -79,9 +79,11 @@ class OpenRadioMediaItemConverterTest {
         val restoredItem = OpenRadioMediaItemConverter().toMediaItem(queueItem)
 
         assertNotNull("restored URI should not be null", restoredItem.localConfiguration?.uri)
-        assertEquals("HLS roundtrip preserves original URL",
+        assertEquals(
+            "HLS roundtrip preserves original URL",
             "https://example.com/live.m3u8",
-            restoredItem.localConfiguration?.uri.toString())
+            restoredItem.localConfiguration?.uri.toString(),
+        )
         assertEquals("AIR Test", restoredItem.mediaMetadata.title)
         assertEquals("Telugu", restoredItem.mediaMetadata.artist)
     }

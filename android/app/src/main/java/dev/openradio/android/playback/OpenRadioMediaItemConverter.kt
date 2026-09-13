@@ -4,8 +4,8 @@ import android.net.Uri
 import androidx.media3.cast.MediaItemConverter
 import androidx.media3.common.MediaItem
 import com.google.android.gms.cast.MediaInfo
-import com.google.android.gms.cast.MediaMetadata as CastMediaMetadata
 import com.google.android.gms.cast.MediaQueueItem
+import com.google.android.gms.cast.MediaMetadata as CastMediaMetadata
 
 private const val CAST_AUDIO_MIME_TYPE = "audio/mpeg"
 private const val CAST_HLS_MIME_TYPE = "application/x-mpegURL"
@@ -22,7 +22,6 @@ private const val CAST_HLS_MIME_TYPE = "application/x-mpegURL"
  *   avoiding mixed-content blocks on the receiver.
  */
 class OpenRadioMediaItemConverter : MediaItemConverter {
-
     override fun toMediaQueueItem(mediaItem: MediaItem): MediaQueueItem {
         val localConfiguration =
             mediaItem.localConfiguration ?: return fallbackQueueItem(mediaItem)
@@ -35,15 +34,16 @@ class OpenRadioMediaItemConverter : MediaItemConverter {
         val castUrl = if (isHls) originalUrl else castStreamUrl(originalUrl, false)
         val contentType = if (isHls) CAST_HLS_MIME_TYPE else CAST_AUDIO_MIME_TYPE
 
-        val castMetadata = CastMediaMetadata().apply {
-            putString(CastMediaMetadata.KEY_TITLE, mediaItem.mediaMetadata.title?.toString() ?: "")
-            putString(CastMediaMetadata.KEY_ARTIST, mediaItem.mediaMetadata.artist?.toString() ?: "")
-            // Station logo for the Cast receiver's "Now Playing" screen.
-            val artUri = mediaItem.mediaMetadata.artworkUri?.toString()
-            if (!artUri.isNullOrBlank()) {
-                addImage(com.google.android.gms.common.images.WebImage(Uri.parse(artUri)))
+        val castMetadata =
+            CastMediaMetadata().apply {
+                putString(CastMediaMetadata.KEY_TITLE, mediaItem.mediaMetadata.title?.toString() ?: "")
+                putString(CastMediaMetadata.KEY_ARTIST, mediaItem.mediaMetadata.artist?.toString() ?: "")
+                // Station logo for the Cast receiver's "Now Playing" screen.
+                val artUri = mediaItem.mediaMetadata.artworkUri?.toString()
+                if (!artUri.isNullOrBlank()) {
+                    addImage(com.google.android.gms.common.images.WebImage(Uri.parse(artUri)))
+                }
             }
-        }
 
         val mediaInfo =
             MediaInfo.Builder(castUrl)
@@ -59,14 +59,15 @@ class OpenRadioMediaItemConverter : MediaItemConverter {
 
     private fun fallbackQueueItem(mediaItem: MediaItem): MediaQueueItem {
         val url = mediaItem.localConfiguration?.uri?.toString() ?: mediaItem.mediaId
-        val castMetadata = CastMediaMetadata().apply {
-            putString(CastMediaMetadata.KEY_TITLE, mediaItem.mediaMetadata.title?.toString() ?: "")
-            putString(CastMediaMetadata.KEY_ARTIST, mediaItem.mediaMetadata.artist?.toString() ?: "")
-            val artUri = mediaItem.mediaMetadata.artworkUri?.toString()
-            if (!artUri.isNullOrBlank()) {
-                addImage(com.google.android.gms.common.images.WebImage(Uri.parse(artUri)))
+        val castMetadata =
+            CastMediaMetadata().apply {
+                putString(CastMediaMetadata.KEY_TITLE, mediaItem.mediaMetadata.title?.toString() ?: "")
+                putString(CastMediaMetadata.KEY_ARTIST, mediaItem.mediaMetadata.artist?.toString() ?: "")
+                val artUri = mediaItem.mediaMetadata.artworkUri?.toString()
+                if (!artUri.isNullOrBlank()) {
+                    addImage(com.google.android.gms.common.images.WebImage(Uri.parse(artUri)))
+                }
             }
-        }
         val mediaInfo =
             MediaInfo.Builder(url)
                 .setContentType(CAST_AUDIO_MIME_TYPE)

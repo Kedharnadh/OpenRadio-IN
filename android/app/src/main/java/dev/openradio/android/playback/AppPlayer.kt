@@ -68,7 +68,10 @@ data class PlaybackUiState(
  * fetches the upstream with a browser User-Agent and re-serves it over HTTPS,
  * avoiding mixed-content blocks on the Cast receiver.
  */
-fun castStreamUrl(originalUrl: String, isHls: Boolean): String {
+fun castStreamUrl(
+    originalUrl: String,
+    isHls: Boolean,
+): String {
     val base = BuildConfig.HLS_PROXY_URL
     val encoded = Uri.encode(originalUrl)
     return if (isHls) "$base?url=$encoded" else "$base?relay=1&url=$encoded"
