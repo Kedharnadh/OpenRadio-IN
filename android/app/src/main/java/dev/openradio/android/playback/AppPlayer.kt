@@ -26,7 +26,6 @@ import dev.openradio.android.App
 import dev.openradio.android.BuildConfig
 import dev.openradio.android.Prefs
 import dev.openradio.android.R
-import dev.openradio.android.data.HttpClient
 import dev.openradio.android.data.Station
 import dev.openradio.android.data.StationsStore
 import dev.openradio.android.ui.MainActivity
@@ -41,8 +40,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import okhttp3.Request
-import org.json.JSONObject
 import android.media.AudioAttributes as FrameworkAudioAttributes
 
 /** Snapshot of playback state surfaced to the UI. */
@@ -61,6 +58,21 @@ data class PlaybackUiState(
     val castActive: Boolean = false,
     val castAvailable: Boolean = false,
 )
+
+/**
+ * Returns a proxy URL for Cast playback via the HLS proxy worker.
+ *
+ * HLS streams go through the worker's HLS pipeline (`?url=`) which resolves
+ * the playlist and streams continuous MP3 via ffmpeg.
+ * Non-HLS (direct HTTP) streams go through the relay (`?relay=1&url=`) which
+ * fetches the upstream with a browser User-Agent and re-serves it over HTTPS,
+ * avoiding mixed-content blocks on the Cast receiver.
+ */
+fun castStreamUrl(originalUrl: String, isHls: Boolean): String {
+    val base = BuildConfig.HLS_PROXY_URL
+    val encoded = Uri.encode(originalUrl)
+    return if (isHls) "$base?url=$encoded" else "$base?relay=1&url=$encoded"
+}
 
 /**
  * Process-wide playback owner. A single [CastPlayer] (backed by an internal
@@ -281,67 +293,6 @@ object AppPlayer {
     /** Whether the current playback path is a Cast receiver (no phone audio focus). */
     private fun isRemotePlayback(): Boolean = _state.value.castActive
 
-    /**
-     * Cache of proxy-resolved details for the current HLS stream, populated
-     * asynchronously (see [probeHlsCastStream]) and consumed by the Cast converter
-     * so it can route HLS through the worker — exactly like the PWA.
-     */
-    object HlsCastProxy {
-        val base: String = BuildConfig.HLS_PROXY_URL
-
-        @Volatile var probedForUrl: String? = null
-
-        @Volatile var resolvedUrl: String? = null
-
-        @Volatile var contentType: String? = null
-
-        /** Continuous proxy stream URL for a given HLS source. */
-        fun streamUrl(original: String): String {
-            // Only reuse the probe result for the exact URL it was fetched for, so a
-            // slow/stale probe from another station never leaks the wrong stream into
-            // this one. Falls back to the original URL + worker-inferred content type.
-            val sameSource = probedForUrl == original
-            val target = if (sameSource) (resolvedUrl ?: original) else original
-            val params =
-                buildString {
-                    append(urlParam("url", target))
-                    if (sameSource) {
-                        contentType?.takeIf { it.isNotBlank() }?.let {
-                            append("&").append(urlParam("contentType", it))
-                        }
-                    }
-                }
-            return "$base?$params"
-        }
-
-        private fun urlParam(
-            key: String,
-            value: String,
-        ): String = "${Uri.encode(key)}=${Uri.encode(value)}"
-    }
-
-    /** Fires off a background probe of the HLS proxy for the given stream. */
-    fun probeHlsCastStream(
-        stationId: String,
-        hlsUrl: String,
-    ) {
-        ioScope.launch {
-            runCatching {
-                val probeUrl = "${HlsCastProxy.base}?probe=1&url=${Uri.encode(hlsUrl)}"
-                val request = Request.Builder().url(probeUrl).build()
-                val body =
-                    HttpClient.client.newCall(request).execute().use { response ->
-                        if (!response.isSuccessful) return@use null
-                        response.body?.string()
-                    } ?: return@launch
-                val obj = JSONObject(body)
-                HlsCastProxy.probedForUrl = hlsUrl
-                HlsCastProxy.resolvedUrl = obj.optString("url").takeIf { it.isNotBlank() }
-                HlsCastProxy.contentType = obj.optString("contentType").takeIf { it.isNotBlank() }
-            }
-        }
-    }
-
     fun initialize(context: Context) {
         if (_player != null) return
         appContext = context.applicationContext
@@ -370,9 +321,8 @@ object AppPlayer {
         val castPlayer: CastPlayer? =
             runCatching {
                 // CastPlayer plays locally via this ExoPlayer and automatically transfers
-                // to a Cast receiver when a Cast session becomes available. HLS items are converted for the receiver.
-                // sent with the HLS mime type (application/x-mpegURL) so the default Cast
-                // receiver plays them using its native HLS pipeline — no proxy involved.
+                // to a Cast receiver when a Cast session becomes available. The converter
+                // supplies explicit live audio/HLS metadata for the receiver.
                 val remotePlayer =
                     RemoteCastPlayer.Builder(ctx)
                         .setMediaItemConverter(OpenRadioMediaItemConverter())
@@ -423,11 +373,6 @@ object AppPlayer {
         p.prepare()
         p.play()
 
-        // Resolve the HLS stream through the proxy worker (like the PWA) so the
-        // Cast converter can hand the receiver a flattened continuous stream.
-        station.primaryStream?.takeIf { it.isHls }?.let { stream ->
-            probeHlsCastStream(station.id, stream.url)
-        }
         App.log("Playing station ${station.id} (${station.name})")
     }
 
@@ -592,8 +537,7 @@ object AppPlayer {
         if (isHls) {
             // Use the media3 HLS mime type so local ExoPlayer routes this to the HLS
             // source (the .m3u8 URL alone would work, but an explicit mime is robust).
-            // The cast converter rewrites HLS items to the proxy/audio-mpeg for the
-            // default Cast receiver.
+            // The Cast converter changes this to the receiver's HLS MIME type.
             builder.setMimeType(HLS_MIME_TYPE)
         }
         return builder.build()
@@ -605,6 +549,10 @@ object AppPlayer {
             .build()
 
     private fun retryWithFallbackStream() {
+        // Cast owns loading and retry behavior on the receiver. Replacing the
+        // item here on every remote error causes the receiver to restart the
+        // same station in a loop, and can also advance the Cast queue.
+        if (isRemotePlayback()) return
         val stationId = _state.value.currentStationId ?: return
         val station = StationsStore.stations.value.firstOrNull { it.id == stationId } ?: return
         val ctx = appContext

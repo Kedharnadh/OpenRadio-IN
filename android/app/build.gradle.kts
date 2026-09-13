@@ -35,8 +35,8 @@ android {
         applicationId = "in.openradio.android"
         minSdk = 26
         targetSdk = 36
-        versionCode = 17
-        versionName = "1.12.0"
+        versionCode = 18
+        versionName = "1.13.0"
 
         // Station data is served straight from the OpenRadio-IN git repo (GitHub Pages),
         // so new stations added to the repo appear in the app automatically after refresh.
