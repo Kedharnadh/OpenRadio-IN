@@ -85,6 +85,30 @@ async function handleRequest(request) {
 }
 
 async function handleMetadataRequest(streamUrl, metaUrl) {
+  // Zeno FM stations carry no ICY metadata and their status-json.xsl endpoint
+  // is empty, but Zeno announces the current track over a never-ending SSE
+  // stream (api.zeno.fm/mounts/metadata/subscribe/<mount>). The mount is
+  // derived from the stream URL, so these stations need no per-station
+  // metadata_url. Only the first data: event is consumed, under a short
+  // timeout, then the connection is closed.
+  for (const apiUrl of zenoApiCandidates(streamUrl, metaUrl)) {
+    try {
+      const zeno = await fetchZenoMetadata(apiUrl);
+      if (!zeno) continue;
+      return new Response(
+        JSON.stringify({
+          streamTitle: zeno.streamTitle,
+          title: zeno.title,
+          artist: zeno.artist,
+          art: '',
+        }),
+        { headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' } }
+      );
+    } catch (err) {
+      // try the next source
+    }
+  }
+
   let icy = {};
   try {
     icy = await fetchIcyMetadata(streamUrl);
@@ -98,7 +122,9 @@ async function handleMetadataRequest(streamUrl, metaUrl) {
   // still answer the lightweight status JSON, which reports the current song).
   let status = {};
   const statusUrls = [];
-  if (metaUrl) statusUrls.push(metaUrl);
+  // A Zeno subscribe URL is a persistent SSE stream, not a one-shot JSON
+  // endpoint, so it must never be handed to fetchStatusMetadata.
+  if (metaUrl && !isZenoMetadataUrl(metaUrl)) statusUrls.push(metaUrl);
   if (!icy.streamTitle) {
     const derived = deriveIcecastStatusUrl(streamUrl);
     if (derived && !statusUrls.includes(derived)) statusUrls.push(derived);
@@ -253,6 +279,127 @@ async function fetchStatusMetadata(metaUrl) {
   const mount = sources.find((entry) => entry && (entry.song || entry.title)) || sources[0] || {};
   const streamTitle = String(mount.song || mount.title || mount.server_name || '').trim();
   return { streamTitle, art: '' };
+}
+
+/* ---------- Zeno FM metadata ----------
+ * Zeno FM streams (stream.zeno.fm/<mount>) carry no inline ICY metadata and
+ * their status-json.xsl endpoint is empty, but the current track is announced
+ * over a Server-Sent Events stream:
+ *
+ *   https://api.zeno.fm/mounts/metadata/subscribe/<mount>
+ *
+ * The SSE stream never ends (a ping follows every few seconds), so only the
+ * first data: event is read before the connection is closed. The mount id is
+ * the first path segment of the stream URL, so stations need no explicit
+ * metadata_url. Zeno does not expose album art; art stays empty and the client
+ * falls back to the station logo (or a third-party cover lookup).
+ */
+
+const ZENO_SSE_TIMEOUT_MS = 4000;
+
+const ZENO_FM_HOST_RE = /(^|\.)zeno\.fm$/i;
+const ZENOLIVE_HOST_RE = /(^|\.)zenolive\.com$/i;
+
+// A Zeno subscribe URL is a never-ending SSE stream; it must be handled with
+// the SSE reader instead of being treated as a one-shot JSON endpoint.
+function isZenoMetadataUrl(metaUrl) {
+  if (!metaUrl) return false;
+  try {
+    const u = new URL(metaUrl);
+    return u.hostname === 'api.zeno.fm' && /^\/mounts\/metadata\/subscribe\//.test(u.pathname);
+  } catch {
+    return false;
+  }
+}
+
+// Derive the Zeno metadata SSE URL from a stream URL ('' if not a Zeno stream).
+function deriveZenoMetadataUrl(streamUrl) {
+  try {
+    const u = new URL(streamUrl);
+    const host = u.hostname.toLowerCase();
+    if (!ZENO_FM_HOST_RE.test(host) && !ZENOLIVE_HOST_RE.test(host)) return '';
+    const mount = u.pathname.split('/').filter(Boolean)[0];
+    if (!mount) return '';
+    return `https://api.zeno.fm/mounts/metadata/subscribe/${encodeURIComponent(mount)}`;
+  } catch {
+    return '';
+  }
+}
+
+function zenoApiCandidates(streamUrl, metaUrl) {
+  const candidates = [];
+  const derived = deriveZenoMetadataUrl(streamUrl);
+  if (derived) candidates.push(derived);
+  if (metaUrl && isZenoMetadataUrl(metaUrl) && !candidates.includes(metaUrl)) {
+    candidates.push(metaUrl);
+  }
+  return candidates;
+}
+
+async function fetchZenoMetadata(apiUrl) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ZENO_SSE_TIMEOUT_MS);
+  try {
+    const resp = await fetch(apiUrl, {
+      headers: { Accept: 'text/event-stream', 'Cache-Control': 'no-cache' },
+      signal: controller.signal,
+    });
+    if (!resp.ok || !resp.body) throw new Error(`Zeno metadata failed: ${resp.status}`);
+    return readFirstZenoEvent(resp.body);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// Consume only the first data: line from the SSE stream, then close it. Keeps
+// scanning (up to the timeout) until a data: event carries a stream title.
+async function readFirstZenoEvent(body) {
+  const reader = body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      let newline;
+      while ((newline = buffer.indexOf('\n')) !== -1) {
+        const line = buffer.slice(0, newline).trim();
+        buffer = buffer.slice(newline + 1);
+        if (line.startsWith('data:') && line.length > 5) {
+          const parsed = parseZenoStreamTitle(line.slice(5).trim());
+          if (parsed && parsed.streamTitle) return parsed;
+        }
+      }
+    }
+  } finally {
+    try {
+      await reader.cancel();
+    } catch {}
+  }
+  return null;
+}
+
+// Zeno titles look like "Artist - Song" (sometimes with extra info, e.g. a
+// track index after the first separator). Split on the first " - " so the
+// client can render a structured "Song - Artist" like the AzuraCast and
+// Icecast paths. Zeno supplies no art.
+function parseZenoStreamTitle(payload) {
+  let obj;
+  try {
+    obj = JSON.parse(payload);
+  } catch {
+    return null;
+  }
+  const streamTitle = String(obj.streamTitle || '').trim();
+  if (!streamTitle) return null;
+  const sep = streamTitle.indexOf(' - ');
+  return {
+    streamTitle,
+    title: sep > 0 ? streamTitle.slice(sep + 3).trim() : streamTitle,
+    artist: sep > 0 ? streamTitle.slice(0, sep).trim() : '',
+    art: '',
+  };
 }
 
 // Icecast exposes status-json.xsl at the root of the stream host:port. It
