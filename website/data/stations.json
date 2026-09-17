@@ -7975,5 +7975,1561 @@
     "verified": false,
     "last_checked": "2026-08-16T00:00:00+00:00",
     "status": "online"
+  },
+  {
+    "id": "big_fm_92_7_bangalore",
+    "name": "BIG 92.7 FM Bangalore",
+    "name_hi": "बिग 92.7 एफएम बेंगलुरु",
+    "language": "Hindi, English",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Bollywood",
+      "Pop"
+    ],
+    "homepage": "https://www.bigfmindia.com/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/big-fm.webp",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/dbstwo3dvhhtv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_mirchi_98_3_bangalore",
+    "name": "Radio Mirchi 98.3 FM Bangalore",
+    "name_hi": "रेडियो मिर्ची 98.3 एफएम बेंगलुरु",
+    "language": "Hindi, Kannada, Telugu, Tamil, Malayalam, Punjabi, Bengali, Multilingual",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Bollywood",
+      "Indian Music"
+    ],
+    "homepage": "https://www.radiomirchi.com/bengaluru",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/bengaluru.png",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/wgaznsmt92quv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ರೇಡಿಯೋ ಮಿರ್ಚಿ 98.3 ಎಫ್ಎಂ ಬೆಂಗಳೂರು"
+  },
+  {
+    "id": "radio_city_kannada_91_1_bangalore",
+    "name": "Radio City Kannada 91.1 FM Bangalore",
+    "name_hi": "रेडियो सिटी कन्नड़ 91.1 एफएम बेंगलुरु",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Pop",
+      "Bollywood"
+    ],
+    "homepage": "https://www.radiocity.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/City-Kannada.webp",
+    "streams": [],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ರೇಡಿಯೋ ಸಿಟಿ ಕನ್ನಡ 91.1 ಎಫ್ಎಂ ಬೆಂಗಳೂರು"
+  },
+  {
+    "id": "radio_indigo_91_9_bangalore",
+    "name": "Radio Indigo 91.9 FM Bangalore",
+    "name_hi": "रेडियो इंडिगो 91.9 एफएम बेंगलुरु",
+    "language": "English, International",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Pop",
+      "Rock",
+      "Rap Hip Hop"
+    ],
+    "homepage": "https://www.indigomusic.com/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/Indigo_91.9_FM_Official_LOGO.jpg",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "amruthavarshini_radio_100_1_bangalore",
+    "name": "Amruthavarshini Radio 100.1 FM Bangalore",
+    "name_hi": "अमृतवर्षिणी रेडियो 100.1 एफएम बेंगलुरु",
+    "language": "English, Hindi, Punjabi, Tamil, Urdu",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "AIR",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music",
+      "News",
+      "Talk"
+    ],
+    "homepage": "https://akashvani.gov.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/amrutvarshini-radio.jpg",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_city_91_1_bangalore",
+    "name": "Radio City 91.1 FM Bangalore",
+    "name_hi": "रेडियो सिटी 91.1 एफएम बेंगलुरु",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "News",
+      "Talk",
+      "Pop"
+    ],
+    "homepage": "https://www.radiocity.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/radiocity9911.webp",
+    "streams": [
+      {
+        "url": "https://radios.crabdance.com:8002/5",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "red_fm_93_5_bangalore",
+    "name": "Red FM 93.5 Bangalore",
+    "name_hi": "रेड एफएम 93.5 बेंगलुरु",
+    "language": "Hindi, Kannada, Malayalam, Telugu",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Bollywood",
+      "Rock",
+      "Talk",
+      "Dance"
+    ],
+    "homepage": "https://www.redfmindia.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/red-fm15.webp",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/9phrkb1e3v8uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ರೆಡ್ ಎಫ್ಎಂ 93.5 ಬೆಂಗಳೂರು"
+  },
+  {
+    "id": "radio_one_94_3_bangalore",
+    "name": "Radio One 94.3 FM Bangalore",
+    "name_hi": "रेडियो वन 94.3 एफएम बेंगलुरु",
+    "language": "English, International",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Pop",
+      "Rock"
+    ],
+    "homepage": "http://www.radioone.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/nuzeLuTV.jpg",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "fever_104_fm_bangalore",
+    "name": "Fever 104 FM Bangalore",
+    "name_hi": "फीवर 104 एफएम बेंगलुरु",
+    "language": "English",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Bollywood"
+    ],
+    "homepage": "https://www.htmedia.in/radio",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/Fever.jpg",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "air_fm_gold_bangalore",
+    "name": "AIR FM Gold 621 MW Bangalore",
+    "name_hi": "आकाशवाणी एफएम गोल्ड 621 एमडब्ल्यू बेंगलुरु",
+    "language": "Hindi, English, Sanskrit",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "AIR",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "News",
+      "Classic"
+    ],
+    "homepage": "https://akashvani.gov.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/fmgold.webp",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_gyan_vani_105_6_bangalore",
+    "name": "Radio Gyan Vani 105.6 FM Bangalore",
+    "name_hi": "रेडियो ज्ञान वाणी 105.6 एफएम बेंगलुरु",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Community",
+      "News"
+    ],
+    "homepage": "https://ciet.ncert.gov.in/gyanvani",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/gayanvani.png",
+    "streams": [],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_girmit_97_0_bangalore",
+    "name": "Radio Girmit 97.0 FM Bangalore",
+    "name_hi": "रेडियो गिरमिट 97.0 एफएम बेंगलुरु",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music",
+      "Classic"
+    ],
+    "homepage": "https://radiogirmit.com/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/girmitradio.webp",
+    "streams": [],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ರೇಡಿಯೋ ಗಿರ್ಮಿಟ್ 97.0 ಎಫ್ಎಂ ಬೆಂಗಳೂರು"
+  },
+  {
+    "id": "raagam_radio_100_1_bangalore",
+    "name": "Raagam Radio 100.1 FM Bangalore",
+    "name_hi": "रागम रेडियो 100.1 एफएम बेंगलुरु",
+    "language": "Kannada, Multilingual",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music",
+      "Classic"
+    ],
+    "homepage": "https://akashvani.gov.in/",
+    "logo": "https://onlineradiofm.in/assets/image/radio/180/ragam.webp",
+    "streams": [],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ರಾಗಂ ರೇಡಿಯೋ 100.1 ಎಫ್ಎಂ ಬೆಂಗಳೂರು"
+  },
+  {
+    "id": "sakkath_radio_kannada",
+    "name": "Sakkath Radio Kannada",
+    "name_hi": "सक्कत रेडियो कन्नड़",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Kannada",
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "https://onlineradiohub.com/wp-content/uploads/2022/01/sakkath-radio-kannada.jpg",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/fcsk9ryerd0uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ಸಕ್ಕತ್ ರೇಡಿಯೋ ಕನ್ನಡ"
+  },
+  {
+    "id": "kannada_hits",
+    "name": "Kannada Hits",
+    "name_hi": "कन्नड़ हिट्स",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/68snnbug8rhvv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ಕನ್ನಡ ಹಿಟ್ಸ್"
+  },
+  {
+    "id": "radio_amr_kannada",
+    "name": "Radio AMR Kannada",
+    "name_hi": "रेडियो एएमआर कन्नड़",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "https://onlineradiohub.com/wp-content/uploads/2022/01/amr.jpg",
+    "streams": [
+      {
+        "url": "https://stream.zenolive.com/7g8axtgtsg0uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ರೇಡಿಯೋ ಎಎಂಆರ್ ಕನ್ನಡ"
+  },
+  {
+    "id": "namm_radio_kannada",
+    "name": "Namm Radio Kannada",
+    "name_hi": "नम्म रेडियो कन्नड़",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music",
+      "Talk"
+    ],
+    "homepage": "",
+    "logo": "https://onlineradiohub.com/wp-content/uploads/2022/01/naam-radio-kannada.jpg",
+    "streams": [
+      {
+        "url": "https://stream.zenolive.com/bbs8prb015quv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ನಮ್ಮ ರೇಡಿಯೋ ಕನ್ನಡ"
+  },
+  {
+    "id": "janadhwani_kannada",
+    "name": "Janadhwani Kannada",
+    "name_hi": "जनध्वनि कन्नड़",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music",
+      "Folk"
+    ],
+    "homepage": "",
+    "logo": "https://onlineradiohub.com/wp-content/uploads/2022/01/jana-dhwani-kannda.jpg",
+    "streams": [
+      {
+        "url": "https://d3n2o48cmfppr2.cloudfront.net/svymradio.m3u8",
+        "codec": "HLS",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ಜನಧ್ವನಿ ಕನ್ನಡ"
+  },
+  {
+    "id": "nammoora_baanuli",
+    "name": "Nammoora Baanuli",
+    "name_hi": "नम्मूरा बानुली",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Folk",
+      "Indian Music"
+    ],
+    "homepage": "https://www.facebook.com/p/Nammur-Banuli-community-Radio-Station-908FM-100065169272419/",
+    "logo": "",
+    "streams": [
+      {
+        "url": "http://198.245.61.103:8029/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ನಮ್ಮೂರ ಬಾನುಲಿ"
+  },
+  {
+    "id": "shaiva_lahari",
+    "name": "Shaiva Lahari",
+    "name_hi": "शैव लहरी",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "https://shaivam.org/",
+    "logo": "https://shaivam.org/images/shaivam-logo-2015.png",
+    "streams": [
+      {
+        "url": "https://radio.shaivam.org/listen/shaiva-lahari/radio.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ಶೈವ ಲಹರಿ"
+  },
+  {
+    "id": "suno_kannada",
+    "name": "Radio Suno Kannada",
+    "name_hi": "सुनो कन्नड़",
+    "language": "Kannada",
+    "country": "India",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Kannada",
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_SUNO_MELODY_S06.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null,
+    "name_kn": "ರೇಡಿಯೋ ಸುನೋ ಕನ್ನಡ"
+  },
+  {
+    "id": "svbc_ttd_radio",
+    "name": "SVBC TTD Radio",
+    "name_te": "ఎస్వీబీసీ టీటీడీ రేడియో",
+    "name_hi": "एसवीबीसी टीटीडी रेडियो",
+    "language": "Telugu",
+    "country": "India",
+    "state": "Andhra Pradesh",
+    "city": "Tirupati",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "http://www.svbcttd.com/",
+    "logo": "https://kedharnadh.github.io/OpenRadio-IN/station-logos/svbc.png",
+    "streams": [
+      {
+        "url": "https://radio.mslivecdn.com:6278/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "radio_sai_telugu",
+    "name": "Radio Sai Telugu",
+    "name_te": "రేడియో సాయి తెలుగు",
+    "name_hi": "रेडियो साई तेलुगु",
+    "language": "Telugu",
+    "country": "India",
+    "state": "Andhra Pradesh",
+    "city": "Puttaparthi",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Spiritual",
+      "Devotional"
+    ],
+    "homepage": "https://beta.sssmediacentre.org/",
+    "logo": "https://archive.sssmediacentre.org/www/SI_Mail/images/3.png",
+    "streams": [
+      {
+        "url": "http://stream.radiosai.net:8020/",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "aaj_tak_news_radio",
+    "name": "Aaj Tak News Radio Live",
+    "name_hi": "आज तक न्यूज़ रेडियो",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Delhi",
+    "city": "New Delhi",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "News"
+    ],
+    "homepage": "https://www.aajtak.in/",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://feeds.intoday.in/aajtak/api/master.m3u8",
+        "codec": "HLS",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "gurgaon_ki_awaaz_107_8_fm",
+    "name": "Gurgaon Ki Awaaz 107.8 FM",
+    "name_hi": "गुरुग्राम की आवाज़ 107.8 एफएम",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Haryana",
+    "city": "Gurugram",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Talk",
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://gurgaonradio.out.airtime.pro/gurgaonradio_a",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "gunjan_radio",
+    "name": "Gunjan Radio",
+    "name_hi": "गुंजन रेडियो",
+    "language": "Hindi",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional",
+      "Talk"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://streamasiacdn.atc-labs.com/gunjanradio.aac",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "jaipur_radio",
+    "name": "Jaipur Radio",
+    "name_hi": "जयपुर रेडियो",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Rajasthan",
+    "city": "Jaipur",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Indian Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://streamasiacdn.atc-labs.com/jaipurradio.aac",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "bhakti_world_krishna",
+    "name": "Bhakti World Krishna",
+    "name_hi": "भक्ति वर्ल्ड कृष्ण",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Maharashtra",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "https://www.bhaktiworld.com/",
+    "logo": "",
+    "streams": [
+      {
+        "url": "http://millenniumhits.out.airtime.pro:8000/millenniumhits_a",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "bhakti_world_devi_maa",
+    "name": "Bhakti World Devi Maa",
+    "name_hi": "भक्ति वर्ल्ड देवी माँ",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Maharashtra",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "https://www.bhaktiworld.com/",
+    "logo": "",
+    "streams": [
+      {
+        "url": "http://ibadat.out.airtime.pro:8000/ibadat_a",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "bhakti_world_hanuman",
+    "name": "Bhakti World Hanuman",
+    "name_hi": "भक्ति वर्ल्ड हनुमान",
+    "language": "Hindi",
+    "country": "India",
+    "state": "Maharashtra",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "https://www.bhaktiworld.com/",
+    "logo": "",
+    "streams": [
+      {
+        "url": "http://2bhanuman.out.airtime.pro:8000/2bhanuman_a",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "ilc_tamil",
+    "name": "ILC Tamil",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/vewxk5336qzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "trt_tamil_oli",
+    "name": "TRT Tamil Oli",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://radio13.pro-fhi.net:19236/stream.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "minnal_fm",
+    "name": "Minnal FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/MINNAL_FMAAC.aac",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "thendral_fm",
+    "name": "Thendral FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/xzt706p3h2zuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "eagle_fm_tamil",
+    "name": "Eagle FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://streaming.radio.co/sf833cd785/listen",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "ullasam_fm",
+    "name": "Ullasam FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://eu10.fastcast4u.com:6740/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "mazhai_fm",
+    "name": "Mazhai FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/yu4c9ms3h2zuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "anbu_fm",
+    "name": "Anbu FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/c2p4f1np4bruv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "sivan_radio",
+    "name": "Sivan Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Devotional",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://sivanradio.radioca.st/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "isaiyaruvifm",
+    "name": "Isaiyaruvi FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://cp1.hostcrate.com/8910/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "akaram_radio",
+    "name": "Akaram Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://globalwebmusic.com/akaram.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "mukil_fm",
+    "name": "Mukil FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/9s8119m1rzzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "nanban_fm",
+    "name": "Nanban FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://nanbanfm-unicast2u.radioca.st/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "harris_jayaraj_radio",
+    "name": "Harris Jayaraj Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/0bhsthssutzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "a9_radio",
+    "name": "A9 Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://a9oldhits-a9media.radioca.st/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "vasantham_fm",
+    "name": "Vasantham FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/vewxk5336qzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "lankasri_fm",
+    "name": "Lankasri FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/0wck59rarchvv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "muthamil_radio",
+    "name": "Muthamil Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/wkqvzsg1238uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "oli_fm",
+    "name": "OLI FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/9s8119m1rzzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "east_fm_tamil",
+    "name": "East FM Tamil",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/xzt706p3h2zuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "time_fm_tamil",
+    "name": "Time FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/yu4c9ms3h2zuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "njsunrise_radio",
+    "name": "NJ Sunrise Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://njsunrise.out.airtime.pro/njsunrise_a",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "leader_fm_tamil",
+    "name": "Leader FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/wg4b845c2wzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "sahara_fm_tamil",
+    "name": "Sahara FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://azuracast.vibesounds.in:8000/radio.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "life_fm_karur",
+    "name": "Life FM Karur",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Karur",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/k0qrmtts91zuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "arni_city_fm",
+    "name": "Arni City FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Arni",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://usa9.fastcast4u.com/proxy/arnifm?mp=/1",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "vadivelu_comedy_radio",
+    "name": "Vadivelu Comedy Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Comedy"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/02n962ezyp8uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
   }
 ]

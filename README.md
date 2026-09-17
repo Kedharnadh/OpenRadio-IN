@@ -30,7 +30,7 @@ If you find OpenRadio-IN useful, please give it a star! It helps others discover
 
 ## Features
 
-- 324 radio stations across 37 Indian languages (Telugu, Tamil, Hindi, Kannada, Malayalam, Bengali, Gujarati, Marathi, Punjabi, and more)
+- 350+ radio stations across 37 Indian languages (Telugu, Tamil, Hindi, Kannada, Malayalam, Bengali, Gujarati, Marathi, Punjabi, and more)
 - AIR (Akashvani), FM, News, Devotional, Classical, Community, and Internet Radio
 - Progressive Web App (installable, offline-capable)
 - Native Android app (Kotlin + Jetpack Compose)

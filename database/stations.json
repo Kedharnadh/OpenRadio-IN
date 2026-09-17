@@ -8812,5 +8812,734 @@
     ],
     "verified": false,
     "last_checked": null
+  },
+  {
+    "id": "ilc_tamil",
+    "name": "ILC Tamil",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/vewxk5336qzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "trt_tamil_oli",
+    "name": "TRT Tamil Oli",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://radio13.pro-fhi.net:19236/stream.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "minnal_fm",
+    "name": "Minnal FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/MINNAL_FMAAC.aac",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "thendral_fm",
+    "name": "Thendral FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/xzt706p3h2zuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "eagle_fm_tamil",
+    "name": "Eagle FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://streaming.radio.co/sf833cd785/listen",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "ullasam_fm",
+    "name": "Ullasam FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://eu10.fastcast4u.com:6740/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "mazhai_fm",
+    "name": "Mazhai FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/yu4c9ms3h2zuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "anbu_fm",
+    "name": "Anbu FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/c2p4f1np4bruv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "sivan_radio",
+    "name": "Sivan Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Devotional",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://sivanradio.radioca.st/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "isaiyaruvifm",
+    "name": "Isaiyaruvi FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://cp1.hostcrate.com/8910/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "akaram_radio",
+    "name": "Akaram Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://globalwebmusic.com/akaram.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "mukil_fm",
+    "name": "Mukil FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/9s8119m1rzzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "nanban_fm",
+    "name": "Nanban FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://nanbanfm-unicast2u.radioca.st/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "harris_jayaraj_radio",
+    "name": "Harris Jayaraj Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/0bhsthssutzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "a9_radio",
+    "name": "A9 Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://a9oldhits-a9media.radioca.st/stream",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "vasantham_fm",
+    "name": "Vasantham FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "FM",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/vewxk5336qzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "lankasri_fm",
+    "name": "Lankasri FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/0wck59rarchvv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "muthamil_radio",
+    "name": "Muthamil Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/wkqvzsg1238uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "oli_fm",
+    "name": "OLI FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/9s8119m1rzzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "east_fm_tamil",
+    "name": "East FM Tamil",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/xzt706p3h2zuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "time_fm_tamil",
+    "name": "Time FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/yu4c9ms3h2zuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "njsunrise_radio",
+    "name": "NJ Sunrise Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://njsunrise.out.airtime.pro/njsunrise_a",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "leader_fm_tamil",
+    "name": "Leader FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/wg4b845c2wzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "sahara_fm_tamil",
+    "name": "Sahara FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://azuracast.vibesounds.in:8000/radio.mp3",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "life_fm_karur",
+    "name": "Life FM Karur",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Karur",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/k0qrmtts91zuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "arni_city_fm",
+    "name": "Arni City FM",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Arni",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Tamil Music"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://usa9.fastcast4u.com/proxy/arnifm?mp=/1",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "vadivelu_comedy_radio",
+    "name": "Vadivelu Comedy Radio",
+    "language": "Tamil",
+    "country": "India",
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "epg_id": null,
+    "genre": [
+      "Comedy"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/02n962ezyp8uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
   }
 ]

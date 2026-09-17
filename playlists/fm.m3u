@@ -89,6 +89,8 @@ https://fm.thamizhinifm.com/listen/kushifm/radio.mp3
 https://c8.radioboss.fm/stream/33
 #EXTINF:-1 tvg-id="melody_radio" tvg-name="Melody Radio" tvg-logo="https://img1.wsimg.com/isteam/ip/d547af60-4305-4c1a-a90e-b8c81b606aa0/logo_new_.png" group-title="FM, ALL",Melody Radio
 https://a1.asurahosting.com/listen/melody_radio/radio.mp3
+#EXTINF:-1 tvg-id="minnal_fm" tvg-name="Minnal FM" tvg-logo="" group-title="FM, ALL",Minnal FM
+https://playerservices.streamtheworld.com/api/livestream-redirect/MINNAL_FMAAC.aac
 #EXTINF:-1 tvg-id="radio_city_91_1_bangalore" tvg-name="Radio City 91.1 FM Bangalore" tvg-logo="https://onlineradiofm.in/assets/image/radio/180/radiocity9911.webp" group-title="FM, ALL",Radio City 91.1 FM Bangalore
 https://radios.crabdance.com:8002/5
 #EXTINF:-1 tvg-id="radio_hungama_telugu" tvg-name="Radio Hungama Telugu" tvg-logo="" group-title="FM, ALL",Radio Hungama Telugu
@@ -113,6 +115,8 @@ https://radio.sodhini.com:8000/radio.mp3
 https://cast5.asurahosting.com:2199/proxy/telugunr?mp=/stream
 #EXTINF:-1 tvg-id="tori" tvg-name="Tori" tvg-logo="https://www.teluguoneradio.com/hostphotos/TORi-Logo-New.jpg" group-title="FM, ALL",Tori
 https://stream.teluguoneradio.com:8164/;stream/1
+#EXTINF:-1 tvg-id="vasantham_fm" tvg-name="Vasantham FM" tvg-logo="" group-title="FM, ALL",Vasantham FM
+https://stream.zeno.fm/vewxk5336qzuv
 #EXTINF:-1 tvg-id="vb_kannada" tvg-name="VB KANNADA" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/vbbang.jpg" group-title="FM, AIR, ALL",VB KANNADA
 https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio026/hlspbaudio026_Auto.m3u8
 #EXTINF:-1 tvg-id="vb_malayalam" tvg-name="VB MALAYALAM" tvg-logo="https://airdco.pc.cdn.bitgravity.com/images/fmananthapuri.jpg" group-title="FM, AIR, ALL",VB MALAYALAM
