@@ -1,3 +1,5 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="sivan_radio" tvg-name="Sivan Radio" tvg-logo="" group-title="Devotional, ALL",Sivan Radio
 https://sivanradio.radioca.st/stream
+#EXTINF:-1 tvg-id="venkateswara_swamy_radio" tvg-name="Venkateswara Swamy Radio" tvg-logo="" group-title="Devotional, ALL",Venkateswara Swamy Radio
+http://cast6.my-control-panel.com:8495/live

@@ -1,6 +1,6 @@
 # OpenRadio-IN
 
-> A community-driven collection of 351 Indian online radio stations across 37 languages with a progressive web app, native Android app, Chromecast support, and automatically generated playlists for VLC, Kodi, Home Assistant, and other compatible players.
+> A community-driven collection of 363 Indian online radio stations across 37 languages with a progressive web app, native Android app, Chromecast support, and automatically generated playlists for VLC, Kodi, Home Assistant, and other compatible players.
 
 PWA: https://kedharnadh.github.io/OpenRadio-IN/
 
@@ -15,9 +15,9 @@ PWA: https://kedharnadh.github.io/OpenRadio-IN/
 [![Android CI](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/android.yml/badge.svg)](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/android.yml)
 [![Deploy PWA](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/Kedharnadh/OpenRadio-IN/actions/workflows/deploy-pages.yml)
 
-[![Stations](https://img.shields.io/badge/stations-351-blue)](database/stations.json)
+[![Stations](https://img.shields.io/badge/stations-363-blue)](database/stations.json)
 [![Languages](https://img.shields.io/badge/languages-37-green)](database/languages.json)
-[![Playlists](https://img.shields.io/badge/playlists-42-orange)](playlists/)
+[![Playlists](https://img.shields.io/badge/playlists-43-orange)](playlists/)
 [![Android](https://img.shields.io/badge/Android-Kotlin%20%2B%20Compose-3DDC84?logo=android)](android/)
 
 ---
@@ -30,8 +30,8 @@ If you find OpenRadio-IN useful, please give it a star! It helps others discover
 
 ## Features
 
-- 351 radio stations across 37 Indian languages (Telugu, Tamil, Hindi, Kannada, Malayalam, Bengali, Gujarati, Marathi, Punjabi, and more)
-- AIR (Akashvani), FM, News, Devotional, Classical, Community, and Internet Radio
+- 363 radio stations across 37 Indian languages (Telugu, Tamil, Hindi, Kannada, Malayalam, Bengali, Gujarati, Marathi, Punjabi, and more)
+- AIR (Akashvani), FM, News, Devotional, Community, Zeno FM, and Internet Radio
 - Progressive Web App (installable, offline-capable)
 - Native Android app (Kotlin + Jetpack Compose)
 - Google Cast / Chromecast support
@@ -47,7 +47,7 @@ If you find OpenRadio-IN useful, please give it a star! It helps others discover
 - Station sharing (Web Share API)
 - Dark/light theme toggle
 - Keyboard shortcuts (Space = play/pause, arrows = prev/next)
-- 42 automatically generated playlists
+- 43 automatically generated playlists
 - JSON-based station database
 - Python build system with stream health checks
 - GitHub Actions CI/CD
@@ -77,7 +77,7 @@ OpenRadio-IN playlists work with:
 OpenRadio-IN
 │
 ├── database/                 # Station database + metadata
-│   ├── stations.json         # 351 stations, 37 languages
+│   ├── stations.json         # 363 stations, 37 languages
 │   ├── categories.json
 │   ├── languages.json
 │   ├── states.json
@@ -95,7 +95,7 @@ OpenRadio-IN
 │   ├── generate_playlist.py
 │   └── validate_playlist.py
 │
-├── playlists/                # 42 generated playlists (all.m3u, air.m3u, 37 languages, fm.m3u)
+├── playlists/                # 43 generated playlists (all.m3u, air.m3u, 37 languages, fm.m3u, zeno fm.m3u)
 │
 ├── stations/                 # Source station files (e.g. stations/telugu)
 │
@@ -153,11 +153,11 @@ OpenRadio-IN
 
 ## Available Playlists
 
-42 playlists are generated from the station database:
+43 playlists are generated from the station database:
 
 | Playlist | Description |
 |----------|-------------|
-| `all.m3u` | Every station with a stream (336) |
+| `all.m3u` | Every station with a stream (348) |
 | `air.m3u` | All India Radio (AIR/Akashvani) stations |
 | `fm.m3u` | FM stations |
 | `telugu.m3u` | Telugu stations |
@@ -169,6 +169,7 @@ OpenRadio-IN
 | `marathi.m3u` | Marathi stations |
 | `gujarati.m3u` | Gujarati stations |
 | `punjabi.m3u` | Punjabi stations |
+| `zeno fm.m3u` | Stations hosted on Zeno FM (stream.zeno.fm) |
 | ... | + 25 more language playlists |
 
 Language playlists are generated for every language in the database. A station with multiple languages is added to each of its language playlists separately.

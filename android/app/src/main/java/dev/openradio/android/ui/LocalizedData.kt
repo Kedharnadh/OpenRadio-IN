@@ -128,16 +128,19 @@ object LocalizedData {
     private val categoryTe: Map<String, String> =
         mapOf(
             "Community" to "కమ్యూనిటీ",
+            "Zeno FM" to "జెనో ఎఫ్ఎమ్",
         )
 
     private val categoryHi: Map<String, String> =
         mapOf(
             "Community" to "समुदाय",
+            "Zeno FM" to "ज़ेनो एफ़एम",
         )
 
     private val categoryKn: Map<String, String> =
         mapOf(
             "Community" to "ಸಮುದಾಯ",
+            "Zeno FM" to "ಜೆನೋ ಎಫ್ಎಂ",
         )
 
     fun language(

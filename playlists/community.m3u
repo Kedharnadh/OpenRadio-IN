@@ -5,7 +5,7 @@ https://a9oldhits-a9media.radioca.st/stream
 https://feeds.intoday.in/aajtak/api/master.m3u8
 #EXTINF:-1 tvg-id="akaram_radio" tvg-name="Akaram Radio" tvg-logo="" group-title="Community, ALL",Akaram Radio
 https://globalwebmusic.com/akaram.mp3
-#EXTINF:-1 tvg-id="anbu_fm" tvg-name="Anbu FM" tvg-logo="" group-title="Community, ALL",Anbu FM
+#EXTINF:-1 tvg-id="anbu_fm" tvg-name="Anbu FM" tvg-logo="" group-title="Community, Zeno FM, ALL",Anbu FM
 https://stream.zeno.fm/c2p4f1np4bruv
 #EXTINF:-1 tvg-id="arni_city_fm" tvg-name="Arni City FM" tvg-logo="" group-title="Community, ALL",Arni City FM
 https://usa9.fastcast4u.com/proxy/arnifm?mp=/1
@@ -17,15 +17,15 @@ http://2bhanuman.out.airtime.pro:8000/2bhanuman_a
 http://millenniumhits.out.airtime.pro:8000/millenniumhits_a
 #EXTINF:-1 tvg-id="eagle_fm_tamil" tvg-name="Eagle FM" tvg-logo="" group-title="Community, ALL",Eagle FM
 https://streaming.radio.co/sf833cd785/listen
-#EXTINF:-1 tvg-id="east_fm_tamil" tvg-name="East FM Tamil" tvg-logo="" group-title="Community, ALL",East FM Tamil
+#EXTINF:-1 tvg-id="east_fm_tamil" tvg-name="East FM Tamil" tvg-logo="" group-title="Community, Zeno FM, ALL",East FM Tamil
 https://stream.zeno.fm/xzt706p3h2zuv
 #EXTINF:-1 tvg-id="gunjan_radio" tvg-name="Gunjan Radio" tvg-logo="" group-title="Community, ALL",Gunjan Radio
 https://streamasiacdn.atc-labs.com/gunjanradio.aac
 #EXTINF:-1 tvg-id="gurgaon_ki_awaaz_107_8_fm" tvg-name="Gurgaon Ki Awaaz 107.8 FM" tvg-logo="" group-title="Community, ALL",Gurgaon Ki Awaaz 107.8 FM
 https://gurgaonradio.out.airtime.pro/gurgaonradio_a
-#EXTINF:-1 tvg-id="harris_jayaraj_radio" tvg-name="Harris Jayaraj Radio" tvg-logo="" group-title="Community, ALL",Harris Jayaraj Radio
+#EXTINF:-1 tvg-id="harris_jayaraj_radio" tvg-name="Harris Jayaraj Radio" tvg-logo="" group-title="Community, Zeno FM, ALL",Harris Jayaraj Radio
 https://stream.zeno.fm/0bhsthssutzuv
-#EXTINF:-1 tvg-id="ilc_tamil" tvg-name="ILC Tamil" tvg-logo="" group-title="Community, ALL",ILC Tamil
+#EXTINF:-1 tvg-id="ilc_tamil" tvg-name="ILC Tamil" tvg-logo="" group-title="Community, Zeno FM, ALL",ILC Tamil
 https://stream.zeno.fm/vewxk5336qzuv
 #EXTINF:-1 tvg-id="isaiyaruvifm" tvg-name="Isaiyaruvi FM" tvg-logo="" group-title="Community, ALL",Isaiyaruvi FM
 https://cp1.hostcrate.com/8910/stream
@@ -33,19 +33,19 @@ https://cp1.hostcrate.com/8910/stream
 https://streamasiacdn.atc-labs.com/jaipurradio.aac
 #EXTINF:-1 tvg-id="janadhwani_kannada" tvg-name="Janadhwani Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/jana-dhwani-kannda.jpg" group-title="Community, ALL",Janadhwani Kannada
 https://d3n2o48cmfppr2.cloudfront.net/svymradio.m3u8
-#EXTINF:-1 tvg-id="kannada_hits" tvg-name="Kannada Hits" tvg-logo="" group-title="Community, ALL",Kannada Hits
+#EXTINF:-1 tvg-id="kannada_hits" tvg-name="Kannada Hits" tvg-logo="" group-title="Community, Zeno FM, ALL",Kannada Hits
 https://stream.zeno.fm/68snnbug8rhvv
-#EXTINF:-1 tvg-id="lankasri_fm" tvg-name="Lankasri FM" tvg-logo="" group-title="Community, ALL",Lankasri FM
+#EXTINF:-1 tvg-id="lankasri_fm" tvg-name="Lankasri FM" tvg-logo="" group-title="Community, Zeno FM, ALL",Lankasri FM
 https://stream.zeno.fm/0wck59rarchvv
-#EXTINF:-1 tvg-id="leader_fm_tamil" tvg-name="Leader FM" tvg-logo="" group-title="Community, ALL",Leader FM
+#EXTINF:-1 tvg-id="leader_fm_tamil" tvg-name="Leader FM" tvg-logo="" group-title="Community, Zeno FM, ALL",Leader FM
 https://stream.zeno.fm/wg4b845c2wzuv
-#EXTINF:-1 tvg-id="life_fm_karur" tvg-name="Life FM Karur" tvg-logo="" group-title="Community, ALL",Life FM Karur
+#EXTINF:-1 tvg-id="life_fm_karur" tvg-name="Life FM Karur" tvg-logo="" group-title="Community, Zeno FM, ALL",Life FM Karur
 https://stream.zeno.fm/k0qrmtts91zuv
-#EXTINF:-1 tvg-id="mazhai_fm" tvg-name="Mazhai FM" tvg-logo="" group-title="Community, ALL",Mazhai FM
+#EXTINF:-1 tvg-id="mazhai_fm" tvg-name="Mazhai FM" tvg-logo="" group-title="Community, Zeno FM, ALL",Mazhai FM
 https://stream.zeno.fm/yu4c9ms3h2zuv
-#EXTINF:-1 tvg-id="mukil_fm" tvg-name="Mukil FM" tvg-logo="" group-title="Community, ALL",Mukil FM
+#EXTINF:-1 tvg-id="mukil_fm" tvg-name="Mukil FM" tvg-logo="" group-title="Community, Zeno FM, ALL",Mukil FM
 https://stream.zeno.fm/9s8119m1rzzuv
-#EXTINF:-1 tvg-id="muthamil_radio" tvg-name="Muthamil Radio" tvg-logo="" group-title="Community, ALL",Muthamil Radio
+#EXTINF:-1 tvg-id="muthamil_radio" tvg-name="Muthamil Radio" tvg-logo="" group-title="Community, Zeno FM, ALL",Muthamil Radio
 https://stream.zeno.fm/wkqvzsg1238uv
 #EXTINF:-1 tvg-id="namm_radio_kannada" tvg-name="Namm Radio Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/naam-radio-kannada.jpg" group-title="Community, ALL",Namm Radio Kannada
 https://stream.zenolive.com/bbs8prb015quv
@@ -63,15 +63,17 @@ http://stream.radiosai.net:8020/
 https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_SUNO_MELODY_S06.mp3
 #EXTINF:-1 tvg-id="sahara_fm_tamil" tvg-name="Sahara FM" tvg-logo="" group-title="Community, ALL",Sahara FM
 https://azuracast.vibesounds.in:8000/radio.mp3
-#EXTINF:-1 tvg-id="sakkath_radio_kannada" tvg-name="Sakkath Radio Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/sakkath-radio-kannada.jpg" group-title="Community, ALL",Sakkath Radio Kannada
+#EXTINF:-1 tvg-id="sakkath_radio_kannada" tvg-name="Sakkath Radio Kannada" tvg-logo="https://onlineradiohub.com/wp-content/uploads/2022/01/sakkath-radio-kannada.jpg" group-title="Community, Zeno FM, ALL",Sakkath Radio Kannada
 https://stream.zeno.fm/fcsk9ryerd0uv
 #EXTINF:-1 tvg-id="shaiva_lahari" tvg-name="Shaiva Lahari" tvg-logo="https://shaivam.org/images/shaivam-logo-2015.png" group-title="Community, ALL",Shaiva Lahari
 https://radio.shaivam.org/listen/shaiva-lahari/radio.mp3
 #EXTINF:-1 tvg-id="svbc_ttd_radio" tvg-name="SVBC TTD Radio" tvg-logo="https://kedharnadh.github.io/OpenRadio-IN/station-logos/svbc.png" group-title="Community, ALL",SVBC TTD Radio
 https://radio.mslivecdn.com:6278/stream
+#EXTINF:-1 tvg-id="telugu_comedy" tvg-name="Telugu Comedy" tvg-logo="" group-title="Community, ALL",Telugu Comedy
+http://cast6.my-control-panel.com:9287/live
 #EXTINF:-1 tvg-id="trt_tamil_oli" tvg-name="TRT Tamil Oli" tvg-logo="" group-title="Community, ALL",TRT Tamil Oli
 https://radio13.pro-fhi.net:19236/stream.mp3
 #EXTINF:-1 tvg-id="ullasam_fm" tvg-name="Ullasam FM" tvg-logo="" group-title="Community, ALL",Ullasam FM
 https://eu10.fastcast4u.com:6740/stream
-#EXTINF:-1 tvg-id="vadivelu_comedy_radio" tvg-name="Vadivelu Comedy Radio" tvg-logo="" group-title="Community, ALL",Vadivelu Comedy Radio
+#EXTINF:-1 tvg-id="vadivelu_comedy_radio" tvg-name="Vadivelu Comedy Radio" tvg-logo="" group-title="Community, Zeno FM, ALL",Vadivelu Comedy Radio
 https://stream.zeno.fm/02n962ezyp8uv

@@ -7016,6 +7016,7 @@
     "city": "",
     "categories": [
       "FM",
+      "Zeno FM",
       "ALL"
     ],
     "genre": [],
@@ -7147,6 +7148,7 @@
     "city": "",
     "categories": [
       "FM",
+      "Zeno FM",
       "ALL"
     ],
     "genre": [],
@@ -7173,6 +7175,7 @@
     "city": "",
     "categories": [
       "FM",
+      "Zeno FM",
       "ALL"
     ],
     "genre": [],
@@ -7862,6 +7865,7 @@
     "city": "",
     "categories": [
       "FM",
+      "Zeno FM",
       "ALL"
     ],
     "genre": [],
@@ -7970,6 +7974,7 @@
     "city": "",
     "categories": [
       "FM",
+      "Zeno FM",
       "ALL"
     ],
     "genre": [],
@@ -7996,6 +8001,7 @@
     "city": "Bangalore",
     "categories": [
       "FM",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -8025,6 +8031,7 @@
     "city": "Bangalore",
     "categories": [
       "FM",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -8158,6 +8165,7 @@
     "city": "Bangalore",
     "categories": [
       "FM",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -8329,6 +8337,7 @@
     "city": "",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -8359,6 +8368,7 @@
     "city": "",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -8822,6 +8832,7 @@
     "city": "Chennai",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -8903,6 +8914,7 @@
     "city": "Chennai",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -8984,6 +8996,7 @@
     "city": "",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9011,6 +9024,7 @@
     "city": "",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9119,6 +9133,7 @@
     "city": "",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9173,6 +9188,7 @@
     "city": "Chennai",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9227,6 +9243,7 @@
     "city": "Chennai",
     "categories": [
       "FM",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9254,6 +9271,7 @@
     "city": "",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9281,6 +9299,7 @@
     "city": "",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9308,6 +9327,7 @@
     "city": "",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9335,6 +9355,7 @@
     "city": "",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9362,6 +9383,7 @@
     "city": "",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9416,6 +9438,7 @@
     "city": "",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9470,6 +9493,7 @@
     "city": "Karur",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9524,6 +9548,7 @@
     "city": "Chennai",
     "categories": [
       "Community",
+      "Zeno FM",
       "ALL"
     ],
     "epg_id": null,
@@ -9535,6 +9560,332 @@
     "streams": [
       {
         "url": "https://stream.zeno.fm/02n962ezyp8uv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "90s_super_hits_telugu_big_fm",
+    "name": "90s Super Hits (Telugu Big FM)",
+    "name_te": "90ల సూపర్ హిట్స్ (తెలుగు బిగ్ ఎఫ్ఎమ్)",
+    "name_hi": "90 की सूपर हिट्स (तेलुगु बिग एफ़एम)",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "Zeno FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/zuu89d1pgzzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "indra_music_masti",
+    "name": "Indra Music Masti",
+    "name_te": "ఇంద్ర మ్యూజిక్ మస్తీ",
+    "name_hi": "इंद्र म्यूजिक मस्ती",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "Zeno FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/bv9ccpufh5zuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "godavari_radio",
+    "name": "Godavari Radio",
+    "name_te": "గోదావరి రేడియో",
+    "name_hi": "गोदावरी रेडियो",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "Zeno FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/xlgwsdncsdptv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "telugu_junction",
+    "name": "Telugu Junction",
+    "name_te": "తెలుగు జంక్షన్",
+    "name_hi": "तेलुगु जंक्शन",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "Zeno FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/ige35g4gzhhtv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "fidaa_fm",
+    "name": "Fidaa FM",
+    "name_te": "ఫిదా ఎఫ్ఎమ్",
+    "name_hi": "फिदा एफ़एम",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "Zeno FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/kvd13ixo31vvv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "thaman_hits",
+    "name": "Thaman Hits",
+    "name_te": "తమన్ హిట్స్",
+    "name_hi": "तमन हिट्स",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "Zeno FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/tqhegaztqfhvv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "ar_rahman_telugu",
+    "name": "AR Rahman Telugu",
+    "name_te": "ఏఆర్ రెహమాన్ తెలుగు",
+    "name_hi": "एआर रहमान तेलुगु",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "Zeno FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/z78dpahfewzuv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "isha_fm",
+    "name": "Isha FM",
+    "name_te": "ఈశా ఎఫ్ఎమ్",
+    "name_hi": "ईशा एफ़एम",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "Zeno FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/rs7nybzazaetv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "ilove_fm",
+    "name": "iLove FM",
+    "name_te": "ఐలవ్ ఎఫ్ఎమ్",
+    "name_hi": "आईलव एफ़एम",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "Zeno FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/43cs967p6rhvv",
+        "codec": "MP3",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "venkateswara_swamy_radio",
+    "name": "Venkateswara Swamy Radio",
+    "name_te": "వెంకటేశ్వర స్వామి రేడియో",
+    "name_hi": "वेंकटेश्वर स्वामी रेडियो",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "Devotional",
+      "ALL"
+    ],
+    "genre": [
+      "Devotional"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "http://cast6.my-control-panel.com:8495/live",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "telugu_comedy",
+    "name": "Telugu Comedy",
+    "name_te": "తెలుగు కామెడీ",
+    "name_hi": "तेलुगु कॉमेडी",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "Community",
+      "ALL"
+    ],
+    "genre": [
+      "Comedy"
+    ],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "http://cast6.my-control-panel.com:9287/live",
+        "codec": "AAC",
+        "priority": 1
+      }
+    ],
+    "verified": false,
+    "last_checked": null
+  },
+  {
+    "id": "nireekshana",
+    "name": "Nireekshana",
+    "name_te": "నిరీక్షణ",
+    "name_hi": "निरीक्षण",
+    "language": "Telugu",
+    "country": "India",
+    "state": "",
+    "city": "",
+    "categories": [
+      "FM",
+      "Zeno FM",
+      "ALL"
+    ],
+    "genre": [],
+    "homepage": "",
+    "logo": "",
+    "streams": [
+      {
+        "url": "https://stream.zeno.fm/u78s4dn7u7zuv",
         "codec": "MP3",
         "priority": 1
       }
