@@ -60,11 +60,21 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
   - If Google Play services (Cast) is missing at startup it falls back to the bare `ExoPlayer`.
 - `PlaybackService` (`MediaLibraryService`) returns that session. Auto browses stations through
   `MediaLibrarySession.Callback`: `onGetLibraryRoot` → `onGetChildren` (the station list),
-  `onSearch`, and `onAddMediaItems` (returns the whole queue so next/previous walks the list).
+  `onSearch`, `onAddMediaItems` (resolves one playable item per requested id) and
+  `onSetMediaItems` (builds the browsing context queue — favorites when every requested station is
+  a favorite, otherwise the full list — and rotates it so the tapped station lands on the start
+  index the controller asked for; the session then starts at that index).
+- The browser callbacks wait for the station database to load (`StationsStore.awaitReady`) before
+  answering, so a cold start from Auto cannot return an empty tree.
 - Station items are `MediaItem`s with a `LiveConfiguration` (live radio), station name/logo
   metadata, and the HLS-first stream (matching the PWA's stream preference).
-- Now-playing track + artwork are polled from the HLS proxy worker endpoint every 15 s and pushed
-  into the session via `Player.setMediaItemMetadata`, so the notification and Auto see the live track.
+- Playback does not only start in `playStation()`: Android Auto, the lock screen, Bluetooth
+  buttons and the alarm all drive the session directly, so the foreground service and audio focus
+  are claimed from the player listener on every playback start.
+- Now-playing track + artwork are polled by `AppPlayer` every 15 s and pushed into the session, so
+  the notification, the lock screen and Auto all see the live track. Art comes from the station's own
+  metadata when it reports any, and otherwise from an iTunes/Deezer cover lookup (cached on disk),
+  falling back to the station logo.
 - Favorites/recents are stored in SharedPreferences; volume is restored at startup.
 
 ## Testing Android Auto

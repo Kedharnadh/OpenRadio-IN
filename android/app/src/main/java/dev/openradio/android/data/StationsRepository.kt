@@ -7,8 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
@@ -72,6 +75,8 @@ class StationsRepository(private val context: Context) {
 
 /** Process-wide holder so both the UI and the media service share one station list. */
 object StationsStore {
+    private const val LOAD_TIMEOUT_MS = 10_000L
+
     private val _stations = MutableStateFlow<List<Station>>(emptyList())
     val stations: StateFlow<List<Station>> = _stations.asStateFlow()
 
@@ -94,6 +99,22 @@ object StationsStore {
             }
             _stations.value = repo.refresh()
             _loading.value = false
+        }
+    }
+
+    /**
+     * Suspends until the station list is available.
+     *
+     * The media browser callbacks are answered from whatever the store happens to
+     * hold at that moment, and on a cold start from Android Auto that is nothing:
+     * the load is still in flight, so the browse tree came back empty and the
+     * station the user picked could not be resolved. Waiting here keeps the
+     * browse result correct, bounded so a failed load still answers.
+     */
+    suspend fun awaitReady(timeoutMs: Long = LOAD_TIMEOUT_MS) {
+        if (_stations.value.isNotEmpty() || !_loading.value) return
+        withTimeoutOrNull(timeoutMs) {
+            _stations.filter { it.isNotEmpty() }.first()
         }
     }
 

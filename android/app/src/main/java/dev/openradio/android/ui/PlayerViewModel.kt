@@ -100,14 +100,15 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
             }
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    private var metadataJob: Job? = null
-    private var metadataStationId: String? = null
     private var sleepJob: Job? = null
     private var volumeDebounceJob: Job? = null
 
     init {
         viewModelScope.launch {
-            AppPlayer.state.collect { state -> handlePlaybackState(state) }
+            AppPlayer.state.collect { state ->
+                val stationId = state.currentStationId ?: return@collect
+                if (state.playing) updateRecents(stationId)
+            }
         }
         viewModelScope.launch {
             filteredStations.collect { list ->
@@ -224,53 +225,10 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
 
     fun isSleepTimerActive(): Boolean = sleepJob?.isActive == true
 
-    private fun handlePlaybackState(state: PlaybackUiState) {
-        val stationId = state.currentStationId
-        if (stationId == null) {
-            stopMetadataPolling()
-            return
-        }
-        if (state.playing) {
-            updateRecents(stationId)
-            startMetadataPolling(stationId)
-        } else {
-            stopMetadataPolling()
-        }
-    }
-
     private fun updateRecents(stationId: String) {
         val updated = (listOf(stationId) + _recents.value.filter { it != stationId }).take(20)
         _recents.value = updated
         Prefs.saveRecents(updated)
-    }
-
-    private fun startMetadataPolling(stationId: String) {
-        if (metadataJob?.isActive == true && metadataStationId == stationId) return
-        metadataStationId = stationId
-        metadataJob?.cancel()
-        metadataJob =
-            viewModelScope.launch {
-                while (isActive) {
-                    if (AppPlayer.state.value.currentStationId != metadataStationId) break
-                    val station = StationsStore.stations.value.firstOrNull { it.id == stationId }
-                    val stream = station?.primaryStream
-                    if (stream != null) {
-                        // Pass the station's status endpoint (AzuraCast / Icecast) so the
-                        // metadata proxy can also pull proper song + album art, not just ICY.
-                        val nowPlaying = metadataRepository.fetchNowPlaying(stream.url, station.metadataUrl)
-                        if (nowPlaying != null && AppPlayer.state.value.playing) {
-                            AppPlayer.updateNowPlaying(nowPlaying.streamTitle, nowPlaying.artUrl)
-                        }
-                    }
-                    delay(15_000)
-                }
-            }
-    }
-
-    private fun stopMetadataPolling() {
-        metadataJob?.cancel()
-        metadataJob = null
-        metadataStationId = null
     }
 
     private fun MutableStateFlow<FilterState>.update(transform: (FilterState) -> FilterState) {

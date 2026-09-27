@@ -11,10 +11,55 @@ import org.json.JSONObject
 import java.io.IOException
 import java.net.URI
 
+/**
+ * Metadata for the track currently on air.
+ *
+ * [title], [artist] and [album] are only filled in by sources that report
+ * structured metadata (AzuraCast, Zeno); plain ICY streams only give
+ * [streamTitle], which is typically "Artist - Song".
+ */
 data class NowPlaying(
     val streamTitle: String,
     val artUrl: String,
-)
+    val title: String = "",
+    val artist: String = "",
+    val album: String = "",
+) {
+    /** "Song - Artist - Album" when structured, otherwise the raw stream title. */
+    val display: String
+        get() {
+            val structured = listOf(title, artist, album).filter { it.isNotBlank() }
+            return structured.joinToString(" - ").ifBlank { streamTitle.trim() }
+        }
+
+    /** Artist and track parsed out of a plain "Artist - Song" stream title. */
+    val splitStreamTitle: Pair<String, String>
+        get() {
+            val separator = streamTitle.indexOf(" - ")
+            return if (separator > 0) {
+                streamTitle.substring(0, separator).trim() to
+                    streamTitle.substring(separator + 3).trim()
+            } else {
+                "" to streamTitle.trim()
+            }
+        }
+
+    /**
+     * Cover-art search terms, most specific first. Structured sources give
+     * "artist track" and the bare track; ICY-only sources fall back to
+     * splitting the stream title.
+     */
+    val searchTerms: List<String>
+        get() {
+            val (icyArtist, icyTrack) = splitStreamTitle
+            val track = title.ifBlank { icyTrack }
+            val performer = artist.ifBlank { icyArtist }
+            return listOfNotNull(
+                listOf(performer, track).filter { it.isNotBlank() }.joinToString(" ").takeIf { it.isNotBlank() },
+                track.takeIf { it.isNotBlank() && it != performer },
+            ).distinct()
+        }
+}
 
 data class EpgProgram(
     val start: String,
@@ -47,7 +92,13 @@ class MetadataRepository {
                     if (title.isBlank()) {
                         null
                     } else {
-                        NowPlaying(title, obj.optString("art", ""))
+                        NowPlaying(
+                            streamTitle = title,
+                            artUrl = obj.optString("art", ""),
+                            title = obj.optString("title", ""),
+                            artist = obj.optString("artist", ""),
+                            album = obj.optString("album", ""),
+                        )
                     }
                 }
                 ?: fetchIcecastStatus(streamUrl)

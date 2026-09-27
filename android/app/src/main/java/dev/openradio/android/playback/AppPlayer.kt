@@ -15,6 +15,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
@@ -22,10 +23,13 @@ import androidx.media3.session.MediaSession
 import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
+import com.google.common.util.concurrent.SettableFuture
 import dev.openradio.android.App
 import dev.openradio.android.BuildConfig
 import dev.openradio.android.Prefs
 import dev.openradio.android.R
+import dev.openradio.android.data.ArtworkRepository
+import dev.openradio.android.data.MetadataRepository
 import dev.openradio.android.data.Station
 import dev.openradio.android.data.StationsStore
 import dev.openradio.android.ui.MainActivity
@@ -114,6 +118,9 @@ object AppPlayer {
     /** Max re-request attempts before giving up on auto-resuming. */
     private const val MAX_FOCUS_RECLAIM_ATTEMPTS = 15
 
+    /** How often the now-playing track title / album art is refreshed. */
+    private const val METADATA_POLL_INTERVAL_MS = 15_000L
+
     private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val mainScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
@@ -136,6 +143,17 @@ object AppPlayer {
 
     /** In-flight bounded focus re-request loop after a permanent focus loss. */
     private var focusReclaimJob: Job? = null
+
+    /** In-flight now-playing metadata poll for the station that is playing. */
+    private var metadataJob: Job? = null
+    private var metadataStationId: String? = null
+
+    private val metadataRepository = MetadataRepository()
+    private var artworkRepository: ArtworkRepository? = null
+
+    /** Cover-art resolver, created on first use so it always has a Context. */
+    private val artwork: ArtworkRepository?
+        get() = artworkRepository ?: appContext?.let { ArtworkRepository(it) }?.also { artworkRepository = it }
 
     val player: Player? get() = _player
     val librarySession: MediaLibraryService.MediaLibrarySession? get() = _librarySession
@@ -391,6 +409,22 @@ object AppPlayer {
         }
     }
 
+    /**
+     * Brings up the media stack for a playback start.
+     *
+     * Playback does not only begin in [playStation]: Android Auto, the lock
+     * screen, Bluetooth buttons, Wear OS and the alarm receiver all drive the
+     * session directly, so the foreground service and audio focus have to be
+     * claimed here as well. Without this, a start that originates outside the
+     * app runs with no foreground service (so nothing keeps playback alive and
+     * no media notification is posted) and without audio focus.
+     */
+    private fun onPlaybackStarting() {
+        ensureForegroundService()
+        requestAudioFocusIfNeeded()
+        startMetadataPolling()
+    }
+
     fun pause() {
         autoResumeOnGain = false
         focusReclaimJob?.cancel()
@@ -464,24 +498,73 @@ object AppPlayer {
 
     // ---- Now playing metadata (polled from the metadata endpoint) ---------
 
+    /**
+     * Keeps the now-playing track title and album art on the current media item
+     * up to date.
+     *
+     * This deliberately lives here rather than in the UI view model: Android
+     * Auto, the lock screen and the notification all read this metadata from the
+     * session, and none of them ever create the activity that hosts the view
+     * model. A view-model-owned poller therefore left every external surface
+     * stuck on the station logo with no track information at all.
+     */
     fun updateNowPlaying(
-        title: String?,
+        display: String,
         artUrl: String?,
+        stationLogo: String? = null,
     ) {
         val p = _player ?: return
         val item = p.currentMediaItem ?: return
         val index = p.currentMediaItemIndex
         if (index == C.INDEX_UNSET) return
+        // Fall back to the station logo so a track with no cover art shows the
+        // channel logo instead of keeping the previous track's artwork.
+        val art = artUrl?.takeIf { it.isNotBlank() } ?: stationLogo?.takeIf { it.isNotBlank() }
+        if (display == _state.value.nowPlayingTrack && art == _state.value.nowPlayingArt) return
         val updatedMetadata =
             item.mediaMetadata.buildUpon()
-                .setArtist(title ?: item.mediaMetadata.artist)
-                .setArtworkUri(
-                    artUrl?.takeIf { it.isNotBlank() }?.let { Uri.parse(it) } ?: item.mediaMetadata.artworkUri,
-                )
+                .setArtist(display.ifBlank { item.mediaMetadata.artist })
+                .setArtworkUri(art?.let { Uri.parse(it) })
                 .build()
         p.replaceMediaItem(index, item.buildUpon().setMediaMetadata(updatedMetadata).build())
-        _state.update { it.copy(nowPlayingTrack = title, nowPlayingArt = artUrl) }
-        App.log("Now playing on ${_state.value.currentStationId}: ${title ?: "(track)"}")
+        _state.update { it.copy(nowPlayingTrack = display, nowPlayingArt = art) }
+        App.log("Now playing on ${_state.value.currentStationId}: ${display.ifBlank { "(track)" }}")
+    }
+
+    /**
+     * True while playback has been requested, including the buffering window
+     * where `isPlaying` is still false. Used as the liveness signal for the
+     * metadata poll, which has to start before the first track can appear.
+     */
+    private fun isPlaybackRequested(): Boolean = _player?.playWhenReady == true
+
+    private fun startMetadataPolling() {
+        val stationId = _state.value.currentStationId ?: return
+        if (metadataJob?.isActive == true && metadataStationId == stationId) return
+        metadataJob?.cancel()
+        metadataStationId = stationId
+        metadataJob =
+            mainScope.launch {
+                while (isActive && isPlaybackRequested() && _state.value.currentStationId == stationId) {
+                    val station = StationsStore.stations.value.firstOrNull { it.id == stationId }
+                    val stream = station?.primaryStream
+                    if (stream != null) {
+                        val nowPlaying = metadataRepository.fetchNowPlaying(stream.url, station.metadataUrl)
+                        if (nowPlaying != null) {
+                            val art = artwork?.resolve(nowPlaying, station.name).orEmpty()
+                            updateNowPlaying(nowPlaying.display, art, station.logo)
+                        }
+                    }
+                    delay(METADATA_POLL_INTERVAL_MS)
+                }
+                metadataStationId = null
+            }
+    }
+
+    private fun stopMetadataPolling() {
+        metadataJob?.cancel()
+        metadataJob = null
+        metadataStationId = null
     }
 
     // ---- Chromecast -------------------------------------------------------
@@ -588,8 +671,19 @@ object AppPlayer {
 
     private val playerListener =
         object : Player.Listener {
+            override fun onPlayWhenReadyChanged(
+                playWhenReady: Boolean,
+                reason: Int,
+            ) {
+                // Fires for every play()/pause(), whoever asked for it, which is
+                // what makes Android Auto and lock-screen starts behave like an
+                // in-app start.
+                if (playWhenReady) onPlaybackStarting() else stopMetadataPolling()
+            }
+
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 val p = _player ?: return
+                if (isPlaying) onPlaybackStarting()
                 val paused = !isPlaying && !p.playWhenReady && p.playbackState == Player.STATE_READY
                 _state.update {
                     it.copy(
@@ -624,6 +718,13 @@ object AppPlayer {
                         nowPlayingTrack = mediaItem?.mediaMetadata?.artist?.toString(),
                         nowPlayingArt = mediaItem?.mediaMetadata?.artworkUri?.toString(),
                     )
+                }
+                // A new station has no track metadata yet; drop any polling left
+                // over from the previous station.
+                if (isPlaybackRequested()) {
+                    startMetadataPolling()
+                } else {
+                    stopMetadataPolling()
                 }
             }
 
@@ -663,6 +764,30 @@ object AppPlayer {
             )
             .build()
 
+    /**
+     * Runs [supplier] once the station database is available and hands the result
+     * back to the browser.
+     *
+     * Media browser callbacks arrive on the app thread, so the wait happens on a
+     * background scope rather than blocking it. Without it a cold start from
+     * Android Auto answered every browse and play request from a still-loading
+     * store, which is what left the car with an empty tree and no playable
+     * station.
+     */
+    private fun <T> whenStationsLoaded(supplier: () -> T): ListenableFuture<T> {
+        val future = SettableFuture.create<T>()
+        ioScope.launch {
+            try {
+                StationsStore.awaitReady()
+                future.set(supplier())
+            } catch (e: Exception) {
+                App.reportError(e, "Media browser callback failed")
+                future.setException(e)
+            }
+        }
+        return future
+    }
+
     private val libraryCallback =
         object : MediaLibraryService.MediaLibrarySession.Callback {
             override fun onGetLibraryRoot(
@@ -695,44 +820,7 @@ object AppPlayer {
                 pageSize: Int,
                 params: MediaLibraryService.LibraryParams?,
             ): ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> {
-                val stations = StationsStore.stations.value
-                val items: List<MediaItem> =
-                    when (parentId) {
-                        ROOT_MEDIA_ID ->
-                            listOf(
-                                folderItem(
-                                    ALL_MEDIA_ID,
-                                    appContext?.getString(R.string.all_stations) ?: "All stations",
-                                ),
-                                folderItem(
-                                    FAVORITES_MEDIA_ID,
-                                    appContext?.getString(R.string.favorites) ?: "Favorites",
-                                ),
-                                folderItem(
-                                    LANGUAGES_MEDIA_ID,
-                                    appContext?.getString(R.string.language) ?: "Language",
-                                ),
-                            )
-                        ALL_MEDIA_ID -> buildQueue(stations)
-                        FAVORITES_MEDIA_ID,
-                        SUGGESTED_MEDIA_ID,
-                        ->
-                            buildQueue(favoriteStations(stations, Prefs.favorites()))
-                        LANGUAGES_MEDIA_ID ->
-                            languageTags(stations).map { tag ->
-                                folderItem(languageFolderMediaId(tag), tag)
-                            }
-                        else ->
-                            if (parentId.startsWith(LANGUAGE_FOLDER_PREFIX)) {
-                                val tag = parentId.removePrefix(LANGUAGE_FOLDER_PREFIX)
-                                buildQueue(stationsInLanguage(stations, tag))
-                            } else {
-                                return Futures.immediateFuture(
-                                    LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE),
-                                )
-                            }
-                    }
-                return Futures.immediateFuture(LibraryResult.ofItemList(items, params))
+                return whenStationsLoaded { childrenFor(parentId, params) }
             }
 
             override fun onGetItem(
@@ -759,14 +847,14 @@ object AppPlayer {
                         LibraryResult.ofItem(folderItem(mediaId, mediaId.removePrefix(LANGUAGE_FOLDER_PREFIX)), null),
                     )
                 }
-                val station = StationsStore.stations.value.firstOrNull { it.id == mediaId }
-                val stream = station?.primaryStream
-                return if (station != null && stream != null) {
-                    Futures.immediateFuture(
-                        LibraryResult.ofItem(AppPlayer.stationToMediaItem(station, stream.url, stream.isHls), null),
-                    )
-                } else {
-                    Futures.immediateFuture(LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE))
+                return whenStationsLoaded {
+                    val station = StationsStore.stations.value.firstOrNull { it.id == mediaId }
+                    val stream = station?.primaryStream
+                    if (station != null && stream != null) {
+                        LibraryResult.ofItem(stationToMediaItem(station, stream.url, stream.isHls), null)
+                    } else {
+                        LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
+                    }
                 }
             }
 
@@ -788,14 +876,16 @@ object AppPlayer {
                 params: MediaLibraryService.LibraryParams?,
             ): ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> {
                 val q = query.trim()
-                val stations =
-                    StationsStore.stations.value.filter {
-                        it.name.contains(q, ignoreCase = true) ||
-                            it.language.contains(q, ignoreCase = true) ||
-                            it.city.contains(q, ignoreCase = true) ||
-                            it.categories.any { c -> c.contains(q, ignoreCase = true) }
-                    }
-                return Futures.immediateFuture(LibraryResult.ofItemList(AppPlayer.buildQueue(stations), params))
+                return whenStationsLoaded {
+                    val stations =
+                        StationsStore.stations.value.filter {
+                            it.name.contains(q, ignoreCase = true) ||
+                                it.language.contains(q, ignoreCase = true) ||
+                                it.city.contains(q, ignoreCase = true) ||
+                                it.categories.any { c -> c.contains(q, ignoreCase = true) }
+                        }
+                    LibraryResult.ofItemList(buildQueue(stations), params)
+                }
             }
 
             override fun onAddMediaItems(
@@ -803,23 +893,136 @@ object AppPlayer {
                 controller: MediaSession.ControllerInfo,
                 mediaItems: List<MediaItem>,
             ): ListenableFuture<List<MediaItem>> {
-                val fullQueue = AppPlayer.buildQueue(StationsStore.stations.value)
-                val requestedIds = mediaItems.mapNotNull { it.mediaId }
-                return if (requestedIds.isNotEmpty() && fullQueue.any { it.mediaId == requestedIds.first() }) {
-                    // Return a context-aware queue so Auto's next/previous walks the
-                    // favorites list when the tapped station came from the Favorites
-                    // folder, and the full station list otherwise.
-                    val queue =
-                        if (requestedIds.all { Prefs.favorites().contains(it) }) {
-                            AppPlayer.buildQueue(favoriteStations(StationsStore.stations.value, Prefs.favorites()))
-                        } else {
-                            fullQueue
-                        }
-                    Futures.immediateFuture(queue)
-                } else {
-                    val items = mediaItems.map { it.buildUpon().setLiveConfiguration(liveConfig()).build() }
-                    Futures.immediateFuture(items)
+                // Pure resolver: one playable item back per requested item, in the
+                // same order. Growing the list here is what used to make Android
+                // Auto start on the wrong station, because the session then applies
+                // the caller's start index to a playlist that no longer lines up
+                // with the request.
+                return whenStationsLoaded {
+                    resolveStations(mediaItems.map { it.mediaId })
+                        ?: mediaItems.map { it.buildUpon().setLiveConfiguration(liveConfig()).build() }
+                }
+            }
+
+            @androidx.annotation.OptIn(UnstableApi::class) // MediaSession.MediaItemsWithStartPosition
+            override fun onSetMediaItems(
+                session: MediaSession,
+                controller: MediaSession.ControllerInfo,
+                mediaItems: List<MediaItem>,
+                startIndex: Int,
+                startPositionMs: Long,
+            ): ListenableFuture<MediaSession.MediaItemsWithStartPosition> {
+                return whenStationsLoaded {
+                    val requestedIds = mediaItems.mapNotNull { it.mediaId }
+                    val targetId = mediaItems.getOrNull(startIndex)?.mediaId ?: requestedIds.firstOrNull()
+                    val queue = contextQueue(requestedIds)
+                    val targetIndex = queue.indexOfFirst { it.mediaId == targetId }
+                    if (queue.isEmpty() || targetId == null || targetIndex < 0) {
+                        val items = mediaItems.map { it.buildUpon().setLiveConfiguration(liveConfig()).build() }
+                        val start = startIndex.coerceIn(0, (items.size - 1).coerceAtLeast(0))
+                        MediaSession.MediaItemsWithStartPosition(items, start, startPositionMs)
+                    } else {
+                        // Rotate the context queue so the tapped station sits at the
+                        // index the controller asked to start from. Without this the
+                        // queue is installed verbatim and playback begins on its first
+                        // entry, which is how Auto kept playing the wrong station.
+                        val ordered = rotateTo(queue, targetIndex, startIndex)
+                        MediaSession.MediaItemsWithStartPosition(ordered, startIndex, startPositionMs)
+                    }
                 }
             }
         }
+
+    /**
+     * The browsable children of [parentId]: the top-level folders, a station
+     * list, the language folders, or the stations of one language.
+     */
+    private fun childrenFor(
+        parentId: String,
+        params: MediaLibraryService.LibraryParams?,
+    ): LibraryResult<ImmutableList<MediaItem>> {
+        val stations = StationsStore.stations.value
+        val items: List<MediaItem> =
+            when (parentId) {
+                ROOT_MEDIA_ID ->
+                    listOf(
+                        folderItem(ALL_MEDIA_ID, string(R.string.all_stations, "All stations")),
+                        folderItem(FAVORITES_MEDIA_ID, string(R.string.favorites, "Favorites")),
+                        folderItem(LANGUAGES_MEDIA_ID, string(R.string.language, "Language")),
+                    )
+                ALL_MEDIA_ID -> buildQueue(stations)
+                FAVORITES_MEDIA_ID,
+                SUGGESTED_MEDIA_ID,
+                ->
+                    buildQueue(favoriteStations(stations, Prefs.favorites()))
+                LANGUAGES_MEDIA_ID ->
+                    languageTags(stations).map { tag ->
+                        folderItem(languageFolderMediaId(tag), tag)
+                    }
+                else ->
+                    if (parentId.startsWith(LANGUAGE_FOLDER_PREFIX)) {
+                        val tag = parentId.removePrefix(LANGUAGE_FOLDER_PREFIX)
+                        buildQueue(stationsInLanguage(stations, tag))
+                    } else {
+                        return LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
+                    }
+            }
+        return LibraryResult.ofItemList(items, params)
+    }
+
+    private fun string(
+        resId: Int,
+        fallback: String,
+    ): String = appContext?.getString(resId) ?: fallback
+
+    /**
+     * Playable [MediaItem]s for [mediaIds], or null when any id is unknown or has
+     * no playable stream.
+     */
+    internal fun resolveStations(mediaIds: List<String?>): List<MediaItem>? {
+        if (mediaIds.isEmpty() || mediaIds.any { it.isNullOrBlank() }) return null
+        val stations = StationsStore.stations.value
+        return mediaIds.map { id ->
+            val station = stations.firstOrNull { it.id == id } ?: return null
+            val stream = station.primaryStream ?: return null
+            stationToMediaItem(station, stream.url, stream.isHls)
+        }
+    }
+
+    /**
+     * The queue a request came from, so next/previous walk the same list the
+     * user was browsing: the favorites list when every requested station is a
+     * favorite, otherwise the full station list.
+     */
+    internal fun contextQueue(requestedIds: List<String>): List<MediaItem> {
+        val stations = StationsStore.stations.value
+        val allFavorites = requestedIds.isNotEmpty() && requestedIds.all { Prefs.favorites().contains(it) }
+        val source = if (allFavorites) favoriteStations(stations, Prefs.favorites()) else stations
+        return buildQueue(source)
+    }
+
+    /**
+     * Reorders [queue] so the item at [targetIndex] ends up at [fromIndex].
+     *
+     * The queue is rotated as a ring, so every station still appears exactly once
+     * and the tapped station's immediate neighbours stay next to it. That matters
+     * because the caller installs this as the playlist and then starts at
+     * [fromIndex]: installing the queue verbatim is what made Android Auto begin
+     * playback on the first station of the list instead of the selected one.
+     */
+    internal fun rotateTo(
+        queue: List<MediaItem>,
+        targetIndex: Int,
+        fromIndex: Int,
+    ): List<MediaItem> {
+        if (queue.isEmpty() || fromIndex < 0 || fromIndex >= queue.size) return queue
+        val target = targetIndex.coerceIn(0, queue.size - 1)
+        if (target == fromIndex) return queue
+        val size = queue.size
+        // Walk backwards from the target for the slots that precede it, wrapping
+        // around the end of the queue when the queue is shorter than the start index.
+        val head = (1..fromIndex).map { queue[Math.floorMod(target - it, size)] }
+        val tail = (0 until size - 1 - fromIndex).map { queue[(target + 1 + it) % size] }
+        return head + queue[target] + tail
+    }
 }
